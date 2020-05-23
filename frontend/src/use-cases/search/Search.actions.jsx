@@ -1,1 +1,1 @@
-export const ON_SEARCH_CHANGED = "on_search_changed"
+export const ON_SEARCH_FIELD_CHANGED = "on_search_field_changed"

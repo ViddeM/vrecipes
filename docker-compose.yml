@@ -15,3 +15,15 @@ services:
         restart: always
         ports:
             - 8080:8080
+
+    frontend:
+        image: vrecept_frontend_dev
+        build:
+            context: ./frontend/
+            dockerfile: dev.Dockerfile
+        ports:
+            - 3000:3000
+        volumes:
+            - ./frontend:/usr/src/vrecept/frontend
+        environment:
+            - DEBUG_MODE=true

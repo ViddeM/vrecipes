@@ -5,7 +5,6 @@ export const MainContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  max-height: 800px;
 `;
 
 export const AppContainer = styled.div`
