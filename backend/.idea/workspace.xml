@@ -2,19 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db1c7719-4e0f-4a59-919d-cb0f3a5f9e61" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.container.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.container.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.reducer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.reducer.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.action-creators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.action-creators.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.actions.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.actions.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.reducer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.reducer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.styles.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.styles.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +90,10 @@
       <option name="presentableId" value="Default" />
       <updated>1587145815011</updated>
       <workItem from="1587145816204" duration="5736000" />
-      <workItem from="1587811962934" duration="6606000" />
+      <workItem from="1587811962934" duration="8673000" />
+      <workItem from="1587890883718" duration="7081000" />
+      <workItem from="1590164695356" duration="2593000" />
+      <workItem from="1590185190921" duration="590000" />
     </task>
     <servers />
   </component>
@@ -97,22 +101,22 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1874" height="278" key="GridCell.Tab.0.bottom" timestamp="1587827055870">
+    <state width="1874" height="343" key="GridCell.Tab.0.bottom" timestamp="1590184460528">
       <screen x="0" y="0" width="1920" height="1054" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1054@0.0.1920.1054" timestamp="1587827055870" />
-    <state width="1874" height="278" key="GridCell.Tab.0.center" timestamp="1587827055868">
+    <state width="1874" height="343" key="GridCell.Tab.0.bottom/0.0.1920.1054@0.0.1920.1054" timestamp="1590184460528" />
+    <state width="1874" height="343" key="GridCell.Tab.0.center" timestamp="1590184460527">
       <screen x="0" y="0" width="1920" height="1054" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.center/0.0.1920.1054@0.0.1920.1054" timestamp="1587827055868" />
-    <state width="1874" height="278" key="GridCell.Tab.0.left" timestamp="1587827055865">
+    <state width="1874" height="343" key="GridCell.Tab.0.center/0.0.1920.1054@0.0.1920.1054" timestamp="1590184460527" />
+    <state width="1874" height="343" key="GridCell.Tab.0.left" timestamp="1590184460526">
       <screen x="0" y="0" width="1920" height="1054" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.left/0.0.1920.1054@0.0.1920.1054" timestamp="1587827055865" />
-    <state width="1874" height="278" key="GridCell.Tab.0.right" timestamp="1587827055869">
+    <state width="1874" height="343" key="GridCell.Tab.0.left/0.0.1920.1054@0.0.1920.1054" timestamp="1590184460526" />
+    <state width="1874" height="343" key="GridCell.Tab.0.right" timestamp="1590184460528">
       <screen x="0" y="0" width="1920" height="1054" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.right/0.0.1920.1054@0.0.1920.1054" timestamp="1587827055869" />
+    <state width="1874" height="343" key="GridCell.Tab.0.right/0.0.1920.1054@0.0.1920.1054" timestamp="1590184460528" />
     <state x="754" y="441" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587826784293">
       <screen x="0" y="0" width="1920" height="1054" />
     </state>
@@ -124,6 +128,6 @@
     <state x="4463" y="235" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400/3840.0.1920.1080@3840.0.1920.1080" timestamp="1587150963401" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/backend$app.coverage" NAME="app Coverage Results" MODIFIED="1587827060180" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/backend$app.coverage" NAME="app Coverage Results" MODIFIED="1590165288776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

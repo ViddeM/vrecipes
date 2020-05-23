@@ -1,4 +1,4 @@
-import {ON_SEARCH_CHANGED} from "./Search.actions";
+import {ON_SEARCH_FIELD_CHANGED} from "./Search.actions";
 
 const initialState = {
     searchText: ""
@@ -6,7 +6,7 @@ const initialState = {
 
 export function search(state = initialState, action) {
     switch (action.type) {
-        case ON_SEARCH_CHANGED:
+        case ON_SEARCH_FIELD_CHANGED:
             return Object.assign({}, state, {
                 searchText: action.payload.newValue
             })

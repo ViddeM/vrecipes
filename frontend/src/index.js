@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app/App';
+import App from './app';
 import * as serviceWorker from './serviceWorker';
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {applyMiddleware, combineReducers, createStore} from "redux";
