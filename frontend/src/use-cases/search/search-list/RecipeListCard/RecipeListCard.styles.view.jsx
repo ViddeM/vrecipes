@@ -30,13 +30,6 @@ export const ImageContainer = styled.div`
     box-shadow: inset 4px 4px 54px 0px rgba(0,0,0,0.68);
 `;
 
-export const Center = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-`;
-
 export const SmallVSpace = styled.div`
     height: 5px;
 `;
