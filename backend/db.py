@@ -25,7 +25,7 @@ class RecipeImage(db.Entity):
 class Recipe(db.Entity):
     id = PrimaryKey(UUID, auto=True)
     name = Required(str)
-    description = Required(str)
+    description = Optional(str)
 
     steps = Set("RecipeStep")
     ingredients = Set("RecipeIngredient")
