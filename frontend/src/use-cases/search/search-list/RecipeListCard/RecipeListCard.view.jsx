@@ -1,7 +1,6 @@
 import React from "react"
 import {
     ButtonContainer,
-    Center,
     ImageBorder,
     ImageContainer,
     RecipeListCardCard,
@@ -9,7 +8,8 @@ import {
     SmallVSpace
 } from "./RecipeListCard.styles.view";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import {DigitText} from "@cthit/react-digit-components";
+import {DigitDesign, DigitText} from "@cthit/react-digit-components";
+import {Center} from "../../../../common/styles/Common.styles";
 
 
 const RecipeListCard = props => {
@@ -21,23 +21,26 @@ const RecipeListCard = props => {
 
     return (
         <ButtonContainer>
-            <ButtonBase focusRipple>
-                <RecipeListCardCard>
-                    <ImageBorder>
-                        <ImageContainer style={{backgroundImage: `url(${imageUrl}`}} />
-                    </ImageBorder>
-                    <SmallVSpace />
-                    <Center>
-                        <DigitText.Title text={recipe.name} />
-                    </Center>
-                    <SmallVSpace />
-                    <RecipeListCardFooterContainer>
-                        <DigitText.Text text={"Upplagd av " + recipe.author} />
-                    </RecipeListCardFooterContainer>
-                </RecipeListCardCard>
-            </ButtonBase>
+            <DigitDesign.Link to={"/recipes/" + recipe.id}>
+                <ButtonBase focusRipple onClick={() => props.onRecipeCardClicked(recipe.id)}>
+                    <RecipeListCardCard>
+                        <ImageBorder>
+                            <ImageContainer style={{backgroundImage: `url(${imageUrl}`}} />
+                        </ImageBorder>
+                        <SmallVSpace />
+                        <Center>
+                            <DigitText.Title text={recipe.name} />
+                        </Center>
+                        <SmallVSpace />
+                        <RecipeListCardFooterContainer>
+                            <DigitText.Text text={"Upplagd av " + recipe.author} />
+                        </RecipeListCardFooterContainer>
+                    </RecipeListCardCard>
+                </ButtonBase>
+            </DigitDesign.Link>
         </ButtonContainer>
-    );
+    )
+        ;
 }
 
 export default RecipeListCard;

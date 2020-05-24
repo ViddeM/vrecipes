@@ -2,20 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db1c7719-4e0f-4a59-919d-cb0f3a5f9e61" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/db_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.container.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.container.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.reducer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.reducer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.action-creators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.action-creators.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.actions.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.actions.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.container.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.container.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.reducer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.reducer.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.styles.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.styles.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.container.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.container.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.styles.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.styles.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.container.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.container.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.reducer.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.reducer.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.styles.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.styles.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.view.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +93,7 @@
       <workItem from="1587811962934" duration="8673000" />
       <workItem from="1587890883718" duration="7081000" />
       <workItem from="1590164695356" duration="2593000" />
-      <workItem from="1590185190921" duration="590000" />
+      <workItem from="1590185190921" duration="1810000" />
     </task>
     <servers />
   </component>

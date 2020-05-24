@@ -2,7 +2,9 @@ import React, {Component} from "react";
 import {DigitHeader} from "@cthit/react-digit-components";
 import {AppContainer, MainContainer} from "./App.styles";
 import DebugHeader from "../use-cases/debug/DebugHeader.container";
-import Search from "../use-cases/search/Search.container";
+import Recipe from "../use-cases/recipe";
+import Search from "../use-cases/search";
+import {Route, Switch} from "react-router";
 
 class App extends Component {
     constructor(props) {
@@ -18,9 +20,16 @@ class App extends Component {
                 <DigitHeader
                     dense
                     headerHeight="56px"
+                    mainPadding="0px"
+                    size={{maxHeight: "100%"}}
                     title="VRecept | A recipe manager service"
                     renderMain={() => (
-                        <MainContainer> <Search /> </MainContainer>
+                        <MainContainer className={"MainContainer"}>
+                            <Switch>
+                                <Route path="/recipes" component={Recipe} />
+                                <Route path="/" component={Search} />
+                            </Switch>
+                        </MainContainer>
                     )}
                 />
             </AppContainer>

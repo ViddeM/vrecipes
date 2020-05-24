@@ -5,7 +5,7 @@ import {ListContainer} from "./SearchList.styles.view";
 const SearchListView = props => (
     <ListContainer>
         {props.recipes.map(recipe => (
-            <RecipeListCard recipe={recipe} />
+            <RecipeListCard recipe={recipe} key={recipe.id} />
         ))}
     </ListContainer>
 );
