@@ -70,17 +70,17 @@ const Recipe = props => (
                 </Columns>
                 <SmallVSpace />
                 <Columns>
-                    {props.recipe.steps && (
+                    {props.recipe.steps.length > 0 && (
                         <Column>
                             <RecipeSteps steps={props.recipe.steps} />
                         </Column>
                     )}
-                    {props.recipe.ingredients && props.recipe.steps && (
+                    {props.recipe.ingredients.length > 0 && props.recipe.steps.length > 0 && (
                         <VLineContainer>
                             <VLine className="VLINE" />
                         </VLineContainer>
                     )}
-                    {props.recipe.ingredients && (
+                    {props.recipe.ingredients.length > 0 && (
                         <Column>
                             <Center>
                                 <Ingredients />
