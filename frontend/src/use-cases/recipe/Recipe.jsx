@@ -9,6 +9,7 @@ import {
     Rows,
     StyledTimeIcon,
     TimeContainer,
+    TopRow,
     VLineContainer
 } from "./Recipe.styles";
 import {
@@ -25,11 +26,17 @@ import Images from "./views/images";
 import Ingredients from "./views/ingredients";
 import RecipeFooter from "./views/recipe-footer/RecipeFooter.container.view";
 import RecipeSteps from "./views/recipe-steps";
+import { DigitButton, DigitDesign } from "@cthit/react-digit-components";
 
 const Recipe = props => (
     <RecipeContainer>
         <RecipeCard>
             <Rows>
+                <TopRow>
+                    <DigitDesign.Link to={"/"}>
+                        <DigitButton text={"Tillbaka"} raised onClick={() => console.log("Return to main page...")} />
+                    </DigitDesign.Link>
+                </TopRow>
                 <Columns>
                     <Column>
                         <VSpace />

@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import {DigitDesign} from "@cthit/react-digit-components";
-import {TimeIcon} from "@material-ui/pickers/_shared/icons/TimeIcon";
+import { DigitDesign } from "@cthit/react-digit-components";
+import { TimeIcon } from "@material-ui/pickers/_shared/icons/TimeIcon";
 
 export const RecipeContainer = styled.div`
     display: flex;
@@ -68,4 +68,8 @@ export const CenteredColumn = styled.div`
 
 export const StyledTimeIcon = styled(TimeIcon)`
     margin-top: -5px;
+`;
+
+export const TopRow = styled.div`
+  margin: 10px;
 `;
