@@ -1,12 +1,12 @@
 import axios from "axios";
 
 let initialized = false;
-let path = "";
+let path = "/api";
 
 export function initApi(debugMode) {
     initialized = true;
     if (debugMode) {
-        path = "http://localhost:5000";
+        path = "http://localhost:5000/api";
     }
 }
 

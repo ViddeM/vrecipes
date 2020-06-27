@@ -4,9 +4,8 @@ import {handleError} from "../common/functions/handleError";
 import {initApi} from "../api/RequestUtilities";
 
 export function initialize() {
-    // let debug = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
-    let debug = false;
-    if (process.env.DEBUG_MODE) {
+    let debug = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
+    if (debug) {
         debug = true;
     }
 
@@ -32,7 +31,6 @@ export function loadRecipes() {
 }
 
 function onLoadRecipesSuccessful(response) {
-    console.log("GOT RESPONSE:: ", response);
     return {
         type: GET_RECIPES_SUCCESSFUL,
         payload: {
@@ -43,5 +41,6 @@ function onLoadRecipesSuccessful(response) {
 }
 
 function onLoadRecipesFailed(error) {
-    return handleError(error, GET_RECIPES_FAILED);
+    console.log("Request: ", error.request, "Response: ", error.response)
+    return handleError(error, GET_RECIPES_FAILED, "Kunde inte ladda recept :(");
 }

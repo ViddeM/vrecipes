@@ -26,6 +26,8 @@ class Recipe(db.Entity):
     id = PrimaryKey(UUID, auto=True)
     name = Required(str)
     description = Optional(str)
+    oven_temp = Optional(int)
+    estimated_time = Optional(int)
 
     steps = Set("RecipeStep")
     ingredients = Set("RecipeIngredient")
@@ -38,11 +40,19 @@ class Ingredient(db.Entity):
     recipes = Set("RecipeIngredient")
 
 
+# A unit (i.e. dl, kg, msk etc)
+class Unit(db.Entity):
+    name = PrimaryKey(str)
+
+    recipe_ingredients = Set("RecipeIngredient")
+
+
 # An ingredient in a recipe
 class RecipeIngredient(db.Entity):
     recipe = Required(Recipe)
     ingredient = Required(Ingredient)
-    amount = Required(str)
+    unit = Required(Unit)
+    amount = Required(float)
     PrimaryKey(recipe, ingredient)
 
 
