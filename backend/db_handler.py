@@ -1,63 +1,42 @@
 # Handles most communication with the database
 from pony.orm import db_session, select
 
-from db import Recipe, RecipeImage, RecipeIngredient, RecipeStep
+from db import Recipe
+from response_with_data import HttpResponse, get_with_data, get_with_error
 
 
 @db_session
-def get_all_recipes():
+def get_recipes_basic() -> HttpResponse:
+    """
+    Get all the basic information for all recipes
+    :return: the basic information about every recipe
+    """
     recipes = select(recipe for recipe in Recipe)
-    recipe_json = {}
+    recipes_list = []
     for recipe in recipes:
-        recipe_id = str(recipe.id)
-        image_ids = get_images_for_recipe(recipe_id)
-        ingredients = get_ingredients_for_recipe(recipe_id)
-        steps = get_steps_for_recipe(recipe_id)
+        new_recipe = {"id": str(recipe.id), "name": recipe.name, "author": "Ej implementerat"}
+        recipes_list.append(new_recipe)
 
-        recipe_json[recipe_id] = {
-            "id": recipe_id,
-            "name": recipe.name,
-            "description": recipe.description,
-            "image_ids": image_ids,
-            "ingredients": ingredients,
-            "steps": steps
-        }
-
-    return recipe_json
+    return get_with_data({"recipes": recipes_list})
 
 
 @db_session
-def get_images_for_recipe(recipe_id):
-    image_ids_q = select(
-        str(recipe_image.image.id) for recipe_image in RecipeImage if (str(recipe_image.recipe) == recipe_id))
-    image_ids = []
-    for id in image_ids_q:
-        image_ids.append(str(id))
+def get_recipe(recipe_id : str) -> HttpResponse:
+    """
+    Get all information for the specified recipe
+    :param recipe_id: the id of the recipe to return
+    :return: all the information about the given recipe
+    """
+    recipe = Recipe.get(id=recipe_id)
+    if recipe is None:
+        return get_with_error(404, "Recipe not found")
 
-    return image_ids
-
-
-@db_session
-def get_ingredients_for_recipe(recipe_id):
-    rec_ingreds_q = RecipeIngredient.select(lambda rec_ing: str(rec_ing.recipe.id) == recipe_id)
-    ingredients = []
-    for rec_ingred in rec_ingreds_q:
-        ingredients.append({
-            "name": rec_ingred.ingredient.name,
-            "amount": rec_ingred.amount
-        })
-
-    return ingredients
-
-
-@db_session
-def get_steps_for_recipe(recipe_id):
-    recipe_steps_q = RecipeStep.select(lambda rs: str(rs.recipe.id) == recipe_id)
-    steps_dict = {}
-    for recipe_step in recipe_steps_q:
-        steps_dict[recipe_step.step] = {
-            "step_number": recipe_step.number,
-            "text": recipe_step.step
-        }
-
-    return steps_dict
+    recipe_json = {
+        "id": str(recipe.id),
+        "description": str(recipe.description),
+        "ovenTemp": recipe.oven_temp,
+        "estimatedTime": recipe.estimated_time,
+        "steps": [],
+        "ingredients": []
+    }
+    return get_with_data(recipe_json)

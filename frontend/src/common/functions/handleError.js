@@ -1,10 +1,10 @@
-export function handleError(error, type) {
-    let msg = "Woops, something went wrong.";
-    if (error.response) {
-        let data = error.response.data;
-        if (data && data.error) {
-            msg = data.error;
-        }
+export function handleError(error, type, defaultMessage = "Woops, något gick fel :(") {
+    let msg = defaultMessage;
+
+    if (error.response && error.response.data && error.response.data.error) {
+        msg = error.response.data.error;
+    } else {
+        msg += " fel: (" + error.message + ")";
     }
 
     return {
