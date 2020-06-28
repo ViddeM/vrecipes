@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {StyledText} from "../../../../common/styles/Common.styles";
+import { StyledText } from "../../../../../../common/styles/Common.styles";
 
 export const IngredientsContainer = styled.div`
     flex: 1;

@@ -1,7 +1,7 @@
 import React from "react"
-import {RecipeFooterColumns, RecipeFooterContainer} from "./RecipeFooter.styles.view";
-import {DigitButton} from "@cthit/react-digit-components";
-import {WideHLine} from "../../../../common/styles/Common.styles";
+import { RecipeFooterColumns, RecipeFooterContainer } from "./RecipeFooter.styles.view";
+import { DigitButton } from "@cthit/react-digit-components";
+import { WideHLine } from "../../../../../../common/styles/Common.styles";
 
 const RecipeFooter = props => (
     <RecipeFooterColumns>

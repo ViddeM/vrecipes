@@ -3,6 +3,29 @@
   <component name="ChangeListManager">
     <list default="true" id="db1c7719-4e0f-4a59-919d-cb0f3a5f9e61" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.reducer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.reducer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.styles.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.styles.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/images/Images.container.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/images/Images.styles.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/images/Images.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/images/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/ingredients/Ingredients.container.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/ingredients/Ingredients.styles.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/ingredients/Ingredients.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/ingredients/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/recipe-footer/RecipeFooter.container.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/recipe-footer/RecipeFooter.styles.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/recipe-footer/RecipeFooter.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/recipe-footer/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/recipe-steps/RecipeSteps.container.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/recipe-steps/RecipeSteps.styles.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/recipe-steps/RecipeSteps.view.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/views/recipe-steps/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.reducer.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.reducer.view.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +107,7 @@
       <workItem from="1592517764743" duration="4777000" />
       <workItem from="1592556951127" duration="691000" />
       <workItem from="1592738291219" duration="5569000" />
-      <workItem from="1593274747631" duration="242000" />
+      <workItem from="1593274747631" duration="3922000" />
     </task>
     <servers />
   </component>
@@ -96,26 +119,26 @@
       <screen x="0" y="0" width="1920" height="1054" />
     </state>
     <state x="744" y="284" width="432" height="489" key="FileChooserDialogImpl/0.0.1920.1054@0.0.1920.1054" timestamp="1592557640642" />
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1593274997927">
+    <state width="2517" height="388" key="GridCell.Tab.0.bottom" timestamp="1593302868604">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1874" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1054@0.0.1920.1054" timestamp="1592745272248" />
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593274997927" />
-    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1593274997927">
+    <state width="2517" height="388" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593302868604" />
+    <state width="2517" height="388" key="GridCell.Tab.0.center" timestamp="1593302868604">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1874" height="278" key="GridCell.Tab.0.center/0.0.1920.1054@0.0.1920.1054" timestamp="1592745272247" />
-    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593274997927" />
-    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1593274997927">
+    <state width="2517" height="388" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593302868604" />
+    <state width="2517" height="388" key="GridCell.Tab.0.left" timestamp="1593302868604">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1874" height="278" key="GridCell.Tab.0.left/0.0.1920.1054@0.0.1920.1054" timestamp="1592745272246" />
-    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593274997927" />
-    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1593274997927">
+    <state width="2517" height="388" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593302868604" />
+    <state width="2517" height="388" key="GridCell.Tab.0.right" timestamp="1593302868604">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1874" height="278" key="GridCell.Tab.0.right/0.0.1920.1054@0.0.1920.1054" timestamp="1592745272247" />
-    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593274997927" />
+    <state width="2517" height="388" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593302868604" />
     <state x="571" y="139" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1590339892219">
       <screen x="0" y="0" width="1920" height="1054" />
     </state>
@@ -131,6 +154,6 @@
     <state x="4463" y="235" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400/3840.0.1920.1080@3840.0.1920.1080" timestamp="1587150963401" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/backend$app.coverage" NAME="app Coverage Results" MODIFIED="1593274997922" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/backend$app.coverage" NAME="app Coverage Results" MODIFIED="1593302868598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -1,7 +1,7 @@
 import React from "react"
-import {RecipeStepsContainer, StepContainer, StepRow} from "./RecipeSteps.styles.view";
-import {FullHLine, HLine, StyledText, TitleText} from "../../../../common/styles/Common.styles";
-import {DescriptionBox} from "../../Recipe.styles";
+import { RecipeStepsContainer, StepContainer, StepRow } from "./RecipeSteps.styles.view";
+import { FullHLine, HLine, StyledText, TitleText } from "../../../../../../common/styles/Common.styles";
+import { DescriptionBox } from "../../RecipeCard.styles.screen";
 
 const RecipeSteps = props => (
     <RecipeStepsContainer>
@@ -10,7 +10,7 @@ const RecipeSteps = props => (
         <DescriptionBox>
             {
                 props.steps.map((step, index) => (
-                    <StepContainer>
+                    <StepContainer key={index}>
                         {index > 0 &&
                         <FullHLine />
                         }

@@ -1,6 +1,6 @@
 import React from "react"
-import {IngredientContainer, IngredientsContainer, IngredientText} from "./Ingredients.styles.view";
-import {Center, HLine, TitleText} from "../../../../common/styles/Common.styles";
+import { IngredientContainer, IngredientsContainer, IngredientText } from "./Ingredients.styles.view";
+import { Center, HLine, TitleText } from "../../../../../../common/styles/Common.styles";
 
 const Ingredients = props => (
     <IngredientsContainer>
@@ -11,7 +11,7 @@ const Ingredients = props => (
             <HLine />
         </Center>
         {props.ingredients.map((ingredient, index) => (
-            <IngredientContainer>
+            <IngredientContainer key={index}>
                 {index > 0 && (
                     <HLine />
                 )}
