@@ -6,5 +6,4 @@ export const RecipeContainer = styled.div`
     justify-content: center;
     align-items: flex-start;
     width: 100%;
-    max-width: 1200px;
 `;
