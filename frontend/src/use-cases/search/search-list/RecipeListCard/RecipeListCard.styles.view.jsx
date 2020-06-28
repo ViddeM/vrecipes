@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {DigitDesign} from "@cthit/react-digit-components";
+import { DigitDesign } from "@cthit/react-digit-components";
 
 export const RecipeListCardCard = styled(DigitDesign.Card)`
     background-color: #4caf50;

@@ -1,104 +1,38 @@
-import React from "react"
-import {
-    CenteredColumn,
-    Column,
-    Columns,
-    DescriptionBox,
-    RecipeCard,
-    RecipeContainer,
-    Rows,
-    StyledTimeIcon,
-    TimeContainer,
-    TopRow,
-    VLineContainer
-} from "./Recipe.styles";
-import {
-    Center,
-    HLine,
-    HSpace,
-    SmallVSpace,
-    StyledText,
-    TitleText,
-    VLine,
-    VSpace
-} from "../../common/styles/Common.styles";
-import Images from "./views/images";
-import Ingredients from "./views/ingredients";
-import RecipeFooter from "./views/recipe-footer/RecipeFooter.container.view";
-import RecipeSteps from "./views/recipe-steps";
-import { DigitButton, DigitDesign } from "@cthit/react-digit-components";
+import React, { Component } from "react";
+import { RecipeContainer } from "./Recipe.styles";
+import ErrorCard from "../../common/views/errorcard";
+import { DigitLoading } from "@cthit/react-digit-components";
+import RecipeCard from "./screens/RecipeCard";
 
-const Recipe = props => (
-    <RecipeContainer>
-        <RecipeCard>
-            <Rows>
-                <TopRow>
-                    <DigitDesign.Link to={"/"}>
-                        <DigitButton text={"Tillbaka"} raised onClick={() => console.log("Return to main page...")} />
-                    </DigitDesign.Link>
-                </TopRow>
-                <Columns>
-                    <Column>
-                        <VSpace />
-                        <Center>
-                            <TitleText text={props.recipe.name} />
-                        </Center>
-                        {(props.recipe.estimatedTime || props.recipe.ovenTemperature) &&
-                        <CenteredColumn>
-                            <HLine />
-                            <TimeContainer>
-                                {props.recipe.ovenTemperature &&
-                                <StyledText text={"ugn " + props.recipe.ovenTemperature + " grader"} />
-                                }
-                                {props.recipe.ovenTemperature && props.recipe.estimatedTime &&
-                                <HSpace />
-                                }
-                                {props.recipe.estimatedTime &&
-                                <TimeContainer>
-                                    <StyledText text={props.recipe.estimatedTime} />
-                                    <StyledTimeIcon />
-                                </TimeContainer>
-                                }
-                            </TimeContainer>
-                            <HLine />
-                        </CenteredColumn>
-                        }
-                        {props.recipe.description &&
-                        <Center>
-                            <DescriptionBox>
-                                <StyledText text={props.recipe.description} />
-                            </DescriptionBox>
-                        </Center>
-                        }
-                    </Column>
-                    <Column>
-                        <Images />
-                    </Column>
-                </Columns>
-                <SmallVSpace />
-                <Columns>
-                    {props.recipe.steps.length > 0 && (
-                        <Column>
-                            <RecipeSteps steps={props.recipe.steps} />
-                        </Column>
-                    )}
-                    {props.recipe.ingredients.length > 0 && props.recipe.steps.length > 0 && (
-                        <VLineContainer>
-                            <VLine className="VLINE" />
-                        </VLineContainer>
-                    )}
-                    {props.recipe.ingredients.length > 0 && (
-                        <Column>
-                            <Center>
-                                <Ingredients />
-                            </Center>
-                        </Column>
-                    )}
-                </Columns>
-                <RecipeFooter />
-            </Rows>
-        </RecipeCard>
-    </RecipeContainer>
-);
+
+class Recipe extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        const {match: {params}} = this.props;
+        this.props.loadRecipe(params.recipeId)
+        this.props.resetRecipe()
+    }
+
+    render() {
+        return (
+            <RecipeContainer>
+                {this.props.error ? (
+                    <ErrorCard message={this.props.error.message} />
+                ) : (
+                    <div>{
+                        this.props.recipe ? (
+                            <RecipeCard />
+                        ) : (
+                            <DigitLoading loading={true} size={60} margin={{top: "50px"}} />
+                        )
+                    }</div>)
+                }
+            </RecipeContainer>
+        )
+    }
+}
 
 export default Recipe;

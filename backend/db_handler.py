@@ -33,6 +33,7 @@ def get_recipe(recipe_id : str) -> HttpResponse:
 
     recipe_json = {
         "id": str(recipe.id),
+        "name": str(recipe.name),
         "description": str(recipe.description),
         "ovenTemp": recipe.oven_temp,
         "estimatedTime": recipe.estimated_time,

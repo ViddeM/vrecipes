@@ -3,6 +3,6 @@ from web_handler import host
 
 if __name__ == '__main__':
     print(" ========== Started backend ========== ")
-    setup(reset=True)
+    setup(reset=False)
     host()
 

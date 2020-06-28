@@ -8,8 +8,8 @@ import {
     SmallVSpace
 } from "./RecipeListCard.styles.view";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import {DigitDesign, DigitText} from "@cthit/react-digit-components";
-import {Center} from "../../../../common/styles/Common.styles";
+import { DigitDesign, DigitText } from "@cthit/react-digit-components";
+import { Center } from "../../../../common/styles/Common.styles";
 
 
 const RecipeListCard = props => {

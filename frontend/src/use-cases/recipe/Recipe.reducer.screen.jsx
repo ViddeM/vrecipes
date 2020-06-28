@@ -1,3 +1,5 @@
+import { LOAD_RECIPE_FAILED, LOAD_RECIPE_SUCCESSFUL, RESET_RECIPE } from "./Recipe.actions";
+
 const mockRecipe = {
     name: "Chokladbollar",
     imageSrc: "/static/images/chokladbollar.jpg",
@@ -52,12 +54,39 @@ const mockRecipe = {
 }
 
 const initialState = {
-    recipe: mockRecipe
+    recipe: mockRecipe,
+    error: null
 }
 
 export function recipe(state = initialState, action) {
     switch (action.type) {
+        case LOAD_RECIPE_SUCCESSFUL:
+            return Object.assign({}, state, handleRecipeResponse(action.payload.response.data.data));
+        case LOAD_RECIPE_FAILED:
+            return Object.assign({}, state, {
+                error: action.payload
+            });
+        case RESET_RECIPE:
+            return Object.assign({}, state, {
+                recipe: null
+            })
         default:
             return state;
+    }
+}
+
+function handleRecipeResponse(recipe) {
+    console.log("RECIPE", recipe);
+    return {
+        error: null,
+        recipe: {
+            name: recipe.name,
+            imageSrc: "/static/images/chokladbollar.jpg",
+            description: recipe.description,
+            steps: recipe.steps,
+            ingredients: recipe.ingredients,
+            estimatedTime: recipe.estimatedTime,
+            ovenTemperature: recipe.ovenTemperature
+        }
     }
 }

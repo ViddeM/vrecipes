@@ -12,3 +12,9 @@ export const AppContainer = styled.div`
   max-height: 100%;
 `
 
+export const HeaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;

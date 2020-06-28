@@ -1,5 +1,5 @@
-import {ON_SEARCH_FIELD_CHANGED} from "../Search.actions";
-import {GET_RECIPES_SUCCESSFUL} from "../../../app/App.actions";
+import { ON_SEARCH_FIELD_CHANGED } from "../Search.actions";
+import { GET_RECIPES_SUCCESSFUL } from "../../../app/App.actions";
 
 const mockRecipes = [
     {
@@ -27,8 +27,8 @@ const mockRecipes = [
 ];
 
 const initialState = {
-    recipes: mockRecipes,
-    filteredRecipes: mockRecipes,
+    recipes: [],
+    filteredRecipes: [],
     filterText: ""
 }
 
@@ -42,12 +42,10 @@ export function searchList(state = initialState, action) {
                 filterText: search
             })
         case GET_RECIPES_SUCCESSFUL:
-            return state;
-            console.log("Retrieved recipes: ", action.payload.response);
-            const recipes = action.payload.data.recipes;
+            const recipes = action.payload.response.data.data.recipes;
             return Object.assign({}, state, {
                 recipes: recipes,
-                filteredRecipes: filterRecipes(recipes, state.search)
+                filteredRecipes: filterRecipes(recipes, state.filterText)
             });
         default:
             return state;
