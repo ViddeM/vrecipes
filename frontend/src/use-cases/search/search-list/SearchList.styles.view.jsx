@@ -6,5 +6,5 @@ export const ListContainer = styled.div`
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
-    align-items: center;    
+    align-items: flex-start;    
 `
