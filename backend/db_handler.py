@@ -1,7 +1,7 @@
 # Handles most communication with the database
 from pony.orm import db_session, select
 
-from db import Recipe
+from db import Recipe, RecipeIngredient, RecipeStep
 from response_with_data import HttpResponse, get_with_data, get_with_error
 
 
@@ -31,13 +31,30 @@ def get_recipe(recipe_id : str) -> HttpResponse:
     if recipe is None:
         return get_with_error(404, "Recipe not found")
 
+    ingredients = list(RecipeIngredient.select(lambda ing: str(ing.recipe.id) == recipe_id))
+    ingredients_json = []
+    for ingredient in ingredients:
+        ingredients_json.append({
+            "name": ingredient.ingredient.name,
+            "unit": ingredient.unit.name,
+            "amount": ingredient.amount
+        })
+
+    steps = list(RecipeStep.select(lambda step: str(step.recipe.id) == recipe_id))
+    steps_json = []
+    for step in steps:
+        steps_json.append({
+            "number": step.number,
+            "description": step.step
+        })
+
     recipe_json = {
         "id": str(recipe.id),
         "name": str(recipe.name),
         "description": str(recipe.description),
         "ovenTemp": recipe.oven_temp,
         "estimatedTime": recipe.estimated_time,
-        "steps": [],
-        "ingredients": []
+        "steps": steps_json,
+        "ingredients": ingredients_json
     }
     return get_with_data(recipe_json)
