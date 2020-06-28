@@ -4,6 +4,7 @@ import {
     Column,
     Columns,
     DescriptionBox,
+    FullWidth,
     RecipeCardContainer,
     Rows,
     StyledTimeIcon,
@@ -32,7 +33,7 @@ const RecipeCard = props => (
         <Rows>
             <TopRow>
                 <DigitDesign.Link to={"/"}>
-                    <DigitButton text={"Tillbaka"} raised onClick={() => console.log("Return to main page...")} />
+                    <DigitButton text={"Tillbaka"} raised />
                 </DigitDesign.Link>
             </TopRow>
             <Columns>
@@ -74,25 +75,27 @@ const RecipeCard = props => (
                 </Column>
             </Columns>
             <SmallVSpace />
-            <Columns>
-                {props.recipe.steps.length > 0 && (
-                    <Column>
-                        <RecipeSteps steps={props.recipe.steps} />
-                    </Column>
-                )}
-                {props.recipe.ingredients.length > 0 && props.recipe.steps.length > 0 && (
-                    <VLineContainer>
-                        <VLine className="VLINE" />
-                    </VLineContainer>
-                )}
-                {props.recipe.ingredients.length > 0 && (
-                    <Column>
-                        <Center>
-                            <Ingredients />
-                        </Center>
-                    </Column>
-                )}
-            </Columns>
+            <FullWidth>
+                <Columns>
+                    {props.recipe.steps.length > 0 && (
+                        <Column>
+                            <RecipeSteps steps={props.recipe.steps} />
+                        </Column>
+                    )}
+                    {props.recipe.ingredients.length > 0 && props.recipe.steps.length > 0 && (
+                        <VLineContainer>
+                            <VLine className="VLINE" />
+                        </VLineContainer>
+                    )}
+                    {props.recipe.ingredients.length > 0 && (
+                        <Column>
+                            <Center>
+                                <Ingredients />
+                            </Center>
+                        </Column>
+                    )}
+                </Columns>
+            </FullWidth>
             <RecipeFooter />
         </Rows>
     </RecipeCardContainer>

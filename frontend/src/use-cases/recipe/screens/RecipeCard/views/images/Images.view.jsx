@@ -1,10 +1,12 @@
 import React from "react"
-import {ImageContainer, ImageOutline} from "./Images.styles.view";
+import { ImageContainer, ImageOutline, ImagesContainer } from "./Images.styles.view";
 
 const Images = props => (
-    <ImageOutline>
-        <ImageContainer style={{backgroundImage: `url(${"/static/images/chokladbollar.jpg"})`}} />
-    </ImageOutline>
+    <ImagesContainer>
+        <ImageOutline>
+            <ImageContainer style={{backgroundImage: `url(${"/static/images/chokladbollar.jpg"})`}} />
+        </ImageOutline>
+    </ImagesContainer>
 );
 
 export default Images;

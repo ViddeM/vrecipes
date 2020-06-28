@@ -32,6 +32,7 @@ class Recipe extends Component {
                 }
             </RecipeContainer>
         )
+
     }
 }
 

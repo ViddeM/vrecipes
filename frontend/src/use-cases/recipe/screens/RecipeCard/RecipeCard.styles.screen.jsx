@@ -3,10 +3,8 @@ import { DigitDesign } from "@cthit/react-digit-components";
 import { TimeIcon } from "@material-ui/pickers/_shared/icons/TimeIcon";
 
 export const RecipeCardContainer = styled(DigitDesign.Card)`
-    padding: 10px;
-    padding-bottom: 0px;
-    margin: 20px;
-    margin-top: 0px;
+    padding: 10px 10px 0px;
+    margin: 0px 20px 20px;
     flex: 1;
 `;
 
@@ -14,7 +12,7 @@ export const Rows = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items; center;
+    align-items: center;
 `;
 
 export const TimeContainer = styled.div`
@@ -29,6 +27,10 @@ export const Columns = styled.div`
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
+`;
+
+export const FullWidth = styled.div`
+  width: 100%;
 `;
 
 export const VLineContainer = styled.div`
@@ -63,4 +65,8 @@ export const StyledTimeIcon = styled(TimeIcon)`
 
 export const TopRow = styled.div`
   margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
 `;
