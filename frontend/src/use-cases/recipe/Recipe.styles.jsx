@@ -7,3 +7,10 @@ export const RecipeContainer = styled.div`
     align-items: flex-start;
     width: 100%;
 `;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;

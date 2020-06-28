@@ -33,7 +33,7 @@ const RecipeCard = props => (
         <Rows>
             <TopRow>
                 <DigitDesign.Link to={"/"}>
-                    <DigitButton text={"Tillbaka"} raised />
+                    <DigitButton text={"Tillbaka"} raised secondary />
                 </DigitDesign.Link>
             </TopRow>
             <Columns>

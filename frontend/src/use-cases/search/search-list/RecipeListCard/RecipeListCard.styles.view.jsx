@@ -9,12 +9,14 @@ export const RecipeListCardCard = styled(DigitDesign.Card)`
 `;
 
 export const ButtonContainer = styled.div`
-    margin: 20px
+    margin: 20px;
+    max-width: 300px;
 `
 
 export const ImageBorder = styled.div`
     padding: 1px;
     border-radius: 40px;
+    max-width: 300px;
     background-color: #606060;
 `;
 
