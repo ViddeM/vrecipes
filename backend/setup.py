@@ -2,6 +2,7 @@
 from pony.orm import db_session, raw_sql
 
 from db import Recipe, Ingredient, RecipeIngredient, RecipeStep, RecipeImage, Image, db, create_db, Unit
+from db_handler import create_new_recipe
 
 
 def setup_db():
@@ -96,7 +97,7 @@ def setup_db():
 @db_session
 def add_recipe_to_db(name: str, description: str, temp: int, time: int, ingredients: list, steps: list):
     if Recipe.get(name=name) is None:
-        recipe = Recipe(name=name, description=description)
+        recipe = create_new_recipe(name, description)
         if temp >= 0:
             recipe.oven_temp = temp
         if time >= 0:
