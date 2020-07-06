@@ -58,3 +58,38 @@ def get_recipe(recipe_id : str) -> HttpResponse:
         "ingredients": ingredients_json
     }
     return get_with_data(recipe_json)
+
+
+@db_session
+def create_new_recipe(name: str, description: str = "", oven_temp: int = -1, estimated_time: int = -1) -> Recipe:
+    """
+    Create a new recipe.
+    :return: the new recipe
+    """
+    id = generate_name_id(name)
+    return Recipe(name=name, unique_name=id, description=description, oven_temp=oven_temp, estimated_time=estimated_time)
+
+
+@db_session
+def generate_name_id(name: str) -> str:
+    """
+    Takes the name of a recipe and generates a unique name that can be used for identification.
+    :param name: the recipe name
+    :return: the identifying name
+    """
+    id = name.lower()
+    id = name.replace(" ", "_")
+
+    same_name_recipes = list(rec for rec in Recipe if rec.unique_name.startswith(id))
+    colliding_name_count = -1
+
+    for recipe in same_name_recipes:
+        sub = recipe[len(id):]
+        if sub.isnumeric():
+            colliding_name_count += 1
+
+    unique_name = id
+    if colliding_name_count >= 0:
+        unique_name = id + "_" + str(colliding_name_count)
+
+    return unique_name

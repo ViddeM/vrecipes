@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="db1c7719-4e0f-4a59-919d-cb0f3a5f9e61" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,42 +99,42 @@
       <screen x="0" y="0" width="1920" height="1054" />
     </state>
     <state x="744" y="284" width="432" height="489" key="FileChooserDialogImpl/0.0.1920.1054@0.0.1920.1054" timestamp="1592557640642" />
-    <state width="2517" height="388" key="GridCell.Tab.0.bottom" timestamp="1593304550150">
+    <state width="2517" height="492" key="GridCell.Tab.0.bottom" timestamp="1594067554428">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1874" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1054@0.0.1920.1054" timestamp="1592745272248" />
-    <state width="2517" height="388" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593304550150" />
-    <state width="2517" height="388" key="GridCell.Tab.0.center" timestamp="1593304550150">
+    <state width="2517" height="492" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1594067554428" />
+    <state width="2517" height="492" key="GridCell.Tab.0.center" timestamp="1594067554428">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1874" height="278" key="GridCell.Tab.0.center/0.0.1920.1054@0.0.1920.1054" timestamp="1592745272247" />
-    <state width="2517" height="388" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593304550150" />
-    <state width="2517" height="388" key="GridCell.Tab.0.left" timestamp="1593304550150">
+    <state width="2517" height="492" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1594067554428" />
+    <state width="2517" height="492" key="GridCell.Tab.0.left" timestamp="1594067554428">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1874" height="278" key="GridCell.Tab.0.left/0.0.1920.1054@0.0.1920.1054" timestamp="1592745272246" />
-    <state width="2517" height="388" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593304550150" />
-    <state width="2517" height="388" key="GridCell.Tab.0.right" timestamp="1593304550150">
+    <state width="2517" height="492" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1594067554428" />
+    <state width="2517" height="492" key="GridCell.Tab.0.right" timestamp="1594067554428">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1874" height="278" key="GridCell.Tab.0.right/0.0.1920.1054@0.0.1920.1054" timestamp="1592745272247" />
-    <state width="2517" height="388" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593304550150" />
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1593304417883">
+    <state width="2517" height="492" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1594067554428" />
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1594067554429">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593304417883" />
-    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1593304417883">
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1594067554429" />
+    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1594067554428">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593304417883" />
-    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1593304417883">
+    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1594067554428" />
+    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1594067554428">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593304417883" />
-    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1593304417883">
+    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1594067554428" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1594067554429">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593304417883" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1594067554429" />
     <state x="571" y="139" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1590339892219">
       <screen x="0" y="0" width="1920" height="1054" />
     </state>
@@ -141,10 +143,11 @@
       <screen x="0" y="0" width="1920" height="1054" />
     </state>
     <state x="754" y="441" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1054@0.0.1920.1054" timestamp="1587826784293" />
-    <state x="623" y="229" width="672" height="662" key="search.everywhere.popup" timestamp="1592519795620">
-      <screen x="0" y="0" width="1920" height="1054" />
+    <state x="831" y="304" width="896" height="880" key="search.everywhere.popup" timestamp="1593450949185">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="623" y="229" width="672" height="662" key="search.everywhere.popup/0.0.1920.1054@0.0.1920.1054" timestamp="1592519795620" />
+    <state x="831" y="304" width="896" height="880" key="search.everywhere.popup/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593450949185" />
     <state x="4463" y="235" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400/3840.0.1920.1080@3840.0.1920.1080" timestamp="1587150963401" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">

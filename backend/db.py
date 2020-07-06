@@ -25,6 +25,7 @@ class RecipeImage(db.Entity):
 class Recipe(db.Entity):
     id = PrimaryKey(UUID, auto=True)
     name = Required(str)
+    unique_name = Required(str)
     description = Optional(str)
     oven_temp = Optional(int)
     estimated_time = Optional(int)
