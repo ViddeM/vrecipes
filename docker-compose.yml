@@ -4,8 +4,8 @@ services:
         image: postgres
         restart: always
         environment:
-            POSTGRES_USER: vrecept
-            POSTGRES_DB: vrecept
+            POSTGRES_USER: vrecipes
+            POSTGRES_DB: vrecipes
             POSTGRES_PASSWORD: password
         ports:
             - 5432:5432
@@ -17,13 +17,13 @@ services:
             - 8080:8080
 
     frontend:
-        image: vrecept_frontend_dev
+        image: vrecipes_frontend_dev
         build:
             context: ./frontend/
             dockerfile: dev.Dockerfile
         ports:
             - 3000:3000
         volumes:
-            - ./frontend:/usr/src/vrecept/frontend
+            - ./frontend:/usr/src/vrecipes/frontend
         environment:
             - DEBUG_MODE=true
