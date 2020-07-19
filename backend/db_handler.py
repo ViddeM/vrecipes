@@ -52,7 +52,7 @@ def get_recipe(recipe_id : str) -> HttpResponse:
         "id": str(recipe.id),
         "name": str(recipe.name),
         "description": str(recipe.description),
-        "ovenTemp": recipe.oven_temp,
+        "ovenTemperature": recipe.oven_temp,
         "estimatedTime": recipe.estimated_time,
         "steps": steps_json,
         "ingredients": ingredients_json
@@ -77,8 +77,7 @@ def generate_name_id(name: str) -> str:
     :param name: the recipe name
     :return: the identifying name
     """
-    id = name.lower()
-    id = name.replace(" ", "_")
+    id = name.lower().replace(" ", "_")
 
     same_name_recipes = Recipe.select(lambda res: res.unique_name.startswith(id))
     colliding_name_count = -1

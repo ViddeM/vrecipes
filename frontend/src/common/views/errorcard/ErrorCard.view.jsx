@@ -4,7 +4,7 @@ import { StyledText } from "../../styles/Common.styles";
 
 const ErrorCard = props => (
     <ErrorCardCard>
-        <StyledText text={props.message} />
+        <StyledText text={props.message.message} />
     </ErrorCardCard>
 );
 

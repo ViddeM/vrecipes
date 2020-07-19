@@ -42,25 +42,27 @@ const RecipeCard = props => (
                     <Center>
                         <TitleText text={props.recipe.name} />
                     </Center>
-                    {(props.recipe.estimatedTime || props.recipe.ovenTemperature) &&
                     <CenteredColumn>
                         <HLine />
-                        <TimeContainer>
-                            {props.recipe.ovenTemperature &&
-                            <StyledText text={"ugn " + props.recipe.ovenTemperature + " grader"} />
-                            }
-                            {props.recipe.ovenTemperature && props.recipe.estimatedTime &&
-                            <HSpace />
-                            }
-                            {props.recipe.estimatedTime &&
-                            <TimeContainer>
-                                <StyledText text={props.recipe.estimatedTime} />
-                                <StyledTimeIcon />
-                            </TimeContainer>
-                            }
-                        </TimeContainer>
-                        <HLine />
                     </CenteredColumn>
+                    {(props.recipe.estimatedTime >= 0 || props.recipe.ovenTemperature >= 0) &&
+                        <CenteredColumn>
+                            <TimeContainer>
+                                {props.recipe.ovenTemperature >= 0 &&
+                                <StyledText text={"ugn " + props.recipe.ovenTemperature + "°"} />
+                                }
+                                {props.recipe.ovenTemperature >= 0 && props.recipe.estimatedTime >= 0 &&
+                                <HSpace />
+                                }
+                                {props.recipe.estimatedTime >= 0 &&
+                                <TimeContainer>
+                                    <StyledText text={props.recipe.estimatedTime} />
+                                    <StyledTimeIcon />
+                                </TimeContainer>
+                                }
+                            </TimeContainer>
+                            <HLine />
+                        </CenteredColumn>
                     }
                     {props.recipe.description &&
                     <Center>
