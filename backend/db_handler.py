@@ -80,7 +80,7 @@ def generate_name_id(name: str) -> str:
     id = name.lower()
     id = name.replace(" ", "_")
 
-    same_name_recipes = list(rec for rec in Recipe if rec.unique_name.startswith(id))
+    same_name_recipes = Recipe.select(lambda res: res.unique_name.startswith(id))
     colliding_name_count = -1
 
     for recipe in same_name_recipes:
