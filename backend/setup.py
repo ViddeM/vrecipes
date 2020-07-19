@@ -4,6 +4,8 @@ from pony.orm import db_session, raw_sql
 from db import Recipe, Ingredient, RecipeIngredient, RecipeStep, RecipeImage, Image, db, create_db, Unit
 from db_handler import create_new_recipe
 
+duplicate_text = "_duplicate"
+
 
 def setup_db():
     # https://www.ica.se/recept/chokladkaka-med-chokladkram-och-bar-4214/
@@ -50,6 +52,7 @@ def setup_db():
 
     # RecipeImage(image=Image(location="chokladkaka.webp"), recipe=recipe)
     add_recipe_to_db(name, description, 175, -1, ingredients=ingredients, steps=steps)
+    add_recipe_to_db(name + duplicate_text, description, 175, -1, ingredients=ingredients, steps=steps)
 
     # https://www.ica.se/recept/ugnsbakad-lax-i-sas-pa-tre-satt-725369/
     name = "Ugnsbakad lax i sås"
@@ -97,6 +100,9 @@ def setup_db():
 @db_session
 def add_recipe_to_db(name: str, description: str, temp: int, time: int, ingredients: list, steps: list):
     if Recipe.get(name=name) is None:
+        if name.endswith(duplicate_text):
+            name = name[:-len(duplicate_text)]
+
         recipe = create_new_recipe(name, description)
         if temp >= 0:
             recipe.oven_temp = temp

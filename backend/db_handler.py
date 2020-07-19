@@ -79,8 +79,11 @@ def generate_name_id(name: str) -> str:
     """
     id = name.lower().replace(" ", "_")
 
-    same_name_recipes = Recipe.select(lambda res: res.unique_name.startswith(id))
+    same_name_recipes = list(select(res.name for res in Recipe if res.unique_name.startswith(id)))
     colliding_name_count = -1
+
+    if len(same_name_recipes) > 0:
+        colliding_name_count = 0
 
     for recipe in same_name_recipes:
         sub = recipe[len(id):]
