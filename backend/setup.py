@@ -1,7 +1,7 @@
 # Insert temp data into the database
 from pony.orm import db_session, raw_sql
 
-from db import Recipe, Ingredient, RecipeIngredient, RecipeStep, RecipeImage, Image, db, create_db, Unit
+from db import Recipe, Ingredient, RecipeIngredient, RecipeStep, RecipeImage, Image, db, create_db, Unit, Config
 from db_handler import create_new_recipe
 
 duplicate_text = "_duplicate"
@@ -93,6 +93,9 @@ def setup_db():
         "Baka laxen mitt i ugnen ca 20 minuter.",
         "Till servering: Servera laxen med kokt potatis och en fräsch sallad."
     ]
+
+    Config(key="backend_base_address", value="localhost:5000")
+    Config(key="image_base_path", value="/static/images")
 
     add_recipe_to_db(name, description, 175, 30, ingredients=ingredients, steps=steps)
 

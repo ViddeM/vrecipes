@@ -65,6 +65,12 @@ class RecipeStep(db.Entity):
     PrimaryKey(recipe, number)
 
 
+# An application configuration
+class Config(db.Entity):
+    key = PrimaryKey(str)
+    value = Required(str)
+
+
 db.bind(
     provider="postgres",
     user=config.POSTGRES_USER,

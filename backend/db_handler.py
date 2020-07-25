@@ -14,24 +14,29 @@ def get_recipes_basic() -> HttpResponse:
     recipes = select(recipe for recipe in Recipe)
     recipes_list = []
     for recipe in recipes:
-        new_recipe = {"id": str(recipe.id), "name": recipe.name, "author": "Ej implementerat"}
+        new_recipe = {
+            "id": str(recipe.id),
+            "name": recipe.name,
+            "author": "Ej implementerat",
+            "unique_name": recipe.unique_name
+        }
         recipes_list.append(new_recipe)
 
     return get_with_data({"recipes": recipes_list})
 
 
 @db_session
-def get_recipe(recipe_id : str) -> HttpResponse:
+def get_recipe(unique_recipe_name : str) -> HttpResponse:
     """
     Get all information for the specified recipe
     :param recipe_id: the id of the recipe to return
     :return: all the information about the given recipe
     """
-    recipe = Recipe.get(id=recipe_id)
+    recipe = Recipe.get(unique_name=unique_recipe_name)
     if recipe is None:
         return get_with_error(404, "Recipe not found")
 
-    ingredients = list(RecipeIngredient.select(lambda ing: str(ing.recipe.id) == recipe_id))
+    ingredients = list(RecipeIngredient.select(lambda ing: str(ing.recipe.id) == str(recipe.id)))
     ingredients_json = []
     for ingredient in ingredients:
         ingredients_json.append({
@@ -40,7 +45,7 @@ def get_recipe(recipe_id : str) -> HttpResponse:
             "amount": ingredient.amount
         })
 
-    steps = list(RecipeStep.select(lambda step: str(step.recipe.id) == recipe_id))
+    steps = list(RecipeStep.select(lambda step: str(step.recipe.id) == str(recipe.id)))
     steps_json = []
     for step in steps:
         steps_json.append({

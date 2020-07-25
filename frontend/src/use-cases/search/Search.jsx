@@ -6,25 +6,25 @@ import {SmallVSpace} from "../../common/styles/Common.styles";
 import ErrorCard from "../../common/views/errorcard";
 
 const Search = props => (
-        <BodyContainer>
-            <SearchContainer>
-                <StyledDigitCard>
-                    <DigitText.Title text={"Välkommen till Viddes recept tjänst!"} white />
-                </StyledDigitCard>
-                <DigitTextField upperLabel={"Sök efter recept"}
-                                onChange={val => props.onSearchChanged(val.target.value)}
-                                value={props.searchText} outlined size={{width: "50%", minWidth: "300px"}}
-                                maxLength={120}
-                />
-                <SmallVSpace />
-                {props.error &&
-                <ErrorCard message={props.error} />}
-                {props.error === null &&
-                <SearchList />
-                }
-            </SearchContainer>
-        </BodyContainer>
-    )
-;
+    <BodyContainer>
+        <SearchContainer>
+            <StyledDigitCard>
+                <DigitText.Title text={"Välkommen till Viddes recept tjänst!"} white />
+            </StyledDigitCard>
+            <DigitTextField upperLabel={"Sök efter recept"}
+                            onChange={val => props.onSearchChanged(val.target.value)}
+                            value={props.searchText} outlined size={{width: "50%", minWidth: "300px"}}
+                            maxLength={120}
+            />
+            <SmallVSpace />
+            {console.log("ERRORS", props.error)}
+            {props.error && (
+            <ErrorCard message={props.error} /> )}
+            {props.error === null &&
+            <SearchList />
+            }
+        </SearchContainer>
+    </BodyContainer>
+);
 
 export default Search;

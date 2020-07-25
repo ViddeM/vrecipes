@@ -21,17 +21,17 @@ class RecipesRes(Resource):
 
 
 class RecipeRes(Resource):
-    def get(self, id: str):
+    def get(self, unique_recipe_name: str):
         """
         Get more detailed info for a specific recipe
-        :param recipe_id: The id of the recipe
+        :param unique_recipe_name: The unique name of the recipe
         :return: detailed info for a specific recipe
         """
-        return get_recipe(id).get_response()
+        return get_recipe(unique_recipe_name).get_response()
 
 
 api.add_resource(RecipesRes, "/api/recipes")
-api.add_resource(RecipeRes, "/api/recipe/<string:id>")
+api.add_resource(RecipeRes, "/api/recipe/<string:unique_recipe_name>")
 
 
 def host():

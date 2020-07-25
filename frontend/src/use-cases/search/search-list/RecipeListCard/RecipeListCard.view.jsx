@@ -21,7 +21,7 @@ const RecipeListCard = props => {
 
     return (
         <ButtonContainer>
-            <DigitDesign.Link to={"/recipes/" + recipe.id}>
+            <DigitDesign.Link to={"/recipes/" + recipe.unique_name}>
                 <ButtonBase focusRipple onClick={() => props.onRecipeCardClicked(recipe.id)}>
                     <RecipeListCardCard>
                         <ImageBorder>
