@@ -1,4 +1,4 @@
-import { LOAD_RECIPE_FAILED, LOAD_RECIPE_SUCCESSFUL, RESET_RECIPE } from "./Recipe.actions";
+import {LOAD_RECIPE_FAILED, LOAD_RECIPE_SUCCESSFUL, RESET_RECIPE} from "./Recipe.actions";
 
 const mockRecipe = {
     name: "Chokladbollar",
@@ -50,7 +50,8 @@ const mockRecipe = {
         }
     ],
     estimatedTime: 90,
-    ovenTemperature: 200
+    ovenTemperature: 200,
+    images: []
 }
 
 const initialState = {
@@ -81,12 +82,12 @@ function handleRecipeResponse(recipe) {
         error: null,
         recipe: {
             name: recipe.name,
-            imageSrc: "/static/images/chokladbollar.jpg",
             description: recipe.description,
             steps: recipe.steps,
             ingredients: recipe.ingredients,
             estimatedTime: recipe.estimatedTime,
-            ovenTemperature: recipe.ovenTemperature
+            ovenTemperature: recipe.ovenTemperature,
+            images: recipe.images
         }
     }
 }

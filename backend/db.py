@@ -10,7 +10,8 @@ db = Database()
 # An image
 class Image(db.Entity):
     id = PrimaryKey(UUID, auto=True)
-    location = Required(str)
+    name = Required(str)
+
     recipes = Set("RecipeImage")
 
 
@@ -18,6 +19,7 @@ class Image(db.Entity):
 class RecipeImage(db.Entity):
     image = Required(Image)
     recipe = Required("Recipe")
+    
     PrimaryKey(image, recipe)
 
 

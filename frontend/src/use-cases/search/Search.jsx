@@ -9,19 +9,18 @@ const Search = props => (
     <BodyContainer>
         <SearchContainer>
             <StyledDigitCard>
-                <DigitText.Title text={"Välkommen till Viddes recept tjänst!"} white />
+                <DigitText.Title text={"Välkommen till Viddes recept tjänst!"} white/>
             </StyledDigitCard>
             <DigitTextField upperLabel={"Sök efter recept"}
                             onChange={val => props.onSearchChanged(val.target.value)}
                             value={props.searchText} outlined size={{width: "50%", minWidth: "300px"}}
                             maxLength={120}
             />
-            <SmallVSpace />
-            {console.log("ERRORS", props.error)}
+            <SmallVSpace/>
             {props.error && (
-            <ErrorCard message={props.error} /> )}
+                <ErrorCard message={props.error}/>)}
             {props.error === null &&
-            <SearchList />
+            <SearchList/>
             }
         </SearchContainer>
     </BodyContainer>

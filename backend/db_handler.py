@@ -1,7 +1,9 @@
 # Handles most communication with the database
+from typing import List
+
 from pony.orm import db_session, select
 
-from db import Recipe, RecipeIngredient, RecipeStep
+from db import Recipe, RecipeIngredient, RecipeStep, RecipeImage, Config
 from response_with_data import HttpResponse, get_with_data, get_with_error
 
 
@@ -18,7 +20,8 @@ def get_recipes_basic() -> HttpResponse:
             "id": str(recipe.id),
             "name": recipe.name,
             "author": "Ej implementerat",
-            "unique_name": recipe.unique_name
+            "unique_name": recipe.unique_name,
+            "image_link": get_main_image_url(str(recipe.id))
         }
         recipes_list.append(new_recipe)
 
@@ -26,9 +29,32 @@ def get_recipes_basic() -> HttpResponse:
 
 
 @db_session
-def get_recipe(unique_recipe_name : str) -> HttpResponse:
+def get_main_image_url(recipe_id: str) -> str:
+    images = get_images_for_recipe(recipe_id)
+    image = recipe_to_url("default.jpg")
+    if len(images) > 0:
+        image = images[0]
+
+    return image
+
+
+def recipe_to_url(name: str) -> str:
+    backend = get_config("backend_base_address")
+    image_path = get_config("image_base_path")
+    return "{0}/{1}/{2}".format(backend, image_path, name)
+
+
+@db_session
+def get_images_for_recipe(recipe_id: str) -> List[str]:
+    name_list = list(select(recImg.image.name for recImg in RecipeImage if str(recImg.recipe.id) == recipe_id))
+    return list(map(recipe_to_url, name_list))
+
+
+@db_session
+def get_recipe(unique_recipe_name: str) -> HttpResponse:
     """
     Get all information for the specified recipe
+    :param unique_recipe_name:
     :param recipe_id: the id of the recipe to return
     :return: all the information about the given recipe
     """
@@ -60,9 +86,15 @@ def get_recipe(unique_recipe_name : str) -> HttpResponse:
         "ovenTemperature": recipe.oven_temp,
         "estimatedTime": recipe.estimated_time,
         "steps": steps_json,
-        "ingredients": ingredients_json
+        "ingredients": ingredients_json,
+        "images": get_images_for_recipe(str(recipe.id))
     }
     return get_with_data(recipe_json)
+
+
+@db_session
+def get_config(key):
+    return Config.get(key=key).value
 
 
 @db_session
@@ -72,7 +104,8 @@ def create_new_recipe(name: str, description: str = "", oven_temp: int = -1, est
     :return: the new recipe
     """
     id = generate_name_id(name)
-    return Recipe(name=name, unique_name=id, description=description, oven_temp=oven_temp, estimated_time=estimated_time)
+    return Recipe(name=name, unique_name=id, description=description, oven_temp=oven_temp,
+                  estimated_time=estimated_time)
 
 
 @db_session
