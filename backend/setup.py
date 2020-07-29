@@ -50,9 +50,10 @@ def setup_db():
         "Häll i en smord bröad form (ca 20 cm i diameter, för 8 bitar), gärna med löstagbar botten. Grädda i ca 25 minuter. Låt den stå och kallna så stelnar den.",
     ]
 
-    # RecipeImage(image=Image(location="chokladkaka.webp"), recipe=recipe)
-    add_recipe_to_db(name, description, 175, -1, ingredients=ingredients, steps=steps)
-    add_recipe_to_db(name + duplicate_text, description, 175, -1, ingredients=ingredients, steps=steps)
+    choklad = add_recipe_to_db(name, description, 175, -1, ingredients=ingredients, steps=steps)
+    choklad_2 = add_recipe_to_db(name + duplicate_text, description, 175, -1, ingredients=ingredients, steps=steps)
+    add_image("chokladkaka.webp", choklad)
+    add_image("chokladkaka.webp", choklad_2)
 
     # https://www.ica.se/recept/ugnsbakad-lax-i-sas-pa-tre-satt-725369/
     name = "Ugnsbakad lax i sås"
@@ -94,14 +95,14 @@ def setup_db():
         "Till servering: Servera laxen med kokt potatis och en fräsch sallad."
     ]
 
-    Config(key="backend_base_address", value="localhost:5000")
-    Config(key="image_base_path", value="/static/images")
+    add_config("backend_base_address", "http://localhost:5000")
+    add_config("image_base_path", "static/images")
 
     add_recipe_to_db(name, description, 175, 30, ingredients=ingredients, steps=steps)
 
 
 @db_session
-def add_recipe_to_db(name: str, description: str, temp: int, time: int, ingredients: list, steps: list):
+def add_recipe_to_db(name: str, description: str, temp: int, time: int, ingredients: list, steps: list) -> str:
     if Recipe.get(name=name) is None:
         if name.endswith(duplicate_text):
             name = name[:-len(duplicate_text)]
@@ -127,6 +128,18 @@ def add_recipe_to_db(name: str, description: str, temp: int, time: int, ingredie
             for i in range(len(steps)):
                 step = steps[i]
                 RecipeStep(recipe=recipe, number=i + 1, step=step)
+
+        return str(recipe.id)
+
+
+@db_session
+def add_image(name, recipe_id):
+    RecipeImage(image=Image(name=name), recipe=recipe_id)
+
+
+@db_session
+def add_config(key, val):
+    Config(key=key, value=val)
 
 
 @db_session
