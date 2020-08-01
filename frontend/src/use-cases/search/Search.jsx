@@ -1,9 +1,10 @@
 import React from "react"
-import {DigitText, DigitTextField} from "@cthit/react-digit-components";
+import {DigitFAB, DigitText, DigitTextField} from "@cthit/react-digit-components";
 import {BodyContainer, SearchContainer, StyledDigitCard} from "./Search.styles";
 import SearchList from "./search-list/SearchList.container.view";
 import {SmallVSpace} from "../../common/styles/Common.styles";
 import ErrorCard from "../../common/views/errorcard";
+
 
 const Search = props => (
     <BodyContainer>
@@ -22,6 +23,7 @@ const Search = props => (
             {props.error === null &&
             <SearchList/>
             }
+            <DigitFAB icon={AddIcon} primary/>
         </SearchContainer>
     </BodyContainer>
 );
