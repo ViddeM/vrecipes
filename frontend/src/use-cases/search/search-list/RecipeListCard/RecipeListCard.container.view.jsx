@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
-import RecipeListCard from "./RecipeListCard.view";
-import {onRecipeCardClicked} from "./RecipeListCard.action-creators.view";
 import {withRouter} from "react-router";
+import {onRecipeCardClicked} from "./RecipeListCard.action-creators.view";
+import {RecipeListCard} from "./RecipeListCard.view";
 
 const mapStateToProps = state => ({});
 

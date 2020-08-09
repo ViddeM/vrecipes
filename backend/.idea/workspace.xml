@@ -47,17 +47,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db1c7719-4e0f-4a59-919d-cb0f3a5f9e61" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/static/images/default.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.reducer.screen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.reducer.screen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/images/Images.container.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/images/Images.container.view.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/images/Images.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/images/Images.view.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.container.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.container.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.styles.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.styles.view.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.view.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,6 +145,7 @@
       <workItem from="1595612792631" duration="13503000" />
       <workItem from="1596037551602" duration="3554000" />
       <workItem from="1596045238288" duration="3739000" />
+      <workItem from="1596888123201" duration="4290000" />
     </task>
     <servers />
   </component>
@@ -242,6 +238,6 @@
     <state x="831" y="304" width="896" height="880" key="search.everywhere.popup/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1593450949185" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/backend$app.coverage" NAME="app Coverage Results" MODIFIED="1596050356891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/backend$app.coverage" NAME="app Coverage Results" MODIFIED="1596888252125" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

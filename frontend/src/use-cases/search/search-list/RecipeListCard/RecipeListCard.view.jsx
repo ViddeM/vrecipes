@@ -1,18 +1,17 @@
-import React from "react"
+import React from "react";
 import {
-    ButtonContainer,
+    ButtonCard,
     ImageBorder,
     ImageContainer,
     RecipeListCardCard,
+    RecipeListCardContainer,
     RecipeListCardFooterContainer,
     SmallVSpace
 } from "./RecipeListCard.styles.view";
-import ButtonBase from "@material-ui/core/ButtonBase";
 import {DigitDesign, DigitText} from "@cthit/react-digit-components";
 import {Center} from "../../../../common/styles/Common.styles";
 
-
-const RecipeListCard = props => {
+export const RecipeListCard = props => {
     const recipe = props.recipe;
     let imageUrl = recipe.image_link;
     if (imageUrl === undefined) {
@@ -20,9 +19,9 @@ const RecipeListCard = props => {
     }
 
     return (
-        <ButtonContainer>
+        <RecipeListCardContainer>
             <DigitDesign.Link to={"/recipes/" + recipe.unique_name}>
-                <ButtonBase focusRipple onClick={() => props.onRecipeCardClicked(recipe.id)}>
+                <ButtonCard onClick={props.onRecipeCardClicked(recipe.id)}>
                     <RecipeListCardCard>
                         <ImageBorder>
                             <ImageContainer style={{backgroundImage: `url(${imageUrl}`}}/>
@@ -36,9 +35,9 @@ const RecipeListCard = props => {
                             <DigitText.Text text={"Upplagd av " + recipe.author}/>
                         </RecipeListCardFooterContainer>
                     </RecipeListCardCard>
-                </ButtonBase>
+                </ButtonCard>
             </DigitDesign.Link>
-        </ButtonContainer>
+        </RecipeListCardContainer>
     );
 }
 
