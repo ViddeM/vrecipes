@@ -46,6 +46,10 @@ export const StyledText = styled(DigitText.Text)`
     margin: 5px;
 `;
 
+export const IngredientText = styled(StyledText)`
+    width: 80%
+`;
+
 export const VLine = styled.div`
     width: 1px;
     max-width: 1px;

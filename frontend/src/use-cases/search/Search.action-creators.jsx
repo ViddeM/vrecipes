@@ -1,4 +1,4 @@
-import {ON_SEARCH_FIELD_CHANGED} from "./Search.actions";
+import {CREATE_RECIPE, ON_SEARCH_FIELD_CHANGED} from "./Search.actions";
 
 export function onSearchChanged(newValue) {
     return {
@@ -8,4 +8,11 @@ export function onSearchChanged(newValue) {
         },
         error: false
     };
+}
+
+export function newRecipe() {
+    return {
+        type: CREATE_RECIPE,
+        error: false
+    }
 }

@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import { DigitHeader, DigitText } from "@cthit/react-digit-components";
-import { AppContainer, HeaderContainer, MainContainer } from "./App.styles";
+import React, {Component} from "react";
+import {DigitHeader, DigitText} from "@cthit/react-digit-components";
+import {AppContainer, HeaderContainer, MainContainer} from "./App.styles";
 import DebugHeader from "../use-cases/debug/DebugHeader.container";
 import Recipe from "../use-cases/recipe/";
 import Search from "../use-cases/search";
-import { Route, Switch } from "react-router";
+import {Route, Switch} from "react-router";
+import Create from "../use-cases/create/Create.container";
 
 class App extends Component {
     constructor(props) {
@@ -16,24 +17,24 @@ class App extends Component {
     render() {
         return (
             <AppContainer>
-                <DebugHeader />
+                <DebugHeader/>
                 <DigitHeader
                     dense
                     headerHeight="56px"
                     mainPadding="0px"
-                    size={{maxHeight: "100%"}}
                     title="VRecept | A recipe manager service"
                     renderMain={() => (
                         <MainContainer className={"MainContainer"}>
                             <Switch>
-                                <Route path="/recipes/:recipeId" component={Recipe} />
-                                <Route path="/" component={Search} />
+                                <Route path="/recipes/:recipeId" component={Recipe}/>
+                                <Route path="/create" component={Create}/>
+                                <Route path="/" component={Search}/>
                             </Switch>
                         </MainContainer>
                     )}
                     renderCustomHeader={() => (
                         <HeaderContainer>
-                            <DigitText.Title text={"VRecept | A recipe manager service"} />
+                            <DigitText.Title text={"VRecept | A recipe manager service"}/>
                         </HeaderContainer>
                     )}
                 />

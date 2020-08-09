@@ -17,12 +17,16 @@ export const BodyContainer = styled.div`
     width: 100%;
 `;
 
-export const SearchBox = styled.div`
-     
+export const SearchAddContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: baseline;
+    justify-content: center;
 `;
 
 export const StyledDigitCard = styled(DigitDesign.Card)`
-    background-color: green;
+    background-color: #388e3c;
     padding: 10px;
     margin-bottom: 40px
 `

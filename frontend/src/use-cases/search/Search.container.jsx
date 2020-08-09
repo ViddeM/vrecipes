@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import Search from "./Search";
-import {onSearchChanged} from "./Search.action-creators";
+import {newRecipe, onSearchChanged} from "./Search.action-creators";
 
 const mapStateToProps = state => ({
     searchText: state.root.search.searchText,
@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onSearchChanged: value => dispatch(onSearchChanged(value))
+    onSearchChanged: value => dispatch(onSearchChanged(value)),
+    newRecipe: () => dispatch(newRecipe())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
