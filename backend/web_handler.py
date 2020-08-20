@@ -32,7 +32,7 @@ class RecipeRes(Resource):
 
 api.add_resource(RecipesRes, "/api/recipes")
 api.add_resource(RecipeRes, "/api/recipe/<string:unique_recipe_name>")
-str
+
 
 def host():
     print(" ========== Backend Listening on 0.0.0.0 ========== ")
