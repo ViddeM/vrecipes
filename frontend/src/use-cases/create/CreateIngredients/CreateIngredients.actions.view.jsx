@@ -1,0 +1,1 @@
+export const ON_INGREDIENT_DRAG_END = "on_ingredient_drag_end";
