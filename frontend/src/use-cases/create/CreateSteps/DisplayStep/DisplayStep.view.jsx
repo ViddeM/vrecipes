@@ -25,8 +25,6 @@ export const DisplayStep = props => {
                         <SmallHSpace/>
                         <DigitText.Text text={step.number.toString() + "."} bold/>
                         <SmallHSpace/>
-                        {/*<DigitText.Text text={step.step} white bold/>*/}
-
                         <DigitTextArea outlined upperLabel="Tillvägagångssätt" flex={"1"} onChange={() => {
                         }} value={step.step}/>
                         <IconButtonContainer>

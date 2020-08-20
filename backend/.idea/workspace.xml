@@ -46,18 +46,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db1c7719-4e0f-4a59-919d-cb0f3a5f9e61" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.reducer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.reducer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.styles.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.styles.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/CreateIngredient/CreateIngredient.styles.view.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/CreateIngredient/CreateIngredient.view.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/CreateStep/CreateStep.view.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/yarn.lock" afterDir="false" />
-    </list>
+    <list default="true" id="db1c7719-4e0f-4a59-919d-cb0f3a5f9e61" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -151,6 +140,7 @@
       <workItem from="1596045238288" duration="3739000" />
       <workItem from="1596888123201" duration="8320000" />
       <workItem from="1597683864018" duration="3631000" />
+      <workItem from="1597938643963" duration="605000" />
     </task>
     <servers />
   </component>
