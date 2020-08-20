@@ -1,5 +1,11 @@
 import {ON_INGREDIENT_DRAG_END} from "./CreateIngredients/CreateIngredients.actions.view";
 import {ON_STEP_DRAG_END} from "./CreateSteps/CreateSteps.actions.view";
+import {
+    ON_COOKING_TIME_CHANGE,
+    ON_DESCRIPTION_CHANGE,
+    ON_NAME_CHANGE,
+    ON_OVEN_TEMP_CHANGE
+} from "./CreateGeneral/CreateGeneral.actions.view";
 
 const initialState = {
     recipeName: "Some recipe name",
@@ -54,7 +60,7 @@ export function create(state = initialState, action) {
                 return state;
             }
 
-            return Object.assign({}, state, {
+            return newState(state, {
                 ingredients: reorderIngredients(state.ingredients, result.source.index, result.destination.index)
             });
         case ON_STEP_DRAG_END:
@@ -64,12 +70,43 @@ export function create(state = initialState, action) {
                 return state;
             }
 
-            return Object.assign({}, state, {
+            return newState(state, {
                 steps: reorderSteps(state.steps, stepResult.source.index, stepResult.destination.index)
+            })
+        case ON_NAME_CHANGE:
+            return newState(state, {
+                recipeName: action.payload.newName
+            })
+        case ON_DESCRIPTION_CHANGE:
+            return newState(state, {
+                description: action.payload.newDescription
+            })
+        case ON_OVEN_TEMP_CHANGE:
+            const ovenTemp = validateNumber(action.payload.newTemp, state.ovenTemperature);
+            return newState(state, {
+                ovenTemperature: ovenTemp
+            })
+        case ON_COOKING_TIME_CHANGE:
+            const cookingTime = validateNumber(action.payload.newCookingTime, state.cookingTime);
+            return newState(state, {
+                cookingTime: cookingTime
             })
         default:
             return state;
     }
+}
+
+function validateNumber(newNumber, oldValue) {
+    if (isNaN(newNumber)) {
+        return oldValue;
+    }
+
+    return newNumber;
+}
+
+
+function newState(oldState, change) {
+    return Object.assign({}, oldState, change);
 }
 
 function reorderIngredients(list, startIndex, endIndex) {
