@@ -1,5 +1,17 @@
-import {ON_INGREDIENT_DRAG_END} from "./CreateIngredients/CreateIngredients.actions.view";
-import {ON_STEP_DRAG_END} from "./CreateSteps/CreateSteps.actions.view";
+import {
+    ON_INGREDIENT_AMOUNT_CHANGE,
+    ON_INGREDIENT_CREATED,
+    ON_INGREDIENT_DRAG_END,
+    ON_INGREDIENT_NAME_CHANGE,
+    ON_INGREDIENT_REMOVED,
+    ON_INGREDIENT_UNIT_CHANGE
+} from "./CreateIngredients/CreateIngredients.actions.view";
+import {
+    ON_STEP_CREATED,
+    ON_STEP_DESCRIPTION_CHANGE,
+    ON_STEP_DRAG_END,
+    ON_STEP_REMOVED
+} from "./CreateSteps/CreateSteps.actions.view";
 import {
     ON_COOKING_TIME_CHANGE,
     ON_DESCRIPTION_CHANGE,
@@ -8,47 +20,12 @@ import {
 } from "./CreateGeneral/CreateGeneral.actions.view";
 
 const initialState = {
-    recipeName: "Some recipe name",
-    ovenTemperature: 135,
-    cookingTime: 90,
-    description: "Some long description",
-    ingredients: [
-        {
-            id: 0,
-            name: "Smör",
-            unit: "g",
-            amount: 10
-        },
-        {
-            id: 1,
-            name: "Mjöl",
-            unit: "dl",
-            amount: 3
-        },
-        {
-            id: 2,
-            name: "Socker",
-            unit: "dl",
-            amount: 2
-        }
-    ],
-    steps: [
-        {
-            id: 0,
-            number: 1,
-            step: "Stek smöret i smöret"
-        },
-        {
-            id: 1,
-            number: 2,
-            step: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod purus justo, sed convallis purus maximus sit amet. Nullam interdum nunc in lorem mollis, in rhoncus urna hendrerit. Nunc elementum nibh velit, rutrum convallis nisi scelerisque sit amet. Suspendisse purus mi, suscipit ac aliquam sed, blandit ornare libero. Nulla hendrerit enim in ornare ultrices. Nullam bibendum diam eget facilisis posuere. Vivamus turpis sapien, pulvinar a nisi vitae, scelerisque varius eros. Phasellus dolor velit, lacinia id gravida id, vulputate at purus.\n"
-        },
-        {
-            id: 2,
-            number: 3,
-            step: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod purus justo, sed convallis purus maximus sit amet. Nullam interdum nunc in lorem mollis, in rhoncus urna hendrerit. Nunc elementum nibh velit, rutrum convallis nisi scelerisque sit amet. Suspendisse purus mi, suscipit ac aliquam sed, blandit ornare libero. Nulla hendrerit enim in ornare ultrices. Nullam bibendum diam eget facilisis posuere. Vivamus turpis sapien, pulvinar a nisi vitae, scelerisque varius eros. Phasellus dolor velit, lacinia id gravida id, vulputate at purus.\n"
-        },
-    ]
+    recipeName: "",
+    ovenTemperature: undefined,
+    cookingTime: undefined,
+    description: "",
+    ingredients: [],
+    steps: []
 }
 
 export function create(state = initialState, action) {
@@ -91,6 +68,22 @@ export function create(state = initialState, action) {
             return newState(state, {
                 cookingTime: cookingTime
             })
+        case ON_INGREDIENT_CREATED:
+            return newIngredient(state);
+        case ON_INGREDIENT_UNIT_CHANGE:
+            return updateIngredientUnit(state, action.payload.newUnit, action.payload.ingredientId);
+        case ON_INGREDIENT_NAME_CHANGE:
+            return updateIngredientName(state, action.payload.newName, action.payload.ingredientId);
+        case ON_INGREDIENT_AMOUNT_CHANGE:
+            return updateIngredientAmount(state, action.payload.newAmount, action.payload.ingredientId);
+        case ON_INGREDIENT_REMOVED:
+            return removeIngredient(state, action.payload.ingredientId)
+        case ON_STEP_CREATED:
+            return newStep(state);
+        case ON_STEP_DESCRIPTION_CHANGE:
+            return updateStepDescription(state, action.payload.newDescription, action.payload.id);
+        case ON_STEP_REMOVED:
+            return removeStep(state, action.payload.id)
         default:
             return state;
     }
@@ -126,4 +119,151 @@ function reorderSteps(list, startIndex, endIndex) {
         step.number = index + 1;
         return step;
     });
+}
+
+function newIngredient(state) {
+    return newState(state, {
+        ingredients: [...state.ingredients, {
+            id: getNextIngredientId(state),
+            name: "",
+            unit: "",
+            amount: undefined
+        }]
+    })
+}
+
+function newStep(state) {
+    return newState(state, {
+        steps: [...state.steps, {
+            id: getNextStepId(state),
+            number: getNextStepNumber(state),
+            step: ""
+        }]
+    })
+}
+
+function updateIngredientUnit(state, newUnit, ingredientId) {
+    return newState(state, {
+                        ingredients: state.ingredients.map(ingredient =>
+                                                               ingredient.id === ingredientId ?
+                                                                   {
+                                                                       ...ingredient,
+                                                                       unit: newUnit
+                                                                   } :
+                                                                   ingredient
+                        )
+                    }
+    )
+}
+
+function updateIngredientName(state, newName, ingredientId) {
+    return newState(state, {
+                        ingredients: state.ingredients.map(ingredient =>
+                                                               ingredient.id === ingredientId ?
+                                                                   {
+                                                                       ...ingredient,
+                                                                       name: newName
+                                                                   } :
+                                                                   ingredient
+                        )
+                    }
+    )
+}
+
+function updateIngredientAmount(state, newAmount, ingredientId) {
+    if (isNaN(newAmount)) {
+        return state;
+    }
+
+    return newState(state, {
+                        ingredients: state.ingredients.map(ingredient =>
+                                                               ingredient.id === ingredientId ?
+                                                                   {
+                                                                       ...ingredient,
+                                                                       amount: newAmount
+                                                                   } :
+                                                                   ingredient
+                        )
+                    }
+    )
+}
+
+function updateStepDescription(state, newDescription, id) {
+    return newState(state, {
+        steps: state.steps.map(step => step.id === id ? {
+                ...step,
+                step: newDescription
+            } :
+            step
+        )
+    })
+}
+
+function removeIngredient(state, id) {
+    return newState(state, {
+        ingredients: state.ingredients.filter(ingredient => ingredient.id !== id)
+    });
+}
+
+function removeStep(state, id) {
+    let newSteps = []
+    let removed = null;
+    state.steps.forEach(step => {
+        if (step.id === id) {
+            removed = step;
+        }
+    })
+
+    if (removed === null) {
+        return state;
+    }
+
+    state.steps.forEach(step => {
+        if (step.id !== id) {
+            step.number > removed.number ?
+                newSteps.push(
+                    {
+                        ...step,
+                        number: step.number - 1
+                    }) :
+                newSteps.push(step);
+        }
+    })
+
+    return newState(state, {
+        steps: newSteps
+    })
+}
+
+function getNextIngredientId(state) {
+    // FIXME: Quick solution, maybe create a better in the future.
+    let highest = 0;
+    state.ingredients.forEach(ingredient => {
+        if (ingredient.id > highest) {
+            highest = ingredient.id;
+        }
+    })
+    return highest + 1;
+}
+
+function getNextStepId(state) {
+    // FIXME: Quick solution, maybe create a better in the future.
+    let highest = 0;
+    state.steps.forEach(step => {
+        if (step.id > highest) {
+            highest = step.id
+        }
+    })
+    return highest + 1;
+}
+
+function getNextStepNumber(state) {
+    // FIXME: Quick solution, maybe create a better in the future.
+    let highest = 0;
+    state.steps.forEach(step => {
+        if (step.number > highest) {
+            highest = step.number;
+        }
+    })
+    return highest + 1;
 }

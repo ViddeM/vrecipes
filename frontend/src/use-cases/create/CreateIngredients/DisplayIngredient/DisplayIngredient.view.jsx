@@ -26,21 +26,22 @@ export const DisplayIngredient = props => {
                         <DehazeIcon/>
                         <SmallHSpace/>
                         <HalfRow>
-                            <DigitTextField outlined upperLabel="Mängd" flex={"1"} onChange={() => {
+                            <DigitTextField outlined upperLabel="Mängd" flex={"1"} onChange={e => {
+                                props.props.onIngredientAmountChange(e.target.value, ingredient.id)
                             }} margin={{right: "20px"}} value={ingredient.amount}/>
-                            <DigitTextField outlined upperLabel="Mått" flex={"1"} onChange={() => {
+                            <DigitTextField outlined upperLabel="Mått" flex={"1"} onChange={e => {
+                                props.props.onIngredientUnitChange(e.target.value, ingredient.id)
                             }} value={ingredient.unit}/>
                         </HalfRow>
-                        <DigitTextField outlined upperLabel="Ingrediens" flex={"1"} onChange={() => {
+                        <DigitTextField outlined upperLabel="Ingrediens" flex={"1"} onChange={e => {
+                            props.props.onIngredientNameChange(e.target.value, ingredient.id)
                         }} value={ingredient.name}/>
 
                         <IconButtonContainer>
                             <DigitIconButton icon={ClearIcon} alignSelf="center"
                                              margin={"0px"} padding={"0px"} secondary
                                              size={{width: "100%", height: "100%"}}
-                                             onClick={() => {
-                                                 alert("Är du säker på att du vill ta bort denna ingrediens?")
-                                             }}/>
+                                             onClick={props.props.onIngredientRemove}/>
                         </IconButtonContainer>
                     </DisplayDraggableCard>
                 )}
