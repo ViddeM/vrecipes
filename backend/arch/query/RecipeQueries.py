@@ -1,9 +1,9 @@
-# Handles most communication with the database
-from typing import List
+from typing import List, Optional
 
 from pony.orm import db_session, select
 
-from db import Recipe, RecipeIngredient, RecipeStep, RecipeImage, Config
+from arch.query.ImageQueries import get_main_image_url, get_images_for_recipe
+from db import Recipe, RecipeIngredient, RecipeStep, Ingredient, Unit
 from response_with_data import HttpResponse, get_with_data, get_with_error
 
 
@@ -27,27 +27,6 @@ def get_recipes_basic() -> HttpResponse:
 
     return get_with_data({"recipes": recipes_list})
 
-
-@db_session
-def get_main_image_url(recipe_id: str) -> str:
-    images = get_images_for_recipe(recipe_id)
-    image = recipe_to_url("default.jpg")
-    if len(images) > 0:
-        image = images[0]
-
-    return image
-
-
-def recipe_to_url(name: str) -> str:
-    backend = get_config("backend_base_address")
-    image_path = get_config("image_base_path")
-    return "{0}/{1}/{2}".format(backend, image_path, name)
-
-
-@db_session
-def get_images_for_recipe(recipe_id: str) -> List[str]:
-    name_list = list(select(recImg.image.name for recImg in RecipeImage if str(recImg.recipe.id) == recipe_id))
-    return list(map(recipe_to_url, name_list))
 
 
 @db_session
@@ -93,43 +72,19 @@ def get_recipe(unique_recipe_name: str) -> HttpResponse:
 
 
 @db_session
-def get_config(key):
-    return Config.get(key=key).value
+def get_same_name_unique_names(unique_name: str) -> List[str]:
+    """
+    Returns a list of all the unique recipe names that starts with the same unique_name as the given string.
+    :return: a list of unique_name strings.
+    """
+    return list(select(res.name for res in Recipe if res.unique_name.startswith(unique_name)))
 
 
 @db_session
-def create_new_recipe(name: str, description: str = "", oven_temp: int = -1, estimated_time: int = -1) -> Recipe:
-    """
-    Create a new recipe.
-    :return: the new recipe
-    """
-    id = generate_name_id(name)
-    return Recipe(name=name, unique_name=id, description=description, oven_temp=oven_temp,
-                  estimated_time=estimated_time)
+def find_ingredient(name: str) -> Optional[Ingredient]:
+    return Ingredient.get(name=name)
 
 
 @db_session
-def generate_name_id(name: str) -> str:
-    """
-    Takes the name of a recipe and generates a unique name that can be used for identification.
-    :param name: the recipe name
-    :return: the identifying name
-    """
-    id = name.lower().replace(" ", "_")
-
-    same_name_recipes = list(select(res.name for res in Recipe if res.unique_name.startswith(id)))
-    colliding_name_count = -1
-
-    if len(same_name_recipes) > 0:
-        colliding_name_count = 0
-
-    for recipe in same_name_recipes:
-        sub = recipe[len(id):]
-        if sub.isnumeric():
-            colliding_name_count += 1
-
-    unique_name = id
-    if colliding_name_count >= 0:
-        unique_name = id + "_" + str(colliding_name_count)
-
-    return unique_name
+def find_unit(name: str) -> Optional[Unit]:
+    return Unit.get(name=name)

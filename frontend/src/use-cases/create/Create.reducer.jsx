@@ -18,6 +18,11 @@ import {
     ON_NAME_CHANGE,
     ON_OVEN_TEMP_CHANGE
 } from "./CreateGeneral/CreateGeneral.actions.view";
+import {
+    ON_RECIPE_SAVE_FAILED,
+    ON_RECIPE_SAVE_SUCCESSFUL,
+    ON_RECIPE_VALIDATION_FAILED
+} from "./Create.actions";
 
 const initialState = {
     recipeName: "",
@@ -25,7 +30,9 @@ const initialState = {
     cookingTime: undefined,
     description: "",
     ingredients: [],
-    steps: []
+    steps: [],
+    errors: {},
+    saveError: ""
 }
 
 export function create(state = initialState, action) {
@@ -84,6 +91,20 @@ export function create(state = initialState, action) {
             return updateStepDescription(state, action.payload.newDescription, action.payload.id);
         case ON_STEP_REMOVED:
             return removeStep(state, action.payload.id)
+        case ON_RECIPE_VALIDATION_FAILED:
+            return newState(state, {
+                errors: action.payload.errors
+            })
+        case ON_RECIPE_SAVE_FAILED:
+            return newState(state, {
+                saveError: action.payload.message,
+                errors: {}
+            })
+        case ON_RECIPE_SAVE_SUCCESSFUL:
+            return newState(state, {
+                saveError: "",
+                errors: {}
+            })
         default:
             return state;
     }

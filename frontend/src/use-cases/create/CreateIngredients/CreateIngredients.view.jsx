@@ -41,7 +41,8 @@ export const CreateIngredients = props => {
                                                            onIngredientAmountChange: (amount, id) => props.onIngredientAmountChange(amount, id),
                                                            onIngredientRemove: () => {
                                                                openDialog(getDialog(ingredient.id, props.onIngredientRemoved))
-                                                           }
+                                                           },
+                                                           errors: getErrors(props.errors, ingredient.id)
                                                        }}/>
                                 ))}
                                 {provided.placeholder}
@@ -87,4 +88,10 @@ function getDialog(ingredientId, onIngredientRemoved) {
             onIngredientRemoved(ingredientId);
         }
     }
+}
+
+function getErrors(errors, id) {
+    return errors && errors[id] ?
+        errors[id] :
+        {}
 }

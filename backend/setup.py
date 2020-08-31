@@ -1,8 +1,8 @@
 # Insert temp data into the database
 from pony.orm import db_session, raw_sql
 
+from arch.process.NewRecipeProcess import create_recipe
 from db import Recipe, Ingredient, RecipeIngredient, RecipeStep, RecipeImage, Image, db, create_db, Unit, Config
-from db_handler import create_new_recipe
 
 duplicate_text = "_duplicate"
 
@@ -107,7 +107,7 @@ def add_recipe_to_db(name: str, description: str, temp: int, time: int, ingredie
         if name.endswith(duplicate_text):
             name = name[:-len(duplicate_text)]
 
-        recipe = create_new_recipe(name, description)
+        recipe = create_recipe(name, description)
         if temp >= 0:
             recipe.oven_temp = temp
         if time >= 0:

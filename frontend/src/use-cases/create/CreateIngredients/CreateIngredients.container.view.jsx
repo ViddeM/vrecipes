@@ -10,7 +10,8 @@ import {
 } from "./CreateIngredients.action-creators.view";
 
 const mapStateToProps = state => ({
-    ingredients: state.root.create.ingredients
+    ingredients: state.root.create.ingredients,
+    errors: state.root.create.errors.ingredients
 });
 
 const mapDispatchToProps = dispatch => ({
