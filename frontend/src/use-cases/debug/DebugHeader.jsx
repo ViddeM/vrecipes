@@ -1,8 +1,9 @@
 import React from "react";
+import { DEBUG_MODE } from "../../common/data/Mode";
 
 const DebugHeader = props => (
     <div>
-        {props.debug && (
+        {props.mode === DEBUG_MODE && (
             <div
                 style={{
                     backgroundColor: "yellow",
