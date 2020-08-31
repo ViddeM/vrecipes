@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {DigitDesign} from "@cthit/react-digit-components";
+import { DigitDesign, DigitText } from "@cthit/react-digit-components";
 
 export const SearchContainer = styled.div`
     display: flex;
@@ -30,3 +30,10 @@ export const StyledDigitCard = styled(DigitDesign.Card)`
     padding: 10px;
     margin-bottom: 40px
 `
+
+export const OutlinedText = styled(DigitText.Text)`
+  -webkit-text-fill-color: yellow;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
+  font-size: x-large;
+`;
