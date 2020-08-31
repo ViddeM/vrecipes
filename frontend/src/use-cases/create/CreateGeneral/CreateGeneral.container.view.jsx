@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
     oven: state.root.create.ovenTemperature,
     time: state.root.create.cookingTime,
     description: state.root.create.description,
+    errors: state.root.create.errors
 });
 
 const mapDispatchToProps = dispatch => ({

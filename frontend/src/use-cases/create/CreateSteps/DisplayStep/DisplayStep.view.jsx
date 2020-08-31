@@ -17,6 +17,8 @@ import {SmallHSpace} from "../../../../common/styles/Common.styles";
 export const DisplayStep = props => {
     const step = props.props.step;
     const index = props.props.index;
+    const errors = props.props.errors;
+    
     return (
         <DisplayDraggableContainer>
             <Draggable draggableId={step.id.toString()} index={index}>
@@ -39,7 +41,11 @@ export const DisplayStep = props => {
                                        onChange={e =>
                                            props.props.onStepDescriptionChange(e.target.value, step.id)
                                        }
-                                       value={step.step}/>
+                                       value={step.step}
+                                       error={errors.name !== undefined}
+                                       errorMessage={errors.name}
+
+                        />
                         <IconButtonContainer>
                             <DigitIconButton icon={ClearIcon} alignSelf="center"
                                              margin={"0px"} padding={"0px"}

@@ -1,5 +1,5 @@
-import { getRequest } from "./RequestUtilities";
+import {getRequest} from "./RequestUtilities";
 
 export function getRecipe(recipeId) {
-    return getRequest("/recipe/" + recipeId);
+    return getRequest("/recipe/details/" + recipeId);
 }

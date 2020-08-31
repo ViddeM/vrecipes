@@ -2,7 +2,7 @@ from typing import Tuple
 
 
 class HttpResponse:
-    def __init__(self, code: int = 200, error: str = None, data=None) -> Tuple[dict, int]:
+    def __init__(self, code: int = 200, error: str = None, data=None):
         self.code = code
         self.error = error
         self.data = data

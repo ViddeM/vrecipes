@@ -1,10 +1,11 @@
 from uuid import UUID
 
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 from flask_restful import Api, Resource
 
-from db_handler import get_recipes_basic, get_recipe
+from arch.process.NewRecipeProcess import new_recipe
+from arch.query.RecipeQueries import get_recipes_basic, get_recipe
 
 app = Flask(__name__)
 api = Api(app)
@@ -30,8 +31,19 @@ class RecipeRes(Resource):
         return get_recipe(unique_recipe_name).get_response()
 
 
+class NewRecipeRes(Resource):
+    def post(self):
+        """
+        Post a new recipe
+        :return: the unique name for the new recipe
+        """
+        json = request.json
+        return new_recipe(json).get_response()
+
+
 api.add_resource(RecipesRes, "/api/recipes")
-api.add_resource(RecipeRes, "/api/recipe/<string:unique_recipe_name>")
+api.add_resource(NewRecipeRes, "/api/recipe/create")
+api.add_resource(RecipeRes, "/api/recipe/details/<string:unique_recipe_name>")
 
 
 def host():

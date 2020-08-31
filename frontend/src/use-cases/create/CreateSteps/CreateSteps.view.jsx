@@ -38,7 +38,8 @@ export const CreateSteps = props => {
                                         onStepDescriptionChange: props.onStepDescriptionChange,
                                         onStepRemove: () => {
                                             openDialog(getDialog(step.id, props.onStepRemove))
-                                        }
+                                        },
+                                        errors: getErrors(props.errors, step.id)
                                     }}/>
                                 ))}
                                 {provided.placeholder}
@@ -85,4 +86,9 @@ function getDialog(id, onRemove) {
             onRemove(id);
         }
     }
+}
+
+function getErrors(errors, id) {
+    return errors && errors[id] ?
+        errors[id] : {}
 }

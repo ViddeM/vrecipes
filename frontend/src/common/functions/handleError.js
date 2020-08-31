@@ -2,7 +2,7 @@ export function handleError(error, type, defaultMessage = "Woops, något gick fe
     let msg = defaultMessage;
 
     if (error.response && error.response.data && error.response.data.error) {
-        msg = error.response.data.error;
+        msg = error.response.data.error.message;
     } else {
         msg += " fel: (" + error.message + ")";
     }

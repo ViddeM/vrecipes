@@ -1,6 +1,11 @@
 import React from "react";
 import {FormColumn, FormRow, StyledCard} from "../Create.styles";
-import {DigitForm, DigitText, DigitTextArea, DigitTextField} from "@cthit/react-digit-components";
+import {
+    DigitForm,
+    DigitText,
+    DigitTextArea,
+    DigitTextField
+} from "@cthit/react-digit-components";
 
 export const CreateGeneral = props => (
     <StyledCard>
@@ -14,12 +19,21 @@ export const CreateGeneral = props => (
                         <DigitTextField outlined maxLength={60}
                                         upperLabel="Receptnamn (obligatorisk)"
                                         flex={"1"} value={props.name}
-                                        onChange={props.onNameChange}/>
+                                        onChange={props.onNameChange}
+                                        error={props.errors.name !== undefined}
+                                        errorMessage={props.errors.name}
+                        />
                     </FormRow>
                     <FormRow>
-                        <DigitTextField outlined maxLength={4} value={props.oven}
+                        <DigitTextField outlined maxLength={4}
+                                        value={props.oven}
                                         upperLabel="Ungstemperatur" flex={"1"}
-                                        margin={{right: "20px", top: "4px", left: "4px", bottom: "4px"}}
+                                        margin={{
+                                            right: "20px",
+                                            top: "4px",
+                                            left: "4px",
+                                            bottom: "4px"
+                                        }}
                                         onChange={props.onOvenTempChange}/>
                         <DigitTextField
                             outlined maxLength={4} value={props.time}
