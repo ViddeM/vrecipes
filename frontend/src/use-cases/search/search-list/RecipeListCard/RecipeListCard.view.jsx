@@ -8,8 +8,8 @@ import {
     RecipeListCardFooterContainer,
     SmallVSpace
 } from "./RecipeListCard.styles.view";
-import {DigitDesign, DigitText} from "@cthit/react-digit-components";
-import {Center} from "../../../../common/styles/Common.styles";
+import { DigitDesign, DigitText } from "@cthit/react-digit-components";
+import { Center } from "../../../../common/styles/Common.styles";
 
 export const RecipeListCard = props => {
     const recipe = props.recipe;
@@ -24,15 +24,15 @@ export const RecipeListCard = props => {
                 <ButtonCard onClick={props.onRecipeCardClicked(recipe.id)}>
                     <RecipeListCardCard>
                         <ImageBorder>
-                            <ImageContainer style={{backgroundImage: `url(${imageUrl}`}}/>
+                            <ImageContainer style={{backgroundImage: `url(${imageUrl}`}} />
                         </ImageBorder>
-                        <SmallVSpace/>
+                        <SmallVSpace />
                         <Center>
-                            <DigitText.Title text={recipe.name}/>
+                            <DigitText.Title text={recipe.name} />
                         </Center>
-                        <SmallVSpace/>
+                        <SmallVSpace />
                         <RecipeListCardFooterContainer>
-                            <DigitText.Text text={"Upplagd av " + recipe.author}/>
+                            <DigitText.Text text={"Upplagd av " + recipe.author} />
                         </RecipeListCardFooterContainer>
                     </RecipeListCardCard>
                 </ButtonCard>
