@@ -1,15 +1,11 @@
-import React, { Component } from "react";
-import { LoadingContainer, RecipeContainer } from "./Recipe.styles";
+import React, {Component} from "react";
+import {LoadingContainer, RecipeContainer} from "./Recipe.styles";
 import ErrorCard from "../../common/views/errorcard";
-import { DigitLoading, DigitText } from "@cthit/react-digit-components";
+import {DigitButton, DigitDesign, DigitLoading, DigitText} from "@cthit/react-digit-components";
 import RecipeCard from "./screens/RecipeCard";
 
 
 class Recipe extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         const {match: {params}} = this.props;
         this.props.loadRecipe(params.recipeId)
@@ -20,15 +16,21 @@ class Recipe extends Component {
         return (
             <RecipeContainer>
                 {this.props.error ? (
-                    <ErrorCard message={this.props.error.message} />
-                ) : (
                     <div>
+                        <ErrorCard message={this.props.error.message}/>
+                        <DigitDesign.Link to={""}>
+                            <DigitButton raised primary text={"Tillbaka till startsidan"} size={{height: "40px"}}
+                                         margin={{top: "10px"}}/>
+                        </DigitDesign.Link>
+                    </div>
+                ) : (
+                    <div style={{width: "100%"}}>
                         {this.props.recipe ? (
-                            <RecipeCard />
+                            <RecipeCard/>
                         ) : (
                             <LoadingContainer>
-                                <DigitLoading loading={true} size={60} margin={{top: "50px", bottom: "20px"}} />
-                                <DigitText.Heading6 style={{}} text={"Laddar recept..."} />
+                                <DigitLoading loading={true} size={60} margin={{top: "50px", bottom: "20px"}}/>
+                                <DigitText.Heading6 style={{}} text={"Laddar recept..."}/>
                             </LoadingContainer>
                         )}
                     </div>

@@ -1,8 +1,9 @@
-import { GET_RECIPES_FAILED, GET_RECIPES_SUCCESSFUL, INIT } from "./App.actions";
-import { getRecipes } from "../api/get.Recipes.api";
-import { handleError } from "../common/functions/handleError";
-import { initApi } from "../api/RequestUtilities";
-import { BETA_MODE, DEBUG_MODE, LIVE_MODE } from "../common/data/Mode";
+import {GET_RECIPES_FAILED, GET_RECIPES_SUCCESSFUL, INIT} from "./App.actions";
+import {getRecipes} from "../api/get.Recipes.api";
+import {handleError} from "../common/functions/handleError";
+import {initApi} from "../api/RequestUtilities";
+import {BETA_MODE, DEBUG_MODE, LIVE_MODE} from "../common/data/Mode";
+import {FAILED_TO_LOAD_RECIPES} from "../common/translations/ResponseMessages";
 
 export function initialize() {
     let mode = LIVE_MODE;
@@ -44,6 +45,5 @@ function onLoadRecipesSuccessful(response) {
 }
 
 function onLoadRecipesFailed(error) {
-    console.log("Request: ", error.request, "Response: ", error.response)
-    return handleError(error, GET_RECIPES_FAILED, "Kunde inte ladda recept :(");
+    return handleError(error, GET_RECIPES_FAILED, FAILED_TO_LOAD_RECIPES);
 }
