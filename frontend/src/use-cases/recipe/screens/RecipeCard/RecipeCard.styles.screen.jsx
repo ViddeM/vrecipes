@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import { DigitDesign } from "@cthit/react-digit-components";
-import { TimeIcon } from "@material-ui/pickers/_shared/icons/TimeIcon";
+import {DigitDesign} from "@cthit/react-digit-components";
+import {TimeIcon} from "@material-ui/pickers/_shared/icons/TimeIcon";
 
 export const RecipeCardContainer = styled(DigitDesign.Card)`
     padding: 10px 10px 0px;
@@ -27,6 +27,7 @@ export const Columns = styled.div`
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
+    width: 100%;
 `;
 
 export const FullWidth = styled.div`

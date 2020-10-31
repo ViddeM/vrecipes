@@ -18,11 +18,7 @@ import {
     ON_NAME_CHANGE,
     ON_OVEN_TEMP_CHANGE
 } from "./CreateGeneral/CreateGeneral.actions.view";
-import {
-    ON_RECIPE_SAVE_FAILED,
-    ON_RECIPE_SAVE_SUCCESSFUL,
-    ON_RECIPE_VALIDATION_FAILED
-} from "./Create.actions";
+import {ON_RECIPE_SAVE_FAILED, ON_RECIPE_SAVE_SUCCESSFUL, ON_RECIPE_VALIDATION_FAILED} from "./Create.actions";
 
 const initialState = {
     recipeName: "",
@@ -32,7 +28,8 @@ const initialState = {
     ingredients: [],
     steps: [],
     errors: {},
-    saveError: ""
+    saveError: "",
+    redirectTo: ""
 }
 
 export function create(state = initialState, action) {
@@ -103,7 +100,8 @@ export function create(state = initialState, action) {
         case ON_RECIPE_SAVE_SUCCESSFUL:
             return newState(state, {
                 saveError: "",
-                errors: {}
+                errors: {},
+                redirectTo: "/recipes/" + action.payload.recipe
             })
         default:
             return state;
@@ -120,7 +118,9 @@ function validateNumber(newNumber, oldValue) {
 
 
 function newState(oldState, change) {
-    return Object.assign({}, oldState, change);
+    return Object.assign({
+        redirectTo: ""
+    }, oldState, change);
 }
 
 function reorderIngredients(list, startIndex, endIndex) {
@@ -165,29 +165,29 @@ function newStep(state) {
 
 function updateIngredientUnit(state, newUnit, ingredientId) {
     return newState(state, {
-                        ingredients: state.ingredients.map(ingredient =>
-                                                               ingredient.id === ingredientId ?
-                                                                   {
-                                                                       ...ingredient,
-                                                                       unit: newUnit
-                                                                   } :
-                                                                   ingredient
-                        )
-                    }
+            ingredients: state.ingredients.map(ingredient =>
+                ingredient.id === ingredientId ?
+                    {
+                        ...ingredient,
+                        unit: newUnit
+                    } :
+                    ingredient
+            )
+        }
     )
 }
 
 function updateIngredientName(state, newName, ingredientId) {
     return newState(state, {
-                        ingredients: state.ingredients.map(ingredient =>
-                                                               ingredient.id === ingredientId ?
-                                                                   {
-                                                                       ...ingredient,
-                                                                       name: newName
-                                                                   } :
-                                                                   ingredient
-                        )
-                    }
+            ingredients: state.ingredients.map(ingredient =>
+                ingredient.id === ingredientId ?
+                    {
+                        ...ingredient,
+                        name: newName
+                    } :
+                    ingredient
+            )
+        }
     )
 }
 
@@ -197,15 +197,15 @@ function updateIngredientAmount(state, newAmount, ingredientId) {
     }
 
     return newState(state, {
-                        ingredients: state.ingredients.map(ingredient =>
-                                                               ingredient.id === ingredientId ?
-                                                                   {
-                                                                       ...ingredient,
-                                                                       amount: newAmount
-                                                                   } :
-                                                                   ingredient
-                        )
-                    }
+            ingredients: state.ingredients.map(ingredient =>
+                ingredient.id === ingredientId ?
+                    {
+                        ...ingredient,
+                        amount: newAmount
+                    } :
+                    ingredient
+            )
+        }
     )
 }
 

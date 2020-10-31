@@ -11,25 +11,27 @@ import {DigitProviders} from "@cthit/react-digit-components";
 import {rootReducer} from "./app/App.reducer";
 
 
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: "#388e3c",
-            dark: "#27632a",
-            light: "#5fa463"
-        },
-        secondary: {
-            main: "#ff9100",
-            dark: "#b26500",
-            light: "#ffa733"
+const theme = createMuiTheme(
+    {
+        palette: {
+            primary: {
+                main: "#388e3c",
+                dark: "#27632a",
+                light: "#5fa463"
+            },
+            secondary: {
+                main: "#ff9100",
+                dark: "#b26500",
+                light: "#ffa733"
+            }
         }
-    }
-});
+    });
 
 function getReducer(root) {
-    return combineReducers({
-        root
-    })
+    return combineReducers(
+        {
+            root
+        })
 }
 
 const store = createStore(getReducer(rootReducer), applyMiddleware(logger, thunkMiddleware));
@@ -37,7 +39,7 @@ const store = createStore(getReducer(rootReducer), applyMiddleware(logger, thunk
 ReactDOM.render(
     <Provider store={store}>
         <DigitProviders theme={theme}>
-            <App />
+            <App/>
         </DigitProviders>
     </Provider>,
     document.getElementById("root")

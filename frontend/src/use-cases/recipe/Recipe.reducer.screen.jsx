@@ -77,7 +77,6 @@ export function recipe(state = initialState, action) {
 }
 
 function handleRecipeResponse(recipe) {
-    console.log("RECIPE", recipe);
     return {
         error: null,
         recipe: {

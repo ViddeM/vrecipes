@@ -5,7 +5,8 @@ import {onRecipeSave} from "./Create.action-creators";
 const mapStateToProps = state => ({
     errors: state.root.create.errors,
     recipe: state.root.create,
-    saveError: state.root.create.saveError
+    saveError: state.root.create.saveError,
+    redirectTo: state.root.create.redirectTo
 });
 
 const mapDispatchToProps = dispatch => ({

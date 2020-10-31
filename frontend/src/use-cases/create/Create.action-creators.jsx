@@ -15,11 +15,9 @@ export function onRecipeSave(recipe) {
             dispatch({type: ON_RECIPE_SAVE_AWAIT_RESPONSE, error: false})
             postNewRecipe(recipe)
                 .then(response => {
-                    console.log("RESP", response)
                     dispatch(onRecipeSaveSuccessful(response));
                 })
                 .catch(error => {
-                    console.log("ERREOAR", error)
                     dispatch(onRecipeSaveFailed(error));
                 });
         };
