@@ -1,16 +1,18 @@
 # Insert temp data into the database
-from pony.orm import db_session, raw_sql
+from pony.orm import db_session
 
 from arch.process.NewRecipeProcess import create_recipe
 from db import Recipe, Ingredient, RecipeIngredient, RecipeStep, RecipeImage, Image, db, create_db, Unit, Config
 
-duplicate_text = "_duplicate"
+duplicate_text = " -- Kopia"
 
 
 def setup_db():
     # https://www.ica.se/recept/chokladkaka-med-chokladkram-och-bar-4214/
     name = "Chokladkaka med chokladkräm och bär"
-    description = "Chokladkaka med chokladkräm och bär är den perfekta efterrätten som passar alla åldrar och vid alla tillfällen. Denna delikata dessert med en härlig chokladbotten och en krämig chokladkräm ovanpå dekoreras med färska bär."
+    description = "Chokladkaka med chokladkräm och bär är den perfekta efterrätten som passar alla åldrar och vid " \
+                  "alla tillfällen. Denna delikata dessert med en härlig chokladbotten och en krämig chokladkräm " \
+                  "ovanpå dekoreras med färska bär. "
     ingredients = [
         {
             "name": "smör",
@@ -56,7 +58,7 @@ def setup_db():
     add_image("chokladkaka.webp", choklad_2)
 
     # https://www.ica.se/recept/ugnsbakad-lax-i-sas-pa-tre-satt-725369/
-    name = "Ugnsbakad lax i sås"
+    name = "Ugnsbakad lax i sås "
     description = " Underbart trevligt recept på lax i ugn som går att variera enkelt med hjälp av olika kryddningar. Välj mellan dragon, dijon & örter och sweet chili & ingefära. Vilken kryddning blir din favorit?"
     ingredients = [
         {
@@ -104,10 +106,11 @@ def setup_db():
 @db_session
 def add_recipe_to_db(name: str, description: str, temp: int, time: int, ingredients: list, steps: list) -> str:
     if Recipe.get(name=name) is None:
-        if name.endswith(duplicate_text):
-            name = name[:-len(duplicate_text)]
+        recipe_res = create_recipe(name, description)
+        if recipe_res.is_error:
+            raise Exception("Unable to create mock recipe '{0}'".format(recipe_res.message))
+        recipe = recipe_res.data
 
-        recipe = create_recipe(name, description)
         if temp >= 0:
             recipe.oven_temp = temp
         if time >= 0:

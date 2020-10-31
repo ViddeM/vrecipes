@@ -1,5 +1,3 @@
-from uuid import UUID
-
 from flask import Flask, request
 from flask_cors import CORS
 from flask_restful import Api, Resource

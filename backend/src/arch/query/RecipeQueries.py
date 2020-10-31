@@ -4,6 +4,7 @@ from pony.orm import db_session, select
 
 from arch.query.ImageQueries import get_main_image_url, get_images_for_recipe
 from db import Recipe, RecipeIngredient, RecipeStep, Ingredient, Unit
+from response_messages import RECIPE_NOT_FOUND
 from response_with_data import HttpResponse, get_with_data, get_with_error
 
 
@@ -39,7 +40,7 @@ def get_recipe(unique_recipe_name: str) -> HttpResponse:
     """
     recipe = Recipe.get(unique_name=unique_recipe_name)
     if recipe is None:
-        return get_with_error(404, "Recipe not found")
+        return get_with_error(404, RECIPE_NOT_FOUND)
 
     ingredients = list(RecipeIngredient.select(lambda ing: str(ing.recipe.id) == str(recipe.id)))
     ingredients_json = []
@@ -72,12 +73,12 @@ def get_recipe(unique_recipe_name: str) -> HttpResponse:
 
 
 @db_session
-def get_same_name_unique_names(unique_name: str) -> List[str]:
+def get_recipe_by_unique_name(unique_name: str) -> List[str]:
     """
-    Returns a list of all the unique recipe names that starts with the same unique_name as the given string.
-    :return: a list of unique_name strings.
+    Returns the recipe with the given unique name.
+    :return: a string with the unique name or None if none exists.
     """
-    return list(select(res.name for res in Recipe if res.unique_name.startswith(unique_name)))
+    return Recipe.get(unique_name=unique_name)
 
 
 @db_session
