@@ -1,24 +1,9 @@
 from dataclasses import dataclass
 from typing import List
-from uuid import UUID
 
-
-@dataclass
-class RecipeIngredientJson:
-    name: str = ""
-    amount: float = -1
-    unit: str = ""
-
-
-@dataclass
-class RecipeStepJson:
-    step: str = ""
-    number: int = -1
-
-
-@dataclass
-class RecipeImageJson:
-    id: UUID
+from arch.json_objects.RecipeImageJson import RecipeImageJson
+from arch.json_objects.RecipeIngredientJson import RecipeIngredientJson
+from arch.json_objects.RecipeStepJson import RecipeStepJson
 
 
 @dataclass

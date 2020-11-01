@@ -1,12 +1,13 @@
-import uuid
+from uuid import UUID
 
 from pony.orm import db_session
 
-from db import Recipe, Ingredient, RecipeIngredient, Unit, RecipeStep
+from db import Recipe
 
 
 @db_session
-def insert_new_recipe(name: str, unique_name: str, description: str = "", oven_temp: int = -1, estimated_time: int = -1) -> Recipe:
+def insert_new_recipe(name: str, unique_name: str, description: str = "", oven_temp: int = -1,
+                      estimated_time: int = -1) -> Recipe:
     """
     Create a new recipe.
     :return: the new recipe
@@ -16,36 +17,13 @@ def insert_new_recipe(name: str, unique_name: str, description: str = "", oven_t
 
 
 @db_session
-def insert_recipe_ingredient(ingredient: Ingredient, unit: str, amount: float, recipe_id: uuid):
-    """
-    Create a new RecipeIngredient
-    :return: the new RecipeIngredient
-    """
-    return RecipeIngredient(ingredient=ingredient, unit=unit, amount=amount, recipe=recipe_id)
+def update_recipe_name(id: UUID, name: str, unique_name: str):
+    recipe = Recipe(id=id)
+    recipe.name = name
+    recipe.unique_name = unique_name
 
 
 @db_session
-def insert_ingredient(name: str) -> Ingredient:
-    """
-    Create a new ingredient
-    :return: the new ingredient
-    """
-    return Ingredient(name=name)
+def update_recipe_general(id: UUID, description: str, oven_temp: int, estimed_time: int):
+    recipe = Recipe(id=id)
 
-
-@db_session
-def insert_unit(name: str) -> Unit:
-    """
-    Create a new Unit
-    :return: the new Unit
-    """
-    return Unit(name=name)
-
-
-@db_session
-def insert_recipe_step(name: str, number: int, recipe_id: uuid) -> RecipeStep:
-    """
-    Create a new recipe step
-    :return: the new step
-    """
-    return RecipeStep(step=name, number=number, recipe=recipe_id)

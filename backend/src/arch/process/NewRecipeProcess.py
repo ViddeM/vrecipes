@@ -1,12 +1,15 @@
 from uuid import UUID
 
-from arch.command.RecipeCommands import insert_new_recipe, insert_ingredient, insert_recipe_ingredient, insert_unit, \
-    insert_recipe_step
+from arch.command.IngredientCommands import insert_ingredient
+from arch.command.RecipeCommands import insert_new_recipe
 from arch.command.RecipeImageCommands import add_recipe_image
+from arch.command.RecipeIngredientCommands import insert_recipe_ingredient
+from arch.command.RecipeStepCommands import insert_recipe_step
+from arch.command.UnitCommands import insert_unit
 from arch.query.RecipeQueries import find_ingredient, find_unit, get_recipe_by_unique_name
-from arch.validation.RecipeValidation import validate_new_recipe_json
+from arch.validation.RecipeValidation import validate_recipe_json
 from db import Recipe, RecipeIngredient, RecipeStep
-from response_messages import INVALID_JSON, RECIPE_NAME_EXISTS
+from response_messages import RECIPE_NAME_EXISTS
 from response_with_data import HttpResponse, get_with_error, get_with_data
 from result_with_data import ResultWithData, get_result_with_errors, get_result_with_data
 
@@ -17,7 +20,7 @@ def new_recipe(json: dict) -> HttpResponse:
     :param json: the json with the information for the new recipe
     :return: A HttpResponse with the new recipes unique_name.
     """
-    parsed_res = validate_new_recipe_json(json)
+    parsed_res = validate_recipe_json(json)
     if parsed_res.is_error:
         return get_with_error(400, parsed_res.message)
 
@@ -42,11 +45,15 @@ def new_recipe(json: dict) -> HttpResponse:
     })
 
 
-def create_recipe(name: str, description: str = "", oven_temp: int = -1, estimated_time: int = -1) -> ResultWithData[Recipe]:
-    unique_name = name_to_unique_name(name)
+def create_recipe(name: str, description: str = "", oven_temp: int = -1, estimated_time: int = -1) -> ResultWithData[
+    Recipe]:
+
+    edited_name = name.strip()
+
+    unique_name = name_to_unique_name(edited_name)
     if unique_name.is_error:
         return get_result_with_errors(unique_name.message)
-    return get_result_with_data(insert_new_recipe(name, unique_name.data, description, oven_temp, estimated_time))
+    return get_result_with_data(insert_new_recipe(edited_name, unique_name.data, description, oven_temp, estimated_time))
 
 
 def create_recipe_ingredient(name: str, unit: str, amount: float, recipe_id: UUID) -> RecipeIngredient:
