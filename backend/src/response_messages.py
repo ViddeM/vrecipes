@@ -1,3 +1,5 @@
 RECIPE_NAME_EXISTS = "recipe_name_exists"
 RECIPE_NOT_FOUND = "recipe_not_found"
 INVALID_JSON = "invalid_json"
+MISSING_FILE = "missing_file"
+FAILED_TO_SAVE_IMAGE = "failed_to_save_image"

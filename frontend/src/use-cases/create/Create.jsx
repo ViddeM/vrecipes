@@ -6,6 +6,7 @@ import CreateIngredients from "./CreateIngredients/CreateIngredients.container.v
 import CreateSteps from "./CreateSteps/CreateSteps.container.view";
 import {VSpace} from "../../common/styles/Common.styles";
 import {Redirect, Route} from "react-router";
+import UploadImages from "./UploadImages/UploadImages.container";
 
 export const Create = props => {
     const errorsList = Object.keys(props.errors);
@@ -23,6 +24,7 @@ export const Create = props => {
             <CreateGeneral/>
             <CreateIngredients/>
             <CreateSteps/>
+            <UploadImages/>
             {
                 errorsList.length > 0 ?
                     <DigitText.Text error

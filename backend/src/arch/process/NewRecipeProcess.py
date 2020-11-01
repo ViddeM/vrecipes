@@ -1,7 +1,8 @@
-import uuid
+from uuid import UUID
 
 from arch.command.RecipeCommands import insert_new_recipe, insert_ingredient, insert_recipe_ingredient, insert_unit, \
     insert_recipe_step
+from arch.command.RecipeImageCommands import add_recipe_image
 from arch.query.RecipeQueries import find_ingredient, find_unit, get_recipe_by_unique_name
 from arch.validation.RecipeValidation import validate_new_recipe_json
 from db import Recipe, RecipeIngredient, RecipeStep
@@ -16,9 +17,11 @@ def new_recipe(json: dict) -> HttpResponse:
     :param json: the json with the information for the new recipe
     :return: A HttpResponse with the new recipes unique_name.
     """
-    parsed = validate_new_recipe_json(json)
-    if parsed is None:
-        return get_with_error(400, INVALID_JSON)
+    parsed_res = validate_new_recipe_json(json)
+    if parsed_res.is_error:
+        return get_with_error(400, parsed_res.message)
+
+    parsed = parsed_res.data
 
     recipe_res = create_recipe(parsed.name, parsed.description, parsed.oven_temp, parsed.cooking_time)
     if recipe_res.is_error:
@@ -30,6 +33,9 @@ def new_recipe(json: dict) -> HttpResponse:
 
     for step in parsed.steps:
         create_recipe_step(step.step, step.number, recipe.id)
+
+    for image in parsed.images:
+        add_recipe_image(image.id, recipe.id)
 
     return get_with_data({
         "recipeUniqueName": str(recipe.unique_name)
@@ -43,7 +49,7 @@ def create_recipe(name: str, description: str = "", oven_temp: int = -1, estimat
     return get_result_with_data(insert_new_recipe(name, unique_name.data, description, oven_temp, estimated_time))
 
 
-def create_recipe_ingredient(name: str, unit: str, amount: float, recipe_id: uuid) -> RecipeIngredient:
+def create_recipe_ingredient(name: str, unit: str, amount: float, recipe_id: UUID) -> RecipeIngredient:
     ingredient = find_ingredient(name)
     if ingredient is None:
         ingredient = insert_ingredient(name)
@@ -55,8 +61,12 @@ def create_recipe_ingredient(name: str, unit: str, amount: float, recipe_id: uui
     return insert_recipe_ingredient(ingredient.name, unit_obj.name, amount, recipe_id)
 
 
-def create_recipe_step(name: str, number: int, recipe_id: uuid) -> RecipeStep:
+def create_recipe_step(name: str, number: int, recipe_id: UUID) -> RecipeStep:
     return insert_recipe_step(name, number, recipe_id)
+
+
+def create_recipe_image(recipe_id: UUID, image_id: UUID):
+    add_recipe_image(image_id, recipe_id)
 
 
 def name_to_unique_name(name: str) -> ResultWithData:
