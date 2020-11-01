@@ -9,7 +9,7 @@ export const FAILED_TO_LOAD_RECIPES = "Kunde inte ladda recept"
 
 export function translate(message) {
     if (!(message in translations)) {
-        return "Ingen översättning tillgänglig :(";
+        return "Ingen översättning tillgänglig (" + message + ")";
     }
     return translations[message];
 }

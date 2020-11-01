@@ -19,6 +19,7 @@ import {
     ON_OVEN_TEMP_CHANGE
 } from "./CreateGeneral/CreateGeneral.actions.view";
 import {ON_RECIPE_SAVE_FAILED, ON_RECIPE_SAVE_SUCCESSFUL, ON_RECIPE_VALIDATION_FAILED} from "./Create.actions";
+import {UPLOAD_IMAGE_FAILED, UPLOAD_IMAGE_SUCCESSFUL} from "./UploadImages/UploadImages.actions";
 
 const initialState = {
     recipeName: "",
@@ -26,6 +27,7 @@ const initialState = {
     cookingTime: undefined,
     description: "",
     ingredients: [],
+    images: [], // Array of images uploaded for this recipe, each image is an object with an image id and a url
     steps: [],
     errors: {},
     saveError: "",
@@ -103,6 +105,11 @@ export function create(state = initialState, action) {
                 errors: {},
                 redirectTo: "/recipes/" + action.payload.recipe
             })
+        case UPLOAD_IMAGE_SUCCESSFUL:
+            return addImage(state, action.payload)
+        case UPLOAD_IMAGE_FAILED:
+            // TODO: Do something here.
+            return state
         default:
             return state;
     }
@@ -287,4 +294,13 @@ function getNextStepNumber(state) {
         }
     })
     return highest + 1;
+}
+
+function addImage(state, payload) {
+    return newState(state, {
+        images: [...state.images, {
+            id: payload.image_id,
+            url: payload.image_url
+        }]
+    })
 }
