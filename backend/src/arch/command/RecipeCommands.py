@@ -18,12 +18,14 @@ def insert_new_recipe(name: str, unique_name: str, description: str = "", oven_t
 
 @db_session
 def update_recipe_name(id: UUID, name: str, unique_name: str):
-    recipe = Recipe(id=id)
+    recipe = Recipe.get(id=id)
     recipe.name = name
     recipe.unique_name = unique_name
 
 
 @db_session
 def update_recipe_general(id: UUID, description: str, oven_temp: int, estimed_time: int):
-    recipe = Recipe(id=id)
-
+    recipe = Recipe.get(id=id)
+    recipe.description = description
+    recipe.oven_temp = oven_temp
+    recipe.estimated_time = estimed_time

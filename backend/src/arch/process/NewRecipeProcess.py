@@ -6,7 +6,9 @@ from arch.command.RecipeImageCommands import add_recipe_image
 from arch.command.RecipeIngredientCommands import insert_recipe_ingredient
 from arch.command.RecipeStepCommands import insert_recipe_step
 from arch.command.UnitCommands import insert_unit
-from arch.query.RecipeQueries import find_ingredient, find_unit, get_recipe_by_unique_name
+from arch.query.IngredientQueries import find_ingredient
+from arch.query.RecipeQueries import get_recipe_by_unique_name
+from arch.query.UnitQueries import find_unit
 from arch.validation.RecipeValidation import validate_recipe_json
 from db import Recipe, RecipeIngredient, RecipeStep
 from response_messages import RECIPE_NAME_EXISTS

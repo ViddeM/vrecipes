@@ -26,79 +26,78 @@ import Images from "./views/images";
 import Ingredients from "./views/ingredients";
 import RecipeFooter from "./views/recipe-footer/RecipeFooter.container.view";
 import RecipeSteps from "./views/recipe-steps";
-import { DigitButton, DigitDesign } from "@cthit/react-digit-components";
+import {DigitButton} from "@cthit/react-digit-components";
 
 const RecipeCard = props => (
     <RecipeCardContainer>
         <Rows>
             <TopRow>
-                <DigitDesign.Link to={"/"}>
-                    <DigitButton text={"Tillbaka"} raised secondary />
-                </DigitDesign.Link>
+                <DigitButton text={"Tillbaka"} raised secondary
+                             onClick={props.backToSearch}/>
             </TopRow>
             <Columns>
                 <Column>
-                    <VSpace />
+                    <VSpace/>
                     <Center>
-                        <TitleText text={props.recipe.name} />
+                        <TitleText text={props.recipe.name}/>
                     </Center>
                     <CenteredColumn>
-                        <HLine />
+                        <HLine/>
                     </CenteredColumn>
                     {(props.recipe.estimatedTime >= 0 || props.recipe.ovenTemperature >= 0) &&
-                        <CenteredColumn>
+                    <CenteredColumn>
+                        <TimeContainer>
+                            {props.recipe.ovenTemperature >= 0 &&
+                            <StyledText text={"ugn " + props.recipe.ovenTemperature + "°"}/>
+                            }
+                            {props.recipe.ovenTemperature >= 0 && props.recipe.estimatedTime >= 0 &&
+                            <HSpace/>
+                            }
+                            {props.recipe.estimatedTime >= 0 &&
                             <TimeContainer>
-                                {props.recipe.ovenTemperature >= 0 &&
-                                <StyledText text={"ugn " + props.recipe.ovenTemperature + "°"} />
-                                }
-                                {props.recipe.ovenTemperature >= 0 && props.recipe.estimatedTime >= 0 &&
-                                <HSpace />
-                                }
-                                {props.recipe.estimatedTime >= 0 &&
-                                <TimeContainer>
-                                    <StyledText text={props.recipe.estimatedTime} />
-                                    <StyledTimeIcon />
-                                </TimeContainer>
-                                }
+                                <StyledText text={props.recipe.estimatedTime}/>
+                                <StyledTimeIcon/>
                             </TimeContainer>
-                            <HLine />
-                        </CenteredColumn>
+                            }
+                        </TimeContainer>
+                        <HLine/>
+                    </CenteredColumn>
                     }
                     {props.recipe.description &&
                     <Center>
                         <DescriptionBox>
-                            <StyledText text={props.recipe.description} />
+                            <StyledText text={props.recipe.description}/>
                         </DescriptionBox>
                     </Center>
                     }
                 </Column>
                 <Column>
-                    <Images />
+                    <Images/>
                 </Column>
             </Columns>
-            <SmallVSpace />
+            <SmallVSpace/>
             <FullWidth>
                 <Columns>
                     {props.recipe.steps.length > 0 && (
                         <Column>
-                            <RecipeSteps steps={props.recipe.steps} />
+                            <RecipeSteps steps={props.recipe.steps}/>
                         </Column>
                     )}
                     {props.recipe.ingredients.length > 0 && props.recipe.steps.length > 0 && (
                         <VLineContainer>
-                            <VLine className="VLINE" />
+                            <VLine className="VLINE"/>
                         </VLineContainer>
                     )}
                     {props.recipe.ingredients.length > 0 && (
                         <Column>
                             <Center>
-                                <Ingredients />
+                                <Ingredients/>
                             </Center>
                         </Column>
                     )}
                 </Columns>
             </FullWidth>
-            <RecipeFooter />
+            <RecipeFooter/>
         </Rows>
     </RecipeCardContainer>
 );

@@ -29,7 +29,7 @@ function displayImage(image) {
 function getImage(images) {
     let image = null;
     if (images !== undefined && images.length > 0) {
-        image = images[0]
+        image = images[0].url
     }
     return image;
 }

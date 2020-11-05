@@ -155,4 +155,4 @@ def validate_recipe_id(id_str: str) -> ResultWithData[UUID]:
     id = id_res.data
     if recipe_with_id_exists(id):
         return get_result_with_data(id)
-    return get_result_with_error(f"No meeting exists with id {id}")
+    return get_result_with_error(f"No recipe exists with id {id}")

@@ -12,7 +12,7 @@ from db import RecipeIngredient
 @db_session
 def get_ingredients_for_recipe(recipe_id: UUID) -> List[RecipeIngredientData]:
     ingredients = list(select(ing for ing in RecipeIngredient if ing.recipe.id == recipe_id))
-    ingredient_datas: List[RecipeIngredientData]
+    ingredient_datas: List[RecipeIngredientData] = []
     for ingredient in ingredients:
         ingredient_datas.append(RecipeIngredientData(
             ingredient=IngredientData(

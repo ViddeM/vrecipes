@@ -41,29 +41,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db1c7719-4e0f-4a59-919d-cb0f3a5f9e61" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/arch/command/IngredientCommands.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/command/RecipeIngredientCommands.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/command/RecipeStepCommands.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/command/UnitCommands.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/data_objects/IngredientData.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/data_objects/RecipeData.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/data_objects/RecipeImageData.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/data_objects/RecipeIngredientData.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/data_objects/RecipeStepData.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/data_objects/UnitData.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/json_objects/RecipeImageJson.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/json_objects/RecipeIngredientJson.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/json_objects/RecipeStepJson.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/process/EditRecipeRes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/query/RecipeIngredientQueries.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/arch/validation/Validation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/arch/query/IngredientQueries.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/arch/query/RecipeImageQueries.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/arch/query/RecipeStepQueries.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/arch/query/UnitQueries.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/arch/command/RecipeCommands.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/command/RecipeCommands.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/arch/json_objects/Recipe.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/json_objects/RecipeJson.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arch/command/RecipeImageCommands.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/command/RecipeImageCommands.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arch/command/RecipeIngredientCommands.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/command/RecipeIngredientCommands.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arch/command/RecipeStepCommands.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/command/RecipeStepCommands.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arch/data_objects/RecipeData.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/data_objects/RecipeData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arch/data_objects/RecipeStepData.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/data_objects/RecipeStepData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arch/process/EditRecipeRes.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/process/EditRecipeRes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/arch/process/NewRecipeProcess.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/process/NewRecipeProcess.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arch/query/ImageQueries.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/query/ImageQueries.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arch/query/RecipeIngredientQueries.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/query/RecipeIngredientQueries.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/arch/query/RecipeQueries.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/query/RecipeQueries.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/arch/validation/RecipeValidation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/validation/RecipeValidation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/web_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/api/post.NewRecipe.api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/post.NewRecipe.api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.action-creators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.action-creators.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.actions.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.actions.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.container.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.container.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.reducer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.reducer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/UploadImages/UploadImages.styles.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/UploadImages/UploadImages.styles.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.action-creators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.action-creators.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.actions.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.actions.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.container.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.container.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.reducer.screen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.reducer.screen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/RecipeCard.container.screen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/RecipeCard.container.screen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/RecipeCard.screen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/RecipeCard.screen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/images/Images.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/images/Images.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.container.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.container.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +101,10 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/edit-recipes" />
+                    <option name="lastUsedInstant" value="1604238809" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="master" />
                     <option name="lastUsedInstant" value="1604227426" />
@@ -118,7 +134,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../chalmers/tda362" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -198,6 +214,7 @@
       <workItem from="1599953442247" duration="6242000" />
       <workItem from="1604071907622" duration="4273000" />
       <workItem from="1604103796826" duration="726000" />
+      <workItem from="1604537839177" duration="368000" />
     </task>
     <servers />
   </component>
@@ -225,60 +242,60 @@
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
     <state x="690" y="188" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1048@0.0.1920.1048" timestamp="1598192171801" />
-    <state x="728" y="58" width="432" height="489" key="FileChooserDialogImpl" timestamp="1600018600412">
+    <state x="724" y="2" width="432" height="489" key="FileChooserDialogImpl" timestamp="1604576090256">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state x="728" y="58" key="FileChooserDialogImpl/0.0.1920.1048@0.0.1920.1048" timestamp="1600018600412" />
-    <state width="1874" height="191" key="GridCell.Tab.0.bottom" timestamp="1604238571998">
+    <state x="724" y="2" key="FileChooserDialogImpl/0.0.1920.1048@0.0.1920.1048" timestamp="1604576090256" />
+    <state width="1874" height="191" key="GridCell.Tab.0.bottom" timestamp="1604330070726">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="191" key="GridCell.Tab.0.bottom/0.0.1920.1048@0.0.1920.1048" timestamp="1604238571998" />
+    <state width="1874" height="191" key="GridCell.Tab.0.bottom/0.0.1920.1048@0.0.1920.1048" timestamp="1604330070726" />
     <state width="2517" height="492" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1598910850022" />
-    <state width="1874" height="191" key="GridCell.Tab.0.center" timestamp="1604238571997">
+    <state width="1874" height="191" key="GridCell.Tab.0.center" timestamp="1604330070724">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="191" key="GridCell.Tab.0.center/0.0.1920.1048@0.0.1920.1048" timestamp="1604238571997" />
+    <state width="1874" height="191" key="GridCell.Tab.0.center/0.0.1920.1048@0.0.1920.1048" timestamp="1604330070724" />
     <state width="2517" height="492" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1598910850022" />
-    <state width="1874" height="191" key="GridCell.Tab.0.left" timestamp="1604238571997">
+    <state width="1874" height="191" key="GridCell.Tab.0.left" timestamp="1604330070723">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="191" key="GridCell.Tab.0.left/0.0.1920.1048@0.0.1920.1048" timestamp="1604238571997" />
+    <state width="1874" height="191" key="GridCell.Tab.0.left/0.0.1920.1048@0.0.1920.1048" timestamp="1604330070723" />
     <state width="2517" height="492" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1598910850022" />
-    <state width="1874" height="191" key="GridCell.Tab.0.right" timestamp="1604238571998">
+    <state width="1874" height="191" key="GridCell.Tab.0.right" timestamp="1604330070725">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="191" key="GridCell.Tab.0.right/0.0.1920.1048@0.0.1920.1048" timestamp="1604238571998" />
+    <state width="1874" height="191" key="GridCell.Tab.0.right/0.0.1920.1048@0.0.1920.1048" timestamp="1604330070725" />
     <state width="2517" height="492" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1598910850022" />
-    <state width="1874" height="189" key="GridCell.Tab.1.bottom" timestamp="1604189921844">
+    <state width="1874" height="189" key="GridCell.Tab.1.bottom" timestamp="1604330070568">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="189" key="GridCell.Tab.1.bottom/0.0.1920.1048@0.0.1920.1048" timestamp="1604189921844" />
-    <state width="1874" height="189" key="GridCell.Tab.1.center" timestamp="1604189921841">
+    <state width="1874" height="189" key="GridCell.Tab.1.bottom/0.0.1920.1048@0.0.1920.1048" timestamp="1604330070568" />
+    <state width="1874" height="189" key="GridCell.Tab.1.center" timestamp="1604330070565">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="189" key="GridCell.Tab.1.center/0.0.1920.1048@0.0.1920.1048" timestamp="1604189921841" />
-    <state width="1874" height="189" key="GridCell.Tab.1.left" timestamp="1604189921840">
+    <state width="1874" height="189" key="GridCell.Tab.1.center/0.0.1920.1048@0.0.1920.1048" timestamp="1604330070565" />
+    <state width="1874" height="189" key="GridCell.Tab.1.left" timestamp="1604330070562">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="189" key="GridCell.Tab.1.left/0.0.1920.1048@0.0.1920.1048" timestamp="1604189921840" />
-    <state width="1874" height="189" key="GridCell.Tab.1.right" timestamp="1604189921843">
+    <state width="1874" height="189" key="GridCell.Tab.1.left/0.0.1920.1048@0.0.1920.1048" timestamp="1604330070562" />
+    <state width="1874" height="189" key="GridCell.Tab.1.right" timestamp="1604330070567">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="189" key="GridCell.Tab.1.right/0.0.1920.1048@0.0.1920.1048" timestamp="1604189921842" />
+    <state width="1874" height="189" key="GridCell.Tab.1.right/0.0.1920.1048@0.0.1920.1048" timestamp="1604330070567" />
     <state x="447" y="-10" key="SettingsEditor" timestamp="1599989931761">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
     <state x="447" y="-10" key="SettingsEditor/0.0.1920.1048@0.0.1920.1048" timestamp="1599989931761" />
-    <state x="665" y="249" width="590" height="522" key="find.popup" timestamp="1604238440800">
+    <state x="665" y="249" width="590" height="522" key="find.popup" timestamp="1604249505633">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state x="665" y="249" width="590" height="522" key="find.popup/0.0.1920.1048@0.0.1920.1048" timestamp="1604238440800" />
-    <state x="623" y="228" width="672" height="160" key="search.everywhere.popup" timestamp="1604238352355">
+    <state x="665" y="249" width="590" height="522" key="find.popup/0.0.1920.1048@0.0.1920.1048" timestamp="1604249505633" />
+    <state x="623" y="228" width="672" height="160" key="search.everywhere.popup" timestamp="1604247504052">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state x="623" y="228" width="672" height="160" key="search.everywhere.popup/0.0.1920.1048@0.0.1920.1048" timestamp="1604238352355" />
+    <state x="623" y="228" width="672" height="160" key="search.everywhere.popup/0.0.1920.1048@0.0.1920.1048" timestamp="1604247504052" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/backend$app.coverage" NAME="app Coverage Results" MODIFIED="1604238571992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/backend$app.coverage" NAME="app Coverage Results" MODIFIED="1604249940420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
