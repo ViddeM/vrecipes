@@ -36,7 +36,10 @@ export const Create = props => {
                                     style={{color: "red"}}/>
             }
             <DigitButton raised primary text={"Spara recept"}
-                         onClick={() => props.onSave(props.recipe)}/>
+                         onClick={() => props.recipe.id === "" ?
+                             props.onSave(props.recipe) :
+                             props.onEditedRecipeSave(props.recipe)
+                         }/>
             <VSpace/>
         </CreateContainer>
     )

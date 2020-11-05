@@ -6,7 +6,7 @@ export function postNewRecipe(recipe) {
     return postRequest("/recipe/create", data);
 }
 
-function getRecipeData(recipe) {
+export function getRecipeData(recipe) {
     const ingredients = recipe.ingredients.map(ingredient => {
         return {
             name: ingredient.name,

@@ -1,6 +1,8 @@
-import {LOAD_RECIPE_FAILED, LOAD_RECIPE_SUCCESSFUL, RESET_RECIPE} from "./Recipe.actions";
+import {BACK_TO_SEARCH, LOAD_RECIPE_FAILED, LOAD_RECIPE_SUCCESSFUL, RESET_RECIPE} from "./Recipe.actions";
+import {EDIT_RECIPE} from "./screens/RecipeCard/views/recipe-footer/RecipeFooter.actions.view";
 
 const mockRecipe = {
+    id: "asd123",
     name: "Chokladbollar",
     imageSrc: "/static/images/chokladbollar.jpg",
     description: " Dessa chokladbollar får en liten karamellsmak av att smöret först får puttra. Rulla chokladbollarna i kokos eller pärlsocker, det som du själv föredrar. ",
@@ -51,12 +53,18 @@ const mockRecipe = {
     ],
     estimatedTime: 90,
     ovenTemperature: 200,
-    images: []
+    images: [
+        {
+            id: "asd123",
+            url: "asd.com"
+        }
+    ]
 }
 
 const initialState = {
-    recipe: mockRecipe,
-    error: null
+    recipe: null,
+    error: null,
+    redirectTo: ""
 }
 
 export function recipe(state = initialState, action) {
@@ -65,11 +73,21 @@ export function recipe(state = initialState, action) {
             return Object.assign({}, state, handleRecipeResponse(action.payload.response.data.data));
         case LOAD_RECIPE_FAILED:
             return Object.assign({}, state, {
-                error: action.payload
+                error: action.payload,
+                redirectTo: ""
             });
         case RESET_RECIPE:
             return Object.assign({}, state, {
-                recipe: null
+                recipe: null,
+                redirectTo: ""
+            })
+        case EDIT_RECIPE:
+            return Object.assign({}, state, {
+                redirectTo: "/create"
+            })
+        case BACK_TO_SEARCH:
+            return Object.assign({}, state, {
+                redirectTo: "/"
             })
         default:
             return state;
@@ -80,6 +98,7 @@ function handleRecipeResponse(recipe) {
     return {
         error: null,
         recipe: {
+            id: recipe.id,
             name: recipe.name,
             description: recipe.description,
             steps: recipe.steps,
@@ -87,6 +106,7 @@ function handleRecipeResponse(recipe) {
             estimatedTime: recipe.estimatedTime,
             ovenTemperature: recipe.ovenTemperature,
             images: recipe.images
-        }
+        },
+        redirectTo: ""
     }
 }

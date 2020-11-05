@@ -3,14 +3,15 @@ from uuid import UUID
 
 from pony.orm import db_session, select
 
+from arch.command.RecipeImageCommands import get_recipe_images_for_recipe
 from arch.data_objects.RecipeData import RecipeData
 from arch.data_objects.RecipeImageData import RecipeImageData
 from arch.data_objects.RecipeIngredientData import RecipeIngredientData
 from arch.data_objects.RecipeStepData import RecipeStepData
-from arch.json_objects.RecipeJson import RecipeJson
-from arch.query.ImageQueries import get_main_image_url, get_images_for_recipe
+from arch.query.RecipeImageQueries import get_main_image_url, get_images_for_recipe_dict
 from arch.query.RecipeIngredientQueries import get_ingredients_for_recipe
-from db import Recipe, RecipeIngredient, RecipeStep, Ingredient, Unit
+from arch.query.RecipeStepQueries import get_steps_for_recipe
+from db import Recipe, RecipeIngredient, RecipeStep
 from response_messages import RECIPE_NOT_FOUND
 from response_with_data import HttpResponse, get_with_data, get_with_error
 
@@ -73,7 +74,7 @@ def get_recipe(unique_recipe_name: str) -> HttpResponse:
         "estimatedTime": recipe.estimated_time,
         "steps": steps_json,
         "ingredients": ingredients_json,
-        "images": get_images_for_recipe(str(recipe.id))
+        "images": get_images_for_recipe_dict(str(recipe.id))
     }
     return get_with_data(recipe_json)
 
@@ -88,16 +89,6 @@ def get_recipe_by_unique_name(unique_name: str) -> List[str]:
 
 
 @db_session
-def find_ingredient(name: str) -> Optional[Ingredient]:
-    return Ingredient.get(name=name)
-
-
-@db_session
-def find_unit(name: str) -> Optional[Unit]:
-    return Unit.get(name=name)
-
-
-@db_session
 def recipe_with_id_exists(id: UUID) -> bool:
     return Recipe.get(id=id) is not None
 
@@ -109,11 +100,13 @@ def get_recipe_data_by_id(id: UUID) -> Optional[RecipeData]:
         return None
 
     ingredients: List[RecipeIngredientData] = get_ingredients_for_recipe(id)
-    steps: List[RecipeStepData] = []
-    images: List[RecipeImageData] = []
+    steps: List[RecipeStepData] = get_steps_for_recipe(id)
+    images: List[RecipeImageData] = get_recipe_images_for_recipe(id)
 
     return RecipeData(
+        id=recipe.id,
         name=recipe.name,
+        unique_name=recipe.unique_name,
         description=recipe.description,
         estimated_time=recipe.estimated_time,
         oven_temp=recipe.oven_temp,

@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import {LoadingContainer, RecipeContainer} from "./Recipe.styles";
 import ErrorCard from "../../common/views/errorcard";
-import {DigitButton, DigitDesign, DigitLoading, DigitText} from "@cthit/react-digit-components";
+import {DigitButton, DigitLoading, DigitText} from "@cthit/react-digit-components";
 import RecipeCard from "./screens/RecipeCard";
+import {Redirect, Route} from "react-router";
 
 
 class Recipe extends Component {
@@ -13,15 +14,23 @@ class Recipe extends Component {
     }
 
     render() {
+        if (this.props.redirectTo !== "") {
+            return (
+                <Route>
+                    <Redirect to={this.props.redirectTo}/>
+                </Route>
+            )
+        }
+
         return (
             <RecipeContainer>
                 {this.props.error ? (
                     <div>
                         <ErrorCard message={this.props.error.message}/>
-                        <DigitDesign.Link to={""}>
-                            <DigitButton raised primary text={"Tillbaka till startsidan"} size={{height: "40px"}}
-                                         margin={{top: "10px"}}/>
-                        </DigitDesign.Link>
+                        <DigitButton raised primary text={"Tillbaka till startsidan"} size={{height: "40px"}}
+                                     margin={{top: "10px"}}
+                                     onClick={this.props.backToSearch}
+                        />
                     </div>
                 ) : (
                     <div style={{width: "100%"}}>

@@ -6,14 +6,40 @@ import {
 } from "./Create.actions";
 import {postNewRecipe} from "../../api/post.NewRecipe.api";
 import {handleError} from "../../common/functions/handleError";
+import {postEditedRecipe} from "../../api/post.EditedRecipe.api";
 
 export function onRecipeSave(recipe) {
-    const errors = validateNewRecipe(recipe)
+    const errors = validateRecipe(recipe)
 
     if (Object.keys(errors).length === 0) {
         return dispatch => {
             dispatch({type: ON_RECIPE_SAVE_AWAIT_RESPONSE, error: false})
             postNewRecipe(recipe)
+                .then(response => {
+                    dispatch(onRecipeSaveSuccessful(response));
+                })
+                .catch(error => {
+                    dispatch(onRecipeSaveFailed(error));
+                });
+        };
+    }
+
+    return {
+        type: ON_RECIPE_VALIDATION_FAILED,
+        payload: {
+            errors: errors
+        },
+        error: false
+    }
+}
+
+export function onEditedRecipeSave(recipe) {
+    const errors = validateRecipe(recipe)
+
+    if (Object.keys(errors).length === 0) {
+        return dispatch => {
+            dispatch({type: ON_RECIPE_SAVE_AWAIT_RESPONSE, error: false})
+            postEditedRecipe(recipe)
                 .then(response => {
                     dispatch(onRecipeSaveSuccessful(response));
                 })
@@ -91,7 +117,7 @@ function validateSteps(state) {
         null;
 }
 
-function validateNewRecipe(state) {
+function validateRecipe(state) {
     let errors = {}
 
     if (state.recipeName.length <= 0) {
