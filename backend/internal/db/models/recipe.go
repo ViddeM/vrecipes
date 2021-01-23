@@ -2,11 +2,11 @@ package models
 
 type Recipe struct {
 	ID uint64 `gorm:"autoIncrement"`
-	Name string `gorm:"not null" json:"name"`
+	Name string `gorm:"not null"`
 	UniqueName string `gorm:"unique;not null"`
-	Description string `json:"description`
-	OvenTemp int `json:"ovenTemp"`
-	EstimatedTime int `json:"estimatedTime"`
+	Description string
+	OvenTemp int
+	EstimatedTime int
 }
 
 func (_ Recipe) StructName() string {

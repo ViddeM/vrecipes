@@ -2,7 +2,7 @@ package models
 
 type Image struct {
 	ID uint64 `gorm:"autoIncrement"`
-	Name string
+	Name string `gorm:"not null"`
 }
 
 func (_ Image) StructName() string {

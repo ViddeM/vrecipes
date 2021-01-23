@@ -1,8 +1,10 @@
 package models
 
 type RecipeImage struct {
-	Image Image  `gorm:"primaryKey;embedded;embeddedPrefix:image_"`
-	Recipe Recipe `gorm:"primaryKey;embedded;embeddedPrefix:recipe_"`
+	Image Image
+	ImageID uint64 `gorm:"primaryKey"`
+	Recipe Recipe
+	RecipeID uint64 `gorm:"primaryKey"`
 }
 
 func (_ RecipeImage) StructName() string {

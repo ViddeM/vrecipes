@@ -2,8 +2,8 @@ package db
 
 import (
 	"encoding/json"
-	"github.com/viddem/vrecipes/backend/internal/db/common"
 	"github.com/viddem/vrecipes/backend/internal/db/models"
+	"github.com/viddem/vrecipes/backend/internal/process"
 	"io/ioutil"
 	"log"
 	"os"
@@ -11,23 +11,24 @@ import (
 
 type RecipeJson struct {
 	models.Recipe
-	Ingredients []models.RecipeIngredient `json:"ingredients"`
-	Steps       []models.RecipeStep       `json:"steps"`
+	Ingredients []RecipeIngredientJson `json:"ingredients"`
+	Steps       []RecipeStepJson       `json:"steps"`
 }
+
+type RecipeIngredientJson struct {
+	Name string `json:"name"`
+	Amount float32 `json:"amount"`
+	Unit string `json:"unit"`
+}
+
+type RecipeStepJson string
 
 type DefaultJson struct {
 	Recipes []RecipeJson `json:"recipes"`
 }
 
 func setupDb() {
-	resetDb()
 	loadFromDefaults()
-}
-
-func resetDb() {
-	db := common.GetDB()
-	db.Exec("DROP SCHEMA public CASCADE")
-	db.Exec("CREATE SCHEMA public")
 }
 
 func loadFromDefaults() {
@@ -46,10 +47,28 @@ func loadFromDefaults() {
 	var defaultDb DefaultJson
 	err = json.Unmarshal(byteVal, &defaultDb)
 	if err != nil {
-		log.Fatalf("Unable to parse json %v", byteVal)
+		log.Fatalf("Unable to parse json %s, due to err: %s", string(byteVal), err)
 	}
 
 	for _, recipeJson := range defaultDb.Recipes {
+		recipe, err := process.CreateRecipe(recipeJson.Name, recipeJson.Description, recipeJson.OvenTemp, recipeJson.EstimatedTime)
+		if err != nil {
+			log.Printf("Failed to create default recipe %+v, due to err: %s\n", recipeJson, err)
+		}
 
+		for num, step := range recipeJson.Steps {
+			_, err := process.CreateRecipeStep(string(step), uint16(num), recipe)
+			if err != nil {
+				log.Printf("Failed to create default recipe step %s, due to err: %s\n", step, err)
+			}
+		}
+
+		for _, ingredient := range recipeJson.Ingredients {
+			_, err = process.CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, recipe)
+			if err != nil {
+				log.Printf("Failed to create default recipe ingredient %+v, due to err: %s\n", ingredient, err)
+			}
+		}
 	}
 }
+

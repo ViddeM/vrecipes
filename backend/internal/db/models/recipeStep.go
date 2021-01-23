@@ -1,8 +1,9 @@
 package models
 
 type RecipeStep struct {
-	Recipe Recipe `gorm:"not null;primaryKey;embedded;embeddedPrefix:image_"`
-	Number uint16 `gorm:"not null;primaryKey"`
+	Recipe Recipe
+	RecipeID uint64 `gorm:"primaryKey"`
+	Number uint16 `gorm:"primaryKey"`
 	Step string `gorm:"not null"`
 }
 
