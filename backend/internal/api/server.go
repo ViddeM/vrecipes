@@ -1,16 +1,16 @@
-package webserver
+package api
 
 import (
 	"log"
 
 	"github.com/gin-gonic/gin"
-	"github.com/viddem/vrecipes/backend/internal/webserver/endpoints"
+	"github.com/viddem/vrecipes/backend/internal/api/endpoints"
 )
 
 var router *gin.Engine
 
 func init() {
-	log.Println("Initializing GIN webserver")
+	log.Println("Initializing GIN api")
 	router  = gin.Default()
 
 	api := router.Group("/api")
@@ -25,6 +25,9 @@ func init() {
 }
 
 func Start() {
-	router.Run()
+	err := router.Run()
+	if err != nil {
+		log.Fatalf("Failed to start webserver due to err: %s\n", err)
+	}
 }
 

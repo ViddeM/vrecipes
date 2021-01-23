@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/joho/godotenv"
 	"github.com/viddem/vrecipes/backend/internal/db"
-	"github.com/viddem/vrecipes/backend/internal/webserver"
+	"github.com/viddem/vrecipes/backend/internal/api"
 	"log"
 )
 
@@ -12,7 +12,7 @@ func main() {
 
 	loadDotEnvFile()
 	db.Init()
-	webserver.Start()
+	api.Start()
 }
 
 func loadDotEnvFile() {
