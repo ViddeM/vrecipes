@@ -18,21 +18,23 @@ import {
     ON_NAME_CHANGE,
     ON_OVEN_TEMP_CHANGE
 } from "./CreateGeneral/CreateGeneral.actions.view";
-import {
-    ON_RECIPE_SAVE_FAILED,
-    ON_RECIPE_SAVE_SUCCESSFUL,
-    ON_RECIPE_VALIDATION_FAILED
-} from "./Create.actions";
+import {ON_RECIPE_SAVE_FAILED, ON_RECIPE_SAVE_SUCCESSFUL, ON_RECIPE_VALIDATION_FAILED} from "./Create.actions";
+import {UPLOAD_IMAGE_FAILED, UPLOAD_IMAGE_SUCCESSFUL} from "./UploadImages/UploadImages.actions";
+import {EDIT_RECIPE} from "../recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.actions.view";
+import {CREATE_RECIPE} from "../search/Search.actions";
 
 const initialState = {
+    id: "",
     recipeName: "",
     ovenTemperature: undefined,
     cookingTime: undefined,
     description: "",
     ingredients: [],
+    images: [], // Array of images uploaded for this recipe, each image is an object with an image id and a url
     steps: [],
     errors: {},
-    saveError: ""
+    saveError: "",
+    redirectTo: ""
 }
 
 export function create(state = initialState, action) {
@@ -103,8 +105,18 @@ export function create(state = initialState, action) {
         case ON_RECIPE_SAVE_SUCCESSFUL:
             return newState(state, {
                 saveError: "",
-                errors: {}
+                errors: {},
+                redirectTo: "/recipes/" + action.payload.recipe
             })
+        case UPLOAD_IMAGE_SUCCESSFUL:
+            return addImage(state, action.payload)
+        case UPLOAD_IMAGE_FAILED:
+            // TODO: Do something here.
+            return state
+        case EDIT_RECIPE:
+            return editRecipe(state, action.payload.recipe)
+        case CREATE_RECIPE:
+            return initialState
         default:
             return state;
     }
@@ -120,7 +132,11 @@ function validateNumber(newNumber, oldValue) {
 
 
 function newState(oldState, change) {
-    return Object.assign({}, oldState, change);
+    const defaults = Object.assign({}, {
+        id: "",
+        redirectTo: ""
+    }, oldState)
+    return Object.assign({}, defaults, change);
 }
 
 function reorderIngredients(list, startIndex, endIndex) {
@@ -165,29 +181,29 @@ function newStep(state) {
 
 function updateIngredientUnit(state, newUnit, ingredientId) {
     return newState(state, {
-                        ingredients: state.ingredients.map(ingredient =>
-                                                               ingredient.id === ingredientId ?
-                                                                   {
-                                                                       ...ingredient,
-                                                                       unit: newUnit
-                                                                   } :
-                                                                   ingredient
-                        )
-                    }
+            ingredients: state.ingredients.map(ingredient =>
+                ingredient.id === ingredientId ?
+                    {
+                        ...ingredient,
+                        unit: newUnit
+                    } :
+                    ingredient
+            )
+        }
     )
 }
 
 function updateIngredientName(state, newName, ingredientId) {
     return newState(state, {
-                        ingredients: state.ingredients.map(ingredient =>
-                                                               ingredient.id === ingredientId ?
-                                                                   {
-                                                                       ...ingredient,
-                                                                       name: newName
-                                                                   } :
-                                                                   ingredient
-                        )
-                    }
+            ingredients: state.ingredients.map(ingredient =>
+                ingredient.id === ingredientId ?
+                    {
+                        ...ingredient,
+                        name: newName
+                    } :
+                    ingredient
+            )
+        }
     )
 }
 
@@ -197,15 +213,15 @@ function updateIngredientAmount(state, newAmount, ingredientId) {
     }
 
     return newState(state, {
-                        ingredients: state.ingredients.map(ingredient =>
-                                                               ingredient.id === ingredientId ?
-                                                                   {
-                                                                       ...ingredient,
-                                                                       amount: newAmount
-                                                                   } :
-                                                                   ingredient
-                        )
-                    }
+            ingredients: state.ingredients.map(ingredient =>
+                ingredient.id === ingredientId ?
+                    {
+                        ...ingredient,
+                        amount: newAmount
+                    } :
+                    ingredient
+            )
+        }
     )
 }
 
@@ -287,4 +303,48 @@ function getNextStepNumber(state) {
         }
     })
     return highest + 1;
+}
+
+function addImage(state, payload) {
+    return newState(state, {
+        images: [...state.images, {
+            id: payload.image_id,
+            url: payload.image_url
+        }]
+    })
+}
+
+function editRecipe(state, recipe) {
+    const ingredients = recipe.ingredients.map((ingredient, index) => {
+        return {
+            id: index + 1,
+            name: ingredient.name,
+            unit: ingredient.unit,
+            amount: ingredient.amount
+        }
+    })
+
+    const steps = recipe.steps.map(step => {
+        return {
+            id: step.number,
+            number: step.number,
+            step: step.description
+        }
+    })
+
+    const images = recipe.images.map((image, index) => {
+
+    })
+
+    return newState(state, {
+        id: recipe.id,
+        recipeName: recipe.name,
+        description: recipe.description,
+        steps: steps,
+        ingredients: ingredients,
+        cookingTime: recipe.estimatedTime,
+        ovenTemperature: recipe.ovenTemperature,
+        images: recipe.images,
+        redirectTo: ""
+    })
 }

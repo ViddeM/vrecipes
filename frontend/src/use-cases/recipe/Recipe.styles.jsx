@@ -14,3 +14,11 @@ export const LoadingContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const RecipeCardContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;

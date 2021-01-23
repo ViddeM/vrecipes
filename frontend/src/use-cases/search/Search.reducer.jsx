@@ -19,7 +19,6 @@ export function search(state = initialState, action) {
                 selectedRecipe: action.payload.recipe
             })
         case GET_RECIPES_FAILED:
-            console.log("Failed getting recipes: ", action.payload)
             return Object.assign({}, state, {
                 error: action.payload.message
             });
