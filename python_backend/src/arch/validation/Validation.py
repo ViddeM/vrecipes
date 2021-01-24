@@ -1,9 +1,7 @@
 from typing import List
 from uuid import UUID
 
-from src.ResultWithData import get_result_with_error
-
-from result_with_data import ResultWithData, get_result_with_data
+from result_with_data import ResultWithData, get_result_with_data, get_result_with_error
 
 
 def validate_uuid_str(id_str: str) -> ResultWithData[UUID]:

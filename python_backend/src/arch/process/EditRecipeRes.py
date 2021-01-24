@@ -1,5 +1,3 @@
-from src.ResultWithData import get_result_with_error, ResultWithData, get_result_with_data
-
 from arch.command.RecipeCommands import update_recipe_name, update_recipe_general
 from arch.command.RecipeImageCommands import add_recipe_image, delete_recipe_image
 from arch.command.RecipeIngredientCommands import insert_recipe_ingredient, update_recipe_ingredient, \
@@ -11,6 +9,7 @@ from arch.process.NewRecipeProcess import name_to_unique_name
 from arch.query.RecipeQueries import get_recipe_data_by_id
 from arch.validation.RecipeValidation import validate_recipe_id, validate_recipe_json
 from response_with_data import HttpResponse, get_with_error, get_with_data
+from result_with_data import get_result_with_error, ResultWithData, get_result_with_data
 
 
 def edit_recipe(id_str: str, json: dict) -> HttpResponse:
