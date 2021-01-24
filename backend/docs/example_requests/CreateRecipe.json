@@ -1,0 +1,14 @@
+{
+  "endpoint": "/api/recipe/image/upload",
+  "method": "POST",
+  "request": {
+    "data": {
+      "image_id": "b3b0a49b-057f-4b8a-8701-7e0432e5f5d8",
+      "image_url": "http://localhost:5000/static/images/b3b0a49b-057f-4b8a-8701-7e0432e5f5d8_cv_photo_candidate.xcf"
+    },
+    "error": {
+      "isError": false,
+      "message": ""
+    }
+  }
+}

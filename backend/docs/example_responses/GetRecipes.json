@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "data": {
+    "recipes": [
+      {
+        "id": 1,
+        "name": "Chokladkaka med chokladkräm och bär",
+        "unique_name": "chokladkaka_med_chokladkräm_och_bär",
+        "image_link": ""
+      },
+      {
+        "id": 2,
+        "name": "Chokladkaka med chokladkräm och bär -- kopia",
+        "unique_name": "chokladkaka_med_chokladkräm_och_bär_--_kopia",
+        "image_link": ""
+      },
+      {
+        "id": 3,
+        "name": "Ugnsbakad lax i sås ",
+        "unique_name": "ugnsbakad_lax_i_sås_",
+        "image_link": ""
+      }
+    ]
+  }
+}
