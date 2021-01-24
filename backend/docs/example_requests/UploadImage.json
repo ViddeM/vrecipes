@@ -1,0 +1,10 @@
+{
+  "endpoint": "/api/recipe/image/upload",
+  "method": "PUT",
+  "request": {
+    "type": "multipart-form",
+    "content": {
+      "file": "{file}"
+    }
+  }
+}
