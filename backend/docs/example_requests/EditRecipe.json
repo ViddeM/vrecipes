@@ -1,0 +1,65 @@
+{
+  "endpoint": "/api/recipe/edit/{recipe_id}",
+  "method": "POST",
+  "request": {
+    "name": "Edited recipename 133",
+    "description": "Some recipe description",
+    "cookingTime": 22,
+    "ovenTemperature": 123,
+    "ingredients": [
+      {
+        "name": "smör",
+        "unit": "g",
+        "amount": 100
+      },
+      {
+        "name": "ägg",
+        "unit": "st",
+        "amount": 2
+      },
+      {
+        "name": "socker",
+        "unit": "dl",
+        "amount": 2
+      },
+      {
+        "name": "vetemjöl",
+        "unit": "dl",
+        "amount": 1
+      },
+      {
+        "name": "siktad kakao",
+        "unit": "dl",
+        "amount": 0.5
+      },
+      {
+        "name": "vaniljsocker",
+        "unit": "tsk",
+        "amount": 1
+      }
+    ],
+    "images": [
+      {
+        "id": "645a4cf9-96bb-4a18-8274-2e2e928bd013"
+      }
+    ],
+    "steps": [
+      {
+        "step": "Sätt ugnen på 175 °C.",
+        "number": 1
+      },
+      {
+        "step": "Smält smöret och låt det svalna.",
+        "number": 2
+      },
+      {
+        "step": "Vispa ägg och socker pösigt. Blanda samman mjöl, kakao och vaniljsocker. Rör ner mjölblandningen i äggsmeten. Tillsätt smöret.",
+        "number": 3
+      },
+      {
+        "step": "Häll i en smord bröad form (ca 20 cm i diameter, för 8 bitar), gärna med löstagbar botten. Grädda i ca 25 minuter. Låt den stå och kallna så stelnar den.",
+        "number": 4
+      }
+    ]
+  }
+}

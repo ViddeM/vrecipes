@@ -1,0 +1,209 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2021-01-23T23:13:46.505Z",
+  "__export_source": "insomnia.desktop.app:v2020.5.2",
+  "resources": [
+    {
+      "_id": "req_1e6bfe7053bb4f7ea92e3c29cddae7b7",
+      "parentId": "wrk_828919a12e30420eb857adaac1fdbc94",
+      "modified": 1611431472175,
+      "created": 1611431290632,
+      "url": "{{ _.base_address }}/recipe/image/upload",
+      "name": "UploadImage",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "file",
+            "value": "",
+            "description": "",
+            "id": "pair_d8eb80557b544f8eaca86697f3ef263d",
+            "type": "file",
+            "fileName": "/home/vidde/Documents/cv_photo_candidate.xcf"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "multipart/form-data",
+          "id": "pair_c8f0cc43ada44284871d74ab475c9399"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1611431290632,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_828919a12e30420eb857adaac1fdbc94",
+      "parentId": null,
+      "modified": 1598960701084,
+      "created": 1598960701084,
+      "name": "vrecipes",
+      "description": "",
+      "scope": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_a0b264de05f54b62bc72a33e05150707",
+      "parentId": "wrk_828919a12e30420eb857adaac1fdbc94",
+      "modified": 1611431264244,
+      "created": 1611431245675,
+      "url": "{{ _.base_address }}/recipe/details/chokladkaka_med_chokladkräm_och_bär",
+      "name": "GetRecipe",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1611431245675,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b4bb006a51aa4a4296daf411d44bb604",
+      "parentId": "wrk_828919a12e30420eb857adaac1fdbc94",
+      "modified": 1611443233733,
+      "created": 1611431184073,
+      "url": "{{ _.base_address }}/recipe/edit/20a4fd25-0adb-4ddd-a58f-a93f1a556378",
+      "name": "EditRecipe",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"Edited recipename 133\",\n\t\"description\": \"Some recipe description\",\n\t\"cookingTime\": 22,\n\t\"ovenTemperature\": 123,\n\t\"ingredients\": [\n\t\t{\n\t\t\t\"name\": \"smör\",\n\t\t\t\"unit\": \"g\",\n\t\t\t\"amount\": 100\n\t\t},\n\t\t{\n\t\t\t\"name\": \"ägg\",\n\t\t\t\"unit\": \"st\",\n\t\t\t\"amount\": 2\n\t\t},\n\t\t{\n\t\t\t\"name\": \"socker\",\n\t\t\t\"unit\": \"dl\",\n\t\t\t\"amount\": 2\n\t\t},\n\t\t{\n\t\t\t\"name\": \"vetemjöl\",\n\t\t\t\"unit\": \"dl\",\n\t\t\t\"amount\": 1\n\t\t},\n\t\t{\n\t\t\t\"name\": \"siktad kakao\",\n\t\t\t\"unit\": \"dl\",\n\t\t\t\"amount\": 0.5\n\t\t},\n\t\t{\n\t\t\t\"name\": \"vaniljsocker\",\n\t\t\t\"unit\": \"tsk\",\n\t\t\t\"amount\": 1\n\t\t}\n\t],\n\t\"images\": [\n\t\t{\n\t\t\t\"id\": \"645a4cf9-96bb-4a18-8274-2e2e928bd013\"\n\t\t}\n\t],\n\t\"steps\": [\n\t\t{\n\t\t\t\"step\": \"Sätt ugnen på 175 °C.\",\n\t\t\t\"number\": 1\n\t\t},\n\t\t{\n\t\t\t\"step\": \"Smält smöret och låt det svalna.\",\n\t\t\t\"number\": 2\n\t\t},\n\t\t{\n\t\t\t\"step\": \"Vispa ägg och socker pösigt. Blanda samman mjöl, kakao och vaniljsocker. Rör ner mjölblandningen i äggsmeten. Tillsätt smöret.\",\n\t\t\t\"number\": 3\n\t\t},\n\t\t{\n\t\t\t\"step\": \"Häll i en smord bröad form (ca 20 cm i diameter, för 8 bitar), gärna med löstagbar botten. Grädda i ca 25 minuter. Låt den stå och kallna så stelnar den.\",\n\t\t\t\"number\": 4\n\t\t}\n\t]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_49924bf55bef4f5fb72df593eca589c6"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1611431184073,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_5e394fdca68146b197f3bba00ea22bcd",
+      "parentId": "wrk_828919a12e30420eb857adaac1fdbc94",
+      "modified": 1611431554311,
+      "created": 1611431145746,
+      "url": "{{ _.base_address }}/recipe/create",
+      "name": "CreateRecipe",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"Some name 3\",\n\t\"description\": \"Some recipe description\",\n\t\"cookingTime\": \"22\",\n\t\"ovenTemperature\": \"123\",\n\t\"ingredients\": [\n\t\t{\n\t\t\t\"name\": \"Some ingredient\",\n\t\t\t\"unit\": \"some unit\",\n\t\t\t\"amount\": \"2\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"Some other ingredient\",\n\t\t\t\"unit\": \"some other unit\",\n\t\t\t\"amount\": \"3\"\n\t\t}\n\t],\n\t\"images\": [\n\t\t{\n\t\t\t\"id\": \"9d195769-788c-4a83-b0f4-becfed2fca8e\"\n\t\t}\n\t],\n\t\"steps\": [\n\t\t{\n\t\t\t\"step\": \"Step 1 \",\n\t\t\t\"number\": 1\n\t\t},\n\t\t{\n\t\t\t\"step\": \"Step 2\",\n\t\t\t\"number\": 2\n\t\t}\n\t]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_f351200fec4c486bba04953f754c376a"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1611431145746,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_4026b9ce6aca48c993317a44ce2fe776",
+      "parentId": "wrk_828919a12e30420eb857adaac1fdbc94",
+      "modified": 1611431137920,
+      "created": 1598960712940,
+      "url": "{{ _.base_address }}/recipes",
+      "name": "GetRecipes",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1598960712940,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_455a538754a720173272f563163363e9b4fe8870",
+      "parentId": "wrk_828919a12e30420eb857adaac1fdbc94",
+      "modified": 1611431209308,
+      "created": 1598960701173,
+      "name": "Base Environment",
+      "data": {
+        "base_address": "localhost:5000/api",
+        "recipe_id": 0
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_address",
+          "recipe_id"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1598960701173,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_455a538754a720173272f563163363e9b4fe8870",
+      "parentId": "wrk_828919a12e30420eb857adaac1fdbc94",
+      "modified": 1598960701177,
+      "created": 1598960701177,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_cf7e6ec0d4f84c049a7ca1563b90d9e0",
+      "parentId": "wrk_828919a12e30420eb857adaac1fdbc94",
+      "modified": 1598960701092,
+      "created": 1598960701092,
+      "fileName": "vrecipes",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    }
+  ]
+}
