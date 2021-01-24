@@ -1,14 +1,12 @@
 from typing import List
 from uuid import UUID
 
-from src.ResultWithData import get_result_with_error
-
 from arch.json_objects.RecipeJson import RecipeJson, RecipeIngredientJson, RecipeStepJson, RecipeImageJson
 from arch.query.ImageQueries import get_image_by_id
 from arch.query.RecipeQueries import recipe_with_id_exists
 from arch.validation.Validation import validate_uuid, validate_int, validate_list, validate_non_empty_str, \
     validate_float, validate_str, validate_uuid_str
-from result_with_data import ResultWithData, get_result_with_data
+from result_with_data import ResultWithData, get_result_with_data, get_result_with_error
 
 
 def validate_recipe_json(json: dict) -> ResultWithData[RecipeJson]:

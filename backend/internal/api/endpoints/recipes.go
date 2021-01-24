@@ -2,9 +2,16 @@ package endpoints
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
+	"github.com/viddem/vrecipes/backend/internal/db/common"
+	"github.com/viddem/vrecipes/backend/internal/process"
 )
 
 func Recipes(c *gin.Context) {
-	log.Fatal("Not implemented")
+	recipes, err := process.GetRecipes()
+	if err != nil {
+		c.JSON(500, common.Error(err))
+		return
+	}
+
+	c.JSON(200, common.Success(recipes))
 }
