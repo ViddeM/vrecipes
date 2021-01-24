@@ -7,7 +7,7 @@ type SuccessResponse struct {
 
 type ErrorResponse struct {
 	Success bool `json:"success"`
-	Error error `json:"error"`
+	Error string `json:"error"`
 }
 
 func Success(data interface{}) SuccessResponse {
@@ -17,7 +17,7 @@ func Success(data interface{}) SuccessResponse {
 	}
 }
 
-func Error(err error) ErrorResponse {
+func Error(err string) ErrorResponse {
 	return ErrorResponse{
 		Success: false,
 		Error:   err,

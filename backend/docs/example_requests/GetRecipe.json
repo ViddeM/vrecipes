@@ -1,5 +1,5 @@
 {
-  "endpoint": "/api/recipe/details/{recipe_unique_name}",
+  "endpoint": "/api/recipes/{recipe_unique_name}",
   "method": "GET",
   "request": null
 }

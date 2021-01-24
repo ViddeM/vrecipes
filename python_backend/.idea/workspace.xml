@@ -41,28 +41,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db1c7719-4e0f-4a59-919d-cb0f3a5f9e61" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../backend/docs/example_requests/CreateRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/docs/example_requests/EditRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/docs/example_requests/GetRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/docs/example_requests/GetRecipes.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/docs/example_requests/UploadImage.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/docs/example_responses/CreateRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/docs/example_responses/EditRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/docs/example_responses/GetRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/docs/example_responses/GetRecipes.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/docs/example_responses/UploadImage.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/internal/db/common/responses.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/internal/db/commands/imageCommands.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/internal/db/commands/recipeImageCommands.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/internal/db/queries/recipeImageQueries.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/internal/db/queries/recipeIngredientQueries.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/internal/db/queries/recipeStepQueries.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/internal/process/getRecipeProcess.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/static/images/chokladkaka.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/static/images/default.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/internal/api/endpoints/recipes.go" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/internal/api/endpoints/recipes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/internal/api/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/internal/db/queries/recipeQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/internal/db/queries/recipeQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/internal/process/getRecipesProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/internal/process/getRecipesProcess.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/internal/db/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/internal/db/setup.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/internal/process/createRecipeProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/internal/process/createRecipeProcess.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/arch/process/EditRecipeRes.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/process/EditRecipeRes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/arch/process/NewRecipeProcess.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/process/NewRecipeProcess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/arch/validation/RecipeValidation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/validation/RecipeValidation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/arch/validation/Validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/validation/Validation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/result_with_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/result_with_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,7 +205,7 @@
       <workItem from="1604537839177" duration="368000" />
       <workItem from="1611426156272" duration="11000" />
       <workItem from="1611426167826" duration="42000" />
-      <workItem from="1611426549351" duration="3696000" />
+      <workItem from="1611426549351" duration="5445000" />
     </task>
     <servers />
   </component>

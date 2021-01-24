@@ -52,28 +52,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/example_requests/CreateRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/example_requests/EditRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/example_requests/GetRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/example_requests/GetRecipes.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/example_requests/UploadImage.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/example_responses/CreateRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/example_responses/EditRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/example_responses/GetRecipe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/example_responses/GetRecipes.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/example_responses/UploadImage.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/db/common/responses.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/db/commands/imageCommands.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/db/commands/recipeImageCommands.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/db/queries/recipeImageQueries.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/db/queries/recipeIngredientQueries.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/db/queries/recipeStepQueries.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/process/getRecipeProcess.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/chokladkaka.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/default.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/example_requests/GetRecipe.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/example_requests/GetRecipe.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/example_responses/GetRecipe.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/example_responses/GetRecipe.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/recipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/recipe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/api/endpoints/recipes.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/recipes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/queries/recipeQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/recipeQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/db/common/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/errors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/db/common/namedStruct.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/namedStruct.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/db/common/responses.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/responses.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/db/orm.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/orm.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/db/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/setup.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/process/createRecipeProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/createRecipeProcess.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../python_backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python_backend/src/arch/process/EditRecipeRes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/src/arch/process/EditRecipeRes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python_backend/src/arch/process/NewRecipeProcess.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/src/arch/process/NewRecipeProcess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python_backend/src/arch/validation/RecipeValidation.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/src/arch/validation/RecipeValidation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python_backend/src/arch/validation/Validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/src/arch/validation/Validation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python_backend/src/result_with_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/src/result_with_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +114,7 @@
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/internal/db/commands" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/images" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.path.for.package.stylelint" value="project" />
     <property name="node.js.selected.package.stylelint" value="" />
@@ -124,10 +123,12 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/images" />
       <recent name="$PROJECT_DIR$/internal/db/commands" />
       <recent name="D:\Python Projects\vrecipes\backend\internal\webserver\endpoints" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal/common" />
       <recent name="$PROJECT_DIR$/internal" />
     </key>
   </component>
@@ -181,25 +182,25 @@
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
     <state x="734" y="113" key="FileChooserDialogImpl/0.0.1920.1048@0.0.1920.1048" timestamp="1610625651619" />
-    <state width="1874" height="278" key="GridCell.Tab.0.bottom" timestamp="1611448024971">
+    <state width="1874" height="278" key="GridCell.Tab.0.bottom" timestamp="1611505685560">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1048@0.0.1920.1048" timestamp="1611448024971" />
+    <state width="1874" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1048@0.0.1920.1048" timestamp="1611505685560" />
     <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609428911171" />
-    <state width="1874" height="278" key="GridCell.Tab.0.center" timestamp="1611448024971">
+    <state width="1874" height="278" key="GridCell.Tab.0.center" timestamp="1611505685560">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.center/0.0.1920.1048@0.0.1920.1048" timestamp="1611448024971" />
+    <state width="1874" height="278" key="GridCell.Tab.0.center/0.0.1920.1048@0.0.1920.1048" timestamp="1611505685560" />
     <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609428911171" />
-    <state width="1874" height="278" key="GridCell.Tab.0.left" timestamp="1611448024970">
+    <state width="1874" height="278" key="GridCell.Tab.0.left" timestamp="1611505685559">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.left/0.0.1920.1048@0.0.1920.1048" timestamp="1611448024970" />
+    <state width="1874" height="278" key="GridCell.Tab.0.left/0.0.1920.1048@0.0.1920.1048" timestamp="1611505685559" />
     <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609428911171" />
-    <state width="1874" height="278" key="GridCell.Tab.0.right" timestamp="1611448024971">
+    <state width="1874" height="278" key="GridCell.Tab.0.right" timestamp="1611505685560">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.right/0.0.1920.1048@0.0.1920.1048" timestamp="1611448024971" />
+    <state width="1874" height="278" key="GridCell.Tab.0.right/0.0.1920.1048@0.0.1920.1048" timestamp="1611505685560" />
     <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609428911171" />
     <state width="1874" height="343" key="GridCell.Tab.1.bottom" timestamp="1611421314998">
       <screen x="0" y="0" width="1920" height="1048" />
@@ -234,25 +235,14 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1098" y="615" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609416510008" />
-    <state x="665" y="251" width="590" height="522" key="find.popup" timestamp="1611404424001">
+    <state x="665" y="251" width="590" height="522" key="find.popup" timestamp="1611504697699">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state x="665" y="251" width="590" height="522" key="find.popup/0.0.1920.1048@0.0.1920.1048" timestamp="1611404424001" />
-    <state x="707" y="236" width="672" height="508" key="search.everywhere.popup" timestamp="1611417608621">
+    <state x="665" y="251" width="590" height="522" key="find.popup/0.0.1920.1048@0.0.1920.1048" timestamp="1611504697699" />
+    <state x="707" y="236" width="672" height="508" key="search.everywhere.popup" timestamp="1611504721399">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state x="707" y="236" width="672" height="508" key="search.everywhere.popup/0.0.1920.1048@0.0.1920.1048" timestamp="1611417608621" />
+    <state x="707" y="236" width="672" height="508" key="search.everywhere.popup/0.0.1920.1048@0.0.1920.1048" timestamp="1611504721399" />
     <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609427775818" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/db/setup.go</url>
-          <line>53</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
