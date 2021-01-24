@@ -2,8 +2,8 @@ package process
 
 import (
 	"errors"
+	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
-	"github.com/viddem/vrecipes/backend/internal/db/common"
 	"github.com/viddem/vrecipes/backend/internal/db/models"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"gorm.io/gorm"
@@ -86,6 +86,25 @@ func CreateRecipeStep(step string, number uint16, recipe *models.Recipe) (*model
 	return &recipeStep, nil
 }
 
+func CreateRecipeImage(imagePath string, recipeId uint64) (*models.RecipeImage, error) {
+	imageId, err := commands.CreateImage(&models.Image{
+		Name: imagePath,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	recipeImage := models.RecipeImage{
+		ImageID: imageId,
+		RecipeID: recipeId,
+	}
+
+	err = commands.CreateRecipeImage(&recipeImage)
+
+	return &recipeImage, err
+}
+
 func CreateRecipe(name, description string, ovenTemp, estimatedTime int) (*models.Recipe, error) {
 	uniqueName, err := generateUniqueName(name)
 	if err != nil {
@@ -114,5 +133,5 @@ func generateUniqueName(name string) (string, error) {
 		}
 		return "", err
 	}
-	return uniqueName, common.RowAlreadyExists
+	return uniqueName, common2.RowAlreadyExists
 }

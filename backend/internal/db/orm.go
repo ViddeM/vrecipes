@@ -2,8 +2,8 @@ package db
 
 import (
 	"fmt"
+	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
-	"github.com/viddem/vrecipes/backend/internal/db/common"
 	"github.com/viddem/vrecipes/backend/internal/db/models"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"gorm.io/driver/postgres"
@@ -53,7 +53,7 @@ func createTables() {
 	createTable(models.Unit{})
 }
 
-func createTable(model common.NamedStruct) {
+func createTable(model common2.NamedStruct) {
 	err := db.AutoMigrate(model)
 	if err != nil {
 		log.Fatal(fmt.Sprintf("Failed to migrate table %s", model.StructName()))

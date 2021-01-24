@@ -13,6 +13,7 @@ type RecipeJson struct {
 	models.Recipe
 	Ingredients []RecipeIngredientJson `json:"ingredients"`
 	Steps       []RecipeStepJson       `json:"steps"`
+	Image string `json:"image"`
 }
 
 type RecipeIngredientJson struct {
@@ -68,6 +69,11 @@ func loadFromDefaults() {
 			if err != nil {
 				log.Printf("Failed to create default recipe ingredient %+v, due to err: %s\n", ingredient, err)
 			}
+		}
+
+		_, err = process.CreateRecipeImage(recipeJson.Image, recipe.ID)
+		if err != nil {
+			log.Printf("Failed to create default recipe image %s, due to err: %s\n", recipeJson.Image, err)
 		}
 	}
 }
