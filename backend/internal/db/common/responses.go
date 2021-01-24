@@ -1,7 +1,25 @@
 package common
 
-type Response struct {
+type SuccessResponse struct {
 	Success bool `json:"success"`
-	Data map[string]interface{} `json:"data"`
-	Error string `json:"error"`
+	Data interface{} `json:"data"`
+}
+
+type ErrorResponse struct {
+	Success bool `json:"success"`
+	Error error `json:"error"`
+}
+
+func Success(data interface{}) SuccessResponse {
+	return SuccessResponse{
+		Success: true,
+		Data:    data,
+	}
+}
+
+func Error(err error) ErrorResponse {
+	return ErrorResponse{
+		Success: false,
+		Error:   err,
+	}
 }

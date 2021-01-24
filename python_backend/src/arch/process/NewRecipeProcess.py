@@ -13,7 +13,7 @@ from arch.validation.RecipeValidation import validate_recipe_json
 from db import Recipe, RecipeIngredient, RecipeStep
 from response_messages import RECIPE_NAME_EXISTS
 from response_with_data import HttpResponse, get_with_error, get_with_data
-from result_with_data import ResultWithData, get_result_with_errors, get_result_with_data
+from result_with_data import ResultWithData, get_result_with_error, get_result_with_data
 
 
 def new_recipe(json: dict) -> HttpResponse:
@@ -54,7 +54,7 @@ def create_recipe(name: str, description: str = "", oven_temp: int = -1, estimat
 
     unique_name = name_to_unique_name(edited_name)
     if unique_name.is_error:
-        return get_result_with_errors(unique_name.message)
+        return get_result_with_error(unique_name.message)
     return get_result_with_data(insert_new_recipe(edited_name, unique_name.data, description, oven_temp, estimated_time))
 
 
@@ -86,5 +86,5 @@ def name_to_unique_name(name: str) -> ResultWithData:
     """
     unique_name = name.lower().replace(" ", "_")
     if get_recipe_by_unique_name(unique_name) is not None:
-        return get_result_with_errors(RECIPE_NAME_EXISTS)
+        return get_result_with_error(RECIPE_NAME_EXISTS)
     return get_result_with_data(unique_name)

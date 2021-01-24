@@ -15,5 +15,5 @@ def get_result_with_data(data: T) -> ResultWithData:
     return ResultWithData(data=data, is_error=False, message="")
 
 
-def get_result_with_errors(error: str) -> ResultWithData:
+def get_result_with_error(error: str) -> ResultWithData:
     return ResultWithData(data=None, is_error=True, message=error)

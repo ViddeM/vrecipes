@@ -52,20 +52,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/docs/example_requests/CreateRecipe.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/example_requests/EditRecipe.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/example_requests/GetRecipe.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/example_requests/GetRecipes.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/example_requests/UploadImage.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/example_responses/CreateRecipe.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/example_responses/EditRecipe.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/example_responses/GetRecipe.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/example_responses/GetRecipes.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/example_responses/UploadImage.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/db/common/responses.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/vrecipes/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/vrecipes/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/webserver/endpoints/editRecipe.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/webserver/endpoints/health.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/webserver/endpoints/imageUpload.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/webserver/endpoints/newRecipe.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/webserver/endpoints/recipe.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/webserver/endpoints/recipes.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/webserver/server.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python_backend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python_backend/.idea/vrecept.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/.idea/vrecept.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/recipes.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/recipes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/db/queries/recipeQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/recipeQueries.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../python_backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python_backend/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../python_backend/src/arch/process/EditRecipeRes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/src/arch/process/EditRecipeRes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../python_backend/src/arch/process/NewRecipeProcess.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/src/arch/process/NewRecipeProcess.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../python_backend/src/arch/validation/RecipeValidation.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/src/arch/validation/RecipeValidation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../python_backend/src/arch/validation/Validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/src/arch/validation/Validation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../python_backend/src/result_with_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/src/result_with_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,15 +120,15 @@
     <property name="node.js.path.for.package.stylelint" value="project" />
     <property name="node.js.selected.package.stylelint" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="go.vgo" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Go" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/internal" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/internal/db/commands" />
       <recent name="D:\Python Projects\vrecipes\backend\internal\webserver\endpoints" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal" />
     </key>
   </component>
   <component name="RunManager">
@@ -142,6 +150,9 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.json" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -162,29 +173,33 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1061" y="409" width="439" height="599" key="#Build_Tags_&amp;_Vendoring/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609326572260" />
+    <state x="679" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1611443493171">
+      <screen x="0" y="0" width="1920" height="1048" />
+    </state>
+    <state x="679" y="215" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1048@0.0.1920.1048" timestamp="1611443493171" />
     <state x="734" y="113" key="FileChooserDialogImpl" timestamp="1610625651619">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
     <state x="734" y="113" key="FileChooserDialogImpl/0.0.1920.1048@0.0.1920.1048" timestamp="1610625651619" />
-    <state width="1874" height="278" key="GridCell.Tab.0.bottom" timestamp="1611422379661">
+    <state width="1874" height="278" key="GridCell.Tab.0.bottom" timestamp="1611448024971">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1048@0.0.1920.1048" timestamp="1611422379661" />
+    <state width="1874" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1048@0.0.1920.1048" timestamp="1611448024971" />
     <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609428911171" />
-    <state width="1874" height="278" key="GridCell.Tab.0.center" timestamp="1611422379660">
+    <state width="1874" height="278" key="GridCell.Tab.0.center" timestamp="1611448024971">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.center/0.0.1920.1048@0.0.1920.1048" timestamp="1611422379660" />
+    <state width="1874" height="278" key="GridCell.Tab.0.center/0.0.1920.1048@0.0.1920.1048" timestamp="1611448024971" />
     <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609428911171" />
-    <state width="1874" height="278" key="GridCell.Tab.0.left" timestamp="1611422379659">
+    <state width="1874" height="278" key="GridCell.Tab.0.left" timestamp="1611448024970">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.left/0.0.1920.1048@0.0.1920.1048" timestamp="1611422379659" />
+    <state width="1874" height="278" key="GridCell.Tab.0.left/0.0.1920.1048@0.0.1920.1048" timestamp="1611448024970" />
     <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609428911171" />
-    <state width="1874" height="278" key="GridCell.Tab.0.right" timestamp="1611422379660">
+    <state width="1874" height="278" key="GridCell.Tab.0.right" timestamp="1611448024971">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state width="1874" height="278" key="GridCell.Tab.0.right/0.0.1920.1048@0.0.1920.1048" timestamp="1611422379660" />
+    <state width="1874" height="278" key="GridCell.Tab.0.right/0.0.1920.1048@0.0.1920.1048" timestamp="1611448024971" />
     <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609428911171" />
     <state width="1874" height="343" key="GridCell.Tab.1.bottom" timestamp="1611421314998">
       <screen x="0" y="0" width="1920" height="1048" />
@@ -206,9 +221,10 @@
     </state>
     <state width="1874" height="343" key="GridCell.Tab.1.right/0.0.1920.1048@0.0.1920.1048" timestamp="1611421314998" />
     <state width="2517" height="401" key="GridCell.Tab.1.right/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609428911171" />
-    <state x="782" y="346" key="SettingsEditor" timestamp="1609351675900">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="583" y="203" key="SettingsEditor" timestamp="1611442643480">
+      <screen x="0" y="0" width="1920" height="1048" />
     </state>
+    <state x="583" y="203" key="SettingsEditor/0.0.1920.1048@0.0.1920.1048" timestamp="1611442643480" />
     <state x="782" y="346" key="SettingsEditor/0.0.2560.1400/3840.0.1920.1080@0.0.2560.1400" timestamp="1609351675900" />
     <state x="891" y="390" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1609415345740">
       <screen x="0" y="0" width="2560" height="1400" />

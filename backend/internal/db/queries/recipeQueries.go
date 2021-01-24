@@ -21,3 +21,10 @@ func GetRecipeById(id uint64) (*models.Recipe, error) {
 	}, "id").First(&recipe)
 	return &recipe, tx.Error
 }
+
+func GetAllRecipes() ([]models.Recipe, error) {
+	db := getDB()
+	var recipes []models.Recipe
+	tx := db.Find(&recipes)
+	return recipes, tx.Error
+}
