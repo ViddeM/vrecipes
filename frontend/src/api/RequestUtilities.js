@@ -1,14 +1,17 @@
 import axios from "axios";
-import { DEBUG_MODE } from "../common/data/Mode";
 
 let initialized = false;
 let path = "/api";
 
 export function initApi(mode) {
     initialized = true;
-    if (mode === DEBUG_MODE) {
-        path = "http://localhost:5000/api";
-    }
+    // if (mode === DEBUG_MODE) {
+    //     path = "http://localhost:5000/api";
+    // }
+}
+
+export function toUrl(url) {
+    return path + url
 }
 
 export function getRequest(endpoint) {
