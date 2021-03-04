@@ -8,6 +8,8 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+	"gorm.io/gorm/schema"
 	"log"
 	"os"
 )
@@ -23,7 +25,18 @@ func Init() {
 
 	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password) //Build connection string
 
-	conn, err := gorm.Open(postgres.Open(dbUri), &gorm.Config{})
+	conn, err := gorm.Open(postgres.Open(dbUri), &gorm.Config{
+		Logger: logger.New(
+			log.New(os.Stdout, "\r\n", log.LstdFlags),
+			logger.Config{
+				Colorful:      true,
+				LogLevel:      logger.Info,
+			},
+		),
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true,
+		},
+	})
 
 	if err != nil {
 		log.Fatal(fmt.Sprintf("Failed to connect to database, err: %s", err))

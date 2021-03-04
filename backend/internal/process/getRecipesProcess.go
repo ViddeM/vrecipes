@@ -1,8 +1,10 @@
 package process
 
 import (
+	"errors"
 	"github.com/viddem/vrecipes/backend/internal/db/models"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
+	"gorm.io/gorm"
 )
 
 type RecipesJson struct {
@@ -16,12 +18,12 @@ type ShortRecipeJson struct {
 	ImageLink string `json:"image_link"`
 }
 
-func toShortRecipeJson(recipe *models.Recipe) ShortRecipeJson {
+func toShortRecipeJson(recipe *models.Recipe, imageUrl string) ShortRecipeJson {
 	return ShortRecipeJson{
 		ID:         recipe.ID,
 		Name:       recipe.Name,
 		UniqueName: recipe.UniqueName,
-		ImageLink:  "",
+		ImageLink:  imageUrl,
 	}
 }
 
@@ -34,7 +36,18 @@ func GetRecipes() (*RecipesJson, error) {
 	var shortRecipes []ShortRecipeJson
 
 	for _, recipe := range recipes {
-		shortRecipes = append(shortRecipes, toShortRecipeJson(&recipe))
+		recipeImage, err := queries.GetMainImageForRecipe(recipe.ID)
+
+		imageUrl := ""
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) == false {
+				return nil, err
+			}
+		} else {
+			imageUrl = recipeImage.Image.Name
+		}
+
+		shortRecipes = append(shortRecipes, toShortRecipeJson(&recipe, imageUrl))
 	}
 
 	return &RecipesJson{

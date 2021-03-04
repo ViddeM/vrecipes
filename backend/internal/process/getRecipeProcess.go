@@ -2,12 +2,10 @@ package process
 
 import (
 	"errors"
-	"fmt"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/models"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"gorm.io/gorm"
-	"os"
 )
 
 type DetailedRecipeJson struct {
@@ -98,10 +96,9 @@ func RecipeIngredientsToJson(ingredients []models.RecipeIngredient) []RecipeIngr
 
 func RecipeImagesToJson(images []models.RecipeImage) []RecipeImageJson {
 	var recipeImageJsons []RecipeImageJson
-	imageBasePath := os.Getenv("image_base_path")
 	for _, image := range images {
 		recipeImageJsons = append(recipeImageJsons, RecipeImageJson{
-			Path: fmt.Sprintf("%s/%s", imageBasePath, image.Image.Name),
+			Path: image.Image.Name,
 			ID:   image.ImageID,
 		})
 	}

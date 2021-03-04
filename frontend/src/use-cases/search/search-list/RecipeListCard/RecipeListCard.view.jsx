@@ -10,13 +10,17 @@ import {
 } from "./RecipeListCard.styles.view";
 import {DigitDesign, DigitText} from "@cthit/react-digit-components";
 import {Center} from "../../../../common/styles/Common.styles";
+import {getImageUrl} from "../../../../api/get.Image.api";
 
 export const RecipeListCard = props => {
     const recipe = props.recipe;
     let imageUrl = recipe.image_link;
-    if (imageUrl === undefined) {
+    if (imageUrl === undefined || imageUrl === "") {
         imageUrl = "static/images/temp_image.jpg"
+    } else {
+        imageUrl = getImageUrl(imageUrl)
     }
+
 
     return (
         <RecipeListCardContainer>
