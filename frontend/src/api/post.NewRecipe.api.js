@@ -3,7 +3,7 @@ import {postRequest} from "./RequestUtilities";
 export function postNewRecipe(recipe) {
 
     const data = getRecipeData(recipe)
-    return postRequest("/recipe/create", data);
+    return postRequest("/recipes", data);
 }
 
 export function getRecipeData(recipe) {

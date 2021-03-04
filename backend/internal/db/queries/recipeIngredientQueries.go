@@ -7,6 +7,6 @@ func GetIngredientsForRecipe(recipeId uint64) ([]models.RecipeIngredient, error)
 	var recipeIngredients []models.RecipeIngredient
 	tx := db.Where(&models.RecipeIngredient{
 		RecipeID: recipeId,
-	}, "recipeId").First(&recipeIngredients)
+	}, "recipeId").Find(&recipeIngredients)
 	return recipeIngredients, tx.Error
 }

@@ -1,7 +1,7 @@
-import {postRequest} from "./RequestUtilities";
 import {getRecipeData} from "./post.NewRecipe.api";
+import {putRequest} from "./RequestUtilities";
 
-export function postEditedRecipe(recipe) {
+export function putEditedRecipe(recipe) {
     const data = getRecipeData(recipe)
-    return postRequest("/recipe/edit/" + recipe.id, data);
+    return putRequest("/recipes/" + recipe.id, data);
 }

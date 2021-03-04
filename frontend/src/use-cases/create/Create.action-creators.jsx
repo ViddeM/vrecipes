@@ -6,7 +6,7 @@ import {
 } from "./Create.actions";
 import {postNewRecipe} from "../../api/post.NewRecipe.api";
 import {handleError} from "../../common/functions/handleError";
-import {postEditedRecipe} from "../../api/post.EditedRecipe.api";
+import {putEditedRecipe} from "../../api/post.EditedRecipe.api";
 
 export function onRecipeSave(recipe) {
     const errors = validateRecipe(recipe)
@@ -39,7 +39,7 @@ export function onEditedRecipeSave(recipe) {
     if (Object.keys(errors).length === 0) {
         return dispatch => {
             dispatch({type: ON_RECIPE_SAVE_AWAIT_RESPONSE, error: false})
-            postEditedRecipe(recipe)
+            putEditedRecipe(recipe)
                 .then(response => {
                     dispatch(onRecipeSaveSuccessful(response));
                 })

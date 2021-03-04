@@ -15,11 +15,13 @@ func init() {
 
 	api := router.Group("/api")
 	{
+		api.Static("/images", "./static/images")
+
 		api.GET("/health", endpoints.HealthCheck)
 		api.POST("/recipes", endpoints.NewRecipe)
 		api.PUT("/recipes/:id", endpoints.EditRecipe)
-		api.POST("/images", endpoints.ImageUpload)
-		api.GET("/recipes/", endpoints.Recipes)
+		api.PUT("/images", endpoints.ImageUpload)
+		api.GET("/recipes", endpoints.Recipes)
 		api.GET("/recipes/:uniqueName", endpoints.Recipe)
 	}
 }
