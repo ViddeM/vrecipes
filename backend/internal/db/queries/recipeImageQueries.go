@@ -4,12 +4,18 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/db/models"
 )
 
-func GetImagesForRecipe(recipeId uint64) ([]models.RecipeImage, error) {
+func GetImagesForRecipe(recipeId uint64) ([]models.Image, error) {
 	db := getDB()
 	var recipeImages []models.RecipeImage
 	tx := db.Where(&models.RecipeImage{
 		RecipeID: recipeId,
 	}, "recipeId").Find(&recipeImages)
+
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
+	var images []models.Image
 
 	if recipeImages != nil {
 		for _, recImage := range recipeImages {
@@ -18,11 +24,11 @@ func GetImagesForRecipe(recipeId uint64) ([]models.RecipeImage, error) {
 				return nil, err
 			}
 
-			recImage.Image = *img
+			images = append(images, *img)
 		}
 	}
 
-	return recipeImages, tx.Error
+	return images, nil
 }
 
 func GetMainImageForRecipe(recipeId uint64) (*models.RecipeImage, error) {
@@ -38,7 +44,7 @@ func GetMainImageForRecipe(recipeId uint64) (*models.RecipeImage, error) {
 
 	img, err := GetImageById(recipeImage.ImageID)
 	if err == nil {
-		recipeImage.Image = *img
+		recipeImage.Image = img
 	}
 
 	return &recipeImage, err

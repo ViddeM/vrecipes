@@ -34,6 +34,7 @@ const initialState = {
     steps: [],
     errors: {},
     saveError: "",
+    imageUploadError: "",
     redirectTo: ""
 }
 
@@ -111,8 +112,9 @@ export function create(state = initialState, action) {
         case UPLOAD_IMAGE_SUCCESSFUL:
             return addImage(state, action.payload)
         case UPLOAD_IMAGE_FAILED:
-            // TODO: Do something here.
-            return state
+            return newState(state, {
+                imageUploadError: action.payload.message
+            })
         case EDIT_RECIPE:
             return editRecipe(state, action.payload.recipe)
         case CREATE_RECIPE:
@@ -310,7 +312,8 @@ function addImage(state, payload) {
         images: [...state.images, {
             id: payload.image_id,
             url: payload.image_url
-        }]
+        }],
+        imageUploadError: ""
     })
 }
 

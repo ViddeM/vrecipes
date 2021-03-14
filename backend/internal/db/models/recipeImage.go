@@ -1,9 +1,9 @@
 package models
 
 type RecipeImage struct {
-	Image Image
+	Image *Image
 	ImageID uint64 `gorm:"primaryKey"`
-	Recipe Recipe
+	Recipe *Recipe
 	RecipeID uint64 `gorm:"primaryKey"`
 }
 
