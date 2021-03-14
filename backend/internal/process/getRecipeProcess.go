@@ -9,14 +9,14 @@ import (
 )
 
 type DetailedRecipeJson struct {
-	ID uint64 `json:"id"`
-	Name string `json:"name"`
-	Description string `json:"description"`
-	OvenTemperature int `json:"ovenTemperature"`
-	EstimatedTime int `json:"estimatedTime"`
-	Steps []RecipeStepJson `json:"steps"`
+	ID uint64                          `json:"id"`
+	Name string                        `json:"name"`
+	Description string                 `json:"description"`
+	OvenTemperature int                `json:"ovenTemperature"`
+	EstimatedTime int                  `json:"estimatedTime"`
+	Steps []RecipeStepJson             `json:"steps"`
 	Ingredients []RecipeIngredientJson `json:"ingredients"`
-	Images []RecipeImageJson `json:"images"`
+	Images []ImageJson                 `json:"images"`
 }
 
 type RecipeStepJson struct {
@@ -30,7 +30,7 @@ type RecipeIngredientJson struct {
 	Amount float32 `json:"amount"`
 }
 
-type RecipeImageJson struct {
+type ImageJson struct {
 	Path string `json:"url"`
 	ID   uint64 `json:"id"`
 }
@@ -94,12 +94,12 @@ func RecipeIngredientsToJson(ingredients []models.RecipeIngredient) []RecipeIngr
 	return recipeIngredientJsons
 }
 
-func RecipeImagesToJson(images []models.RecipeImage) []RecipeImageJson {
-	var recipeImageJsons []RecipeImageJson
+func RecipeImagesToJson(images []models.Image) []ImageJson {
+	var recipeImageJsons []ImageJson
 	for _, image := range images {
-		recipeImageJsons = append(recipeImageJsons, RecipeImageJson{
-			Path: image.Image.Name,
-			ID:   image.ImageID,
+		recipeImageJsons = append(recipeImageJsons, ImageJson{
+			Path: image.Name,
+			ID:   image.ID,
 		})
 	}
 	return recipeImageJsons

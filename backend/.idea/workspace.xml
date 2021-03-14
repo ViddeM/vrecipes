@@ -52,30 +52,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/api_insomnia.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/api_insomnia.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/orm.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/orm.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/db/defaults/defaults.json" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/defaults/defaults.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/db/models/recipeImage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/models/recipeImage.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/db/queries/recipeImageQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/recipeImageQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/queries/recipeIngredientQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/recipeIngredientQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/queries/recipeStepQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/recipeStepQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/setup.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/process/getRecipeProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/getRecipeProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/.env.development" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/api/RequestUtilities.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/RequestUtilities.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/api/get.Recipe.api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/get.Recipe.api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/api/post.EditedRecipe.api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/post.EditedRecipe.api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/api/post.NewRecipe.api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/post.NewRecipe.api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/api/put.Image.api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/put.Image.api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/common/functions/handleError.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/common/functions/handleError.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.action-creators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.action-creators.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/images/Images.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/images/Images.view.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.view.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python_backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../python_backend/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

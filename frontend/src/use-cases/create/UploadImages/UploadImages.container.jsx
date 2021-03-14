@@ -3,7 +3,8 @@ import {UploadImages} from "./UploadImages";
 import {uploadImage} from "./UploadImages.action-creators";
 
 const mapStateToProps = state => ({
-    images: state.root.create.images
+    images: state.root.create.images,
+    error: state.root.create.imageUploadError
 });
 
 const mapDispatchToProps = dispatch => ({

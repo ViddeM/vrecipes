@@ -3,6 +3,8 @@ import {FormColumn, FormRow, StyledCard} from "../Create.styles";
 import {DigitButton, DigitText} from "@cthit/react-digit-components";
 import {StyledImage} from "./UploadImages.styles";
 import FileSelect from "../../../common/views/FileSelect/FileSelect.view";
+import {getImageUrl} from "../../../api/get.Image.api";
+import {StyledText} from "../../../common/styles/Common.styles";
 
 export const UploadImages = props => {
     const [file, setFile] = useState(null);
@@ -15,14 +17,17 @@ export const UploadImages = props => {
                 </FormRow>
                 <FormRow>
                     {props.images.length > 0 ?
-                        props.images.map(image => (
-                            <StyledImage
-                                width="260px"
-                                key={image.id}
-                                src={image.url}
-                                alt="Could not display image"
-                            />
-                        ))
+                        props.images.map(image => {
+                            let url = getImageUrl(image.url)
+                            return (
+                                <StyledImage
+                                    width="260px"
+                                    key={image.id}
+                                    src={url}
+                                    alt="Could not display image"
+                                />
+                            )
+                        })
                         :
                         <DigitText.Text text="Inga bilder tillagda"/>
                     }
@@ -39,6 +44,14 @@ export const UploadImages = props => {
                         setFile(null)
                     }} disabled={file === null}/>
                 </FormRow>
+                {
+                    props.error !== "" && (
+                        <StyledText
+                            text={props.error}
+                            style={{color: "red"}}
+                        />
+                    )
+                }
             </FormColumn>
         </StyledCard>
     )
