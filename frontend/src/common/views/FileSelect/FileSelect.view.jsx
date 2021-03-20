@@ -14,6 +14,7 @@ const FileSelect = ({
                 type="file"
                 onChange={e => onSelectFile(e.target.files[0])}
                 ref={fileRef}
+                accept="image/*"
             />
             <DigitText.Text alignCenter text={selectedFileName != null ? selectedFileName : "Ingen bild vald"}/>
             <FileSelectButton

@@ -19,8 +19,8 @@ function onUploadImageSuccessful(response) {
     return {
         type: UPLOAD_IMAGE_SUCCESSFUL,
         payload: {
-            image_id: response.data.data.image_id,
-            image_url: response.data.data.image_url
+            image_id: response.data.data.id,
+            image_url: response.data.data.url
         },
         error: false
     }

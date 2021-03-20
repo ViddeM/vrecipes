@@ -1,17 +1,17 @@
-import { ON_SEARCH_FIELD_CHANGED } from "../Search.actions";
-import { GET_RECIPES_SUCCESSFUL } from "../../../app/App.actions";
+import {ON_SEARCH_FIELD_CHANGED} from "../Search.actions";
+import {GET_RECIPES_SUCCESSFUL} from "../../../app/App.actions";
 
 const mockRecipes = [
     {
         id: "0",
         name: "ChokladBollar",
-        image: "/static/images/chokladbollar.jpg",
+        image: "chokladbollar.jpg",
         author: "Vidar"
     },
     {
         id: "1",
         name: "Sphagetti & Köttfärssås",
-        image: "/static/images/temp_image.jpg",
+        image: "temp_image.jpg",
         author: "Eric"
     },
     {

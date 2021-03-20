@@ -335,10 +335,6 @@ function editRecipe(state, recipe) {
         }
     })
 
-    const images = recipe.images.map((image, index) => {
-
-    })
-
     return newState(state, {
         id: recipe.id,
         recipeName: recipe.name,
