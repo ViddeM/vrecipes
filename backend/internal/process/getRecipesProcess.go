@@ -44,7 +44,7 @@ func GetRecipes() (*RecipesJson, error) {
 				return nil, err
 			}
 		} else {
-			imageUrl = recipeImage.Image.Name
+			imageUrl = imageNameToPath(recipeImage.Image.ID, recipeImage.Image.Name)
 		}
 
 		shortRecipes = append(shortRecipes, toShortRecipeJson(&recipe, imageUrl))

@@ -4,7 +4,7 @@ import {EDIT_RECIPE} from "./screens/RecipeCard/views/recipe-footer/RecipeFooter
 const mockRecipe = {
     id: "asd123",
     name: "Chokladbollar",
-    imageSrc: "/static/images/chokladbollar.jpg",
+    imageSrc: "chokladbollar.jpg",
     description: " Dessa chokladbollar får en liten karamellsmak av att smöret först får puttra. Rulla chokladbollarna i kokos eller pärlsocker, det som du själv föredrar. ",
     steps: [
         {
