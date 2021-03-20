@@ -26,7 +26,7 @@ export const FormColumn = styled.div`
 export const FormRow = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
   max-width: 100%;
   width: 100%;

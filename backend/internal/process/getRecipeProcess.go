@@ -2,10 +2,12 @@ package process
 
 import (
 	"errors"
+	"fmt"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/models"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"gorm.io/gorm"
+	"os"
 )
 
 type DetailedRecipeJson struct {
@@ -98,9 +100,22 @@ func RecipeImagesToJson(images []models.Image) []ImageJson {
 	var recipeImageJsons []ImageJson
 	for _, image := range images {
 		recipeImageJsons = append(recipeImageJsons, ImageJson{
-			Path: image.Name,
+			Path: imageNameToPath(image.ID, image.Name),
 			ID:   image.ID,
 		})
 	}
 	return recipeImageJsons
+}
+
+func imageNameToPath(id uint64, name string) string {
+	imagePath := os.Getenv("image_folder")
+	filePath := fmt.Sprintf("%s/%s", imagePath, name)
+	_, err := os.Stat(filePath)
+	if err == nil {
+		return name
+	}
+
+	nameWithId := fmt.Sprintf("%d_%s", id, name)
+	filePath = fmt.Sprintf("%s/%s", imagePath, nameWithId)
+	return nameWithId
 }

@@ -1,10 +1,10 @@
 package endpoints
 
 import (
-"github.com/gin-gonic/gin"
-"log"
+	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func NewRecipe(c *gin.Context) {
-	log.Fatal("Not implemented")
+	c.String(http.StatusInternalServerError, "Not implemented")
 }

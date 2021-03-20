@@ -30,7 +30,7 @@ func Init() {
 			log.New(os.Stdout, "\r\n", log.LstdFlags),
 			logger.Config{
 				Colorful:      true,
-				LogLevel:      logger.Info,
+				LogLevel:      logger.Error, // Change to .Info for better debugging
 			},
 		),
 		NamingStrategy: schema.NamingStrategy{
