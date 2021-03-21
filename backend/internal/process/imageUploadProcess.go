@@ -3,15 +3,16 @@ package process
 import (
 	"fmt"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
-	"github.com/viddem/vrecipes/backend/internal/db/models"
+	dbModels "github.com/viddem/vrecipes/backend/internal/db/models"
+	"github.com/viddem/vrecipes/backend/internal/models"
 	"github.com/viddem/vrecipes/backend/internal/validation"
 	"os"
 )
 
-func UploadImage(file *validation.File) (*ImageJson, error) {
+func UploadImage(file *validation.File) (*models.ImageJson, error) {
 	filenameWithPath := fmt.Sprintf("%s%s", file.Name, file.FileType)
 
-	id, err := commands.CreateImage(&models.Image{
+	id, err := commands.CreateImage(&dbModels.Image{
 		Name: filenameWithPath,
 	})
 	if err != nil {
@@ -31,7 +32,7 @@ func UploadImage(file *validation.File) (*ImageJson, error) {
 		return nil, err
 	}
 
-	return &ImageJson{
+	return &models.ImageJson{
 		Path: uniqueFilename,
 		ID:   id,
 	}, err

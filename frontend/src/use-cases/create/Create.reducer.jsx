@@ -69,12 +69,12 @@ export function create(state = initialState, action) {
                 description: action.payload.newDescription
             })
         case ON_OVEN_TEMP_CHANGE:
-            const ovenTemp = validateNumber(action.payload.newTemp, state.ovenTemperature);
+            const ovenTemp = validateInteger(action.payload.newTemp, state.ovenTemperature);
             return newState(state, {
                 ovenTemperature: ovenTemp
             })
         case ON_COOKING_TIME_CHANGE:
-            const cookingTime = validateNumber(action.payload.newCookingTime, state.cookingTime);
+            const cookingTime = validateInteger(action.payload.newCookingTime, state.cookingTime);
             return newState(state, {
                 cookingTime: cookingTime
             })
@@ -125,13 +125,28 @@ export function create(state = initialState, action) {
 }
 
 function validateNumber(newNumber, oldValue) {
+    if (newNumber === "") {
+        return undefined
+    }
+
     if (isNaN(newNumber)) {
         return oldValue;
     }
 
-    return newNumber;
+    return newNumber
 }
 
+function validateInteger(newNumber, oldValue) {
+    if (newNumber === "") {
+        return undefined
+    }
+    
+    if (!isNaN(parseInt(newNumber))) {
+        return newNumber
+    }
+
+    return oldValue
+}
 
 function newState(oldState, change) {
     const defaults = Object.assign({}, {
@@ -210,18 +225,19 @@ function updateIngredientName(state, newName, ingredientId) {
 }
 
 function updateIngredientAmount(state, newAmount, ingredientId) {
-    if (isNaN(newAmount)) {
-        return state;
-    }
 
     return newState(state, {
-            ingredients: state.ingredients.map(ingredient =>
-                ingredient.id === ingredientId ?
-                    {
-                        ...ingredient,
-                        amount: newAmount
-                    } :
-                    ingredient
+            ingredients: state.ingredients.map(ingredient => {
+                    if (ingredient.id === ingredientId) {
+                        const amount = validateNumber(newAmount, ingredient.amount)
+                        return {
+                            ...ingredient,
+                            amount: amount
+                        }
+                    }
+
+                    return ingredient
+                }
             )
         }
     )
