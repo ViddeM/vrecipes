@@ -6,7 +6,7 @@ import {HalfRow} from "./CreateIngredient.styles.view";
 export const CreateIngredient = () => (
     <FormRow>
         <HalfRow>
-            <DigitTextField outlined upperLabel="Mängd" flex={"1"} onChange={() => {
+            <DigitTextField outlined maxLength={4} upperLabel="Mängd" flex={"1"} onChange={() => {
             }} margin={{right: "20px"}} value=""/>
             <DigitTextField outlined upperLabel="Mått" flex={"1"} onChange={() => {
             }} value=""/>
