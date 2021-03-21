@@ -1,7 +1,6 @@
 import {postRequest} from "./RequestUtilities";
 
 export function postNewRecipe(recipe) {
-
     const data = getRecipeData(recipe)
     return postRequest("/recipes", data);
 }
@@ -11,7 +10,7 @@ export function getRecipeData(recipe) {
         return {
             name: ingredient.name,
             unit: ingredient.unit,
-            amount: ingredient.amount,
+            amount: parseFloat(ingredient.amount),
         }
     });
     const steps = recipe.steps.map(step => {
@@ -29,8 +28,8 @@ export function getRecipeData(recipe) {
     return {
         name: recipe.recipeName,
         description: recipe.description,
-        cookingTime: recipe.cookingTime !== undefined ? recipe.cookingTime : -1,
-        ovenTemperature: recipe.ovenTemperature !== undefined ? recipe.ovenTemperature : -1,
+        cookingTime: recipe.cookingTime !== undefined ? parseInt(recipe.cookingTime) : -1,
+        ovenTemperature: recipe.ovenTemperature !== undefined ? parseInt(recipe.ovenTemperature) : -1,
         ingredients: ingredients,
         images: images,
         steps: steps

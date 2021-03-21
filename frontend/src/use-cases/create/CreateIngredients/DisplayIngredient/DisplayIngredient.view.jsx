@@ -3,11 +3,7 @@ import {Draggable} from "react-beautiful-dnd";
 import {DigitIconButton, DigitTextField} from "@cthit/react-digit-components";
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import ClearIcon from '@material-ui/icons/Clear';
-import {
-    DisplayDraggableCard,
-    DisplayDraggableContainer,
-    IconButtonContainer
-} from "../../Create.styles";
+import {DisplayDraggableCard, DisplayDraggableContainer, IconButtonContainer} from "../../Create.styles";
 import {HalfRow} from "../CreateIngredient/CreateIngredient.styles.view";
 import {SmallHSpace} from "../../../../common/styles/Common.styles";
 

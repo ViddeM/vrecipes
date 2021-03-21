@@ -2,7 +2,7 @@ package models
 
 type Recipe struct {
 	ID uint64 `gorm:"autoIncrement"`
-	Name string `gorm:"not null"`
+	Name string `gorm:"unique;not null"`
 	UniqueName string `gorm:"unique;not null"`
 	Description string
 	OvenTemp int

@@ -4,44 +4,18 @@ import (
 	"errors"
 	"fmt"
 	"github.com/viddem/vrecipes/backend/internal/common"
-	"github.com/viddem/vrecipes/backend/internal/db/models"
+	dbModels "github.com/viddem/vrecipes/backend/internal/db/models"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
+	"github.com/viddem/vrecipes/backend/internal/models"
 	"gorm.io/gorm"
 	"os"
 )
 
-type DetailedRecipeJson struct {
-	ID uint64                          `json:"id"`
-	Name string                        `json:"name"`
-	Description string                 `json:"description"`
-	OvenTemperature int                `json:"ovenTemperature"`
-	EstimatedTime int                  `json:"estimatedTime"`
-	Steps []RecipeStepJson             `json:"steps"`
-	Ingredients []RecipeIngredientJson `json:"ingredients"`
-	Images []ImageJson                 `json:"images"`
-}
-
-type RecipeStepJson struct {
-	Number uint16 `json:"number"`
-	Description string `json:"description"`
-}
-
-type RecipeIngredientJson struct {
-	Name string `json:"name"`
-	Unit string `json:"unit"`
-	Amount float32 `json:"amount"`
-}
-
-type ImageJson struct {
-	Path string `json:"url"`
-	ID   uint64 `json:"id"`
-}
-
-func GetRecipe(uniqueName string) (*DetailedRecipeJson, error) {
+func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 	recipe, err := queries.GetRecipeByName(uniqueName)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, common.NoSuchRecipe
+			return nil, common.ErrNoSuchRecipe
 		}
 		return nil, err
 	}
@@ -61,7 +35,7 @@ func GetRecipe(uniqueName string) (*DetailedRecipeJson, error) {
 		return nil, err
 	}
 
-	return &DetailedRecipeJson{
+	return &models.DetailedRecipeJson{
 		ID:              recipe.ID,
 		Name:            recipe.Name,
 		Description:     recipe.Description,
@@ -73,10 +47,10 @@ func GetRecipe(uniqueName string) (*DetailedRecipeJson, error) {
 	}, nil
 }
 
-func RecipeStepsToJson(steps []models.RecipeStep) []RecipeStepJson {
-	var recipeStepJsons []RecipeStepJson
+func RecipeStepsToJson(steps []dbModels.RecipeStep) []models.RecipeStepJson {
+	recipeStepJsons := make([]models.RecipeStepJson, 0)
 	for _, step := range steps {
-		recipeStepJsons = append(recipeStepJsons, RecipeStepJson{
+		recipeStepJsons = append(recipeStepJsons, models.RecipeStepJson{
 			Number:      step.Number,
 			Description: step.Step,
 		})
@@ -84,10 +58,10 @@ func RecipeStepsToJson(steps []models.RecipeStep) []RecipeStepJson {
 	return recipeStepJsons
 }
 
-func RecipeIngredientsToJson(ingredients []models.RecipeIngredient) []RecipeIngredientJson {
-	var recipeIngredientJsons []RecipeIngredientJson
+func RecipeIngredientsToJson(ingredients []dbModels.RecipeIngredient) []models.RecipeIngredientJson {
+	recipeIngredientJsons := make([]models.RecipeIngredientJson, 0)
 	for _, ingredient := range ingredients {
-		recipeIngredientJsons = append(recipeIngredientJsons, RecipeIngredientJson{
+		recipeIngredientJsons = append(recipeIngredientJsons, models.RecipeIngredientJson{
 			Name:  	ingredient.IngredientName,
 			Unit:   ingredient.UnitName,
 			Amount: ingredient.Amount,
@@ -96,10 +70,10 @@ func RecipeIngredientsToJson(ingredients []models.RecipeIngredient) []RecipeIngr
 	return recipeIngredientJsons
 }
 
-func RecipeImagesToJson(images []models.Image) []ImageJson {
-	var recipeImageJsons []ImageJson
+func RecipeImagesToJson(images []dbModels.Image) []models.ImageJson {
+	recipeImageJsons := make([]models.ImageJson, 0)
 	for _, image := range images {
-		recipeImageJsons = append(recipeImageJsons, ImageJson{
+		recipeImageJsons = append(recipeImageJsons, models.ImageJson{
 			Path: imageNameToPath(image.ID, image.Name),
 			ID:   image.ID,
 		})

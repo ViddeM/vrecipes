@@ -7,7 +7,7 @@ import (
 )
 
 func EditRecipe(c *gin.Context) {
-	recipeId := c.Param("recipeId")
+	recipeId := c.Param("id")
 	log.Printf("Edit recipe for recipe: '%s'\n", recipeId)
 	c.String(http.StatusInternalServerError, "Not implemented")
 }

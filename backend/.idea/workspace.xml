@@ -52,21 +52,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/process/imageUploadProcess.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/validation/ValidateImage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/models/DetailedRecipeJson.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/models/NewRecipeJson.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/validation/ValidateNewRecipe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/vrecipes/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/vrecipes/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/api/endpoints/editRecipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/editRecipe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/api/endpoints/imageUpload.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/imageUpload.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/api/endpoints/newRecipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/newRecipe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/orm.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/orm.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/recipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/recipe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/recipes.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/recipes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/common/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/errors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/common/responses.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/responses.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/db/models/recipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/models/recipe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/process/createRecipeProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/createRecipeProcess.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/process/getRecipeProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/getRecipeProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/common/views/FileSelect/FileSelect.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/common/views/FileSelect/FileSelect.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/process/imageUploadProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/imageUploadProcess.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.reducer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.reducer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/UploadImages/UploadImages.action-creators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/UploadImages/UploadImages.action-creators.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/CreateIngredients/CreateIngredient/CreateIngredient.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/CreateIngredients/CreateIngredient/CreateIngredient.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/CreateIngredients/DisplayIngredient/DisplayIngredient.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/CreateIngredients/DisplayIngredient/DisplayIngredient.view.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
