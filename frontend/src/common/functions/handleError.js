@@ -1,8 +1,6 @@
 import {DEFAULT_ERROR, translate} from "../translations/ResponseMessages";
 
 export function handleError(error, type, defaultMessage = DEFAULT_ERROR) {
-    console.log("GOT ERROR", error, "RESPONSE?", error.response)
-
     let msg = defaultMessage;
 
     let errorData = ""

@@ -1,5 +1,9 @@
 import {BACK_TO_SEARCH, LOAD_RECIPE_FAILED, LOAD_RECIPE_SUCCESSFUL, RESET_RECIPE} from "./Recipe.actions";
-import {EDIT_RECIPE} from "./screens/RecipeCard/views/recipe-footer/RecipeFooter.actions.view";
+import {
+    DELETE_RECIPE_FAILED,
+    DELETE_RECIPE_SUCCESSFUL,
+    EDIT_RECIPE
+} from "./screens/RecipeCard/views/recipe-footer/RecipeFooter.actions.view";
 
 const mockRecipe = {
     id: "asd123",
@@ -77,10 +81,7 @@ export function recipe(state = initialState, action) {
                 redirectTo: ""
             });
         case RESET_RECIPE:
-            return Object.assign({}, state, {
-                recipe: null,
-                redirectTo: ""
-            })
+            return state
         case EDIT_RECIPE:
             return Object.assign({}, state, {
                 redirectTo: "/create"
@@ -89,6 +90,11 @@ export function recipe(state = initialState, action) {
             return Object.assign({}, state, {
                 redirectTo: "/"
             })
+        case DELETE_RECIPE_SUCCESSFUL:
+            window.location.assign(window.location.origin)
+            return state
+        case DELETE_RECIPE_FAILED:
+            return state
         default:
             return state;
     }

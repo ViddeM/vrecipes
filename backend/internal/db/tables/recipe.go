@@ -7,6 +7,7 @@ type Recipe struct {
 	Description string
 	OvenTemp int
 	EstimatedTime int
+	Deleted bool
 }
 
 func (_ Recipe) StructName() string {

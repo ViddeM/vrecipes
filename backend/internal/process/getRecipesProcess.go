@@ -28,7 +28,7 @@ func toShortRecipeJson(recipe *tables.Recipe, imageUrl string) ShortRecipeJson {
 }
 
 func GetRecipes() (*RecipesJson, error) {
-	recipes, err := queries.GetAllRecipes()
+	recipes, err := queries.GetNonDeletedRecipes()
 	if err != nil {
 		return nil, err
 	}

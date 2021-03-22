@@ -14,7 +14,6 @@ export function resetRecipe() {
 }
 
 export function loadRecipe(recipeId) {
-
     return dispatch => {
         getRecipe(recipeId).then(response => {
             return dispatch(onLoadRecipeSuccessful(response))
