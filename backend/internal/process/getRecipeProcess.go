@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/viddem/vrecipes/backend/internal/common"
-	dbModels "github.com/viddem/vrecipes/backend/internal/db/models"
+	dbModels "github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"gorm.io/gorm"

@@ -2,5 +2,5 @@ package common
 
 import "errors"
 
-var ErrRowAlreadyExists = errors.New("rowAlreadyExists")
+var ErrNameTaken = errors.New("nameTaken")
 var ErrNoSuchRecipe = errors.New("noSuchRecipe")

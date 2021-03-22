@@ -1,11 +1,11 @@
 package queries
 
-import "github.com/viddem/vrecipes/backend/internal/db/models"
+import "github.com/viddem/vrecipes/backend/internal/db/tables"
 
-func GetStepsForRecipe(recipeId uint64) ([]models.RecipeStep, error) {
+func GetStepsForRecipe(recipeId uint64) ([]tables.RecipeStep, error) {
 	db := getDB()
-	var recipeSteps []models.RecipeStep
-	tx := db.Where(&models.RecipeStep{
+	var recipeSteps []tables.RecipeStep
+	tx := db.Where(&tables.RecipeStep{
 		RecipeID: recipeId,
 	}, "recipeId").Find(&recipeSteps)
 	return recipeSteps, tx.Error

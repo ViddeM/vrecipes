@@ -4,7 +4,7 @@ import (
 	"errors"
 	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
-	dbModels "github.com/viddem/vrecipes/backend/internal/db/models"
+	dbModels "github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"gorm.io/gorm"
@@ -51,7 +51,7 @@ func GetOrCreateUnit(unitName string) (*dbModels.Unit, error) {
 	return unit, nil
 }
 
-func CreateRecipeIngredient(ingredientName string, unitName string, amount float32, recipe *dbModels.Recipe) (*dbModels.RecipeIngredient, error) {
+func CreateRecipeIngredient(ingredientName string, unitName string, amount float32, recipeId uint64) (*dbModels.RecipeIngredient, error) {
 	ingredient, err := GetOrCreateIngredient(ingredientName)
 	if err != nil {
 		return nil, err
@@ -63,7 +63,7 @@ func CreateRecipeIngredient(ingredientName string, unitName string, amount float
 	}
 
 	recipeIngredient := dbModels.RecipeIngredient{
-		Recipe:     *recipe,
+		RecipeID: recipeId,
 		Ingredient: *ingredient,
 		Unit:       *unit,
 		Amount:     amount,
@@ -73,9 +73,9 @@ func CreateRecipeIngredient(ingredientName string, unitName string, amount float
 	return &recipeIngredient, err
 }
 
-func CreateRecipeStep(step string, number uint16, recipe *dbModels.Recipe) (*dbModels.RecipeStep, error) {
+func CreateRecipeStep(step string, number uint16, recipeId uint64) (*dbModels.RecipeStep, error) {
 	recipeStep := dbModels.RecipeStep{
-		Recipe: *recipe,
+		RecipeID: recipeId,
 		Number: number,
 		Step:   step,
 	}
@@ -136,14 +136,14 @@ func CreateNewRecipe(recipeJson *models.NewRecipeJson) (string, error) {
 	}
 
 	for _, ingredient := range recipeJson.Ingredients {
-		_, err := CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, recipe)
+		_, err := CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, recipe.ID)
 		if err != nil {
 			return "", err
 		}
 	}
 
 	for _, step := range recipeJson.Steps {
-		_, err := CreateRecipeStep(step.Step, step.Number, recipe)
+		_, err := CreateRecipeStep(step.Step, step.Number, recipe.ID)
 		if err != nil {
 			return "", err
 		}
@@ -168,5 +168,5 @@ func generateUniqueName(name string) (string, error) {
 		}
 		return "", err
 	}
-	return uniqueName, common2.ErrRowAlreadyExists
+	return uniqueName, common2.ErrNameTaken
 }

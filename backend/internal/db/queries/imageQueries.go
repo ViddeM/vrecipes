@@ -1,10 +1,10 @@
 package queries
 
-import "github.com/viddem/vrecipes/backend/internal/db/models"
+import "github.com/viddem/vrecipes/backend/internal/db/tables"
 
-func GetImageById(id uint64) (*models.Image, error) {
+func GetImageById(id uint64) (*tables.Image, error) {
 	db := getDB()
-	var image models.Image
+	var image tables.Image
 	tx := db.First(&image, id)
 	return &image, tx.Error
 }

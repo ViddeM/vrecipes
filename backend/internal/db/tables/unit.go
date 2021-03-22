@@ -1,4 +1,4 @@
-package models
+package tables
 
 type Unit struct {
 	Name string `gorm:"primaryKey" json:"name"`
