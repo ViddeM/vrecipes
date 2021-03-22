@@ -10,10 +10,10 @@ const RecipeFooter = props => (
             <DigitButton primary raised text="Redigera" size={{width: "200px"}}
                          onClick={() => {
                              props.editRecipe(props.recipe)
-                             
+
                          }}/>
             <DigitButton secondary raised text="Ta bort" size={{width: "200px"}}
-                         onClick={() => alert("Not implemented yet :(")}/>
+                         onClick={() => props.deleteRecipe(props.recipe.id)}/>
         </RecipeFooterContainer>
     </RecipeFooterColumns>
 );

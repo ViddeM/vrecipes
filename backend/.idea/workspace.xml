@@ -52,50 +52,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/process/editRecipeProcess.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/api/endpoints/removeRecipe.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/process/deleteRecipeProcess.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/example_requests/EditRecipe.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/example_requests/EditRecipe.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/editRecipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/editRecipe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/newRecipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/newRecipe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/common/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/errors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/common/responses.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/responses.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/commands/imageCommands.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/commands/imageCommands.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/commands/ingredientCommands.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/commands/ingredientCommands.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/commands/recipeCommands.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/commands/recipeCommands.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/commands/recipeImageCommands.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/commands/recipeImageCommands.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/commands/recipeIngredientCommands.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/commands/recipeIngredientCommands.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/commands/recipeStepCommands.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/commands/recipeStepCommands.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/commands/unitCommands.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/commands/unitCommands.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/models/image.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/tables/image.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/models/ingredient.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/tables/ingredient.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/models/recipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/tables/recipe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/models/recipeImage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/tables/recipeImage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/models/recipeIngredient.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/tables/recipeIngredient.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/models/recipeStep.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/tables/recipeStep.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/models/unit.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/tables/unit.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/orm.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/orm.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/queries/imageQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/imageQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/queries/ingredientQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/ingredientQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/queries/recipeImageQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/recipeImageQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/queries/recipeIngredientQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/recipeIngredientQueries.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/db/queries/recipeQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/recipeQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/queries/recipeStepQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/recipeStepQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/queries/unitQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/unitQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/setup.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/models/NewRecipeJson.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/NewRecipeJson.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/process/createRecipeProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/createRecipeProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/process/getRecipeProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/getRecipeProcess.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/db/tables/recipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/tables/recipe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/process/imageUploadProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/imageUploadProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/validation/ValidateNewRecipe.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/api/post.EditedRecipe.api.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/common/functions/handleError.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/common/functions/handleError.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/common/translations/ResponseMessages.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/common/translations/ResponseMessages.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.action-creators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.action-creators.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.reducer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/Create.reducer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/CreateSteps/CreateSteps.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/CreateSteps/CreateSteps.view.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/CreateSteps/DisplayStep/DisplayStep.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/CreateSteps/DisplayStep/DisplayStep.view.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/recipe-steps/RecipeSteps.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/recipe-steps/RecipeSteps.view.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
