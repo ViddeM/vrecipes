@@ -10,7 +10,7 @@ class Recipe extends Component {
     componentDidMount() {
         const {match: {params}} = this.props;
         this.props.loadRecipe(params.recipeId)
-        this.props.resetRecipe()
+        // this.props.resetRecipe()
     }
 
     render() {

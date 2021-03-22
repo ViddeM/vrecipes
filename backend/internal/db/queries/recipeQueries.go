@@ -22,9 +22,11 @@ func GetRecipeById(id uint64) (*tables.Recipe, error) {
 	return &recipe, tx.Error
 }
 
-func GetAllRecipes() ([]tables.Recipe, error) {
+func GetNonDeletedRecipes() ([]tables.Recipe, error) {
 	db := getDB()
 	var recipes []tables.Recipe
-	tx := db.Find(&recipes)
+	tx := db.Where(map[string]interface{}{
+		"deleted": false,
+	}).Find(&recipes)
 	return recipes, tx.Error
 }

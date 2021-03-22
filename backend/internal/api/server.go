@@ -26,6 +26,7 @@ func Init() {
 		api.PUT("/images", endpoints.ImageUpload)
 		api.GET("/recipes", endpoints.Recipes)
 		api.GET("/recipes/:uniqueName", endpoints.Recipe)
+		api.DELETE("/recipes/:id", endpoints.RemoveRecipe)
 	}
 }
 

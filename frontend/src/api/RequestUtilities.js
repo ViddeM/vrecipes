@@ -46,3 +46,12 @@ export function putRequest(endpoint, data) {
 
     return axios.put(path + endpoint, data, {headers});
 }
+
+export function deleteRequest(endpoint) {
+    if (initialized !== true) {
+        console.error("API not initialized");
+        return;
+    }
+
+    return axios.delete(path + endpoint)
+}
