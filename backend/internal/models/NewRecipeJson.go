@@ -1,5 +1,10 @@
 package models
 
+import (
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
+	"math"
+)
+
 type NewRecipeJson struct {
 	Name            string                    `json:"name" validate:"required"`
 	Description     string                    `json:"description"`
@@ -15,12 +20,33 @@ type NewRecipeStepJson struct {
 	Step string `json:"step" validate:"required"`
 }
 
+func (step *NewRecipeStepJson) SameAs(other *tables.RecipeStep) bool {
+	return step.Number == other.Number && step.Step == other.Step
+}
+
 type NewRecipeIngredientJson struct {
 	Name   string  `json:"name" validate:"required"`
 	Unit   string  `json:"unit" validate:"required"`
 	Amount float32 `json:"amount" validate:"required"`
 }
 
+func (ingredient *NewRecipeIngredientJson) SameAs(other *tables.RecipeIngredient) bool {
+	return ingredient.Name == other.Ingredient.Name &&
+		floatsAreSame(ingredient.Amount, other.Amount) &&
+		ingredient.Unit == other.Unit.Name
+}
+
 type NewRecipeImageJson struct {
 	ID uint64 `json:"id" validate:"required"`
+}
+
+func (image *NewRecipeImageJson) SameAs(other *tables.Image) bool {
+	return image.ID == other.ID
+}
+
+func floatsAreSame(a, b float32) bool {
+	if math.Abs(float64(b - a)) < 0.0001 {
+		return true
+	}
+	return false
 }

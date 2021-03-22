@@ -6,6 +6,7 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"github.com/viddem/vrecipes/backend/internal/process"
+	"github.com/viddem/vrecipes/backend/internal/validation"
 	"log"
 	"net/http"
 )
@@ -15,17 +16,16 @@ type NewRecipeResponse struct {
 }
 
 func NewRecipe(c *gin.Context) {
-	var recipe models.NewRecipeJson
-	err := c.BindJSON(&recipe)
+	recipe, err := validateRecipe(c)
 	if err != nil {
 		log.Printf("Failed to validate new recipe json: %v\n", err)
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseInvalidJson))
 		return
 	}
 
-	uniqueName, err := process.CreateNewRecipe(&recipe)
+	uniqueName, err := process.CreateNewRecipe(recipe)
 	if err != nil {
-		if errors.Is(err, common.ErrRowAlreadyExists) {
+		if errors.Is(err, common.ErrNameTaken) {
 			log.Printf("Tried to create duplicate recipe")
 			c.JSON(http.StatusOK, common.Error(common.ResponseRecipeNameExist))
 			return
@@ -37,4 +37,15 @@ func NewRecipe(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, common.Success(NewRecipeResponse{uniqueName}))
+}
+
+func validateRecipe(c *gin.Context) (*models.NewRecipeJson, error) {
+	var recipe models.NewRecipeJson
+	err := c.BindJSON(&recipe)
+	if err != nil {
+		return nil, err
+	}
+
+	err = validation.ValidateRecipe(&recipe)
+	return &recipe, err
 }

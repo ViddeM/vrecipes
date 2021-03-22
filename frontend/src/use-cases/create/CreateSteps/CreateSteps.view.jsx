@@ -1,10 +1,6 @@
 import React from "react";
 import {Dropzone, FormColumn, FormRow, StyledCard} from "../Create.styles";
-import {
-    DigitButton,
-    DigitText,
-    useDigitCustomDialog
-} from "@cthit/react-digit-components";
+import {DigitButton, DigitText, useDigitCustomDialog} from "@cthit/react-digit-components";
 import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import {DisplayStep} from "./DisplayStep/DisplayStep.view";
 import {ButtonContainer} from "../CreateIngredients/CreateIngredients.styles.view";
@@ -12,8 +8,8 @@ import {SmallHSpace} from "../../../common/styles/Common.styles";
 
 export const CreateSteps = props => {
     const [openDialog] = useDigitCustomDialog({
-                                                  title: "Bekräfta"
-                                              });
+        title: "Bekräfta"
+    });
     return (
         <StyledCard>
             <FormColumn>

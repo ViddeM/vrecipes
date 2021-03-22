@@ -1,4 +1,4 @@
-package models
+package tables
 
 type Recipe struct {
 	ID uint64 `gorm:"autoIncrement"`

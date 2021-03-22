@@ -1,4 +1,4 @@
-package models
+package tables
 
 type RecipeStep struct {
 	Recipe Recipe

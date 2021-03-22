@@ -4,7 +4,7 @@ import (
 	"fmt"
 	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
-	"github.com/viddem/vrecipes/backend/internal/db/models"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -57,13 +57,13 @@ func resetDb() {
 }
 
 func createTables() {
-	createTable(models.Image{})
-	createTable(models.Ingredient{})
-	createTable(models.Recipe{})
-	createTable(models.RecipeImage{})
-	createTable(models.RecipeIngredient{})
-	createTable(models.RecipeStep{})
-	createTable(models.Unit{})
+	createTable(tables.Image{})
+	createTable(tables.Ingredient{})
+	createTable(tables.Recipe{})
+	createTable(tables.RecipeImage{})
+	createTable(tables.RecipeIngredient{})
+	createTable(tables.RecipeStep{})
+	createTable(tables.Unit{})
 }
 
 func createTable(model common2.NamedStruct) {

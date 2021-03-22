@@ -2,7 +2,7 @@ package db
 
 import (
 	"encoding/json"
-	"github.com/viddem/vrecipes/backend/internal/db/models"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/process"
 	"io/ioutil"
 	"log"
@@ -10,7 +10,7 @@ import (
 )
 
 type RecipeJson struct {
-	models.Recipe
+	tables.Recipe
 	Ingredients []RecipeIngredientJson `json:"ingredients"`
 	Steps       []RecipeStepJson       `json:"steps"`
 	Image string `json:"image"`
@@ -58,14 +58,14 @@ func loadFromDefaults() {
 		}
 
 		for num, step := range recipeJson.Steps {
-			_, err := process.CreateRecipeStep(string(step), uint16(num), recipe)
+			_, err := process.CreateRecipeStep(string(step), uint16(num), recipe.ID)
 			if err != nil {
 				log.Printf("Failed to create default recipe step %s, due to err: %s\n", step, err)
 			}
 		}
 
 		for _, ingredient := range recipeJson.Ingredients {
-			_, err = process.CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, recipe)
+			_, err = process.CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, recipe.ID)
 			if err != nil {
 				log.Printf("Failed to create default recipe ingredient %+v, due to err: %s\n", ingredient, err)
 			}

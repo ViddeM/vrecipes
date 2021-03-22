@@ -1,11 +1,11 @@
 package queries
 
-import "github.com/viddem/vrecipes/backend/internal/db/models"
+import "github.com/viddem/vrecipes/backend/internal/db/tables"
 
-func GetIngredient(name string) (*models.Ingredient, error) {
+func GetIngredient(name string) (*tables.Ingredient, error) {
 	db := getDB()
-	var ingredient models.Ingredient
-	tx := db.Where(&models.Ingredient{
+	var ingredient tables.Ingredient
+	tx := db.Where(&tables.Ingredient{
 		Name: name,
 	}, "name").First(&ingredient)
 	return &ingredient, tx.Error

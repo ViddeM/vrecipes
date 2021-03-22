@@ -1,6 +1,6 @@
 {
   "endpoint": "/api/recipe/edit/{recipe_id}",
-  "method": "POST",
+  "method": "PUT",
   "request": {
     "name": "Edited recipename 133",
     "description": "Some recipe description",

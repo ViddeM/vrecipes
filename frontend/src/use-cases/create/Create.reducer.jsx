@@ -140,7 +140,7 @@ function validateInteger(newNumber, oldValue) {
     if (newNumber === "") {
         return undefined
     }
-    
+
     if (!isNaN(parseInt(newNumber))) {
         return newNumber
     }
@@ -170,7 +170,7 @@ function reorderSteps(list, startIndex, endIndex) {
     result.splice(endIndex, 0, removed);
 
     return result.map((step, index) => {
-        step.number = index + 1;
+        step.number = index;
         return step;
     });
 }
@@ -292,7 +292,7 @@ function removeStep(state, id) {
 
 function getNextIngredientId(state) {
     // FIXME: Quick solution, maybe create a better in the future.
-    let highest = 0;
+    let highest = -1;
     state.ingredients.forEach(ingredient => {
         if (ingredient.id > highest) {
             highest = ingredient.id;
@@ -303,7 +303,7 @@ function getNextIngredientId(state) {
 
 function getNextStepId(state) {
     // FIXME: Quick solution, maybe create a better in the future.
-    let highest = 0;
+    let highest = -1;
     state.steps.forEach(step => {
         if (step.id > highest) {
             highest = step.id
@@ -314,7 +314,7 @@ function getNextStepId(state) {
 
 function getNextStepNumber(state) {
     // FIXME: Quick solution, maybe create a better in the future.
-    let highest = 0;
+    let highest = -1;
     state.steps.forEach(step => {
         if (step.number > highest) {
             highest = step.number;

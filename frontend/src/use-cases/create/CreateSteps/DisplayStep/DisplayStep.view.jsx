@@ -1,16 +1,8 @@
 import React from "react";
-import {
-    DisplayDraggableCard,
-    DisplayDraggableContainer,
-    IconButtonContainer
-} from "../../Create.styles";
+import {DisplayDraggableCard, DisplayDraggableContainer, IconButtonContainer} from "../../Create.styles";
 import {Draggable} from "react-beautiful-dnd";
 import DehazeIcon from "@material-ui/icons/Dehaze";
-import {
-    DigitIconButton,
-    DigitText,
-    DigitTextArea
-} from "@cthit/react-digit-components";
+import {DigitIconButton, DigitText, DigitTextArea} from "@cthit/react-digit-components";
 import ClearIcon from "@material-ui/icons/Clear";
 import {SmallHSpace} from "../../../../common/styles/Common.styles";
 
@@ -18,7 +10,7 @@ export const DisplayStep = props => {
     const step = props.props.step;
     const index = props.props.index;
     const errors = props.props.errors;
-    
+
     return (
         <DisplayDraggableContainer>
             <Draggable draggableId={step.id.toString()} index={index}>
@@ -33,7 +25,7 @@ export const DisplayStep = props => {
                         )}>
                         <DehazeIcon/>
                         <SmallHSpace/>
-                        <DigitText.Text text={step.number.toString() + "."}
+                        <DigitText.Text text={(step.number + 1).toString() + "."}
                                         bold/>
                         <SmallHSpace/>
                         <DigitTextArea outlined upperLabel="Tillvägagångssätt"
