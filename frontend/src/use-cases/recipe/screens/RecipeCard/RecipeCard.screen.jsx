@@ -78,9 +78,11 @@ const RecipeCard = props => (
             <SmallVSpace/>
             <FullWidth>
                 <Columns>
-                    {props.recipe.steps.length > 0 && (
+                    {props.recipe.ingredients.length > 0 && (
                         <Column>
-                            <RecipeSteps steps={props.recipe.steps}/>
+                            <Center>
+                                <Ingredients/>
+                            </Center>
                         </Column>
                     )}
                     {props.recipe.ingredients.length > 0 && props.recipe.steps.length > 0 && (
@@ -88,11 +90,9 @@ const RecipeCard = props => (
                             <VLine className="VLINE"/>
                         </VLineContainer>
                     )}
-                    {props.recipe.ingredients.length > 0 && (
+                    {props.recipe.steps.length > 0 && (
                         <Column>
-                            <Center>
-                                <Ingredients/>
-                            </Center>
+                            <RecipeSteps steps={props.recipe.steps}/>
                         </Column>
                     )}
                 </Columns>
