@@ -33,6 +33,10 @@ func GetRecipes() (*RecipesJson, error) {
 		return nil, err
 	}
 
+	if recipes == nil {
+		recipes = make([]tables.Recipe, 0)
+	}
+
 	var shortRecipes []ShortRecipeJson
 
 	for _, recipe := range recipes {
