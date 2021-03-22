@@ -2,7 +2,7 @@ package process
 
 import (
 	"errors"
-	"github.com/viddem/vrecipes/backend/internal/db/models"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"gorm.io/gorm"
 )
@@ -18,7 +18,7 @@ type ShortRecipeJson struct {
 	ImageLink string `json:"image_link"`
 }
 
-func toShortRecipeJson(recipe *models.Recipe, imageUrl string) ShortRecipeJson {
+func toShortRecipeJson(recipe *tables.Recipe, imageUrl string) ShortRecipeJson {
 	return ShortRecipeJson{
 		ID:         recipe.ID,
 		Name:       recipe.Name,

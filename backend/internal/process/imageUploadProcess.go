@@ -3,7 +3,7 @@ package process
 import (
 	"fmt"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
-	dbModels "github.com/viddem/vrecipes/backend/internal/db/models"
+	dbModels "github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"github.com/viddem/vrecipes/backend/internal/validation"
 	"os"

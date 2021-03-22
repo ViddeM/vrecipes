@@ -1,13 +1,13 @@
 package queries
 
 import (
-	"github.com/viddem/vrecipes/backend/internal/db/models"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
-func GetImagesForRecipe(recipeId uint64) ([]models.Image, error) {
+func GetImagesForRecipe(recipeId uint64) ([]tables.Image, error) {
 	db := getDB()
-	var recipeImages []models.RecipeImage
-	tx := db.Where(&models.RecipeImage{
+	var recipeImages []tables.RecipeImage
+	tx := db.Where(&tables.RecipeImage{
 		RecipeID: recipeId,
 	}, "recipeId").Find(&recipeImages)
 
@@ -15,7 +15,7 @@ func GetImagesForRecipe(recipeId uint64) ([]models.Image, error) {
 		return nil, tx.Error
 	}
 
-	var images []models.Image
+	var images []tables.Image
 
 	if recipeImages != nil {
 		for _, recImage := range recipeImages {
@@ -31,10 +31,10 @@ func GetImagesForRecipe(recipeId uint64) ([]models.Image, error) {
 	return images, nil
 }
 
-func GetMainImageForRecipe(recipeId uint64) (*models.RecipeImage, error) {
+func GetMainImageForRecipe(recipeId uint64) (*tables.RecipeImage, error) {
 	db := getDB()
-	var recipeImage models.RecipeImage
-	tx := db.Where(&models.RecipeImage{
+	var recipeImage tables.RecipeImage
+	tx := db.Where(&tables.RecipeImage{
 		RecipeID: recipeId,
 	}, "recipeId").First(&recipeImage)
 

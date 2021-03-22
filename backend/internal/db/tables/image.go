@@ -1,4 +1,4 @@
-package models
+package tables
 
 type Image struct {
 	ID uint64 `gorm:"autoIncrement"`

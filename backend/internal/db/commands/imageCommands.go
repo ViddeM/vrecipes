@@ -1,8 +1,8 @@
 package commands
 
-import "github.com/viddem/vrecipes/backend/internal/db/models"
+import "github.com/viddem/vrecipes/backend/internal/db/tables"
 
-func CreateImage(image *models.Image) (uint64, error) {
+func CreateImage(image *tables.Image) (uint64, error) {
 	db := getDB()
 	image.ID = 0
 	tx := db.Create(image)

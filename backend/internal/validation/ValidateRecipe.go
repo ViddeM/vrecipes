@@ -7,7 +7,7 @@ import (
 
 var ErrInvalidStepNumbers = errors.New("the provided step values does not follow a continous scale from 0 -> number of steps")
 
-func ValidateNewRecipe(recipe *models.NewRecipeJson) error {
+func ValidateRecipe(recipe *models.NewRecipeJson) error {
 	if validateStepNumbers(recipe.Steps) == false {
 		return ErrInvalidStepNumbers
 	}

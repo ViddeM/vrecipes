@@ -1,30 +1,30 @@
 package queries
 
 import (
-	"github.com/viddem/vrecipes/backend/internal/db/models"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
-func GetRecipeByName(uniqueName string) (*models.Recipe, error) {
+func GetRecipeByName(uniqueName string) (*tables.Recipe, error) {
 	db := getDB()
-	var recipe models.Recipe
-	tx := db.Where(&models.Recipe{
+	var recipe tables.Recipe
+	tx := db.Where(&tables.Recipe{
 		UniqueName: uniqueName,
 	}, "uniqueName").First(&recipe)
 	return &recipe, tx.Error
 }
 
-func GetRecipeById(id uint64) (*models.Recipe, error) {
+func GetRecipeById(id uint64) (*tables.Recipe, error) {
 	db := getDB()
-	var recipe models.Recipe
-	tx := db.Where(&models.Recipe{
+	var recipe tables.Recipe
+	tx := db.Where(&tables.Recipe{
 		ID: id,
 	}, "id").First(&recipe)
 	return &recipe, tx.Error
 }
 
-func GetAllRecipes() ([]models.Recipe, error) {
+func GetAllRecipes() ([]tables.Recipe, error) {
 	db := getDB()
-	var recipes []models.Recipe
+	var recipes []tables.Recipe
 	tx := db.Find(&recipes)
 	return recipes, tx.Error
 }

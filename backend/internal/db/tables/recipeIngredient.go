@@ -1,11 +1,12 @@
-package models
+package tables
 
 // An ingredient in a recipe
 type RecipeIngredient struct {
+	ID uint64 `gorm:"autoIncrement"`
 	Recipe Recipe
-	RecipeID uint64 `gorm:"primaryKey"`
+	RecipeID uint64
 	Ingredient Ingredient
-	IngredientName string `gorm:"primaryKey"`
+	IngredientName string
 	Unit Unit
 	UnitName string `gorm:"not null"`
 	Amount float32 `gorm:"not null"`

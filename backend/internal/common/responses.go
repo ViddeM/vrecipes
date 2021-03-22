@@ -25,13 +25,15 @@ func Error(err string) ErrorResponse {
 }
 
 var (
-	ResponseRecipeNameExist      = "recipe_name_exists"
-	ResponseFailedToCreateRecipe = "failed_to_create_recipe"
-	ResponseRecipeNotFound       = "recipe_not_found"
-	ResponseInvalidJson          = "invalid_json"
-	ResponseMissingFile          = "missing_file"
-	ResponseBadImage             = "bad_image"
-	ResponseFailedToSaveImage    = "failed_to_save_image"
+	ResponseRecipeNameExist      	= "recipe_name_exists"
+	ResponseFailedToCreateRecipe 	= "failed_to_create_recipe"
+	ResponseFailedToEditRecipe      = "failed_to_edit_recipe"
+	ResponseRecipeNotFound       	= "recipe_not_found"
+	ResponseInvalidJson          	= "invalid_json"
+	ResponseMissingFile          	= "missing_file"
+	ResponseBadImage             	= "bad_image"
+	ResponseFailedToSaveImage    	= "failed_to_save_image"
 	ResponseFailedToRetrieveRecipes = "failed_to_retrieve_recipes"
-	ResponseFailedToRetrieveRecipe = "failed_to_retrieve_recipe"
+	ResponseFailedToRetrieveRecipe 	= "failed_to_retrieve_recipe"
+	ResponseMalformedRecipeId       = "malformed_recipe_id"
 )

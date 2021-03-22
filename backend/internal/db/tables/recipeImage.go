@@ -1,4 +1,4 @@
-package models
+package tables
 
 type RecipeImage struct {
 	Image *Image

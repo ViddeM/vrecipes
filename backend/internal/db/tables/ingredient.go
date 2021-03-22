@@ -1,4 +1,4 @@
-package models
+package tables
 
 type Ingredient struct {
 	Name string `gorm:"primaryKey"`
