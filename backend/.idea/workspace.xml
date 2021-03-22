@@ -52,15 +52,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/api/endpoints/removeRecipe.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/process/deleteRecipeProcess.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/common/responses.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/responses.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/queries/recipeQueries.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/queries/recipeQueries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/tables/recipe.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/tables/recipe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/common/functions/handleError.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/common/functions/handleError.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

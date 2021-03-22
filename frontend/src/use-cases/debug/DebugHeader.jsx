@@ -10,15 +10,17 @@ const DebugHeader = props => (
                     display: "flex ",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "red",
                     backgroundImage: "repeating-linear-gradient(30deg, yellow, yellow 13px, #666 15px, #666 43px, yellow 45px, yellow 60px)",
-                    textShadow: "-1px -1px 0 #000, 4px -1px 0 #000, -1px 4px 0 #000, 1px 1px 0 #000"
+                    borderBottom: "2px solid black"
                 }}
             >
                 <h1
                     style={{
-                        fontFamily: "Arial, Sans-serif",
-                        textDecoration: "underline"
+                        backgroundColor: "white",
+                        borderRadius: "10px",
+                        paddingRight: "5px",
+                        paddingLeft: "5px",
+                        border: "2px solid black"
                     }}
                 >
                     DEBUG MODE

@@ -63,17 +63,17 @@ function getDialog(id, onRemove) {
             <ButtonContainer>
                 <DigitButton
                     raised
-                    primary
-                    text={"JA"}
-                    onClick={confirm}
+                    secondary
+                    text={"NEJ"}
+                    onClick={cancel}
                     flex={"1"}
                 />
                 <SmallHSpace/>
                 <DigitButton
                     raised
-                    secondary
-                    text={"NEJ"}
-                    onClick={cancel}
+                    primary
+                    text={"JA"}
+                    onClick={confirm}
                     flex={"1"}
                 />
             </ButtonContainer>

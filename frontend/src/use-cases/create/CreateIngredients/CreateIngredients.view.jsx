@@ -1,10 +1,6 @@
 import React from "react";
 import {Dropzone, FormColumn, FormRow, StyledCard} from "../Create.styles";
-import {
-    DigitButton,
-    DigitText,
-    useDigitCustomDialog
-} from "@cthit/react-digit-components";
+import {DigitButton, DigitText, useDigitCustomDialog} from "@cthit/react-digit-components";
 import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import {DisplayIngredient} from "./DisplayIngredient/DisplayIngredient.view";
 import {ButtonContainer} from "./CreateIngredients.styles.view";
@@ -12,8 +8,8 @@ import {SmallHSpace} from "../../../common/styles/Common.styles";
 
 export const CreateIngredients = props => {
     const [openDialog] = useDigitCustomDialog({
-                                                  title: "Bekräfta"
-                                              });
+        title: "Bekräfta"
+    });
 
     return (
         <StyledCard>
@@ -70,18 +66,18 @@ function getDialog(ingredientId, onIngredientRemoved) {
             <ButtonContainer>
                 <DigitButton
                     raised
-                    primary
-                    text={"Ja"}
-                    onClick={confirm}
-                    flex={"1"}/>
-                <SmallHSpace/>
-                <DigitButton
-                    raised
                     secondary
                     text={"Nej"}
                     onClick={cancel}
                     flex={"1"}
                 />
+                <SmallHSpace/>
+                <DigitButton
+                    raised
+                    primary
+                    text={"Ja"}
+                    onClick={confirm}
+                    flex={"1"}/>
             </ButtonContainer>
         ),
         onConfirm: () => {
