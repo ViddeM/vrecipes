@@ -70,7 +70,7 @@ function getDialog(ingredientId, onIngredientRemoved) {
                     text={"Nej"}
                     onClick={cancel}
                     flex={"1"}
-                />
+                />`
                 <SmallHSpace/>
                 <DigitButton
                     raised
