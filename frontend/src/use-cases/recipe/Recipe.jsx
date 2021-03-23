@@ -7,13 +7,11 @@ import {Redirect, Route} from "react-router";
 
 
 const Recipe = props => {
+    const {match: {params}} = props;
     useEffect(
         () => {
-            const {match: {params}} = props;
             props.loadRecipe(params.recipeId)
-            // props.resetRecipe()
-        },
-        []
+        }, [params.recipeId]
     )
 
     if (props.redirectTo !== "") {

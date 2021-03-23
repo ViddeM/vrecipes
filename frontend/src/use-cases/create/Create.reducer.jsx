@@ -22,6 +22,7 @@ import {ON_RECIPE_SAVE_FAILED, ON_RECIPE_SAVE_SUCCESSFUL, ON_RECIPE_VALIDATION_F
 import {REMOVE_IMAGE, UPLOAD_IMAGE_FAILED, UPLOAD_IMAGE_SUCCESSFUL} from "./UploadImages/UploadImages.actions";
 import {EDIT_RECIPE} from "../recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.actions.view";
 import {CREATE_RECIPE} from "../search/Search.actions";
+import {LOAD_RECIPE_AWAIT_RESPONSE} from "../recipe/Recipe.actions";
 
 const initialState = {
     id: "",
@@ -121,6 +122,10 @@ export function create(state = initialState, action) {
             return initialState
         case REMOVE_IMAGE:
             return removeImage(state, action.payload.image)
+        case LOAD_RECIPE_AWAIT_RESPONSE:
+            return newState(state, {
+                redirectTo: ""
+            })
         default:
             return state;
     }
