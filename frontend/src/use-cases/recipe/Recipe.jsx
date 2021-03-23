@@ -12,7 +12,8 @@ const Recipe = props => {
             const {match: {params}} = props;
             props.loadRecipe(params.recipeId)
             // props.resetRecipe()
-        }
+        },
+        []
     )
 
     if (props.redirectTo !== "") {
