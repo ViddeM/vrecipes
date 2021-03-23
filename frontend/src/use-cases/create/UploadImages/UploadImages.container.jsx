@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {UploadImages} from "./UploadImages";
-import {uploadImage} from "./UploadImages.action-creators";
+import {removeImage, uploadImage} from "./UploadImages.action-creators";
 
 const mapStateToProps = state => ({
     images: state.root.create.images,
@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    uploadImage: file => dispatch(uploadImage(file))
+    uploadImage: file => dispatch(uploadImage(file)),
+    removeImage: image => dispatch(removeImage(image))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadImages);
