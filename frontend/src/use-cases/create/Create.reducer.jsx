@@ -19,7 +19,7 @@ import {
     ON_OVEN_TEMP_CHANGE
 } from "./CreateGeneral/CreateGeneral.actions.view";
 import {ON_RECIPE_SAVE_FAILED, ON_RECIPE_SAVE_SUCCESSFUL, ON_RECIPE_VALIDATION_FAILED} from "./Create.actions";
-import {UPLOAD_IMAGE_FAILED, UPLOAD_IMAGE_SUCCESSFUL} from "./UploadImages/UploadImages.actions";
+import {REMOVE_IMAGE, UPLOAD_IMAGE_FAILED, UPLOAD_IMAGE_SUCCESSFUL} from "./UploadImages/UploadImages.actions";
 import {EDIT_RECIPE} from "../recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.actions.view";
 import {CREATE_RECIPE} from "../search/Search.actions";
 
@@ -119,6 +119,8 @@ export function create(state = initialState, action) {
             return editRecipe(state, action.payload.recipe)
         case CREATE_RECIPE:
             return initialState
+        case REMOVE_IMAGE:
+            return removeImage(state, action.payload.image)
         default:
             return state;
     }
@@ -361,5 +363,18 @@ function editRecipe(state, recipe) {
         ovenTemperature: recipe.ovenTemperature,
         images: recipe.images,
         redirectTo: ""
+    })
+}
+
+function removeImage(state, image) {
+    let newImages = []
+    state.images.forEach(img => {
+        if (img.id !== image.id) {
+            newImages.push(img)
+        }
+    })
+
+    return newState(state, {
+        images: newImages
     })
 }
