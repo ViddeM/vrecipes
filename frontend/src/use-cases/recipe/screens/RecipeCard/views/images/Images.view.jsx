@@ -1,5 +1,5 @@
 import React from "react"
-import {ImageContainer, ImageOutline, ImagesContainer} from "./Images.styles.view";
+import {ImagesContainer, StyledImage} from "./Images.styles.view";
 import {getImageUrl} from "../../../../../../api/get.Image.api";
 
 const Images = props => {
@@ -7,32 +7,21 @@ const Images = props => {
 
     return (
         <ImagesContainer>
-            <ImageOutline>
-                {displayImage(image)}
-            </ImageOutline>
+            <StyledImage src={image} alt="Unable to display" width="100%"/>
         </ImagesContainer>
     )
 };
-
-function displayImage(image) {
-    if (image === null) {
-        return (
-            <ImageContainer style={{
-                backgroundImage: `url(${require("./default.jpg")})`
-            }}/>
-        )
-    }
-
-    return (
-        <ImageContainer style={{backgroundImage: `url(${image})`}}/>
-    )
-}
 
 function getImage(images) {
     let image = null;
     if (images !== undefined && images.length > 0) {
         image = getImageUrl(images[0].url)
     }
+
+    if (image === null) {
+        image = "./default.jpg"
+    }
+
     return image;
 }
 
