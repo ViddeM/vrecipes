@@ -37,4 +37,5 @@ var (
 	ResponseFailedToRetrieveRecipe 	= "failed_to_retrieve_recipe"
 	ResponseMalformedRecipeId       = "malformed_recipe_id"
 	ResponseFailedToDeleteRecipe    = "failed_to_delete_recipe"
+	ResponseFailedToAuthenticate    = "failed_to_authenticate"
 )

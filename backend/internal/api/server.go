@@ -1,10 +1,12 @@
 package api
 
 import (
+	"github.com/gin-contrib/sessions"
 	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/viddem/vrecipes/backend/internal/api/endpoints"
 )
 
@@ -13,20 +15,39 @@ var router *gin.Engine
 func Init() {
 	log.Println("Initializing GIN api")
 	router  = gin.Default()
+	endpoints.Init()
+	store := cookie.NewStore([]byte(os.Getenv("secret")))
+	router.Use(sessions.Sessions("auth", store))
 
 	api := router.Group("/api")
 	{
-		imagesFolder := os.Getenv("image_folder")
-		log.Printf("Using images folder '%s'\n", imagesFolder)
-		api.Static("/images", imagesFolder)
+		authRequired := api.Group("")
+		{
+			authRequired.Use(endpoints.CheckAuth())
 
-		api.GET("/health", endpoints.HealthCheck)
-		api.POST("/recipes", endpoints.NewRecipe)
-		api.PUT("/recipes/:id", endpoints.EditRecipe)
-		api.PUT("/images", endpoints.ImageUpload)
-		api.GET("/recipes", endpoints.Recipes)
-		api.GET("/recipes/:uniqueName", endpoints.Recipe)
-		api.DELETE("/recipes/:id", endpoints.RemoveRecipe)
+			imagesFolder := os.Getenv("image_folder")
+			log.Printf("Using images folder '%s'\n", imagesFolder)
+			authRequired.Static("/images", imagesFolder)
+
+			authRequired.GET("/health", endpoints.HealthCheck)
+			authRequired.POST("/recipes", endpoints.NewRecipe)
+			authRequired.PUT("/recipes/:id", endpoints.EditRecipe)
+			authRequired.PUT("/images", endpoints.ImageUpload)
+			authRequired.GET("/recipes", endpoints.Recipes)
+			authRequired.GET("/recipes/:uniqueName", endpoints.Recipe)
+			authRequired.DELETE("/recipes/:id", endpoints.RemoveRecipe)
+		}
+
+
+
+		auth := api.Group("/auth")
+		{
+			github := auth.Group("/github")
+			{
+				github.GET("/", endpoints.AuthGithub)
+				github.GET("/callback", endpoints.GithubCallback)
+			}
+		}
 	}
 }
 
