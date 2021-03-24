@@ -52,13 +52,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/api/endpoints/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/common/responses.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/responses.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/auth.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,13 +162,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/api/endpoints/auth.go</url>
-          <line>63</line>
+          <line>64</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/api/endpoints/auth.go</url>
-          <line>81</line>
-          <option name="timeStamp" value="3" />
+          <line>83</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/api/endpoints/auth.go</url>
+          <line>263</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

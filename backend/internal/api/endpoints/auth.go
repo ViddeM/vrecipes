@@ -68,6 +68,7 @@ func AuthGithub(c *gin.Context) {
 	}
 	session := sessions.Default(c)
 	session.Set("oauth-state", state)
+	session.Options(sessions.Options{MaxAge: 20 * 60})
 	err = session.Save()
 	if err != nil {
 		abort(c)
@@ -100,6 +101,7 @@ func GithubCallback(c *gin.Context) {
 	if err != nil {
 		log.Printf("Failed to perform user request: %v\n", err)
 		renewAuth(c)
+		return
 	}
 
 	emails, err := githubEmailRequest(token.AccessToken)
@@ -139,6 +141,7 @@ func setSession(c *gin.Context, sessionData *sessionData) error {
 
 	session := sessions.Default(c)
 	session.Set("token", tokenJson)
+
 	err = session.Save()
 	return err
 }
@@ -261,21 +264,18 @@ func CheckAuth() gin.HandlerFunc {
 		token := session.Get("token")
 
 		if token == nil {
+			session.Clear()
 			renewAuth(c)
+			c.Abort()
 			return
 		}
 
-		sessionData, err := readSession(c)
+		_, err := readSession(c)
 		if err != nil {
+			session.Clear()
 			log.Printf("Failed to read session: %v\n", err)
 			renewAuth(c)
-			return
-		}
-
-		_, err = githubUserRequest(sessionData.Token.AccessToken)
-		if err != nil {
-			log.Printf("Failed to verify accesstoken: %v", err)
-			renewAuth(c)
+			c.Abort()
 			return
 		}
 	}
