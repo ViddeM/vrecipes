@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -52,8 +55,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/checkAuth.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/github.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/common/requests.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,6 +123,7 @@
       <recent name="D:\Python Projects\vrecipes\backend\internal\webserver\endpoints" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal/api/endpoints/auth" />
       <recent name="$PROJECT_DIR$/internal/common" />
       <recent name="$PROJECT_DIR$/internal" />
     </key>
@@ -161,19 +169,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/api/endpoints/auth.go</url>
-          <line>64</line>
+          <url>file://$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go</url>
+          <line>63</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/api/endpoints/auth.go</url>
-          <line>83</line>
+          <url>file://$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go</url>
+          <line>82</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/api/endpoints/auth.go</url>
-          <line>263</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

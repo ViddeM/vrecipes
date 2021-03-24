@@ -2,11 +2,12 @@ package api
 
 import (
 	"github.com/gin-contrib/sessions"
+	"github.com/viddem/vrecipes/backend/internal/api/endpoints/authentication"
 	"log"
 	"os"
 
-	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/sessions/cookie"
+	"github.com/gin-gonic/gin"
 	"github.com/viddem/vrecipes/backend/internal/api/endpoints"
 )
 
@@ -15,15 +16,15 @@ var router *gin.Engine
 func Init() {
 	log.Println("Initializing GIN api")
 	router  = gin.Default()
-	endpoints.Init()
+	authentication.Init()
 	store := cookie.NewStore([]byte(os.Getenv("secret")))
-	router.Use(sessions.Sessions("auth", store))
+	router.Use(sessions.Sessions("authentication", store))
 
 	api := router.Group("/api")
 	{
 		authRequired := api.Group("")
 		{
-			authRequired.Use(endpoints.CheckAuth())
+			authRequired.Use(authentication.CheckAuth())
 
 			imagesFolder := os.Getenv("image_folder")
 			log.Printf("Using images folder '%s'\n", imagesFolder)
@@ -40,12 +41,12 @@ func Init() {
 
 
 
-		auth := api.Group("/auth")
+		auth := api.Group("/authentication")
 		{
 			github := auth.Group("/github")
 			{
-				github.GET("/", endpoints.AuthGithub)
-				github.GET("/callback", endpoints.GithubCallback)
+				github.GET("/", authentication.GithubInit)
+				github.GET("/callback", authentication.GithubCallback)
 			}
 		}
 	}
