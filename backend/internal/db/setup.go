@@ -35,7 +35,8 @@ func setupDb() {
 func loadFromDefaults() {
 	defaultsFile, err := os.Open("internal/db/defaults/defaults.json")
 	if err != nil {
-		log.Fatalf("Failed to load db defaults, err: %s", err)
+		log.Printf("Failed to load db defaults, err: %s", err)
+		return
 	}
 
 	defer defaultsFile.Close()
