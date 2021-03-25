@@ -4,10 +4,11 @@ import (
 	"errors"
 	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
-	dbModels "github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
+	dbModels "github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"gorm.io/gorm"
+	"strconv"
 	"strings"
 )
 
@@ -160,7 +161,8 @@ func CreateNewRecipe(recipeJson *models.NewRecipeJson) (string, error) {
 }
 
 func generateUniqueName(name string) (string, error) {
-	uniqueName := strings.ReplaceAll(strings.ToLower(name), " ", "_")
+	uniqueName := strconv.QuoteToASCII(strings.ReplaceAll(strings.ToLower(name), " ", "_"))
+
 	_, err := queries.GetRecipeByName(uniqueName)
 	if err != nil {
 		if errors.Is(gorm.ErrRecordNotFound, err) {
