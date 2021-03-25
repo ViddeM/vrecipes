@@ -59,7 +59,8 @@ func initAuth(c *gin.Context, config *oauth2.Config) {
 	}
 
 	url := config.AuthCodeURL(state)
-	c.Redirect(http.StatusTemporaryRedirect, url)
+	c.Header("location", url)
+	c.String(http.StatusUnauthorized, url)
 }
 
 func setSession(c *gin.Context, sessionData *sessionData) error {
@@ -100,7 +101,7 @@ func resetSession(c *gin.Context) {
 
 func renewAuth(c *gin.Context) {
 	resetSession(c)
-	GithubInit(c)
+	c.String(http.StatusUnauthorized, "")
 }
 
 func abort(c *gin.Context) {

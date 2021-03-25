@@ -1,4 +1,8 @@
-import {CREATE_RECIPE, ON_SEARCH_FIELD_CHANGED} from "./Search.actions";
+import {CREATE_RECIPE, GET_RECIPES_FAILED, GET_RECIPES_SUCCESSFUL, ON_SEARCH_FIELD_CHANGED} from "./Search.actions";
+import {authorizedApiCall} from "../../common/functions/authorizedApiCall";
+import {getRecipes} from "../../api/get.Recipes.api";
+import {handleError} from "../../common/functions/handleError";
+import {FAILED_TO_LOAD_RECIPES} from "../../common/translations/ResponseMessages";
 
 export function onSearchChanged(newValue) {
     return {
@@ -15,4 +19,33 @@ export function newRecipe() {
         type: CREATE_RECIPE,
         error: false
     }
+}
+
+export function loadRecipes() {
+    return dispatch => {
+        authorizedApiCall(getRecipes)
+            .then(response => {
+                if (response.error) {
+                    return dispatch(onLoadRecipesFailed(response.errResponse))
+                } else {
+                    return dispatch(onLoadRecipesSuccessful(response.response))
+                }
+            }).catch(error => {
+            return dispatch(onLoadRecipesFailed(error))
+        })
+    }
+}
+
+function onLoadRecipesSuccessful(response) {
+    return {
+        type: GET_RECIPES_SUCCESSFUL,
+        payload: {
+            response
+        },
+        error: false
+    }
+}
+
+function onLoadRecipesFailed(error) {
+    return handleError(error, GET_RECIPES_FAILED, FAILED_TO_LOAD_RECIPES);
 }

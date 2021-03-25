@@ -41,11 +41,11 @@ func Init() {
 
 
 
-		auth := api.Group("/authentication")
+		auth := api.Group("/auth")
 		{
 			github := auth.Group("/github")
 			{
-				github.GET("/", authentication.GithubInit)
+				github.GET("", authentication.GithubInit)
 				github.GET("/callback", authentication.GithubCallback)
 			}
 		}

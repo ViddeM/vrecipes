@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {DigitButton, DigitDesign, DigitText, DigitTextField} from "@cthit/react-digit-components";
 import {BodyContainer, OutlinedText, SearchAddContainer, SearchContainer, StyledDigitCard} from "./Search.styles";
 import {SmallVSpace} from "./search-list/RecipeListCard/RecipeListCard.styles.view";
@@ -6,6 +6,10 @@ import ErrorCard from "../../common/views/errorcard";
 import SearchList from "./search-list"
 
 const Search = props => {
+    useEffect(() => {
+        props.loadRecipes()
+    }, [])
+
     return (
         <BodyContainer>
             <SearchContainer>

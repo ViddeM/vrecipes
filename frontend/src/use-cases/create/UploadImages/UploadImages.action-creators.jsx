@@ -6,13 +6,19 @@ import {
 } from "./UploadImages.actions";
 import {putImage} from "../../../api/put.Image.api";
 import {handleError} from "../../../common/functions/handleError";
+import {authorizedApiCall} from "../../../common/functions/authorizedApiCall";
 
 export function uploadImage(file) {
     return dispatch => {
         dispatch({type: UPLOAD_IMAGE_AWAIT_RESPONSE, error: false})
-        putImage(file)
+
+        authorizedApiCall(() => putImage(file))
             .then(response => {
-                dispatch(onUploadImageSuccessful(response))
+                if (response.error) {
+                    dispatch(onUploadImageFailed(response.errResponse))
+                } else {
+                    dispatch(onUploadImageSuccessful(response.response))
+                }
             })
             .catch(error => {
                 dispatch(onUploadImageFailed(error))

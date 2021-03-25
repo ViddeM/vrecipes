@@ -7,6 +7,7 @@ import {
 import {postNewRecipe} from "../../api/post.NewRecipe.api";
 import {handleError} from "../../common/functions/handleError";
 import {putEditedRecipe} from "../../api/put.EditedRecipe.api";
+import {authorizedApiCall} from "../../common/functions/authorizedApiCall";
 
 export function onRecipeSave(recipe) {
     const errors = validateRecipe(recipe)
@@ -14,17 +15,21 @@ export function onRecipeSave(recipe) {
     if (Object.keys(errors).length === 0) {
         return dispatch => {
             dispatch({type: ON_RECIPE_SAVE_AWAIT_RESPONSE, error: false})
-            postNewRecipe(recipe)
+            authorizedApiCall(() => postNewRecipe(recipe))
                 .then(response => {
-                    if (response.data.success === false) {
-                        dispatch(onRecipeSaveFailed(response.data))
+                    if (response.error) {
+                        dispatch(onRecipeSaveFailed(response.errResponse))
                     } else {
-                        dispatch(onRecipeSaveSuccessful(response));
+                        if (response.response.data.success === false) {
+                            dispatch(onRecipeSaveFailed(response.response.data))
+                        } else {
+                            dispatch(onRecipeSaveSuccessful(response.response));
+                        }
                     }
                 })
                 .catch(error => {
                     dispatch(onRecipeSaveFailed(error));
-                });
+                })
         };
     }
 
@@ -43,13 +48,22 @@ export function onEditedRecipeSave(recipe) {
     if (Object.keys(errors).length === 0) {
         return dispatch => {
             dispatch({type: ON_RECIPE_SAVE_AWAIT_RESPONSE, error: false})
-            putEditedRecipe(recipe)
+
+            authorizedApiCall(() => putEditedRecipe(recipe))
                 .then(response => {
-                    dispatch(onRecipeSaveSuccessful(response));
+                    if (response.error) {
+                        dispatch(onRecipeSaveFailed(response.errResponse))
+                    } else {
+                        if (response.response.data.success === false) {
+                            dispatch(onRecipeSaveFailed(response.response.data))
+                        } else {
+                            dispatch(onRecipeSaveSuccessful(response.response));
+                        }
+                    }
                 })
                 .catch(error => {
                     dispatch(onRecipeSaveFailed(error));
-                });
+                })
         };
     }
 

@@ -79,7 +79,7 @@ func GithubCallback(c *gin.Context) {
 				return
 			}
 
-			c.String(http.StatusOK, "Welcome %s", e.Email)
+			c.Redirect(http.StatusTemporaryRedirect, "/")
 			return
 		}
 	}
