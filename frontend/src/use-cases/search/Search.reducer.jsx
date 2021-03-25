@@ -1,6 +1,5 @@
-import {ON_SEARCH_FIELD_CHANGED} from "./Search.actions";
+import {GET_RECIPES_FAILED, ON_SEARCH_FIELD_CHANGED} from "./Search.actions";
 import {ON_RECIPE_CARD_CLICKED} from "./search-list/RecipeListCard/RecipeListCard.actions.view";
-import {GET_RECIPES_FAILED} from "../../app/App.actions";
 
 const initialState = {
     searchText: "",

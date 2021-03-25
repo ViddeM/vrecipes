@@ -1,6 +1,7 @@
 import {DELETE_RECIPE_FAILED, DELETE_RECIPE_SUCCESSFUL, EDIT_RECIPE} from "./RecipeFooter.actions.view";
 import {deleteRecipe} from "../../../../../../api/delete.Recipe.api";
 import {handleError} from "../../../../../../common/functions/handleError";
+import {authorizedApiCall} from "../../../../../../common/functions/authorizedApiCall";
 
 export function editRecipe(recipe) {
     return {
@@ -14,11 +15,17 @@ export function editRecipe(recipe) {
 
 export function handleDeleteRecipe(recipeId) {
     return dispatch => {
-        deleteRecipe(recipeId).then(response => {
-            return dispatch(onDeleteRecipeSuccessful(response))
-        }).catch(error => {
-            return dispatch(onDeleteRecipeFailed(error))
-        })
+        authorizedApiCall(() => deleteRecipe(recipeId))
+            .then(response => {
+                if (response.error) {
+                    return dispatch(onDeleteRecipeSuccessful(response.errResponse))
+                } else {
+                    return dispatch(onDeleteRecipeSuccessful(response.response))
+                }
+            })
+            .catch(error => {
+                return dispatch(onDeleteRecipeFailed(error))
+            })
     }
 }
 

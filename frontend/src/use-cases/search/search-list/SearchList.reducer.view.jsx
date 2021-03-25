@@ -1,5 +1,4 @@
-import {ON_SEARCH_FIELD_CHANGED} from "../Search.actions";
-import {GET_RECIPES_SUCCESSFUL} from "../../../app/App.actions";
+import {GET_RECIPES_SUCCESSFUL, ON_SEARCH_FIELD_CHANGED} from "../Search.actions";
 
 const mockRecipes = [
     {

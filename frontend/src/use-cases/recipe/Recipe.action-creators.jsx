@@ -8,7 +8,8 @@ import {
 } from "./Recipe.actions";
 import {getRecipe} from "../../api/get.Recipe.api";
 import {FAILED_TO_LOAD_RECIPES} from "../../common/translations/ResponseMessages";
-import {loadRecipes} from "../../app/App.action-creators";
+import {loadRecipes} from "../search/Search.action-creators";
+import {authorizedApiCall} from "../../common/functions/authorizedApiCall";
 
 
 export function resetRecipe() {
@@ -22,11 +23,17 @@ export function resetRecipe() {
 export function loadRecipe(recipeId) {
     return dispatch => {
         dispatch({type: LOAD_RECIPE_AWAIT_RESPONSE, error: false})
-        getRecipe(recipeId).then(response => {
-            return dispatch(onLoadRecipeSuccessful(response))
-        }).catch(error => {
-            return dispatch(onLoadRecipeFailed(error))
-        })
+        authorizedApiCall(() => getRecipe(recipeId))
+            .then(response => {
+                if (response.error) {
+                    return dispatch(onLoadRecipeFailed(response.errResponse))
+                } else {
+                    return dispatch(onLoadRecipeSuccessful(response.response))
+                }
+            })
+            .catch(error => {
+                return dispatch(onLoadRecipeFailed(error))
+            })
     }
 }
 
