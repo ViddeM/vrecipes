@@ -55,9 +55,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/db/defaults/defaults.json" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/defaults/defaults2.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/getRecipesProcess.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/common/envVars.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/envVars.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,13 +169,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go</url>
-          <line>64</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/process/getRecipesProcess.go</url>
-          <line>35</line>
-          <option name="timeStamp" value="19" />
+          <line>116</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -8,21 +8,22 @@ import (
 )
 
 type envVars struct {
-	DbUser string
+	DbUser     string
 	DbPassword string
-	DbName string
-	DbHost string
-	ResetDb bool
+	DbName     string
+	DbHost     string
+	ResetDb    bool
 
-	Secret string
-	PORT uint16
 	ImageFolder string
+	WhiteList   string
+	Secret      string
+	PORT        uint16
 
-	GithubClientId string
-	GithubSecret string
-	GithubRedirectUri string
+	GithubClientId          string
+	GithubSecret            string
+	GithubRedirectUri       string
 	GithubUserEmailEndpoint string
-	GithubUserEndpoint string
+	GithubUserEndpoint      string
 }
 
 var vars envVars
@@ -48,8 +49,9 @@ func loadEnvVars() {
 		DbPassword:              loadNonEmptyString("db_password"),
 		DbName:                  loadNonEmptyString("db_name"),
 		DbHost:                  loadNonEmptyString("db_host"),
-		ResetDb: 				 loadBool("reset_db"),
+		ResetDb:                 loadBool("reset_db"),
 		Secret:                  loadNonEmptyString("secret"),
+		WhiteList:               loadNonEmptyString("whitelist"),
 		PORT:                    loadUint16("PORT"),
 		ImageFolder:             loadNonEmptyString("image_folder"),
 		GithubClientId:          loadNonEmptyString("github_client_id"),

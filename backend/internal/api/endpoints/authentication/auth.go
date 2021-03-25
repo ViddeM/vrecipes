@@ -10,7 +10,10 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/github"
+	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 )
 
 type sessionData struct {
@@ -20,11 +23,12 @@ type sessionData struct {
 	Provider string `json:"provider"`
 }
 
+type whiteList struct {
+	Emails []string `json:"whitelisted_emails"`
+}
+
 var (
 	githubConfig *oauth2.Config
-	whiteListedEmails = []string{
-		"git@vidarmagnusson.com",
-	}
 	providerGithub="github"
 	errInvalidToken = errors.New("invalid token")
 )
@@ -110,12 +114,29 @@ func abort(c *gin.Context) {
 }
 
 func checkIfWhitelisted(email string) bool {
-	for _, whitelisted := range whiteListedEmails {
+	file, err := os.Open(common.GetEnvVars().WhiteList)
+	if err != nil {
+		log.Printf("Failed to read whitelists file: %v\n", err)
+		return false
+	}
+	defer file.Close()
+	data, err := ioutil.ReadAll(file)
+	if err != nil {
+		log.Printf("Failed to parse whitelists file: %v\n", err)
+		return false
+	}
+	var whitelist whiteList
+	err = json.Unmarshal(data, &whitelist)
+	if err != nil {
+		log.Printf("Failed to unmarshal whitelists file: %v\n", err)
+		return false
+	}
+
+	for _, whitelisted := range whitelist.Emails {
 		if whitelisted == email {
 			return true
 		}
 	}
-
 	return false
 }
 
