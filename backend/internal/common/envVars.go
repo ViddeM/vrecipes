@@ -12,6 +12,7 @@ type envVars struct {
 	DbPassword string
 	DbName string
 	DbHost string
+	ResetDb bool
 
 	Secret string
 	PORT uint16
@@ -47,6 +48,7 @@ func loadEnvVars() {
 		DbPassword:              loadNonEmptyString("db_password"),
 		DbName:                  loadNonEmptyString("db_name"),
 		DbHost:                  loadNonEmptyString("db_host"),
+		ResetDb: 				 loadBool("reset_db"),
 		Secret:                  loadNonEmptyString("secret"),
 		PORT:                    loadUint16("PORT"),
 		ImageFolder:             loadNonEmptyString("image_folder"),
@@ -75,4 +77,14 @@ func loadUint16(key string) uint16 {
 	}
 
 	return uint16(num)
+}
+
+func loadBool(key string) bool {
+	val := loadNonEmptyString(key)
+	b, err := strconv.ParseBool(val)
+	if err != nil {
+		log.Fatalf("Environment variable '%s' is not a valid boolean: %v\n", key, err)
+	}
+
+	return b
 }

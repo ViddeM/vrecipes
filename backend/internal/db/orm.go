@@ -4,8 +4,8 @@ import (
 	"fmt"
 	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
-	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -44,7 +44,9 @@ func Init() {
 	}
 
 	db = conn
-	resetDb()
+	if envVars.ResetDb {
+		resetDb()
+	}
 	commands.Init(db)
 	queries.Init(db)
 	createTables()
