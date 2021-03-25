@@ -37,8 +37,7 @@ func GetRecipes() (*RecipesJson, error) {
 		recipes = make([]tables.Recipe, 0)
 	}
 
-	var shortRecipes []ShortRecipeJson
-
+	shortRecipes := make([]ShortRecipeJson, 0)
 	for _, recipe := range recipes {
 		recipeImage, err := queries.GetMainImageForRecipe(recipe.ID)
 
