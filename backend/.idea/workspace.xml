@@ -56,22 +56,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/authentication/github.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/github.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.action-creators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.action-creators.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.actions.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.actions.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.container.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.container.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/create/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/create/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.action-creators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/Recipe.action-creators.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.action-creators.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.action-creators.view.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.action-creators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.action-creators.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.actions.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.actions.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.container.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.container.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.reducer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/Search.reducer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.reducer.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/SearchList.reducer.view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/process/createRecipeProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/createRecipeProcess.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,6 +173,16 @@
           <url>file://$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go</url>
           <line>82</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/process/createRecipeProcess.go</url>
+          <line>163</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/process/createRecipeProcess.go</url>
+          <line>165</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
