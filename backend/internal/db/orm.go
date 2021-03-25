@@ -18,10 +18,11 @@ var db *gorm.DB
 
 // TODO: Rename to 'init' when this package is used.
 func Init() {
-	username := os.Getenv("db_user")
-	password := os.Getenv("db_password")
-	dbName := os.Getenv("db_name")
-	dbHost := os.Getenv("db_host")
+	envVars := common2.GetEnvVars()
+	username := envVars.DbUser
+	password := envVars.DbPassword
+	dbName := envVars.DbName
+	dbHost := envVars.DbHost
 
 	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password) //Build connection string
 

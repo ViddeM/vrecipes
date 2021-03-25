@@ -82,7 +82,7 @@ func RecipeImagesToJson(images []dbModels.Image) []models.ImageJson {
 }
 
 func imageNameToPath(id uint64, name string) string {
-	imagePath := os.Getenv("image_folder")
+	imagePath := common.GetEnvVars().ImageFolder
 	filePath := fmt.Sprintf("%s/%s", imagePath, name)
 	_, err := os.Stat(filePath)
 	if err == nil {

@@ -8,7 +8,6 @@ import (
 	dbModels "github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"gorm.io/gorm"
-	"strconv"
 	"strings"
 )
 
@@ -161,7 +160,8 @@ func CreateNewRecipe(recipeJson *models.NewRecipeJson) (string, error) {
 }
 
 func generateUniqueName(name string) (string, error) {
-	uniqueName := strconv.QuoteToASCII(strings.ReplaceAll(strings.ToLower(name), " ", "_"))
+	lowerCase := strings.ToLower(name)
+	uniqueName := strings.ReplaceAll(lowerCase," ", "_")
 
 	_, err := queries.GetRecipeByName(uniqueName)
 	if err != nil {

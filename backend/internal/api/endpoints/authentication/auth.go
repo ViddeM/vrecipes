@@ -11,7 +11,6 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/github"
 	"net/http"
-	"os"
 )
 
 type sessionData struct {
@@ -32,11 +31,13 @@ var (
 
 
 func Init() {
+	envVars := common.GetEnvVars()
+
 	githubConfig = &oauth2.Config{
-		ClientID:     os.Getenv("github_client_id"),
-		ClientSecret: os.Getenv("github_secret"),
+		ClientID:     envVars.GithubClientId,
+		ClientSecret: envVars.GithubSecret,
 		Endpoint:     github.Endpoint,
-		RedirectURL:  os.Getenv("github_redirect_uri"),
+		RedirectURL:  envVars.GithubRedirectUri,
 		Scopes:       []string{
 			"user:email",
 		},

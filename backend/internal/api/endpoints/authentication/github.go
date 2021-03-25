@@ -9,7 +9,6 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 )
 
@@ -89,7 +88,7 @@ func GithubCallback(c *gin.Context) {
 
 func githubEmailRequest(accessToken string) (*githubUserEmailResponse, error) {
 	var user githubUserEmailResponse
-	_, err := common.GetRequest(os.Getenv("github_user_email_endpoint"), map[string]string{
+	_, err := common.GetRequest(common.GetEnvVars().GithubUserEmailEndpoint, map[string]string{
 		"Authorization": fmt.Sprintf("token %s", accessToken),
 		"Accept": "application/vnd.github.v3+json",
 	}, &user)
@@ -99,7 +98,7 @@ func githubEmailRequest(accessToken string) (*githubUserEmailResponse, error) {
 
 func githubUserRequest(accessToken string) (*githubUserResponse, error) {
 	var user githubUserResponse
-	resp, err := common.GetRequest(os.Getenv("github_user_endpoint"), map[string]string{
+	resp, err := common.GetRequest(common.GetEnvVars().GithubUserEndpoint, map[string]string{
 		"Authorization": fmt.Sprintf("token %s", accessToken),
 		"Accept": "application/vnd.github.v3+json",
 	}, &user)

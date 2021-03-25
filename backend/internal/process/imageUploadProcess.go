@@ -2,6 +2,7 @@ package process
 
 import (
 	"fmt"
+	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	dbModels "github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
@@ -20,7 +21,7 @@ func UploadImage(file *validation.File) (*models.ImageJson, error) {
 	}
 
 	uniqueFilename := fmt.Sprintf("%d_%s", id, filenameWithPath)
-	folder := os.Getenv("image_folder")
+	folder := common.GetEnvVars().ImageFolder
 	path := fmt.Sprintf("%s/%s", folder, uniqueFilename)
 	newFile, err := os.Create(path)
 	if err != nil {

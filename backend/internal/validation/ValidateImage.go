@@ -2,7 +2,7 @@ package validation
 
 import (
 	"errors"
-	"io"
+	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"path/filepath"
@@ -25,7 +25,7 @@ func ValidateFile(file *multipart.File, header *multipart.FileHeader) (*File, er
 		return nil, ErrFiletypeNotSupported
 	}
 
-	data, err := io.ReadAll(*file)
+	data, err := ioutil.ReadAll(*file)
 	if err != nil {
 		return nil, err
 	}

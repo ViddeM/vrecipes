@@ -2,13 +2,12 @@ package api
 
 import (
 	"github.com/gin-contrib/sessions"
-	"github.com/viddem/vrecipes/backend/internal/api/endpoints/authentication"
-	"log"
-	"os"
-
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"github.com/viddem/vrecipes/backend/internal/api/endpoints"
+	"github.com/viddem/vrecipes/backend/internal/api/endpoints/authentication"
+	"github.com/viddem/vrecipes/backend/internal/common"
+	"log"
 )
 
 var router *gin.Engine
@@ -17,7 +16,9 @@ func Init() {
 	log.Println("Initializing GIN api")
 	router  = gin.Default()
 	authentication.Init()
-	store := cookie.NewStore([]byte(os.Getenv("secret")))
+
+	envVars := common.GetEnvVars()
+	store := cookie.NewStore([]byte(envVars.Secret))
 	router.Use(sessions.Sessions("authentication", store))
 
 	api := router.Group("/api")
@@ -26,9 +27,7 @@ func Init() {
 		{
 			authRequired.Use(authentication.CheckAuth())
 
-			imagesFolder := os.Getenv("image_folder")
-			log.Printf("Using images folder '%s'\n", imagesFolder)
-			authRequired.Static("/images", imagesFolder)
+			authRequired.Static("/images", envVars.ImageFolder)
 
 			authRequired.GET("/health", endpoints.HealthCheck)
 			authRequired.POST("/recipes", endpoints.NewRecipe)
