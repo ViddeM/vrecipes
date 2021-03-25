@@ -15,6 +15,7 @@ const Recipe = props => {
     )
 
     if (props.redirectTo !== "") {
+        props.resetRecipe()
         return (
             <Route>
                 <Redirect to={props.redirectTo}/>

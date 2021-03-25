@@ -81,7 +81,7 @@ export function recipe(state = initialState, action) {
                 redirectTo: ""
             });
         case RESET_RECIPE:
-            return state
+            return initialState;
         case EDIT_RECIPE:
             return Object.assign({}, state, {
                 redirectTo: "/create"
