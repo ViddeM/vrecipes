@@ -10,7 +10,7 @@ func CreateRecipeStep(step *tables.RecipeStep) error {
 
 func UpdateRecipeStep(step *tables.RecipeStep) error {
 	db := getDB()
-	tx := db.Updates(step)
+	tx := db.Model(&step).Where("recipe_id = ? AND number = ?", step.RecipeID, step.Number).Updates(step)
 	return tx.Error
 }
 
