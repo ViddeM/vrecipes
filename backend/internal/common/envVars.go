@@ -24,6 +24,12 @@ type envVars struct {
 	GithubRedirectUri       string
 	GithubUserEmailEndpoint string
 	GithubUserEndpoint      string
+
+	GoogleClientId string
+	GoogleSecret string
+	GoogleRedirectUri string
+	GoogleUserEmailEndpoint string
+	GoogleUserEndpoint string
 }
 
 var vars envVars
@@ -59,6 +65,11 @@ func loadEnvVars() {
 		GithubRedirectUri:       loadNonEmptyString("github_redirect_uri"),
 		GithubUserEmailEndpoint: loadNonEmptyString("github_user_email_endpoint"),
 		GithubUserEndpoint:      loadNonEmptyString("github_user_endpoint"),
+		GoogleClientId: 		 loadNonEmptyString("google_client_id"),
+		GoogleSecret:			 loadNonEmptyString("google_secret"),
+		GoogleRedirectUri:		 loadNonEmptyString("google_redirect_uri"),
+		GoogleUserEmailEndpoint: loadNonEmptyString("google_user_email_endpoint"),
+		GoogleUserEndpoint:      loadNonEmptyString("google_user_endpoint"),
 	}
 }
 

@@ -44,8 +44,14 @@ func Init() {
 		{
 			github := auth.Group("/github")
 			{
-				github.GET("", authentication.GithubInit)
+				github.GET("", authentication.GithubInitAuth)
 				github.GET("/callback", authentication.GithubCallback)
+			}
+
+			google := auth.Group("/google")
+			{
+				google.GET("", authentication.GoogleInitAuth)
+				google.GET("/callback", authentication.GoogleCallback)
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 package authentication
 
 import (
+	"context"
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/json"
@@ -10,7 +11,6 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/process"
 	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/github"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -28,23 +28,22 @@ type whiteList struct {
 }
 
 var (
-	githubConfig *oauth2.Config
-	providerGithub="github"
 	errInvalidToken = errors.New("invalid token")
 )
 
+var providers []providerInit
+
+type providerInit func ()
+
+func registerOnInit(provider providerInit) {
+	providers = append(providers, provider)
+}
 
 func Init() {
-	envVars := common.GetEnvVars()
-
-	githubConfig = &oauth2.Config{
-		ClientID:     envVars.GithubClientId,
-		ClientSecret: envVars.GithubSecret,
-		Endpoint:     github.Endpoint,
-		RedirectURL:  envVars.GithubRedirectUri,
-		Scopes:       []string{
-			"user:email",
-		},
+	if providers != nil {
+		for _, provider := range providers {
+			provider()
+		}
 	}
 }
 
@@ -110,6 +109,7 @@ func readSession(c *gin.Context) (*sessionData, error) {
 func resetSession(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Clear()
+	session.Options(sessions.Options{MaxAge: -1})
 	_ = session.Save()
 }
 
@@ -156,4 +156,26 @@ func generateState() (string, error) {
 		return "", err
 	}
 	return base64.URLEncoding.EncodeToString(b), nil
+}
+
+func handleCallback(c *gin.Context, config *oauth2.Config) *oauth2.Token {
+
+	receivedState := c.Query("state")
+	expectedState := sessions.Default(c).Get("oauth-state")
+
+	if receivedState != expectedState {
+		log.Printf("Invalid oauth state, expected '%s', got '%s'\n", expectedState, receivedState)
+		abort(c)
+		return nil
+	}
+
+	code := c.Query("code")
+	token, err := config.Exchange(context.Background(), code)
+	if err != nil {
+		log.Printf("Failed to exchange with oauth: %v\n", err)
+		abort(c)
+		return nil
+	}
+
+	return token
 }

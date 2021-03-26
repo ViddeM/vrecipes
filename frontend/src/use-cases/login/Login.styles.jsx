@@ -9,7 +9,7 @@ export const LoginCard = styled.div`
 `;
 
 export const LoginButtonsContainer = styled.div`
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,17 +20,20 @@ export const LoginButton = styled.button`
     width: 250px;
     padding: 10px;
     outline: none;
-    border: none;
+    border: 1px solid black;
     border-radius: 5px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    margin-top: 10px
 `
 
 export const LoginButtonIcon = styled.div`
   padding-left: 10px;
-  padding-right: 10px;  
+  padding-right: 10px;
+  width: 24px;
+  height: 24px;
 `
 
 export const LoginErrorText = styled.p`
@@ -41,17 +44,29 @@ export const LoginErrorText = styled.p`
 `
 
 export const GithubLoginButton = styled(LoginButton)`
-    background-color: #24292e;
+    background-color: #404040;
     color: white;
     font-family: "Roboto", Helvetica, Arial, sans-serif;
     font-weight: 500;
     font-size: 14px;
     
     &:hover{
-      background-color: #404040;
+      background-color: #202020;
     }
     
     &:active{
       background-color: black;
     }
 `;
+
+export const GoogleLoginButton = styled(LoginButton)`
+  background-color: white;
+  
+  &:hover{
+    background-color: #E0E0E0;
+  }
+  
+  &:active{
+    background-color: #C0C0C0;
+  }
+`

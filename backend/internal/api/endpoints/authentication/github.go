@@ -1,12 +1,12 @@
 package authentication
 
 import (
-	"context"
 	"errors"
 	"fmt"
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/viddem/vrecipes/backend/internal/common"
+	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/github"
 	"log"
 	"net/http"
 	"strings"
@@ -26,27 +26,35 @@ type githubUserEmail struct {
 	Visibility string `json:"visibility"`
 }
 
-var errScopeNotFound = errors.New("required scope not found")
+var (
+	errScopeNotFound = errors.New("required scope not found")
+	providerGithub="github"
+	githubConfig *oauth2.Config
+)
 
-func GithubInit(c *gin.Context) {
+func init() {
+	registerOnInit(func () {
+		envVars := common.GetEnvVars()
+
+		githubConfig = &oauth2.Config{
+			ClientID:     envVars.GithubClientId,
+			ClientSecret: envVars.GithubSecret,
+			Endpoint:     github.Endpoint,
+			RedirectURL:  envVars.GithubRedirectUri,
+			Scopes:       []string{
+				"user:email",
+			},
+		}
+	})
+}
+
+func GithubInitAuth(c *gin.Context) {
 	initAuth(c, githubConfig)
 }
 
 func GithubCallback(c *gin.Context) {
-	receivedState := c.Query("state")
-	expectedState := sessions.Default(c).Get("oauth-state")
-
-	if receivedState != expectedState {
-		log.Printf("Invalid oauth state, expected '%s', got '%s'\n", expectedState, receivedState)
-		abort(c)
-		return
-	}
-
-	code := c.Query("code")
-	token, err := githubConfig.Exchange(context.Background(), code)
-	if err != nil {
-		log.Printf("Failed to exchange with oauth: %v\n", err)
-		abort(c)
+	token := handleCallback(c, githubConfig)
+	if token == nil {
 		return
 	}
 
