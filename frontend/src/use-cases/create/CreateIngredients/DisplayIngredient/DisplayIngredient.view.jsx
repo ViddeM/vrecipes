@@ -35,6 +35,7 @@ export const DisplayIngredient = props => {
                                     props.props.onIngredientAmountChange(e.target.value, ingredient.id)
                                 }}
                                 margin={{right: "20px"}}
+                                size={{width: "auto", height: "auto"}}
                                 value={ingredient.amount}
                                 error={errors.amount !== undefined}
                                 errorMessage={errors.amount}
