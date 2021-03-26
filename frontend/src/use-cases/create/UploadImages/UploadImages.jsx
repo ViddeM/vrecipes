@@ -30,7 +30,7 @@ export const UploadImages = props => {
                                         width="260px"
                                         key={image.id}
                                         src={url}
-                                        alt="Could not display image"/>
+                                        alt="Kunde inte visa bild"/>
                                     <RemoveImageButton>
                                         <DigitIconButton secondary
                                                          icon={CancelIcon}
@@ -48,10 +48,16 @@ export const UploadImages = props => {
                     }
                 </FormRow>
                 <FormRow>
-                    <FileSelect
-                        onSelectFile={setFile}
-                        selectedFileName={file != null ? file.name : null}
-                    />
+                    {
+                        props.images.length < 3 ? (
+                            <FileSelect
+                                onSelectFile={setFile}
+                                selectedFileName={file != null ? file.name : null}
+                            />
+                        ) : (
+                            <DigitText.Text text="Max 3 bilder per recept"/>
+                        )
+                    }
                 </FormRow>
                 <FormRow>
                     <DigitButton text="Ladda upp bild" raised primary onClick={() => {
