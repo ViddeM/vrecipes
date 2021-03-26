@@ -1,6 +1,6 @@
 import React from "react"
 import {RecipeStepsContainer, StepContainer, StepRow} from "./RecipeSteps.styles.view";
-import {FullHLine, HLine, StyledText, TitleText} from "../../../../../../common/styles/Common.styles";
+import {FullHLine, HLine, LongStyledText, StyledText, TitleText} from "../../../../../../common/styles/Common.styles";
 import {DescriptionBox} from "../../RecipeCard.styles.screen";
 
 const RecipeSteps = props => (
@@ -16,7 +16,7 @@ const RecipeSteps = props => (
                         }
                         <StepRow>
                             <StyledText text={step.number + 1 + "."}/>
-                            <StyledText text={step.description}/>
+                            <LongStyledText text={step.description}/>
                         </StepRow>
                     </StepContainer>
                 ))

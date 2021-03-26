@@ -48,7 +48,12 @@ export const TitleText = styled(DigitText.Title)`
 export const StyledText = styled(DigitText.Text)`
     font-size: 24px;
     margin: 5px;
+    word-break: normal;
 `;
+
+export const LongStyledText = styled(StyledText)`
+  word-break: break-word;
+`
 
 export const IngredientText = styled(StyledText)`
     width: 80%
