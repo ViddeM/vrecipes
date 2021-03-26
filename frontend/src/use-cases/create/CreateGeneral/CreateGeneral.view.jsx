@@ -46,6 +46,8 @@ export const CreateGeneral = props => {
                             <DigitTextArea outlined value={props.description}
                                            upperLabel="Beskrivning av rätt"
                                            flex={"1"} rows={6}
+                                           rowsMax={20}
+                                           maxLength={1000}
                                            onChange={props.onDescriptionChange}/>
                         </FormRow>
                     </FormColumn>
