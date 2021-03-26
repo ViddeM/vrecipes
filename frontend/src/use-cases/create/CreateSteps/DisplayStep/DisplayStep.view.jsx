@@ -36,7 +36,7 @@ export const DisplayStep = props => {
                                        value={step.step}
                                        error={errors.name !== undefined}
                                        errorMessage={errors.name}
-
+                                       maxLength={400}
                         />
                         <IconButtonContainer>
                             <DigitIconButton icon={ClearIcon} alignSelf="center"

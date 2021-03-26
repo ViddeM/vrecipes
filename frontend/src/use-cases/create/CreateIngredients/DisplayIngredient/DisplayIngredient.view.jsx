@@ -4,8 +4,8 @@ import {DigitIconButton, DigitTextField} from "@cthit/react-digit-components";
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import ClearIcon from '@material-ui/icons/Clear';
 import {DisplayDraggableCard, DisplayDraggableContainer, IconButtonContainer} from "../../Create.styles";
-import {HalfRow} from "../CreateIngredient/CreateIngredient.styles.view";
 import {SmallHSpace} from "../../../../common/styles/Common.styles";
+import {HalfRow} from "./DisplayIngredient.styles.view";
 
 export const DisplayIngredient = props => {
     const ingredient = props.props.ingredient;
@@ -39,6 +39,7 @@ export const DisplayIngredient = props => {
                                 value={ingredient.amount}
                                 error={errors.amount !== undefined}
                                 errorMessage={errors.amount}
+                                maxLength={4}
                             />
                             <DigitTextField
                                 outlined
@@ -50,6 +51,7 @@ export const DisplayIngredient = props => {
                                 value={ingredient.unit}
                                 error={errors.unit !== undefined}
                                 errorMessage={errors.unit}
+                                maxLength={12}
                             />
                         </HalfRow>
                         <DigitTextField
@@ -62,6 +64,7 @@ export const DisplayIngredient = props => {
                             value={ingredient.name}
                             error={errors.name !== undefined}
                             errorMessage={errors.name}
+                            maxLength={40}
                         />
 
                         <IconButtonContainer>

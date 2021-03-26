@@ -140,7 +140,11 @@ function validateNumber(newNumber, oldValue) {
         return oldValue;
     }
 
-    return newNumber
+    if (newNumber.includes("-")) {
+        newNumber.replaceAll("_", "")
+    }
+
+    return newNumber.toString()
 }
 
 function validateInteger(newNumber, oldValue) {
@@ -148,11 +152,12 @@ function validateInteger(newNumber, oldValue) {
         return undefined
     }
 
-    if (!isNaN(parseInt(newNumber))) {
-        return newNumber
+    const parsed = parseInt(newNumber, 10)
+    if (isNaN(parsed)) {
+        return oldValue
     }
 
-    return oldValue
+    return Math.abs(parsed).toString()
 }
 
 function newState(oldState, change) {
@@ -232,7 +237,6 @@ function updateIngredientName(state, newName, ingredientId) {
 }
 
 function updateIngredientAmount(state, newAmount, ingredientId) {
-
     return newState(state, {
             ingredients: state.ingredients.map(ingredient => {
                     if (ingredient.id === ingredientId) {
