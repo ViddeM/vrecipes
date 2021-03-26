@@ -17,12 +17,14 @@ func CheckAuth() gin.HandlerFunc {
 			return
 		}
 
-		_, err := readSession(c)
+		sessionData, err := readSession(c)
 		if err != nil {
 			log.Printf("Failed to read session: %v\n", err)
 			renewAuth(c)
 			c.Abort()
 			return
 		}
+
+		c.Set("userId", sessionData.UserID)
 	}
 }

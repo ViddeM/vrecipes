@@ -44,6 +44,12 @@ const RecipeCard = props => (
                     <CenteredColumn>
                         <HLine/>
                     </CenteredColumn>
+                    <CenteredColumn>
+                        <StyledText text={"Upplagd av " + props.recipe.author.name}/>
+                    </CenteredColumn>
+                    <CenteredColumn>
+                        <HLine/>
+                    </CenteredColumn>
                     {(props.recipe.estimatedTime >= 0 || props.recipe.ovenTemperature >= 0) &&
                     <CenteredColumn>
                         <TimeContainer>

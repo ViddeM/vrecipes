@@ -36,7 +36,7 @@ export const RecipeListCard = props => {
                         </Center>
                         <SmallVSpace/>
                         <RecipeListCardFooterContainer>
-                            <DigitText.Text text={"Upplagd av " + recipe.author}/>
+                            <DigitText.Text text={"Upplagd av " + recipe.author.name}/>
                         </RecipeListCardFooterContainer>
                     </RecipeListCardCard>
                 </ButtonCard>

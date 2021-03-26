@@ -8,6 +8,8 @@ type Recipe struct {
 	OvenTemp int
 	EstimatedTime int
 	Deleted bool
+	CreatedBy uint64
+	User User `gorm:"foreignKey:CreatedBy"`
 }
 
 func (_ Recipe) StructName() string {

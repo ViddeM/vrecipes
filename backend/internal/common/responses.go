@@ -38,4 +38,5 @@ var (
 	ResponseMalformedRecipeId       = "malformed_recipe_id"
 	ResponseFailedToDeleteRecipe    = "failed_to_delete_recipe"
 	ResponseFailedToAuthenticate    = "failed_to_authenticate"
+	ResponseInvalidUserId 			= "invalid_user_id"
 )

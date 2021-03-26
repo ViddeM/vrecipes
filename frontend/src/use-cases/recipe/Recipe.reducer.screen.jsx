@@ -62,7 +62,8 @@ const mockRecipe = {
             id: "asd123",
             url: "asd.com"
         }
-    ]
+    ],
+    author: {}
 }
 
 const initialState = {
@@ -111,7 +112,8 @@ function handleRecipeResponse(recipe) {
             ingredients: recipe.ingredients,
             estimatedTime: recipe.estimatedTime,
             ovenTemperature: recipe.ovenTemperature,
-            images: recipe.images
+            images: recipe.images,
+            author: recipe.author
         },
         redirectTo: ""
     }

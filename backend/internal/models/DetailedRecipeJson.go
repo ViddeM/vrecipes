@@ -1,5 +1,6 @@
 package models
 
+import "github.com/viddem/vrecipes/backend/internal/db/tables"
 
 type DetailedRecipeJson struct {
 	ID uint64                          `json:"id"`
@@ -10,6 +11,7 @@ type DetailedRecipeJson struct {
 	Steps []RecipeStepJson             `json:"steps"`
 	Ingredients []RecipeIngredientJson `json:"ingredients"`
 	Images []ImageJson                 `json:"images"`
+	Author tables.User				   `json:"author"`
 }
 
 type RecipeStepJson struct {

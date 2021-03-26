@@ -53,7 +53,7 @@ func loadFromDefaults() {
 	}
 
 	for _, recipeJson := range defaultDb.Recipes {
-		recipe, err := process.CreateRecipe(recipeJson.Name, recipeJson.Description, recipeJson.OvenTemp, recipeJson.EstimatedTime)
+		recipe, err := process.CreateRecipe(recipeJson.Name, recipeJson.Description, recipeJson.OvenTemp, recipeJson.EstimatedTime, 1)
 		if err != nil {
 			log.Printf("Failed to create default recipe %+v, due to err: %s\n", recipeJson, err)
 		}

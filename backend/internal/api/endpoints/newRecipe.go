@@ -4,6 +4,8 @@ import (
 	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/viddem/vrecipes/backend/internal/common"
+	"github.com/viddem/vrecipes/backend/internal/db/queries"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"github.com/viddem/vrecipes/backend/internal/process"
 	"github.com/viddem/vrecipes/backend/internal/validation"
@@ -15,6 +17,9 @@ type NewRecipeResponse struct {
 	RecipeUniqueName string `json:"recipeUniqueName"`
 }
 
+var ErrNoUserInContext = errors.New("no userID could be extracted from the context")
+var ErrInvalidUserIdInContext = errors.New("the userID in the context was of an invalid type")
+
 func NewRecipe(c *gin.Context) {
 	recipe, err := validateRecipe(c)
 	if err != nil {
@@ -23,7 +28,14 @@ func NewRecipe(c *gin.Context) {
 		return
 	}
 
-	uniqueName, err := process.CreateNewRecipe(recipe)
+	user, err := getSessionUser(c)
+	if err != nil {
+		log.Printf("Failed to retrieve user from context: %v\n", err)
+		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseInvalidUserId))
+		return
+	}
+
+	uniqueName, err := process.CreateNewRecipe(recipe, user)
 	if err != nil {
 		if errors.Is(err, common.ErrNameTaken) {
 			log.Printf("Tried to create duplicate recipe")
@@ -48,4 +60,19 @@ func validateRecipe(c *gin.Context) (*models.NewRecipeJson, error) {
 
 	err = validation.ValidateRecipe(&recipe)
 	return &recipe, err
+}
+
+func getSessionUser(c *gin.Context) (*tables.User, error) {
+	userId, exists := c.Get("userId")
+	if !exists {
+		return nil, ErrNoUserInContext
+	}
+
+	i, ok := userId.(uint64)
+	if !ok {
+		return nil, ErrInvalidUserIdInContext
+	}
+
+	user, err := queries.GetUser(i)
+	return user, err
 }

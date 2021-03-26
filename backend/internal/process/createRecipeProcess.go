@@ -5,19 +5,19 @@ import (
 	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
-	dbModels "github.com/viddem/vrecipes/backend/internal/db/tables"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"gorm.io/gorm"
 	"strings"
 )
 
-func GetOrCreateIngredient(ingredientName string) (*dbModels.Ingredient, error) {
+func GetOrCreateIngredient(ingredientName string) (*tables.Ingredient, error) {
 	ingredientName = strings.ToLower(strings.TrimSpace(ingredientName))
 	ingredient, err := queries.GetIngredient(ingredientName)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			// Ingredient doesn't exist, create a new one
-			ingredient = &dbModels.Ingredient{
+			ingredient = &tables.Ingredient{
 				Name: ingredientName,
 			}
 			err := commands.CreateIngredient(ingredient)
@@ -31,13 +31,13 @@ func GetOrCreateIngredient(ingredientName string) (*dbModels.Ingredient, error) 
 	return ingredient, nil
 }
 
-func GetOrCreateUnit(unitName string) (*dbModels.Unit, error) {
+func GetOrCreateUnit(unitName string) (*tables.Unit, error) {
 	unitName = strings.ToLower(unitName)
 	unit, err := queries.GetUnit(unitName)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			// Ingredient doesn't exist, create a new one
-			unit = &dbModels.Unit{
+			unit = &tables.Unit{
 				Name: unitName,
 			}
 			err := commands.CreateUnit(unit)
@@ -51,7 +51,7 @@ func GetOrCreateUnit(unitName string) (*dbModels.Unit, error) {
 	return unit, nil
 }
 
-func CreateRecipeIngredient(ingredientName string, unitName string, amount float32, recipeId uint64) (*dbModels.RecipeIngredient, error) {
+func CreateRecipeIngredient(ingredientName string, unitName string, amount float32, recipeId uint64) (*tables.RecipeIngredient, error) {
 	ingredient, err := GetOrCreateIngredient(ingredientName)
 	if err != nil {
 		return nil, err
@@ -62,8 +62,8 @@ func CreateRecipeIngredient(ingredientName string, unitName string, amount float
 		return nil, err
 	}
 
-	recipeIngredient := dbModels.RecipeIngredient{
-		RecipeID: recipeId,
+	recipeIngredient := tables.RecipeIngredient{
+		RecipeID:   recipeId,
 		Ingredient: *ingredient,
 		Unit:       *unit,
 		Amount:     amount,
@@ -73,11 +73,11 @@ func CreateRecipeIngredient(ingredientName string, unitName string, amount float
 	return &recipeIngredient, err
 }
 
-func CreateRecipeStep(step string, number uint16, recipeId uint64) (*dbModels.RecipeStep, error) {
-	recipeStep := dbModels.RecipeStep{
+func CreateRecipeStep(step string, number uint16, recipeId uint64) (*tables.RecipeStep, error) {
+	recipeStep := tables.RecipeStep{
 		RecipeID: recipeId,
-		Number: number,
-		Step:   step,
+		Number:   number,
+		Step:     step,
 	}
 	err := commands.CreateRecipeStep(&recipeStep)
 	if err != nil {
@@ -87,8 +87,8 @@ func CreateRecipeStep(step string, number uint16, recipeId uint64) (*dbModels.Re
 	return &recipeStep, nil
 }
 
-func CreateRecipeImage(imagePath string, recipeId uint64) (*dbModels.RecipeImage, error) {
-	imageId, err := commands.CreateImage(&dbModels.Image{
+func CreateRecipeImage(imagePath string, recipeId uint64) (*tables.RecipeImage, error) {
+	imageId, err := commands.CreateImage(&tables.Image{
 		Name: imagePath,
 	})
 
@@ -99,9 +99,9 @@ func CreateRecipeImage(imagePath string, recipeId uint64) (*dbModels.RecipeImage
 	return connectImageToRecipe(imageId, recipeId)
 }
 
-func connectImageToRecipe(imageId uint64, recipeId uint64) (*dbModels.RecipeImage, error) {
-	recipeImage := dbModels.RecipeImage{
-		ImageID: imageId,
+func connectImageToRecipe(imageId uint64, recipeId uint64) (*tables.RecipeImage, error) {
+	recipeImage := tables.RecipeImage{
+		ImageID:  imageId,
 		RecipeID: recipeId,
 	}
 
@@ -110,18 +110,19 @@ func connectImageToRecipe(imageId uint64, recipeId uint64) (*dbModels.RecipeImag
 	return &recipeImage, err
 }
 
-func CreateRecipe(name, description string, ovenTemp, estimatedTime int) (*dbModels.Recipe, error) {
+func CreateRecipe(name, description string, ovenTemp, estimatedTime int, userId uint64) (*tables.Recipe, error) {
 	uniqueName, err := generateUniqueName(name)
 	if err != nil {
-		return &dbModels.Recipe{}, err
+		return &tables.Recipe{}, err
 	}
 
-	recipe := dbModels.Recipe{
+	recipe := tables.Recipe{
 		Name:          name,
 		UniqueName:    uniqueName,
 		Description:   description,
 		OvenTemp:      ovenTemp,
 		EstimatedTime: estimatedTime,
+		CreatedBy:     userId,
 	}
 
 	_, err = commands.CreateRecipe(&recipe)
@@ -129,8 +130,8 @@ func CreateRecipe(name, description string, ovenTemp, estimatedTime int) (*dbMod
 	return &recipe, err
 }
 
-func CreateNewRecipe(recipeJson *models.NewRecipeJson) (string, error) {
-	recipe, err := CreateRecipe(recipeJson.Name, recipeJson.Description, recipeJson.OvenTemperature, recipeJson.CookingTime)
+func CreateNewRecipe(recipeJson *models.NewRecipeJson, user *tables.User) (string, error) {
+	recipe, err := CreateRecipe(recipeJson.Name, recipeJson.Description, recipeJson.OvenTemperature, recipeJson.CookingTime, user.ID)
 	if err != nil {
 		return "", err
 	}
@@ -161,7 +162,7 @@ func CreateNewRecipe(recipeJson *models.NewRecipeJson) (string, error) {
 
 func generateUniqueName(name string) (string, error) {
 	lowerCase := strings.ToLower(name)
-	uniqueName := strings.ReplaceAll(lowerCase," ", "_")
+	uniqueName := strings.ReplaceAll(lowerCase, " ", "_")
 
 	_, err := queries.GetRecipeByName(uniqueName)
 	if err != nil {

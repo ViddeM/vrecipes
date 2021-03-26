@@ -62,6 +62,7 @@ func resetDb() {
 func createTables() {
 	createTable(tables.Image{})
 	createTable(tables.Ingredient{})
+	createTable(tables.User{})
 	createTable(tables.Recipe{})
 	createTable(tables.RecipeImage{})
 	createTable(tables.RecipeIngredient{})

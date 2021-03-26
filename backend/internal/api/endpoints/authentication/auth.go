@@ -8,6 +8,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/viddem/vrecipes/backend/internal/common"
+	"github.com/viddem/vrecipes/backend/internal/process"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/github"
 	"io/ioutil"
@@ -17,8 +18,7 @@ import (
 )
 
 type sessionData struct {
-	Name string `json:"name"`
-	Email string `json:"email"`
+	UserID uint64 `json:"user_id"`
 	Token *oauth2.Token `json:"token"`
 	Provider string `json:"provider"`
 }
@@ -68,8 +68,17 @@ func initAuth(c *gin.Context, config *oauth2.Config) {
 	c.String(http.StatusUnauthorized, url)
 }
 
-func setSession(c *gin.Context, sessionData *sessionData) error {
-	tokenJson, err := json.Marshal(sessionData)
+func setSession(c *gin.Context, name, email, provider string, token *oauth2.Token) error {
+	user, err := process.GetOrCreateUser(name, email)
+	if err != nil {
+		return err
+	}
+
+	tokenJson, err := json.Marshal(&sessionData{
+		UserID:   user.ID,
+		Token:    token,
+		Provider: provider,
+	})
 	if err != nil {
 		return err
 	}

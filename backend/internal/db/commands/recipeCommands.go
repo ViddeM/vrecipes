@@ -13,6 +13,6 @@ func CreateRecipe(recipe *tables.Recipe) (uint64, error) {
 
 func EditRecipe(recipe *tables.Recipe) error {
 	db := getDB()
-	tx := db.Save(recipe)
+	tx := db.Updates(recipe)
 	return tx.Error
 }

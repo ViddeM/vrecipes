@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/viddem/vrecipes/backend/internal/common"
-	dbModels "github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"gorm.io/gorm"
 	"os"
@@ -35,6 +35,11 @@ func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 		return nil, err
 	}
 
+	user, err := queries.GetUser(recipe.CreatedBy)
+	if err != nil {
+		return nil, err
+	}
+
 	return &models.DetailedRecipeJson{
 		ID:              recipe.ID,
 		Name:            recipe.Name,
@@ -44,10 +49,11 @@ func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 		Steps:           RecipeStepsToJson(steps),
 		Ingredients:     RecipeIngredientsToJson(ingredients),
 		Images:          RecipeImagesToJson(images),
+		Author:			 *user,
 	}, nil
 }
 
-func RecipeStepsToJson(steps []dbModels.RecipeStep) []models.RecipeStepJson {
+func RecipeStepsToJson(steps []tables.RecipeStep) []models.RecipeStepJson {
 	recipeStepJsons := make([]models.RecipeStepJson, 0)
 	for _, step := range steps {
 		recipeStepJsons = append(recipeStepJsons, models.RecipeStepJson{
@@ -58,11 +64,11 @@ func RecipeStepsToJson(steps []dbModels.RecipeStep) []models.RecipeStepJson {
 	return recipeStepJsons
 }
 
-func RecipeIngredientsToJson(ingredients []dbModels.RecipeIngredient) []models.RecipeIngredientJson {
+func RecipeIngredientsToJson(ingredients []tables.RecipeIngredient) []models.RecipeIngredientJson {
 	recipeIngredientJsons := make([]models.RecipeIngredientJson, 0)
 	for _, ingredient := range ingredients {
 		recipeIngredientJsons = append(recipeIngredientJsons, models.RecipeIngredientJson{
-			Name:  	ingredient.IngredientName,
+			Name:   ingredient.IngredientName,
 			Unit:   ingredient.UnitName,
 			Amount: ingredient.Amount,
 		})
@@ -70,7 +76,7 @@ func RecipeIngredientsToJson(ingredients []dbModels.RecipeIngredient) []models.R
 	return recipeIngredientJsons
 }
 
-func RecipeImagesToJson(images []dbModels.Image) []models.ImageJson {
+func RecipeImagesToJson(images []tables.Image) []models.ImageJson {
 	recipeImageJsons := make([]models.ImageJson, 0)
 	for _, image := range images {
 		recipeImageJsons = append(recipeImageJsons, models.ImageJson{

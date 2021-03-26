@@ -53,6 +53,6 @@ export function searchList(state = initialState, action) {
 
 function filterRecipes(recipes, search) {
     return recipes.filter(recipe => {
-        return recipe.name.toLowerCase().includes(search) || recipe.author.toLowerCase().includes(search);
+        return recipe.name.toLowerCase().includes(search) || recipe.author.name.toLowerCase().includes(search);
     })
 }

@@ -16,6 +16,7 @@ type ShortRecipeJson struct {
 	Name string `json:"name"`
 	UniqueName string `json:"unique_name"`
 	ImageLink string `json:"image_link"`
+	Author tables.User `json:"author"`
 }
 
 func toShortRecipeJson(recipe *tables.Recipe, imageUrl string) ShortRecipeJson {
@@ -24,6 +25,7 @@ func toShortRecipeJson(recipe *tables.Recipe, imageUrl string) ShortRecipeJson {
 		Name:       recipe.Name,
 		UniqueName: recipe.UniqueName,
 		ImageLink:  imageUrl,
+		Author:		recipe.User,
 	}
 }
 
@@ -50,6 +52,12 @@ func GetRecipes() (*RecipesJson, error) {
 			imageUrl = imageNameToPath(recipeImage.Image.ID, recipeImage.Image.Name)
 		}
 
+		user, err := queries.GetUser(recipe.CreatedBy)
+		if err != nil {
+			return nil, err
+		}
+
+		recipe.User = *user
 		shortRecipes = append(shortRecipes, toShortRecipeJson(&recipe, imageUrl))
 	}
 

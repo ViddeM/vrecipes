@@ -66,12 +66,7 @@ func GithubCallback(c *gin.Context) {
 
 	for _, e := range *emails {
 		if e.Verified && checkIfWhitelisted(e.Email) {
-			err = setSession(c, &sessionData{
-				Name:     user.Name,
-				Email:    e.Email,
-				Token:    token,
-				Provider: providerGithub,
-			})
+			err = setSession(c, user.Name, e.Email, providerGithub, token)
 			if err != nil {
 				log.Printf("Failed to save sessionData: %v\n", err)
 				abort(c)
