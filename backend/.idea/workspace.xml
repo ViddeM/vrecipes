@@ -55,21 +55,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/logout.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/me.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/common/responses.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/responses.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.action-creators.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.action-creators.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.actions.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.actions.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.container.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.container.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.reducer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.reducer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/App.styles.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/App.styles.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/common/functions/authorizedApiCall.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/common/functions/authorizedApiCall.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/login/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/login/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/login/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/process/imageUploadProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/imageUploadProcess.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/search/search-list/RecipeListCard/RecipeListCard.view.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,24 +167,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/api/endpoints/editRecipe.go</url>
-          <line>16</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/process/editRecipeProcess.go</url>
-          <line>71</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/api/endpoints/authentication/facebook.go</url>
           <line>44</line>
           <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go</url>
-          <line>86</line>
-          <option name="timeStamp" value="48" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

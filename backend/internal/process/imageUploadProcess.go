@@ -1,6 +1,7 @@
 package process
 
 import (
+	"encoding/base64"
 	"fmt"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
@@ -11,7 +12,8 @@ import (
 )
 
 func UploadImage(file *validation.File) (*models.ImageJson, error) {
-	filenameWithPath := fmt.Sprintf("%s%s", file.Name, file.FileType)
+	fileName := generateImageName(file.Name)
+	filenameWithPath := fmt.Sprintf("%s%s", fileName, file.FileType)
 
 	id, err := commands.CreateImage(&dbModels.Image{
 		Name: filenameWithPath,
@@ -38,3 +40,8 @@ func UploadImage(file *validation.File) (*models.ImageJson, error) {
 		ID:   id,
 	}, err
 }
+
+func generateImageName(name string) string {
+	return base64.URLEncoding.EncodeToString([]byte(name))
+}
+
