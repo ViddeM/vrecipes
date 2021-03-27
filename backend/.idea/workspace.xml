@@ -55,14 +55,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/facebook.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/common/envVars.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/envVars.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/login/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/login/Login.styles.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/login/Login.styles.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/login/providers.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/login/providers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/db/tables/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/db/tables/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/process/getOrCreateUserProcess.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/process/getOrCreateUserProcess.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,11 +180,6 @@
           <url>file://$PROJECT_DIR$/internal/api/endpoints/authentication/facebook.go</url>
           <line>44</line>
           <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/api/endpoints/authentication/facebook.go</url>
-          <line>71</line>
-          <option name="timeStamp" value="46" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

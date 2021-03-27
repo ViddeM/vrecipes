@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func GetOrCreateUser(name, email string) (*tables.User, error) {
+func GetOrCreateUser(name, email, provider string) (*tables.User, error) {
 	user, err := queries.GetUserByEmail(email)
 	if err == nil {
 		return user, nil
@@ -21,6 +21,7 @@ func GetOrCreateUser(name, email string) (*tables.User, error) {
 	user = &tables.User{
 		Name:  name,
 		Email: email,
+		Provider: provider,
 	}
 
 	err = commands.CreateUser(user)

@@ -68,7 +68,7 @@ func initAuth(c *gin.Context, config *oauth2.Config) {
 }
 
 func setSession(c *gin.Context, name, email, provider string, token *oauth2.Token) error {
-	user, err := process.GetOrCreateUser(name, email)
+	user, err := process.GetOrCreateUser(name, email, provider)
 	if err != nil {
 		return err
 	}
