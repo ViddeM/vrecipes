@@ -83,6 +83,9 @@ func setSession(c *gin.Context, name, email, provider string, token *oauth2.Toke
 	}
 
 	session := sessions.Default(c)
+	session.Options(sessions.Options{
+		Path: "/",
+	})
 	session.Set("token", tokenJson)
 
 	err = session.Save()
@@ -109,7 +112,11 @@ func readSession(c *gin.Context) (*sessionData, error) {
 func resetSession(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Clear()
-	session.Options(sessions.Options{MaxAge: -1})
+	session.Options(
+		sessions.Options{
+			MaxAge: -1,
+			Path: "/",
+		})
 	_ = session.Save()
 }
 

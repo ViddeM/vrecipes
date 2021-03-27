@@ -36,12 +36,15 @@ func Init() {
 			authRequired.GET("/recipes", endpoints.Recipes)
 			authRequired.GET("/recipes/:uniqueName", endpoints.Recipe)
 			authRequired.DELETE("/recipes/:id", endpoints.RemoveRecipe)
+			authRequired.GET("/me", authentication.Me)
 		}
 
 
 
 		auth := api.Group("/auth")
 		{
+			auth.POST("/logout", authentication.Logout)
+
 			github := auth.Group("/github")
 			{
 				github.GET("", authentication.GithubInitAuth)

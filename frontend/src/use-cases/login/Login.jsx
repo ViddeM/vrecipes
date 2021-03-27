@@ -16,7 +16,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import {ReactComponent as GoogleIcon} from "../../resources/images/icon_google.svg"
 
 
-const Login = () => {
+const Login = props => {
     const [error, setError] = useState("");
 
     return (

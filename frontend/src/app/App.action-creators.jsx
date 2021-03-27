@@ -1,6 +1,10 @@
-import {INIT} from "./App.actions";
+import {GET_ME_FAILED, GET_ME_SUCCESSFUL, INIT, ON_LOGOUT} from "./App.actions";
 import {initApi} from "../api/RequestUtilities";
 import {BETA_MODE, DEBUG_MODE, LIVE_MODE} from "../common/data/Mode";
+import {authorizedApiCall} from "../common/functions/authorizedApiCall";
+import {getMe} from "../api/get.Me.api";
+import {handleError} from "../common/functions/handleError";
+import {postLogout} from "../api/post.Logout.api";
 
 export function initialize() {
     let mode = LIVE_MODE;
@@ -12,11 +16,59 @@ export function initialize() {
 
     initApi(mode)
 
+    return dispatch => {
+        dispatch({
+            type: INIT,
+            payload: {
+                mode: mode
+            },
+            error: false
+        })
+
+        authorizedApiCall(() => getMe())
+            .then(response => {
+                if (response.error) {
+                    dispatch(onGetMeFailed(response.errResponse))
+                } else {
+                    if (response.response.data.success === false) {
+                        dispatch(onGetMeFailed(response.response.data))
+                    } else {
+                        dispatch(onGetMeSuccessful(response.response))
+                    }
+                }
+            })
+            .catch(error => {
+                dispatch(onGetMeFailed(error))
+            })
+    }
+}
+
+function onGetMeSuccessful(response) {
     return {
-        type: INIT,
+        type: GET_ME_SUCCESSFUL,
         payload: {
-            mode: mode
+            name: response.data.data.name,
+            email: response.data.data.email
         },
         error: false
+    }
+}
+
+function onGetMeFailed(error) {
+    return handleError(error, GET_ME_FAILED)
+}
+
+export function logout() {
+    return dispatch => {
+        postLogout()
+            .then(response => {
+            })
+            .catch(error => {
+            })
+        
+        dispatch({
+            type: ON_LOGOUT,
+            error: false
+        })
     }
 }

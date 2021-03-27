@@ -7,7 +7,7 @@ export async function authorizedApiCall(call) {
             }
         })
         .catch(error => {
-            if (error.response && error.response.status === 401) {
+            if (error.response && error.response.status === 401 && window.location.pathname !== "/login") {
                 window.location.assign("/login")
             }
 
