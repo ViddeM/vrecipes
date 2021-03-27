@@ -4,11 +4,11 @@ import App from './app';
 import * as serviceWorker from './serviceWorker';
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {logger} from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import {Provider} from "react-redux";
 import {DigitProviders} from "@cthit/react-digit-components";
 import {rootReducer} from "./app/App.reducer";
+import {logger} from "redux-logger";
 
 
 const theme = createMuiTheme(
@@ -34,7 +34,12 @@ function getReducer(root) {
         })
 }
 
-const store = createStore(getReducer(rootReducer), applyMiddleware(logger, thunkMiddleware));
+let middleware = [thunkMiddleware];
+if (process.env.REACT_APP_MODE === "develop") {
+    middleware = [...middleware, logger];
+}
+
+const store = createStore(getReducer(rootReducer), applyMiddleware(...middleware));
 
 ReactDOM.render(
     <Provider store={store}>
