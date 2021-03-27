@@ -55,13 +55,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3dccc35-2346-4c99-8474-2820f837535f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/google.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/facebook.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/endpoints/authentication/github.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/endpoints/authentication/github.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/server.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/common/envVars.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/common/envVars.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/use-cases/login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/use-cases/login/Login.jsx" afterDir="false" />
@@ -183,6 +179,16 @@
           <url>file://$PROJECT_DIR$/internal/process/editRecipeProcess.go</url>
           <line>71</line>
           <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/api/endpoints/authentication/facebook.go</url>
+          <line>44</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/api/endpoints/authentication/facebook.go</url>
+          <line>71</line>
+          <option name="timeStamp" value="46" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

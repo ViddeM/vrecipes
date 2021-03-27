@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import FacebookIcon from '@material-ui/icons/Facebook';
 
 export const LoginCard = styled.div`
     box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),
@@ -69,4 +70,12 @@ export const GoogleLoginButton = styled(LoginButton)`
   &:active{
     background-color: #C0C0C0;
   }
+`
+
+export const StyledFacebookIcon = styled(FacebookIcon)`
+  color: #4267B2;
+`
+
+export const FacebookLoginButton = styled(GoogleLoginButton)`
+  
 `

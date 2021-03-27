@@ -53,6 +53,12 @@ func Init() {
 				google.GET("", authentication.GoogleInitAuth)
 				google.GET("/callback", authentication.GoogleCallback)
 			}
+
+			facebook := auth.Group("/facebook")
+			{
+				facebook.GET("", authentication.FacebookInitAuth)
+				facebook.GET("/callback", authentication.FacebookCallback)
+			}
 		}
 	}
 }

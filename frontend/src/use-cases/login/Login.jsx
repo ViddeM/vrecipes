@@ -1,17 +1,20 @@
 import React, {useState} from "react";
 import {DigitText} from "@cthit/react-digit-components";
 import {
+    FacebookLoginButton,
     GithubLoginButton,
     GoogleLoginButton,
     LoginButtonIcon,
     LoginButtonsContainer,
     LoginCard,
-    LoginErrorText
+    LoginErrorText,
+    StyledFacebookIcon
 } from "./Login.styles";
-import {PROVIDER_GITHUB, PROVIDER_GOOGLE} from "./providers";
+import {PROVIDER_FACEBOOK, PROVIDER_GITHUB, PROVIDER_GOOGLE} from "./providers";
 import {getAuth} from "../../api/get.Auth.api";
 import GitHubIcon from '@material-ui/icons/GitHub';
 import {ReactComponent as GoogleIcon} from "../../resources/images/icon_google.svg"
+
 
 const Login = () => {
     const [error, setError] = useState("");
@@ -39,6 +42,14 @@ const Login = () => {
                                 </LoginButtonIcon>
                                 Logga in med google
                             </GoogleLoginButton>
+                            <FacebookLoginButton onClick={() =>
+                                login(PROVIDER_FACEBOOK, setError)
+                            }>
+                                <LoginButtonIcon>
+                                    <StyledFacebookIcon/>
+                                </LoginButtonIcon>
+                                Logga in med facebook
+                            </FacebookLoginButton>
                         </LoginButtonsContainer>
                     ) : (
                         <LoginErrorText>

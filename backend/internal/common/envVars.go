@@ -25,11 +25,14 @@ type envVars struct {
 	GithubUserEmailEndpoint string
 	GithubUserEndpoint      string
 
-	GoogleClientId string
-	GoogleSecret string
+	GoogleClientId    string
+	GoogleSecret      string
 	GoogleRedirectUri string
-	GoogleUserEmailEndpoint string
-	GoogleUserEndpoint string
+
+	FacebookClientId    string
+	FacebookSecret      string
+	FacebookRedirectUri string
+	FacebookMeUri       string
 }
 
 var vars envVars
@@ -51,25 +54,31 @@ func init() {
 
 func loadEnvVars() {
 	vars = envVars{
-		DbUser:                  loadNonEmptyString("db_user"),
-		DbPassword:              loadNonEmptyString("db_password"),
-		DbName:                  loadNonEmptyString("db_name"),
-		DbHost:                  loadNonEmptyString("db_host"),
-		ResetDb:                 loadBool("reset_db"),
-		Secret:                  loadNonEmptyString("secret"),
-		WhiteList:               loadNonEmptyString("whitelist"),
-		PORT:                    loadUint16("PORT"),
-		ImageFolder:             loadNonEmptyString("image_folder"),
+		DbUser:     loadNonEmptyString("db_user"),
+		DbPassword: loadNonEmptyString("db_password"),
+		DbName:     loadNonEmptyString("db_name"),
+		DbHost:     loadNonEmptyString("db_host"),
+		ResetDb:    loadBool("reset_db"),
+
+		Secret:      loadNonEmptyString("secret"),
+		WhiteList:   loadNonEmptyString("whitelist"),
+		PORT:        loadUint16("PORT"),
+		ImageFolder: loadNonEmptyString("image_folder"),
+
 		GithubClientId:          loadNonEmptyString("github_client_id"),
 		GithubSecret:            loadNonEmptyString("github_secret"),
 		GithubRedirectUri:       loadNonEmptyString("github_redirect_uri"),
 		GithubUserEmailEndpoint: loadNonEmptyString("github_user_email_endpoint"),
 		GithubUserEndpoint:      loadNonEmptyString("github_user_endpoint"),
-		GoogleClientId: 		 loadNonEmptyString("google_client_id"),
-		GoogleSecret:			 loadNonEmptyString("google_secret"),
-		GoogleRedirectUri:		 loadNonEmptyString("google_redirect_uri"),
-		GoogleUserEmailEndpoint: loadNonEmptyString("google_user_email_endpoint"),
-		GoogleUserEndpoint:      loadNonEmptyString("google_user_endpoint"),
+
+		GoogleClientId:    loadNonEmptyString("google_client_id"),
+		GoogleSecret:      loadNonEmptyString("google_secret"),
+		GoogleRedirectUri: loadNonEmptyString("google_redirect_uri"),
+
+		FacebookClientId:    loadNonEmptyString("facebook_client_id"),
+		FacebookSecret:      loadNonEmptyString("facebook_secret"),
+		FacebookRedirectUri: loadNonEmptyString("facebook_redirect_uri"),
+		FacebookMeUri: 		 loadNonEmptyString("facebook_me_uri"),
 	}
 }
 
