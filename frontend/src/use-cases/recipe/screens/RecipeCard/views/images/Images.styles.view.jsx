@@ -7,12 +7,6 @@ export const StyledImage = styled.img`
   border: 1px solid black;
 `;
 
-export const ImageContainer = styled.div`
-    background-size: cover;
-    padding-top: 100%;
-    border-radius: 1px;
-`;
-
 export const ImagesContainer = styled.div`
   display: flex;
   flex-direction: row;
