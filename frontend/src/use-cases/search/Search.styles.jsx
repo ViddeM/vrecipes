@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { DigitDesign, DigitText } from "@cthit/react-digit-components";
+import {DigitDesign, DigitText} from "@cthit/react-digit-components";
 
 export const SearchContainer = styled.div`
     display: flex;
@@ -19,10 +19,14 @@ export const BodyContainer = styled.div`
 
 export const SearchAddContainer = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
-    align-items: baseline;
+    align-items: center;
     justify-content: center;
+    
+    @media (min-width: 1024px) {
+      flex-direction: row;
+    }
 `;
 
 export const StyledDigitCard = styled(DigitDesign.Card)`
@@ -37,3 +41,10 @@ export const OutlinedText = styled(DigitText.Text)`
   -webkit-text-stroke-color: black;
   font-size: x-large;
 `;
+
+export const AddIconButtonContainer = styled.div`
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 4;
+`
