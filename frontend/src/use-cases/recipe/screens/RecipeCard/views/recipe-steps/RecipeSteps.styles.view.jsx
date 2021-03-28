@@ -1,11 +1,18 @@
 import styled from "styled-components";
 
 export const RecipeStepsContainer = styled.div`
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+    margin-bottom: 20px;
+    
+    @media (min-width: 1024px) {
+        margin-right: 20px;
+        margin-left: 20px;
+    }
 `;
 
 export const StepContainer = styled.div`

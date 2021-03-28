@@ -1,34 +1,23 @@
 import React from "react"
 import {
-    CenteredColumn,
     Column,
-    Columns,
     DescriptionBox,
     FullWidth,
     RecipeCardContainer,
+    RecipeIngredientStepImagesContainer,
     Rows,
     StyledTimeIcon,
     TimeContainer,
-    TopRow,
-    VLineContainer
+    TopRow
 } from "./RecipeCard.styles.screen";
-import {
-    Center,
-    HLine,
-    HSpace,
-    SmallVSpace,
-    StyledText,
-    TitleText,
-    VLine,
-    VSpace
-} from "../../../../common/styles/Common.styles";
-import Images from "./views/images";
-import Ingredients from "./views/ingredients";
-import RecipeFooter from "./views/recipe-footer/RecipeFooter.container.view";
-import RecipeSteps from "./views/recipe-steps";
+import {useHistory} from "react-router";
 import {DigitIconButton} from "@cthit/react-digit-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import {useHistory} from "react-router";
+import {Center, HLine, HSpace, StyledText, SubtitleText, TitleText} from "../../../../common/styles/Common.styles";
+import Ingredients from "./views/ingredients";
+import RecipeSteps from "./views/recipe-steps/RecipeSteps.container.view";
+import Images from "./views/images/Images.container.view";
+import RecipeFooter from "./views/recipe-footer/RecipeFooter.container.view";
 
 const RecipeCard = props => {
 
@@ -40,84 +29,78 @@ const RecipeCard = props => {
                 <TopRow>
                     <DigitIconButton icon={ArrowBackIcon} onClick={() => history.goBack()}/>
                 </TopRow>
-                <Columns>
-                    <Column>
-                        <VSpace/>
-                        <Center>
-                            <TitleText text={props.recipe.name}/>
-                        </Center>
-                        <CenteredColumn>
-                            <HLine/>
-                        </CenteredColumn>
-                        <CenteredColumn>
-                            <StyledText text={"Upplagd av " + props.recipe.author.name}/>
-                        </CenteredColumn>
-                        <CenteredColumn>
-                            <HLine/>
-                        </CenteredColumn>
-                        {(props.recipe.estimatedTime >= 0 || props.recipe.ovenTemperature >= 0) &&
-                        <CenteredColumn>
-                            <TimeContainer>
-                                {props.recipe.ovenTemperature >= 0 &&
-                                <StyledText text={"ugn " + props.recipe.ovenTemperature + "°"}/>
-                                }
-                                {props.recipe.ovenTemperature >= 0 && props.recipe.estimatedTime >= 0 &&
-                                <HSpace/>
-                                }
-                                {props.recipe.estimatedTime >= 0 &&
-                                <TimeContainer>
-                                    <StyledText text={props.recipe.estimatedTime}/>
-                                    <StyledTimeIcon/>
-                                </TimeContainer>
-                                }
-                            </TimeContainer>
-                            <HLine/>
-                        </CenteredColumn>
+                <Center>
+                    <TitleText text={props.recipe.name}/>
+                </Center>
+                <HLine/>
+                <Center>
+                    <StyledText text={"Upplagd av " + props.recipe.author.name}/>
+                </Center>
+                {(props.recipe.estimatedTime >= 0 || props.recipe.ovenTemperature >= 0) &&
+                <>
+                    <HLine/>
+                    <TimeContainer>
+                        {props.recipe.ovenTemperature >= 0 &&
+                        <StyledText text={"ugn " + props.recipe.ovenTemperature + "°"}/>
                         }
-                        {props.recipe.description &&
-                        <Center>
-                            <DescriptionBox>
-                                <StyledText text={props.recipe.description}/>
-                            </DescriptionBox>
-                        </Center>
+                        {props.recipe.ovenTemperature >= 0 && props.recipe.estimatedTime >= 0 &&
+                        <HSpace/>
                         }
-                    </Column>
-                    {
-                        (props.recipe.ingredients.length > 0 || props.recipe.steps.length > 0) && (
-                            <Column>
-                                <Images/>
-                            </Column>
-                        )
-                    }
-                </Columns>
-                <SmallVSpace/>
-                <FullWidth>
-                    {props.recipe.ingredients.length > 0 || props.recipe.steps.length > 0 ? (
-                        <Columns>
+                        {props.recipe.estimatedTime >= 0 &&
+                        <TimeContainer>
+                            <StyledText text={props.recipe.estimatedTime}/>
+                            <StyledTimeIcon/>
+                        </TimeContainer>
+                        }
+                    </TimeContainer>
+                </>
+                }
+                {props.recipe.description &&
+                <>
+                    <HLine/>
+                    <div style={{height: "40px"}}/>
+                    <Center>
+                        <SubtitleText text="Beskrivning"/>
+                    </Center>
+                    <HLine/>
+                    <Center>
+                        <DescriptionBox>
+                            <StyledText text={props.recipe.description}/>
+                        </DescriptionBox>
+                    </Center>
+                    <HLine/>
+                </>
+                }
+
+                <RecipeIngredientStepImagesContainer>
+                    {(props.recipe.ingredients.length > 0 || props.recipe.steps.length > 0) && (
+                        <Column>
                             {props.recipe.ingredients.length > 0 && (
-                                <Column>
-                                    <Center>
-                                        <Ingredients/>
-                                    </Center>
-                                </Column>
-                            )}
-                            {props.recipe.ingredients.length > 0 && props.recipe.steps.length > 0 && (
-                                <VLineContainer>
-                                    <VLine className="VLINE"/>
-                                </VLineContainer>
+                                <>
+                                    <FullWidth>
+                                        <Column>
+                                            <Center>
+                                                <Ingredients/>
+                                            </Center>
+                                        </Column>
+                                    </FullWidth>
+                                </>
                             )}
                             {props.recipe.steps.length > 0 && (
-                                <Column>
-                                    <RecipeSteps steps={props.recipe.steps}/>
-                                </Column>
+                                <FullWidth>
+                                    <Column>
+                                        <Center>
+                                            <RecipeSteps steps={props.recipe.steps}/>
+                                        </Center>
+                                    </Column>
+                                </FullWidth>
                             )}
-                        </Columns>
-                    ) : (
-                        <Column>
-                            <Images fullWidth/>
                         </Column>
                     )}
-                </FullWidth>
+                    <Column>
+                        <Images fullWidth/>
+                    </Column>
+                </RecipeIngredientStepImagesContainer>
                 <RecipeFooter/>
             </Rows>
         </RecipeCardContainer>

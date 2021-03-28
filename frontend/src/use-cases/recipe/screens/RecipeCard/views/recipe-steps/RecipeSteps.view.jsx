@@ -1,13 +1,13 @@
 import React from "react"
 import {RecipeStepsContainer, StepContainer, StepRow} from "./RecipeSteps.styles.view";
-import {FullHLine, HLine, LongStyledText, StyledText, TitleText} from "../../../../../../common/styles/Common.styles";
-import {DescriptionBox} from "../../RecipeCard.styles.screen";
+import {FullHLine, LongStyledText, StyledText, SubtitleText} from "../../../../../../common/styles/Common.styles";
+import {FullWidth} from "../../RecipeCard.styles.screen";
 
 const RecipeSteps = props => (
     <RecipeStepsContainer>
-        <TitleText text="Gör såhär"/>
-        <HLine/>
-        <DescriptionBox>
+        <SubtitleText text="Gör såhär"/>
+        <FullHLine/>
+        <FullWidth>
             {
                 props.steps.map((step, index) => (
                     <StepContainer key={index}>
@@ -21,7 +21,8 @@ const RecipeSteps = props => (
                     </StepContainer>
                 ))
             }
-        </DescriptionBox>
+            <FullHLine/>
+        </FullWidth>
     </RecipeStepsContainer>
 );
 

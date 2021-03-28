@@ -45,6 +45,10 @@ export const TitleText = styled(DigitText.Title)`
     font-size: 32px;
 `;
 
+export const SubtitleText = styled(TitleText)`
+  font-size: 26px;
+`
+
 export const StyledText = styled(DigitText.Text)`
     font-size: 24px;
     margin: 5px;
@@ -54,10 +58,6 @@ export const StyledText = styled(DigitText.Text)`
 export const LongStyledText = styled(StyledText)`
   word-break: break-word;
 `
-
-export const IngredientText = styled(StyledText)`
-    width: 80%
-`;
 
 export const VLine = styled.div`
     width: 1px;

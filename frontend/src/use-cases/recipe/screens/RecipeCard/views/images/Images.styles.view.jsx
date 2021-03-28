@@ -8,17 +8,16 @@ export const StyledImage = styled.img`
 `;
 
 export const FullWidthContainer = styled.div`
-  width: 100%;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  max-width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 export const FullWidthImage = styled.img`
   border-radius: 5px;
   width: auto;
-  max-height: 100vh;
+  max-width: 100%;
+  height: auto;
   border: 1px solid black;
 `;
 

@@ -1,24 +1,34 @@
 import React from "react"
-import {IngredientContainer, IngredientsContainer} from "./Ingredients.styles.view";
-import {Center, HLine, IngredientText, TitleText} from "../../../../../../common/styles/Common.styles";
-import {getFormattedIngredient} from "../../../../../../common/functions/formatting";
+import {
+    IngredientNameContainer,
+    IngredientRowElement,
+    IngredientsContainer,
+    IngredientsTable,
+    IngredientText
+} from "./Ingredients.styles.view";
+import {SubtitleText} from "../../../../../../common/styles/Common.styles";
 
 const Ingredients = props => (
     <IngredientsContainer>
-        <Center>
-            <TitleText text={"Ingredienser"}/>
-        </Center>
-        <Center>
-            <HLine/>
-        </Center>
-        {props.ingredients.map((ingredient, index) => (
-            <IngredientContainer key={index}>
-                {index > 0 && (
-                    <HLine/>
-                )}
-                <IngredientText text={getFormattedIngredient(ingredient)}/>
-            </IngredientContainer>
-        ))}
+        <IngredientsTable>
+            <thead>
+            <th colSpan={2}>
+                <SubtitleText text={"Ingredienser"} alignCenter/>
+            </th>
+            </thead>
+            <tbody>
+            {props.ingredients.map((ingredient, index) => (
+                <tr key={index}>
+                    <IngredientNameContainer>
+                        <IngredientText text={ingredient.name} leftAlign/>
+                    </IngredientNameContainer>
+                    <IngredientRowElement>
+                        <IngredientText text={ingredient.amount + " " + ingredient.unit} alignRight/>
+                    </IngredientRowElement>
+                </tr>
+            ))}
+            </tbody>
+        </IngredientsTable>
     </IngredientsContainer>
 );
 

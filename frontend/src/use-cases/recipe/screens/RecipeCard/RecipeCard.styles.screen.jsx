@@ -71,3 +71,14 @@ export const TopRow = styled.div`
   justify-content: flex-start;
   width: 100%;
 `;
+
+export const RecipeIngredientStepImagesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px 5px;
+  
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    margin: 20px 20px;
+  }
+`
