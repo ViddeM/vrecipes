@@ -7,6 +7,21 @@ export const StyledImage = styled.img`
   border: 1px solid black;
 `;
 
+export const FullWidthContainer = styled.div`
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+export const FullWidthImage = styled.img`
+  border-radius: 5px;
+  width: auto;
+  max-height: 100vh;
+  border: 1px solid black;
+`;
+
 export const ImagesContainer = styled.div`
   display: flex;
   flex-direction: row;

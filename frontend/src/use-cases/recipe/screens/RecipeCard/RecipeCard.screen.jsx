@@ -82,31 +82,41 @@ const RecipeCard = props => {
                         </Center>
                         }
                     </Column>
-                    <Column>
-                        <Images/>
-                    </Column>
+                    {
+                        (props.recipe.ingredients.length > 0 || props.recipe.steps.length > 0) && (
+                            <Column>
+                                <Images/>
+                            </Column>
+                        )
+                    }
                 </Columns>
                 <SmallVSpace/>
                 <FullWidth>
-                    <Columns>
-                        {props.recipe.ingredients.length > 0 && (
-                            <Column>
-                                <Center>
-                                    <Ingredients/>
-                                </Center>
-                            </Column>
-                        )}
-                        {props.recipe.ingredients.length > 0 && props.recipe.steps.length > 0 && (
-                            <VLineContainer>
-                                <VLine className="VLINE"/>
-                            </VLineContainer>
-                        )}
-                        {props.recipe.steps.length > 0 && (
-                            <Column>
-                                <RecipeSteps steps={props.recipe.steps}/>
-                            </Column>
-                        )}
-                    </Columns>
+                    {props.recipe.ingredients.length > 0 || props.recipe.steps.length > 0 ? (
+                        <Columns>
+                            {props.recipe.ingredients.length > 0 && (
+                                <Column>
+                                    <Center>
+                                        <Ingredients/>
+                                    </Center>
+                                </Column>
+                            )}
+                            {props.recipe.ingredients.length > 0 && props.recipe.steps.length > 0 && (
+                                <VLineContainer>
+                                    <VLine className="VLINE"/>
+                                </VLineContainer>
+                            )}
+                            {props.recipe.steps.length > 0 && (
+                                <Column>
+                                    <RecipeSteps steps={props.recipe.steps}/>
+                                </Column>
+                            )}
+                        </Columns>
+                    ) : (
+                        <Column>
+                            <Images fullWidth/>
+                        </Column>
+                    )}
                 </FullWidth>
                 <RecipeFooter/>
             </Rows>
