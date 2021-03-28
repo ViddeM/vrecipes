@@ -19,7 +19,7 @@ function getImage(images) {
     }
 
     if (image === null) {
-        image = "./default.jpg"
+        image = "/static/images/temp_image.jpg"
     }
 
     return image;
