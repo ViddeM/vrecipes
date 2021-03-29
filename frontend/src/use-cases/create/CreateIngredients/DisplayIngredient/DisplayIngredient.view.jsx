@@ -3,9 +3,12 @@ import {Draggable} from "react-beautiful-dnd";
 import {DigitIconButton, DigitTextField} from "@cthit/react-digit-components";
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import ClearIcon from '@material-ui/icons/Clear';
-import {DisplayDraggableCard, DisplayDraggableContainer, IconButtonContainer} from "../../Create.styles";
-import {SmallHSpace} from "../../../../common/styles/Common.styles";
-import {HalfRow} from "./DisplayIngredient.styles.view";
+import {
+    AdaptiveContainer,
+    DisplayDraggableCard,
+    DisplayDraggableContainer,
+    IconButtonContainer
+} from "../../Create.styles";
 
 export const DisplayIngredient = props => {
     const ingredient = props.props.ingredient;
@@ -24,27 +27,26 @@ export const DisplayIngredient = props => {
                             provided.draggableProps.style
                         )}
                     >
-                        <DehazeIcon/>
-                        <SmallHSpace/>
-                        <HalfRow>
+                        <AdaptiveContainer>
+                            <DehazeIcon/>
                             <DigitTextField
                                 outlined
                                 upperLabel="Mängd"
-                                flex={"1"}
+                                flex={"0.5"}
                                 onChange={e => {
                                     props.props.onIngredientAmountChange(e.target.value, ingredient.id)
                                 }}
-                                margin={{right: "20px"}}
-                                size={{width: "auto", height: "auto"}}
                                 value={ingredient.amount}
                                 error={errors.amount !== undefined}
                                 errorMessage={errors.amount}
                                 maxLength={4}
+                                size={{width: "100%"}}
+                                margin={{left: "8px", right: "8px"}}
                             />
                             <DigitTextField
                                 outlined
                                 upperLabel="Mått"
-                                flex={"1"}
+                                flex={"0.5"}
                                 onChange={e => {
                                     props.props.onIngredientUnitChange(e.target.value, ingredient.id)
                                 }}
@@ -52,31 +54,34 @@ export const DisplayIngredient = props => {
                                 error={errors.unit !== undefined}
                                 errorMessage={errors.unit}
                                 maxLength={12}
+                                size={{width: "100%"}}
+                                margin={{left: "8px", right: "8px"}}
                             />
-                        </HalfRow>
-                        <DigitTextField
-                            outlined
-                            upperLabel="Ingrediens"
-                            flex={"1"}
-                            onChange={e => {
-                                props.props.onIngredientNameChange(e.target.value, ingredient.id)
-                            }}
-                            value={ingredient.name}
-                            error={errors.name !== undefined}
-                            errorMessage={errors.name}
-                            maxLength={40}
-                        />
-
-                        <IconButtonContainer>
-                            <DigitIconButton icon={ClearIcon} alignSelf="center"
-                                             margin={"0px"} padding={"0px"}
-                                             secondary
-                                             size={{
-                                                 width: "100%",
-                                                 height: "100%"
-                                             }}
-                                             onClick={props.props.onIngredientRemove}/>
-                        </IconButtonContainer>
+                            <DigitTextField
+                                outlined
+                                upperLabel="Ingrediens"
+                                flex={"1"}
+                                onChange={e => {
+                                    props.props.onIngredientNameChange(e.target.value, ingredient.id)
+                                }}
+                                value={ingredient.name}
+                                error={errors.name !== undefined}
+                                errorMessage={errors.name}
+                                maxLength={40}
+                                size={{width: "100%"}}
+                                margin={{left: "8px", right: "8px"}}
+                            />
+                            <IconButtonContainer>
+                                <DigitIconButton icon={ClearIcon} alignSelf="center"
+                                                 margin={"0px"} padding={"0px"}
+                                                 secondary
+                                                 size={{
+                                                     width: "100%",
+                                                     height: "100%"
+                                                 }}
+                                                 onClick={props.props.onIngredientRemove}/>
+                            </IconButtonContainer>
+                        </AdaptiveContainer>
                     </DisplayDraggableCard>
                 )}
             </Draggable>

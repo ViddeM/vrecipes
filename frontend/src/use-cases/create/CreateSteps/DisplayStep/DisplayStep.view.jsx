@@ -1,10 +1,15 @@
 import React from "react";
-import {DisplayDraggableCard, DisplayDraggableContainer, IconButtonContainer} from "../../Create.styles";
+import {
+    AdaptiveContainer,
+    DisplayDraggableCard,
+    DisplayDraggableContainer,
+    IconButtonContainer
+} from "../../Create.styles";
 import {Draggable} from "react-beautiful-dnd";
 import DehazeIcon from "@material-ui/icons/Dehaze";
 import {DigitIconButton, DigitText, DigitTextArea} from "@cthit/react-digit-components";
 import ClearIcon from "@material-ui/icons/Clear";
-import {SmallHSpace} from "../../../../common/styles/Common.styles";
+import {SmallHSpace, SmallSpace} from "../../../../common/styles/Common.styles";
 
 export const DisplayStep = props => {
     const step = props.props.step;
@@ -23,31 +28,35 @@ export const DisplayStep = props => {
                             snapshot.isDragging,
                             provided.draggableProps.style
                         )}>
-                        <DehazeIcon/>
-                        <SmallHSpace/>
-                        <DigitText.Text text={(step.number + 1).toString() + "."}
-                                        bold/>
-                        <SmallHSpace/>
-                        <DigitTextArea outlined upperLabel="Tillvägagångssätt"
-                                       flex={"1"}
-                                       onChange={e =>
-                                           props.props.onStepDescriptionChange(e.target.value, step.id)
-                                       }
-                                       value={step.step}
-                                       error={errors.name !== undefined}
-                                       errorMessage={errors.name}
-                                       maxLength={400}
-                        />
-                        <IconButtonContainer>
-                            <DigitIconButton icon={ClearIcon} alignSelf="center"
-                                             margin={"0px"} padding={"0px"}
-                                             secondary
-                                             size={{
-                                                 width: "100%",
-                                                 height: "100%"
-                                             }}
-                                             onClick={props.props.onStepRemove}/>
-                        </IconButtonContainer>
+                        <AdaptiveContainer>
+                            <DehazeIcon/>
+                            <SmallSpace/>
+                            <DigitText.Text text={(step.number + 1).toString() + "."}
+                                            bold/>
+                            <SmallHSpace/>
+                            <DigitTextArea outlined upperLabel="Tillvägagångssätt"
+                                           flex={"1"}
+                                           onChange={e =>
+                                               props.props.onStepDescriptionChange(e.target.value, step.id)
+                                           }
+                                           value={step.step}
+                                           error={errors.name !== undefined}
+                                           errorMessage={errors.name}
+                                           maxLength={400}
+                                           size={{width: "100%"}}
+                                           margin={{left: "8px", right: "8px"}}
+                            />
+                            <IconButtonContainer>
+                                <DigitIconButton icon={ClearIcon} alignSelf="center"
+                                                 margin={"0px"} padding={"0px"}
+                                                 secondary
+                                                 size={{
+                                                     width: "100%",
+                                                     height: "100%"
+                                                 }}
+                                                 onClick={props.props.onStepRemove}/>
+                            </IconButtonContainer>
+                        </AdaptiveContainer>
                     </DisplayDraggableCard>
                 )}
             </Draggable>

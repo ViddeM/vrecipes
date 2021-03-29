@@ -1,5 +1,5 @@
 import React from "react";
-import {FormColumn, FormRow, StyledCard} from "../Create.styles";
+import {FormColumn, FormRow, PaddingContainer, StyledCard} from "../Create.styles";
 import {DigitForm, DigitIconButton, DigitText, DigitTextArea, DigitTextField} from "@cthit/react-digit-components";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {useHistory} from "react-router";
@@ -13,42 +13,58 @@ export const CreateGeneral = props => {
                 render={() => (
                     <FormColumn>
                         <FormRow style={{justifyContent: "flex-start"}}>
-                            <DigitIconButton icon={ArrowBackIcon} onClick={() => history.goBack()}/>
+                            <DigitIconButton icon={ArrowBackIcon} alignSelf={"flex-start"}
+                                             onClick={() => history.goBack()}/>
                             <DigitText.Title alignCenter text="Nytt recept"/>
                         </FormRow>
                         <FormRow>
-                            <DigitTextField outlined maxLength={60}
-                                            upperLabel="Receptnamn (obligatorisk)"
-                                            flex={"1"} value={props.name}
-                                            onChange={props.onNameChange}
-                                            error={props.errors.name !== undefined}
-                                            errorMessage={props.errors.name}
-                            />
+                            <PaddingContainer>
+                                <DigitTextField outlined maxLength={60}
+                                                upperLabel="Receptnamn (obligatorisk)"
+                                                flex={"1"} value={props.name}
+                                                onChange={props.onNameChange}
+                                                error={props.errors.name !== undefined}
+                                                errorMessage={props.errors.name}
+                                                margin={{left: "10px", right: "10px"}}
+                                />
+                            </PaddingContainer>
                         </FormRow>
                         <FormRow>
-                            <DigitTextField outlined maxLength={4}
-                                            value={props.oven}
-                                            upperLabel="Ungstemperatur" flex={"1"}
-                                            margin={{
-                                                right: "20px",
-                                                top: "4px",
-                                                left: "4px",
-                                                bottom: "4px"
-                                            }}
-                                            onChange={props.onOvenTempChange}/>
-                            <DigitTextField
-                                outlined maxLength={4} value={props.time}
-                                upperLabel="Tillagningstid (min)"
-                                flex={"1"}
-                                onChange={props.onCookingTimeChange}/>
+                            <PaddingContainer>
+                                <DigitTextField outlined maxLength={4}
+                                                value={props.oven}
+                                                upperLabel="Ungstemperatur" flex={"1"}
+                                                onChange={props.onOvenTempChange}
+                                                size={{width: "100%"}}
+                                                margin={{left: "10px", right: "10px"}}
+                                                inputmode="numeric"
+                                />
+                            </PaddingContainer>
+
+                            <PaddingContainer>
+                                <DigitTextField outlined maxLength={4}
+                                                value={props.time}
+                                                upperLabel="Tillagningstid (min)"
+                                                flex={"1"}
+                                                onChange={props.onCookingTimeChange}
+                                                size={{width: "100%"}}
+                                                margin={{left: "10px", right: "10px"}}
+                                                numbersOnly
+                                />
+                            </PaddingContainer>
                         </FormRow>
                         <FormRow>
-                            <DigitTextArea outlined value={props.description}
-                                           upperLabel="Beskrivning av rätt"
-                                           flex={"1"} rows={6}
-                                           rowsMax={20}
-                                           maxLength={1000}
-                                           onChange={props.onDescriptionChange}/>
+                            <PaddingContainer>
+                                <DigitTextArea outlined value={props.description}
+                                               upperLabel="Beskrivning av rätt"
+                                               flex={"1"} rows={6}
+                                               rowsMax={20}
+                                               maxLength={1000}
+                                               onChange={props.onDescriptionChange}
+                                               size={{width: "100%"}}
+                                               margin={{left: "10px", right: "10px"}}
+                                />
+                            </PaddingContainer>
                         </FormRow>
                     </FormColumn>
                 )

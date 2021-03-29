@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HalfRow = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1;

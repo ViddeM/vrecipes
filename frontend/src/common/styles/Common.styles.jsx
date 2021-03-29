@@ -23,6 +23,11 @@ export const SmallHSpace = styled.div`
   min-width: 10px;
 `;
 
+export const SmallSpace = styled.div`
+  min-width: 10px;
+  min-height: 10px;
+`
+
 export const FullHLine = styled.div`
     background-color: #C0C0C0;
     width: 100%;
