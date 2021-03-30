@@ -47,7 +47,8 @@ export const CreateIngredients = props => {
                                                 setToRemove(ingredient.id)
                                             },
                                             errors: getErrors(props.errors, ingredient.id)
-                                        }}/>
+                                        }}
+                                    />
                                 ))}
                                 {provided.placeholder}
                             </Dropzone>

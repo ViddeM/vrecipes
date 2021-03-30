@@ -127,7 +127,20 @@ export const AdaptiveContainer = styled.div`
 
 export const TextFieldWithMargin = styled(VTextField)`
   margin: 5px 10px !important;
-  flex: 1
+  flex: 1;
+  
+  /* NUMBERS */
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+    
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 `
 
 export const CommunistAlignedIcon = styled(IconButton)`

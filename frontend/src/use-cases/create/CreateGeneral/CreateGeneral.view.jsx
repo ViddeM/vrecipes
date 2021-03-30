@@ -47,6 +47,7 @@ export const CreateGeneral = props => {
                                              maxLength={4}
                                              value={props.oven}
                                              label="Ungstemperatur"
+                                             numbers
                                              flex={"1"}
                                              onChange={props.onOvenTempChange}
                         />
@@ -58,6 +59,7 @@ export const CreateGeneral = props => {
                                              value={props.time}
                                              label="Tillagningstid (min)"
                                              flex={"1"}
+                                             numbers
                                              onChange={props.onCookingTimeChange}
                         />
                     </PaddingContainer>

@@ -3,14 +3,28 @@ import TextField from "@material-ui/core/TextField";
 
 export const VTextField = props => {
     const forwardProps = {...props}
-    forwardProps.value = props.value ? props.value : "";
+    forwardProps.value = props.value ? props.value + "" : "";
     forwardProps.maxLength = props.maxLength ? props.maxLength : -1
     forwardProps.onChange = e => {
         handleOnChange(e, forwardProps.maxLength, props.onChange)
     };
 
+    if (props.numbers) {
+        forwardProps.inputProps = {
+            ...forwardProps.inputProps,
+            pattern: "[0-9]*"
+        }
+    }
+
+    if (props.floats) {
+        forwardProps.inputProps = {
+            ...forwardProps.inputProps,
+            pattern: "[0-9]+([.,][0-9]+)?"
+        }
+    }
+
     const handleOnChange = (e, maxLength, onChange) => {
-        var newValue = e.target.value;
+        const newValue = e.target.value;
         if (maxLength === -1 || newValue.length <= maxLength) {
             onChange(e);
         }
