@@ -8,8 +8,8 @@ export const SearchContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 20px;
     flex: 1;
+    width: 100%;
 `;
 
 export const BodyContainer = styled.div`
@@ -28,9 +28,9 @@ export const SearchAddContainer = styled(Card)`
     justify-content: center;
     background-color: white;
     padding: 20px;
-    width: 50%;
-    min-width: 300px;
     margin-bottom: 20px;
+    width: 50%;
+    min-width: 280px;   
     
     @media (min-width: 1024px) {
       flex-direction: row;

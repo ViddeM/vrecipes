@@ -23,3 +23,8 @@ export const StepRow = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
 `;
+
+
+export const RecipeStepTable = styled.table`
+
+`

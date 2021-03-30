@@ -21,7 +21,7 @@ const Search = props => {
 
     return (
         <BodyContainer>
-            <SearchContainer>
+            <SearchContainer className="Search container">
                 <SearchAddContainer>
                     <SearchTextField variant="outlined"
                                      label="Sök bland recept"

@@ -1,27 +1,25 @@
 import styled from "styled-components"
 
 export const RecipeListCardContainer = styled.div`
+    width: 100%;
     max-width: 320px;
-    margin: 20px;
-`;
-
-export const ButtonCard = styled.div`
-    border: none;
-    background-color: inherit;
-    padding: 0;
-    color: white;
+    margin: 20px 0;
+    
+    @media (min-width: 468px) {
+       margin: 20px;
+    }
 `;
 
 export const ImageBorder = styled.div`
     padding: 1px;
     border-radius: 16px;
-    max-width: 300px;
+    width: 100%;
     background-color: #606060;
 `;
 
 export const ImageContainer = styled.div`
     border-radius: inherit;
-    width: 300px;
+    width: 100%;
     height: 300px;  
     background-color: white;
     background-size: cover;
@@ -44,6 +42,7 @@ export const SmallVSpace = styled.div`
 
 export const RecipeListCardCard = styled.div`
     background-color: white;
+    width: calc(100% - 22px);
     max-width: 400px;
     padding: 10px;
     color: black;

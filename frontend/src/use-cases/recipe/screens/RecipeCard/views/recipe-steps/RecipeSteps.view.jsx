@@ -1,21 +1,19 @@
 import React from "react"
 import {RecipeStepsContainer, StepContainer, StepRow} from "./RecipeSteps.styles.view";
-import {FullHLine, LongStyledText, StyledText} from "../../../../../../common/styles/Common.styles";
+import {FullHLine, LongStyledText, StyledText, SubtitleText} from "../../../../../../common/styles/Common.styles";
 import {FullWidth} from "../../RecipeCard.styles.screen";
 
 const RecipeSteps = props => (
     <RecipeStepsContainer>
-        <StyledText variant="h6">
+        <SubtitleText variant>
             Gör såhär
-        </StyledText>
+        </SubtitleText>
         <FullHLine/>
         <FullWidth>
             {
                 props.steps.map((step, index) => (
                     <StepContainer key={index}>
-                        {index > 0 &&
-                        <FullHLine/>
-                        }
+                        <div style={{height: "20px"}}/>
                         <StepRow>
                             <StyledText>
                                 {step.number + 1 + "."}
@@ -27,7 +25,6 @@ const RecipeSteps = props => (
                     </StepContainer>
                 ))
             }
-            <FullHLine/>
         </FullWidth>
     </RecipeStepsContainer>
 );
