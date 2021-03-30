@@ -55,13 +55,6 @@ export const Column = styled.div`
     flex: 1;
 `;
 
-export const CenteredColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-`;
-
 export const StyledTimeIcon = styled(TimeIcon)`
     margin-top: -5px;
 `;
@@ -78,6 +71,7 @@ export const RecipeIngredientStepImagesContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px 5px;
+  width: 100%;
   
   @media (min-width: 1024px) {
     flex-direction: row;
