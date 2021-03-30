@@ -89,7 +89,7 @@ const RecipeCard = props => {
                 }
 
                 <RecipeIngredientStepImagesContainer>
-                    {(props.recipe.ingredients.length > 0 || props.recipe.steps.length > 0) && (
+                    {(props.recipe.ingredients.length > 0) && (
                         <Column>
                             {props.recipe.ingredients.length > 0 && (
                                 <>
