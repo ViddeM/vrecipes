@@ -11,12 +11,13 @@ import {
     TopRow
 } from "./RecipeCard.styles.screen";
 import {useHistory} from "react-router";
-import {DigitIconButton} from "@cthit/react-digit-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import {Center, HLine, HSpace, StyledText, SubtitleText, TitleText} from "../../../../common/styles/Common.styles";
-import Ingredients from "./views/ingredients";
-import RecipeSteps from "./views/recipe-steps/RecipeSteps.container.view";
+import IconButton from "@material-ui/core/IconButton";
+import {Center, HLine, HSpace, StyledText} from "../../../../common/styles/Common.styles";
+import {Typography} from "@material-ui/core";
 import Images from "./views/images/Images.container.view";
+import RecipeSteps from "./views/recipe-steps/RecipeSteps.container.view";
+import Ingredients from "./views/ingredients/Ingredients.container.view";
 import RecipeFooter from "./views/recipe-footer/RecipeFooter.container.view";
 
 const RecipeCard = props => {
@@ -27,28 +28,39 @@ const RecipeCard = props => {
         <RecipeCardContainer>
             <Rows>
                 <TopRow>
-                    <DigitIconButton icon={ArrowBackIcon} onClick={() => history.goBack()}/>
+                    <IconButton onClick={() => history.goBack()}>
+                        <ArrowBackIcon/>
+                    </IconButton>
                 </TopRow>
                 <Center>
-                    <TitleText text={props.recipe.name}/>
+                    <Typography variant="h4">
+                        {props.recipe.name}
+                    </Typography>
                 </Center>
                 <HLine/>
                 <Center>
-                    <StyledText text={"Upplagd av " + props.recipe.author.name}/>
+                    <StyledText variant="subtitle1">
+                        {"Upplagd av " + props.recipe.author.name}
+                    </StyledText>
                 </Center>
+
                 {(props.recipe.estimatedTime >= 0 || props.recipe.ovenTemperature >= 0) &&
                 <>
                     <HLine/>
                     <TimeContainer>
                         {props.recipe.ovenTemperature >= 0 &&
-                        <StyledText text={"ugn " + props.recipe.ovenTemperature + "°"}/>
+                        <StyledText variant="subtitle1">
+                            {"ugn " + props.recipe.ovenTemperature + "°"}
+                        </StyledText>
                         }
                         {props.recipe.ovenTemperature >= 0 && props.recipe.estimatedTime >= 0 &&
                         <HSpace/>
                         }
                         {props.recipe.estimatedTime >= 0 &&
                         <TimeContainer>
-                            <StyledText text={props.recipe.estimatedTime}/>
+                            <StyledText variant="subtitle1">
+                                {props.recipe.estimatedTime}
+                            </StyledText>
                             <StyledTimeIcon/>
                         </TimeContainer>
                         }
@@ -60,12 +72,16 @@ const RecipeCard = props => {
                     <HLine/>
                     <div style={{height: "40px"}}/>
                     <Center>
-                        <SubtitleText text="Beskrivning"/>
+                        <StyledText variant="h6">
+                            Beskrivning
+                        </StyledText>
                     </Center>
                     <HLine/>
                     <Center>
                         <DescriptionBox>
-                            <StyledText text={props.recipe.description}/>
+                            <StyledText>
+                                {props.recipe.description}
+                            </StyledText>
                         </DescriptionBox>
                     </Center>
                     <HLine/>
@@ -86,21 +102,22 @@ const RecipeCard = props => {
                                     </FullWidth>
                                 </>
                             )}
-                            {props.recipe.steps.length > 0 && (
-                                <FullWidth>
-                                    <Column>
-                                        <Center>
-                                            <RecipeSteps steps={props.recipe.steps}/>
-                                        </Center>
-                                    </Column>
-                                </FullWidth>
-                            )}
                         </Column>
                     )}
                     <Column>
                         <Images fullWidth/>
                     </Column>
                 </RecipeIngredientStepImagesContainer>
+
+                {props.recipe.steps.length > 0 && (
+                    <FullWidth>
+                        <Column>
+                            <Center>
+                                <RecipeSteps steps={props.recipe.steps}/>
+                            </Center>
+                        </Column>
+                    </FullWidth>
+                )}
                 <RecipeFooter/>
             </Rows>
         </RecipeCardContainer>

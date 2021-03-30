@@ -3,13 +3,15 @@ import {
     AdaptiveContainer,
     DisplayDraggableCard,
     DisplayDraggableContainer,
-    IconButtonContainer
+    FullTextField,
+    IconButtonContainer,
+    RemoveIconButton
 } from "../../Create.styles";
 import {Draggable} from "react-beautiful-dnd";
 import DehazeIcon from "@material-ui/icons/Dehaze";
-import {DigitIconButton, DigitText, DigitTextArea} from "@cthit/react-digit-components";
 import ClearIcon from "@material-ui/icons/Clear";
 import {SmallHSpace, SmallSpace} from "../../../../common/styles/Common.styles";
+import {Typography} from "@material-ui/core";
 
 export const DisplayStep = props => {
     const step = props.props.step;
@@ -31,30 +33,29 @@ export const DisplayStep = props => {
                         <AdaptiveContainer>
                             <DehazeIcon/>
                             <SmallSpace/>
-                            <DigitText.Text text={(step.number + 1).toString() + "."}
-                                            bold/>
+                            <Typography variant="h6">
+                                {(step.number + 1).toString() + "."}
+                            </Typography>
                             <SmallHSpace/>
-                            <DigitTextArea outlined upperLabel="Tillvägagångssätt"
-                                           flex={"1"}
+                            <FullTextField variant="outlined"
+                                           label="Tillvägagångssätt"
                                            onChange={e =>
                                                props.props.onStepDescriptionChange(e.target.value, step.id)
                                            }
                                            value={step.step}
                                            error={errors.name !== undefined}
-                                           errorMessage={errors.name}
+                                           errormessage={errors.name}
                                            maxLength={400}
-                                           size={{width: "100%"}}
-                                           margin={{left: "8px", right: "8px"}}
+                                           multiline
+                                           rows={3}
+                                           rowsMax={8}
                             />
                             <IconButtonContainer>
-                                <DigitIconButton icon={ClearIcon} alignSelf="center"
-                                                 margin={"0px"} padding={"0px"}
-                                                 secondary
-                                                 size={{
-                                                     width: "100%",
-                                                     height: "100%"
-                                                 }}
-                                                 onClick={props.props.onStepRemove}/>
+                                <RemoveIconButton color="secondary"
+                                                  onClick={props.props.onStepRemove}
+                                >
+                                    <ClearIcon/>
+                                </RemoveIconButton>
                             </IconButtonContainer>
                         </AdaptiveContainer>
                     </DisplayDraggableCard>

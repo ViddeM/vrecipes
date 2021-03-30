@@ -1,5 +1,4 @@
 import {GET_ME_FAILED, GET_ME_SUCCESSFUL, INIT, ON_LOGOUT} from "./App.actions";
-import {initApi} from "../api/RequestUtilities";
 import {BETA_MODE, DEBUG_MODE, LIVE_MODE} from "../common/data/Mode";
 import {authorizedApiCall} from "../common/functions/authorizedApiCall";
 import {getMe} from "../api/get.Me.api";
@@ -13,8 +12,6 @@ export function initialize() {
         let beta = process.env.REACT_APP_MODE === "beta"
         mode = beta ? BETA_MODE : DEBUG_MODE;
     }
-
-    initApi(mode)
 
     return dispatch => {
         dispatch({
@@ -65,7 +62,7 @@ export function logout() {
             })
             .catch(error => {
             })
-        
+
         dispatch({
             type: ON_LOGOUT,
             error: false

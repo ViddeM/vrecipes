@@ -1,11 +1,13 @@
 import styled from "styled-components"
-import {DigitDesign} from "@cthit/react-digit-components";
 import {TimeIcon} from "@material-ui/pickers/_shared/icons/TimeIcon";
+import Card from "@material-ui/core/Card";
 
-export const RecipeCardContainer = styled(DigitDesign.Card)`
+export const RecipeCardContainer = styled(Card)`
     padding: 10px 10px 0px;
     margin: 0px 20px 20px;
     flex: 1;
+    width: 100%;
+    max-width: 800px;
 `;
 
 export const Rows = styled.div`

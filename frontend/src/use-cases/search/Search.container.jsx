@@ -4,7 +4,6 @@ import {loadRecipes, newRecipe, onSearchChanged} from "./Search.action-creators"
 
 const mapStateToProps = state => ({
     searchText: state.root.search.searchText,
-    selectedRecipe: state.root.search.selectedRecipe,
     error: state.root.search.error,
     mode: state.root.init.mode
 });

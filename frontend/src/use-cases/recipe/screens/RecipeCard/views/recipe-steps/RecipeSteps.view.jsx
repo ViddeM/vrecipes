@@ -1,11 +1,13 @@
 import React from "react"
 import {RecipeStepsContainer, StepContainer, StepRow} from "./RecipeSteps.styles.view";
-import {FullHLine, LongStyledText, StyledText, SubtitleText} from "../../../../../../common/styles/Common.styles";
+import {FullHLine, LongStyledText, StyledText} from "../../../../../../common/styles/Common.styles";
 import {FullWidth} from "../../RecipeCard.styles.screen";
 
 const RecipeSteps = props => (
     <RecipeStepsContainer>
-        <SubtitleText text="Gör såhär"/>
+        <StyledText variant="h6">
+            Gör såhär
+        </StyledText>
         <FullHLine/>
         <FullWidth>
             {
@@ -15,8 +17,12 @@ const RecipeSteps = props => (
                         <FullHLine/>
                         }
                         <StepRow>
-                            <StyledText text={step.number + 1 + "."}/>
-                            <LongStyledText text={step.description}/>
+                            <StyledText>
+                                {step.number + 1 + "."}
+                            </StyledText>
+                            <LongStyledText>
+                                {step.description}
+                            </LongStyledText>
                         </StepRow>
                     </StepContainer>
                 ))

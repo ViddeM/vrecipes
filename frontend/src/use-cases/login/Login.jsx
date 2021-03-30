@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {DigitText} from "@cthit/react-digit-components";
 import {
     FacebookLoginButton,
     GithubLoginButton,
@@ -14,6 +13,7 @@ import {PROVIDER_FACEBOOK, PROVIDER_GITHUB, PROVIDER_GOOGLE} from "./providers";
 import {getAuth} from "../../api/get.Auth.api";
 import GitHubIcon from '@material-ui/icons/GitHub';
 import {ReactComponent as GoogleIcon} from "../../resources/images/icon_google.svg"
+import {Typography} from "@material-ui/core";
 
 
 const Login = props => {
@@ -22,7 +22,9 @@ const Login = props => {
     return (
         <div>
             <LoginCard>
-                <DigitText.Title text="Du behöver vara inloggad för att komma åt denna sida"/>
+                <Typography variant="h6">
+                    Du behöver vara inloggad för att komma åt denna sida
+                </Typography>
                 {
                     error === "" ? (
                         <LoginButtonsContainer>

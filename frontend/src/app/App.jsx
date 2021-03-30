@@ -1,58 +1,61 @@
-import React, {Component} from "react";
-import {DigitButton, DigitDesign, DigitHeader, DigitText} from "@cthit/react-digit-components";
-import {AppContainer, HeaderContainer, MainContainer} from "./App.styles";
+import React, {useEffect} from "react";
+import {AppContainer, HeaderContainer, MainContainer, StyledAppBar} from "./App.styles";
 import DebugHeader from "../use-cases/debug/DebugHeader.container";
-import Recipe from "../use-cases/recipe/";
-import Search from "../use-cases/search";
 import {Redirect, Route, Switch} from "react-router";
-import Create from "../use-cases/create";
-import Login from "../use-cases/login";
+import {Typography} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import {NavLink} from "react-router-dom";
+import Login from "../use-cases/login/Login.container";
+import Search from "../use-cases/search/Search.container";
+import Recipe from "../use-cases/recipe/Recipe.container";
+import {useWindowSize} from "../common/hooks/useWindowSize/UseWindowSize";
+import Create from "../use-cases/create/Create.container";
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        props.initialize();
-    }
+export const App = props => {
+    const size = useWindowSize()
+    const initialize = props.initialize;
 
-    render() {
-        return (
-            <AppContainer>
-                {this.props.redirectTo !== "" && (
-                    <Redirect to={this.props.redirectTo}/>
-                )}
-                <DebugHeader/>
-                <DigitHeader
-                    dense
-                    headerHeight="56px"
-                    mainPadding="0px"
-                    title="VRecept | A recipe manager service"
-                    renderMain={() => (
-                        <MainContainer className={"MainContainer"}>
-                            <Switch>
-                                <Route path="/recipes/:recipeId" component={Recipe}/>
-                                <Route path="/create" component={Create}/>
-                                <Route path="/login" component={Login}/>
-                                <Route path="/" component={Search}/>
-                            </Switch>
-                        </MainContainer>
+    useEffect(() => {
+        initialize();
+    }, [initialize])
+
+    return (
+        <AppContainer>
+            {props.redirectTo !== "" && (
+                <Redirect to={props.redirectTo}/>
+            )}
+            <DebugHeader/>
+            <StyledAppBar position="static">
+                <HeaderContainer>
+                    <Typography variant="h4">
+                        {size.width > 1024 ? ("VRecept | En recept hanterare") : ("VRecept")}
+                    </Typography>
+                    {props.user === null ? (
+                        <NavLink to={"/login"}>
+                            <Button variant="contained" color="secondary"
+                                    disabled={window.location.pathname === "/login"}>
+                                Logga in
+                            </Button>
+                        </NavLink>
+                    ) : (
+                        <Button onClick={props.logout} variant="contained"
+                                color="secondary">
+                            Logga Ut
+                        </Button>
                     )}
-                    renderCustomHeader={() => (
-                        <HeaderContainer>
-                            <DigitText.Title text={"VRecept | A recipe manager service"}/>
-                            {this.props.user === null ? (
-                                <DigitDesign.Link to="/login">
-                                    <DigitButton text={"Logga in"} raised secondary
-                                                 disabled={window.location.pathname === "/login"}/>
-                                </DigitDesign.Link>
-                            ) : (
-                                <DigitButton text={"Logga Ut"} onClick={this.props.logout} raised secondary/>
-                            )}
-                        </HeaderContainer>
-                    )}
-                />
-            </AppContainer>
-        );
-    }
+                </HeaderContainer>
+            </StyledAppBar>
+            <MainContainer className={"MainContainer"}>
+                <Switch>
+                    <Route path="/recipes/:recipeId" component={Recipe}/>
+                    <Route path="/create" component={Create}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/" component={Search}/>
+                </Switch>
+            </MainContainer>
+        </AppContainer>
+    );
 }
+
 
 export default App;

@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import {DigitText} from "@cthit/react-digit-components";
+import {Typography} from "@material-ui/core";
 
 export const Center = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: baseline;
 `;
 
 export const VSpace = styled.div`
@@ -46,19 +47,23 @@ export const WideHLine = styled.div`
     height: 1px;
 `;
 
-export const TitleText = styled(DigitText.Title)`
+export const TitleText = styled(Typography)`
     font-size: 32px;
 `;
 
 export const SubtitleText = styled(TitleText)`
-  font-size: 26px;
+  font-size: 26px !important;
 `
 
-export const StyledText = styled(DigitText.Text)`
-    font-size: 24px;
-    margin: 5px;
+export const StyledText = styled(Typography)`
+    //font-size: 24px !important;
+    margin: 5px !important;
     word-break: normal;
 `;
+
+export const ErrorText = styled(StyledText)`
+  color: red;
+`
 
 export const LongStyledText = styled(StyledText)`
   word-break: break-word;

@@ -1,6 +1,5 @@
 import React from "react";
 import {
-    ButtonCard,
     ImageBorder,
     ImageContainer,
     RecipeListCardCard,
@@ -8,9 +7,10 @@ import {
     RecipeListCardFooterContainer,
     SmallVSpace
 } from "./RecipeListCard.styles.view";
-import {DigitDesign, DigitText} from "@cthit/react-digit-components";
-import {Center} from "../../../../common/styles/Common.styles";
 import {getImageUrl} from "../../../../api/get.Image.api";
+import {NavLink} from "react-router-dom";
+import {Typography} from "@material-ui/core";
+import {Center} from "../../../../common/styles/Common.styles";
 
 export const RecipeListCard = props => {
     const recipe = props.recipe;
@@ -24,23 +24,25 @@ export const RecipeListCard = props => {
 
     return (
         <RecipeListCardContainer>
-            <DigitDesign.Link to={"/recipes/" + recipe.unique_name}>
-                <ButtonCard onClick={() => props.onRecipeCardClicked(recipe.id)}>
-                    <RecipeListCardCard>
-                        <ImageBorder>
-                            <ImageContainer style={{backgroundImage: `url(${imageUrl}`}}/>
-                        </ImageBorder>
-                        <SmallVSpace/>
-                        <Center>
-                            <DigitText.Title text={recipe.name}/>
-                        </Center>
-                        <SmallVSpace/>
-                        <RecipeListCardFooterContainer>
-                            <DigitText.Text text={"Upplagd av " + recipe.author.name}/>
-                        </RecipeListCardFooterContainer>
-                    </RecipeListCardCard>
-                </ButtonCard>
-            </DigitDesign.Link>
+            <NavLink to={"/recipes/" + recipe.unique_name}>
+                <RecipeListCardCard>
+                    <ImageBorder>
+                        <ImageContainer style={{backgroundImage: `url(${imageUrl}`}}/>
+                    </ImageBorder>
+                    <SmallVSpace/>
+                    <SmallVSpace/>
+                    <Center>
+                        <Typography variant="h6">
+                            {recipe.name}
+                        </Typography>
+                    </Center>
+                    <RecipeListCardFooterContainer>
+                        <Typography>
+                            {"Upplagd av " + recipe.author.name}
+                        </Typography>
+                    </RecipeListCardFooterContainer>
+                </RecipeListCardCard>
+            </NavLink>
         </RecipeListCardContainer>
     );
 }

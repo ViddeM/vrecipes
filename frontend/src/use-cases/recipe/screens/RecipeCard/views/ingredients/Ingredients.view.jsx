@@ -6,24 +6,30 @@ import {
     IngredientsTable,
     IngredientText
 } from "./Ingredients.styles.view";
-import {SubtitleText} from "../../../../../../common/styles/Common.styles";
+import {StyledText} from "../../../../../../common/styles/Common.styles";
 
 const Ingredients = props => (
     <IngredientsContainer>
         <IngredientsTable>
             <thead>
             <th colSpan={2}>
-                <SubtitleText text={"Ingredienser"} alignCenter/>
+                <StyledText variant="h6">
+                    Ingredienser
+                </StyledText>
             </th>
             </thead>
             <tbody>
             {props.ingredients.map((ingredient, index) => (
                 <tr key={index}>
                     <IngredientNameContainer>
-                        <IngredientText text={ingredient.name} leftAlign/>
+                        <IngredientText align="left">
+                            {ingredient.name}
+                        </IngredientText>
                     </IngredientNameContainer>
                     <IngredientRowElement>
-                        <IngredientText text={ingredient.amount + " " + ingredient.unit} alignRight/>
+                        <IngredientText align="right">
+                            {ingredient.amount + " " + ingredient.unit}
+                        </IngredientText>
                     </IngredientRowElement>
                 </tr>
             ))}

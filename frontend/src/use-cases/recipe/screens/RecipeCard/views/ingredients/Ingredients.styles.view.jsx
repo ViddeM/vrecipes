@@ -33,5 +33,5 @@ export const IngredientNameContainer = styled(IngredientRowElement)`
 `
 
 export const IngredientText = styled(StyledText)`
-    margin: 0px;
+    margin: 0;
 `;

@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import {FileSelectButton, FileSelectContainer, FileSelectInput} from "./FileSelect.styles.view";
-import {DigitText} from "@cthit/react-digit-components";
+import {Typography} from "@material-ui/core";
 
 const FileSelect = ({
                         onSelectFile,
@@ -16,13 +16,15 @@ const FileSelect = ({
                 ref={fileRef}
                 accept="image/*"
             />
-            <DigitText.Text alignCenter text={selectedFileName != null ? selectedFileName : "Ingen bild vald"}/>
-            <FileSelectButton
-                text="Välj en bild!"
-                outlined
-                primary
-                onClick={() => fileRef.current.click()}
-            />
+            <Typography>
+                {selectedFileName != null ? selectedFileName : "Ingen bild vald"}
+            </Typography>
+            <FileSelectButton variant="outlined"
+                              color="primary"
+                              onClick={() => fileRef.current.click()}
+            >
+                Välj en bild!
+            </FileSelectButton>
         </FileSelectContainer>
     )
 }

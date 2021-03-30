@@ -1,18 +1,18 @@
 import React from "react"
 import {ListContainer} from "./SearchList.styles.view";
 import RecipeListCard from "./RecipeListCard/RecipeListCard.container.view";
-import {DigitText} from "@cthit/react-digit-components";
+import Typography from "@material-ui/core/Typography";
 
 const SearchListView = props => (
     <ListContainer>
         {
             props.recipes.length > 0 ?
                 props.recipes.map(recipe => (
-                    <div>
-                        <RecipeListCard recipe={recipe} key={recipe.id}/>
-                    </div>
+                    <RecipeListCard recipe={recipe} key={recipe.id}/>
                 )) : (
-                    <DigitText.Text text="Inga recept, lägg till några!"/>
+                    <Typography>
+                        Inga recept, lägg till några!
+                    </Typography>
                 )
         }
     </ListContainer>

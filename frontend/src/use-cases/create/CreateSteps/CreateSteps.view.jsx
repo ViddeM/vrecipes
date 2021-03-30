@@ -1,20 +1,26 @@
-import React from "react";
-import {Dropzone, FormColumn, FormRow, StyledCard} from "../Create.styles";
-import {DigitButton, DigitText, useDigitCustomDialog} from "@cthit/react-digit-components";
+import React, {useState} from "react";
+import {AddIngredientButton, Dropzone, FormColumn, FormRow, StyledCard} from "../Create.styles";
 import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import {DisplayStep} from "./DisplayStep/DisplayStep.view";
-import {ButtonContainer} from "../CreateIngredients/CreateIngredients.styles.view";
-import {SmallHSpace} from "../../../common/styles/Common.styles";
+import {StyledText} from "../../../common/styles/Common.styles";
+import {Button, Typography} from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
 
 export const CreateSteps = props => {
-    const [openDialog] = useDigitCustomDialog({
-        title: "Bekräfta"
-    });
+
+    const [toRemove, setToRemove] = useState(null)
+
     return (
         <StyledCard>
             <FormColumn>
                 <FormRow>
-                    <DigitText.Title alignCenter text="Tillagningssteg"/>
+                    <StyledText variant="h6">
+                        Tillagningssteg
+                    </StyledText>
                 </FormRow>
                 <DragDropContext onDragEnd={props.onDragEnd}>
                     <Droppable droppableId={"steps"}>
@@ -22,18 +28,19 @@ export const CreateSteps = props => {
                             <Dropzone
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}>
-                                <DigitText.Text
-                                    text={props.steps.length > 0 ?
+                                <Typography>
+                                    {props.steps.length > 0 ?
                                         "Dra runt steg här för att ändra ordning på dem!" :
                                         "Lägg till några steg!"
-                                    }/>
+                                    }
+                                </Typography>
                                 {props.steps.map((step, index) => (
                                     <DisplayStep key={step.id} props={{
                                         step: step,
                                         index: index,
                                         onStepDescriptionChange: props.onStepDescriptionChange,
                                         onStepRemove: () => {
-                                            openDialog(getDialog(step.id, props.onStepRemove))
+                                            setToRemove(step.id)
                                         },
                                         errors: getErrors(props.errors, step.id)
                                     }}/>
@@ -43,45 +50,58 @@ export const CreateSteps = props => {
                         )}
                     </Droppable>
                 </DragDropContext>
+                {getDialog(toRemove !== null,
+                    () => props.onStepRemove(toRemove),
+                    () => setToRemove(null)
+                )}
                 <FormRow>
-                    <DigitButton onClick={props.onStepCreate}
-                                 alignSelf="center" raised primary
-                                 text="Lägg till steg" margin={{top: "10px"}}/>
+                    <AddIngredientButton onClick={props.onStepCreate}
+                                         variant="contained"
+                                         color="primary"
+                    >
+                        Lägg till steg
+                    </AddIngredientButton>
                 </FormRow>
             </FormColumn>
         </StyledCard>
     )
 }
 
-function getDialog(id, onRemove) {
-    return {
-        renderMain: () => (
-            <DigitText.Text
-                text={"Är du säker på att du vill ta bort detta steg?"}/>
-        ),
-        renderButtons: (confirm, cancel) => (
-            <ButtonContainer>
-                <DigitButton
-                    raised
-                    secondary
-                    text={"NEJ"}
-                    onClick={cancel}
-                    flex={"1"}
-                />
-                <SmallHSpace/>
-                <DigitButton
-                    raised
-                    primary
-                    text={"JA"}
-                    onClick={confirm}
-                    flex={"1"}
-                />
-            </ButtonContainer>
-        ),
-        onConfirm: () => {
-            onRemove(id);
-        }
-    }
+function getDialog(open, onRemove, closeDialog) {
+    return (
+        <Dialog
+            open={open}
+            onClose={closeDialog}
+            aria-labelledby="alert-delete-step-title"
+            aria-describedby="alert-delete-step-description"
+        >
+            <DialogTitle id="alert-delete-step-title">
+                {"Ta bort steg?"}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-delete-step-description">
+                    Är du säkert på att du vill ta bort detta steg?
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button color="secondary"
+                        variant="contained"
+                        onClick={closeDialog}
+                >
+                    Nej
+                </Button>
+                <Button color="primary"
+                        variant="contained"
+                        onClick={() => {
+                            onRemove()
+                            closeDialog()
+                        }}
+                >
+                    Ja
+                </Button>
+            </DialogActions>
+        </Dialog>
+    )
 }
 
 function getErrors(errors, id) {

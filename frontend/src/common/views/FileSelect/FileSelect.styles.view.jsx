@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {DigitButton} from "@cthit/react-digit-components";
+import Button from "@material-ui/core/Button";
 
 export const FileSelectContainer = styled.div`
   display: flex;
@@ -11,7 +11,6 @@ export const FileSelectInput = styled.input`
   display: none
 `;
 
-export const FileSelectButton = styled(DigitButton)`
-  margin-right: auto;
-  margin-left: auto;
+export const FileSelectButton = styled(Button)`
+  margin: 5px 0 !important;
 `;

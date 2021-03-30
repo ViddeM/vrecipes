@@ -1,13 +1,15 @@
 import React from "react";
 import {Draggable} from "react-beautiful-dnd";
-import {DigitIconButton, DigitTextField} from "@cthit/react-digit-components";
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import ClearIcon from '@material-ui/icons/Clear';
 import {
     AdaptiveContainer,
     DisplayDraggableCard,
     DisplayDraggableContainer,
-    IconButtonContainer
+    FullTextField,
+    HalfTextField,
+    IconButtonContainer,
+    RemoveIconButton
 } from "../../Create.styles";
 
 export const DisplayIngredient = props => {
@@ -29,57 +31,42 @@ export const DisplayIngredient = props => {
                     >
                         <AdaptiveContainer>
                             <DehazeIcon/>
-                            <DigitTextField
-                                outlined
-                                upperLabel="Mängd"
-                                flex={"0.5"}
-                                onChange={e => {
-                                    props.props.onIngredientAmountChange(e.target.value, ingredient.id)
-                                }}
-                                value={ingredient.amount}
-                                error={errors.amount !== undefined}
-                                errorMessage={errors.amount}
-                                maxLength={4}
-                                size={{width: "100%"}}
-                                margin={{left: "8px", right: "8px"}}
+                            <HalfTextField variant="outlined"
+                                           label="Mängd"
+                                           onChange={e => {
+                                               props.props.onIngredientAmountChange(e.target.value, ingredient.id)
+                                           }}
+                                           value={ingredient.amount}
+                                           error={errors.amount !== undefined}
+                                           errormessage={errors.amount}
+                                           maxLength={4}
                             />
-                            <DigitTextField
-                                outlined
-                                upperLabel="Mått"
-                                flex={"0.5"}
-                                onChange={e => {
-                                    props.props.onIngredientUnitChange(e.target.value, ingredient.id)
-                                }}
-                                value={ingredient.unit}
-                                error={errors.unit !== undefined}
-                                errorMessage={errors.unit}
-                                maxLength={12}
-                                size={{width: "100%"}}
-                                margin={{left: "8px", right: "8px"}}
+                            <HalfTextField variant="outlined"
+                                           label="Mått"
+                                           flex={"0.5"}
+                                           onChange={e => {
+                                               props.props.onIngredientUnitChange(e.target.value, ingredient.id)
+                                           }}
+                                           value={ingredient.unit}
+                                           error={errors.unit !== undefined}
+                                           errormessage={errors.unit}
+                                           maxLength={12}
                             />
-                            <DigitTextField
-                                outlined
-                                upperLabel="Ingrediens"
-                                flex={"1"}
-                                onChange={e => {
-                                    props.props.onIngredientNameChange(e.target.value, ingredient.id)
-                                }}
-                                value={ingredient.name}
-                                error={errors.name !== undefined}
-                                errorMessage={errors.name}
-                                maxLength={40}
-                                size={{width: "100%"}}
-                                margin={{left: "8px", right: "8px"}}
+                            <FullTextField variant="outlined"
+                                           label="Ingrediens"
+                                           onChange={e => {
+                                               props.props.onIngredientNameChange(e.target.value, ingredient.id)
+                                           }}
+                                           value={ingredient.name}
+                                           error={errors.name !== undefined}
+                                           errormessage={errors.name}
+                                           maxLength={40}
                             />
                             <IconButtonContainer>
-                                <DigitIconButton icon={ClearIcon} alignSelf="center"
-                                                 margin={"0px"} padding={"0px"}
-                                                 secondary
-                                                 size={{
-                                                     width: "100%",
-                                                     height: "100%"
-                                                 }}
-                                                 onClick={props.props.onIngredientRemove}/>
+                                <RemoveIconButton color="secondary"
+                                                  onClick={props.props.onIngredientRemove}>
+                                    <ClearIcon/>
+                                </RemoveIconButton>
                             </IconButtonContainer>
                         </AdaptiveContainer>
                     </DisplayDraggableCard>

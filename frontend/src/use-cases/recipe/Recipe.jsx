@@ -1,17 +1,19 @@
 import React, {useEffect} from "react";
-import {LoadingContainer, RecipeContainer} from "./Recipe.styles";
-import ErrorCard from "../../common/views/errorcard";
-import {DigitButton, DigitLoading, DigitText} from "@cthit/react-digit-components";
-import RecipeCard from "./screens/RecipeCard";
+import {BackButton, ErrorContainer, LoadingContainer, RecipeContainer, RecipeDisplayContainer} from "./Recipe.styles";
 import {Redirect, Route} from "react-router";
+import ErrorCard from "../../common/views/errorcard";
+import RecipeCard from "./screens/RecipeCard/RecipeCard.container.screen";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import {Typography} from "@material-ui/core";
 
 
 const Recipe = props => {
     const {match: {params}} = props;
+    const {loadRecipe} = props;
     useEffect(
         () => {
-            props.loadRecipe(params.recipeId)
-        }, [params.recipeId]
+            loadRecipe(params.recipeId)
+        }, [params.recipeId, loadRecipe]
     )
 
     if (props.redirectTo !== "") {
@@ -26,24 +28,29 @@ const Recipe = props => {
     return (
         <RecipeContainer>
             {props.error ? (
-                <div>
+                <ErrorContainer>
+                    {console.log("Oh shit we got dat error: ", props.error.message)}
                     <ErrorCard message={props.error.message}/>
-                    <DigitButton raised primary text={"Tillbaka till startsidan"} size={{height: "40px"}}
-                                 margin={{top: "10px"}}
-                                 onClick={props.backToSearch}
-                    />
-                </div>
+                    <BackButton variant="contained"
+                                color="primary"
+                                onClick={props.backToSearch}
+                    >
+                        Tillbaka till startsidan
+                    </BackButton>
+                </ErrorContainer>
             ) : (
-                <div style={{width: "100%"}}>
+                <RecipeDisplayContainer>
                     {props.recipe ? (
                         <RecipeCard/>
                     ) : (
                         <LoadingContainer>
-                            <DigitLoading loading={true} size={60} margin={{top: "50px", bottom: "20px"}}/>
-                            <DigitText.Heading6 style={{}} text={"Laddar recept..."}/>
+                            <CircularProgress/>
+                            <Typography variant="h6">
+                                Laddar recept...
+                            </Typography>
                         </LoadingContainer>
                     )}
-                </div>
+                </RecipeDisplayContainer>
             )}
         </RecipeContainer>
     )

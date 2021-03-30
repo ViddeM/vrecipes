@@ -1,62 +1,76 @@
-import React from "react"
+import React, {useState} from "react"
 import {RecipeFooterColumns, RecipeFooterContainer} from "./RecipeFooter.styles.view";
-import {DigitButton, DigitText, useDigitCustomDialog} from "@cthit/react-digit-components";
-import {SmallHSpace, WideHLine} from "../../../../../../common/styles/Common.styles";
-import {ButtonContainer} from "../../../../../create/CreateIngredients/CreateIngredients.styles.view";
+import {WideHLine} from "../../../../../../common/styles/Common.styles";
+import {Button} from "@material-ui/core";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import Dialog from "@material-ui/core/Dialog";
 
 const RecipeFooter = props => {
-    const [openDialogConfirmation] = useDigitCustomDialog({
-        title: "Bekräfta",
-        confirmButtonText: "Ja",
-        cancelButtonText: "Nej"
-    });
+    const [deleteDialogOpen, setDialogOpen] = useState(false);
 
     return (
         <RecipeFooterColumns>
             <WideHLine/>
             <RecipeFooterContainer>
-                <DigitButton secondary raised text="Ta bort" size={{width: "200px"}}
-                             onClick={() => {
-                                 openDialogConfirmation(getDialog(props.recipe.id, props.deleteRecipe))
-                             }}/>
-                <DigitButton primary raised text="Redigera" size={{width: "200px"}}
-                             onClick={() => {
-                                 props.editRecipe(props.recipe)
-                             }}/>
+                <Button color="secondary"
+                        variant="contained"
+                        onClick={() => {
+                            setDialogOpen(true)
+                        }}>
+                    Ta bort
+                </Button>
+                {getDialog(
+                    deleteDialogOpen,
+                    () => props.deleteRecipe(props.recipe.id),
+                    () => setDialogOpen(false)
+                )}
+                <Button color="primary"
+                        variant="contained"
+                        onClick={() => {
+                            props.editRecipe(props.recipe)
+                        }}>
+                    Redigera
+                </Button>
             </RecipeFooterContainer>
         </RecipeFooterColumns>
     )
 };
 
-function getDialog(id, onRemove) {
-    return {
-        renderMain: () => (
-            <DigitText.Text
-                text={"Är du säker på att du vill ta bort detta recept?"}/>
-        ),
-        renderButtons: (confirm, cancel) => (
-            <ButtonContainer>
-                <DigitButton
-                    raised
-                    secondary
-                    text={"NEJ"}
-                    onClick={cancel}
-                    flex={"1"}
-                />
-                <SmallHSpace/>
-                <DigitButton
-                    raised
-                    primary
-                    text={"JA"}
-                    onClick={confirm}
-                    flex={"1"}
-                />
-            </ButtonContainer>
-        ),
-        onConfirm: () => {
-            onRemove(id);
-        }
-    }
+function getDialog(open, onRemove, closeDialog) {
+    return (
+        <Dialog
+            open={open}
+            onClose={closeDialog}
+            aria-labelledby="alert-delete-recipe-title"
+            aria-describedby="alert-delete-recipe-description"
+        >
+            <DialogTitle id="alert-delete-recipe-title">
+                {"Ta bort recept?"}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-delete-recipe-description">
+                    Är du säkert på att du vill ta bort detta recept?
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button color="secondary"
+                        variant="contained"
+                        onClick={closeDialog}
+                >
+                    Nej
+                </Button>
+                <Button color="primary"
+                        variant="contained"
+                        onClick={onRemove}
+                >
+                    Ja
+                </Button>
+            </DialogActions>
+        </Dialog>
+    )
 }
 
 

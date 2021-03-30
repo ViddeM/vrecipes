@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
-import * as serviceWorker from './serviceWorker';
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunkMiddleware from "redux-thunk";
 import {Provider} from "react-redux";
-import {DigitProviders} from "@cthit/react-digit-components";
 import {rootReducer} from "./app/App.reducer";
 import {logger} from "redux-logger";
+import * as serviceWorker from './serviceWorker';
+import {ThemeProvider} from '@material-ui/core/styles';
+import {BrowserRouter} from "react-router-dom";
 
 
 const theme = createMuiTheme(
@@ -43,9 +44,11 @@ const store = createStore(getReducer(rootReducer), applyMiddleware(...middleware
 
 ReactDOM.render(
     <Provider store={store}>
-        <DigitProviders theme={theme}>
-            <App/>
-        </DigitProviders>
+        <ThemeProvider theme={theme}>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </ThemeProvider>
     </Provider>,
     document.getElementById("root")
 );
