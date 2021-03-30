@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import ScheduleIcon from '@material-ui/icons/Schedule';
 import Card from "@material-ui/core/Card";
+import ScheduleIcon from '@material-ui/icons/Schedule';
 
 export const RecipeCardContainer = styled(Card)`
     padding: 10px 10px 0px;
