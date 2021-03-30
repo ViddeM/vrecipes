@@ -48,7 +48,7 @@ func FacebookCallback(c *gin.Context) {
 
 	user, err := facebookMeRequest(token.AccessToken)
 	if err != nil {
-		log.Printf("failed to retrieve facebook user: %v\n", err)
+		log.Printf("Failed to retrieve facebook user: %v\n", err)
 		abort(c)
 		return
 	}

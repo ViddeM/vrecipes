@@ -7,6 +7,7 @@ export const LoginCard = styled.div`
               0px 1px 3px 0px rgba(0,0,0,0.12);
     padding: 20px;
     border-radius: 5px;
+    background-color: white;
 `;
 
 export const LoginButtonsContainer = styled.div`
@@ -77,5 +78,9 @@ export const StyledFacebookIcon = styled(FacebookIcon)`
 `
 
 export const FacebookLoginButton = styled(GoogleLoginButton)`
+  
+`
+
+export const MicrosoftLoginButton = styled(GoogleLoginButton)`
   
 `

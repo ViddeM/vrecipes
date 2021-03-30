@@ -33,6 +33,11 @@ type envVars struct {
 	FacebookSecret      string
 	FacebookRedirectUri string
 	FacebookMeUri       string
+
+	MicrosoftClientId    string
+	MicrosoftSecret      string
+	MicrosoftRedirectUri string
+	MicrosoftMeUri       string
 }
 
 var vars envVars
@@ -78,7 +83,12 @@ func loadEnvVars() {
 		FacebookClientId:    loadNonEmptyString("facebook_client_id"),
 		FacebookSecret:      loadNonEmptyString("facebook_secret"),
 		FacebookRedirectUri: loadNonEmptyString("facebook_redirect_uri"),
-		FacebookMeUri: 		 loadNonEmptyString("facebook_me_uri"),
+		FacebookMeUri:       loadNonEmptyString("facebook_me_uri"),
+
+		MicrosoftClientId:    loadNonEmptyString("microsoft_client_id"),
+		MicrosoftSecret:      loadNonEmptyString("microsoft_secret"),
+		MicrosoftRedirectUri: loadNonEmptyString("microsoft_redirect_uri"),
+		MicrosoftMeUri:       loadNonEmptyString("microsoft_me_uri"),
 	}
 }
 

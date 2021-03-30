@@ -62,6 +62,12 @@ func Init() {
 				facebook.GET("", authentication.FacebookInitAuth)
 				facebook.GET("/callback", authentication.FacebookCallback)
 			}
+
+			microsoft := auth.Group("/microsoft")
+			{
+				microsoft.GET("", authentication.MicrosoftInitAuth)
+				microsoft.GET("/callback", authentication.MicrosoftCallback)
+			}
 		}
 	}
 }

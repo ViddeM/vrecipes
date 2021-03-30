@@ -6,13 +6,19 @@ import {
     LoginButtonIcon,
     LoginButtonsContainer,
     LoginCard,
-    LoginErrorText,
+    LoginErrorText, MicrosoftLoginButton,
     StyledFacebookIcon
 } from "./Login.styles";
-import {PROVIDER_FACEBOOK, PROVIDER_GITHUB, PROVIDER_GOOGLE} from "./providers";
+import {
+    PROVIDER_FACEBOOK,
+    PROVIDER_GITHUB,
+    PROVIDER_GOOGLE,
+    PROVIDER_MICROSOFT
+} from "./providers";
 import {getAuth} from "../../api/get.Auth.api";
 import GitHubIcon from '@material-ui/icons/GitHub';
 import {ReactComponent as GoogleIcon} from "../../resources/images/icon_google.svg"
+import {ReactComponent as MicrosoftIcon} from "../../resources/images/icon_microsoft.svg"
 import {Typography} from "@material-ui/core";
 
 
@@ -52,6 +58,14 @@ const Login = props => {
                                 </LoginButtonIcon>
                                 Logga in med facebook
                             </FacebookLoginButton>
+                            <MicrosoftLoginButton onClick={() =>
+                                login(PROVIDER_MICROSOFT, setError)
+                            }>
+                                <LoginButtonIcon>
+                                    <MicrosoftIcon/>
+                                </LoginButtonIcon>
+                                Logga in med Microsoft
+                            </MicrosoftLoginButton>
                         </LoginButtonsContainer>
                     ) : (
                         <LoginErrorText>
