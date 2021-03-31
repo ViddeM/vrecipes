@@ -72,6 +72,12 @@ func GithubCallback(c *gin.Context) {
 		return
 	}
 
+	name := user.Name
+	if name == "" {
+		log.Printf("name is empty, using user login (%s) instead", user.Login)
+		name = user.Login
+	}
+
 	for _, e := range *emails {
 		if e.Verified && checkIfWhitelisted(e.Email) {
 			err = setSession(c, user.Name, e.Email, providerGithub, token)
