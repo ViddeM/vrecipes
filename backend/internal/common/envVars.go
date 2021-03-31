@@ -17,7 +17,9 @@ type envVars struct {
 	ImageFolder string
 	WhiteList   string
 	Secret      string
-	PORT        uint16
+	GinMode		string
+	Port        uint16
+	AuthEnabled bool
 
 	GithubClientId          string
 	GithubSecret            string
@@ -38,6 +40,11 @@ type envVars struct {
 	MicrosoftSecret      string
 	MicrosoftRedirectUri string
 	MicrosoftMeUri       string
+}
+
+var ginModes = []string{
+	"debug",
+	"release",
 }
 
 var vars envVars
@@ -67,7 +74,9 @@ func loadEnvVars() {
 
 		Secret:      loadNonEmptyString("secret"),
 		WhiteList:   loadNonEmptyString("whitelist"),
-		PORT:        loadUint16("PORT"),
+		GinMode:	loadGinMode("GIN_MODE"),
+		Port:        loadUint16("PORT"),
+		AuthEnabled: loadBool("auth_enabled"),
 		ImageFolder: loadNonEmptyString("image_folder"),
 
 		GithubClientId:          loadNonEmptyString("github_client_id"),
@@ -119,4 +128,16 @@ func loadBool(key string) bool {
 	}
 
 	return b
+}
+
+func loadGinMode(key string) string {
+	val := loadNonEmptyString(key)
+	for _, mode := range ginModes {
+		if mode == val {
+			return val
+		}
+	}
+
+	log.Fatalf("Invalid gin mode '%s', must be one of: %+v\n", val, ginModes)
+	return ""
 }

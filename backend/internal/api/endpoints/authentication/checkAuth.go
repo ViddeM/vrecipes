@@ -3,11 +3,16 @@ package authentication
 import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"github.com/viddem/vrecipes/backend/internal/common"
 	"log"
 )
 
 func CheckAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		envVars := common.GetEnvVars()
+		if envVars.AuthEnabled == false && envVars.GinMode == "debug" {
+		}
+
 		session := sessions.Default(c)
 		token := session.Get("token")
 
