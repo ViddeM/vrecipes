@@ -4,22 +4,19 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/viddem/vrecipes/backend/internal/common"
-	"github.com/viddem/vrecipes/backend/internal/process"
 	"log"
-	"net/http"
 )
 
 func CheckAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		envVars := common.GetEnvVars()
 		if envVars.AuthEnabled == false && envVars.GinMode == "debug" {
-			user, err := process.GetOrCreateUser("test", "test", "test")
+			err := setSession(c, "test", "test", "test", nil)
 			if err != nil {
-				c.JSON(http.StatusInternalServerError, common.Error(common.ResponseNotAuthorized))
+				log.Printf("Failed to set test session: %v", err)
+				c.Abort()
 				return
 			}
-			c.Set("userId", user.ID)
-			return
 		}
 
 		session := sessions.Default(c)
