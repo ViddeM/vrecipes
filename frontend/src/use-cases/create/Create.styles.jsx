@@ -26,7 +26,7 @@ export const StyledCard = styled(Card)`
   padding: 20px 0;
   
   @media (min-width: 468px) {
-    padding: 10px;
+    padding: 20px 10px;
   }
   
   @media (min-width: 1024px) {
@@ -36,7 +36,7 @@ export const StyledCard = styled(Card)`
 `
 
 export const FormColumn = styled.div`
-  width: 100%;
+  width: calc(100% - 10px);
   display: flex;
   flex-direction: column;
   align-items: center;
