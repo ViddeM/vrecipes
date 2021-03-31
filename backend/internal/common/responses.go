@@ -32,6 +32,7 @@ var (
 	ResponseInvalidJson          	= "invalid_json"
 	ResponseMissingFile          	= "missing_file"
 	ResponseBadImage             	= "bad_image"
+	ResponseFileTypeNotSupported 	= "filetype_not_supported"
 	ResponseFailedToSaveImage    	= "failed_to_save_image"
 	ResponseFailedToRetrieveRecipes = "failed_to_retrieve_recipes"
 	ResponseFailedToRetrieveRecipe 	= "failed_to_retrieve_recipe"

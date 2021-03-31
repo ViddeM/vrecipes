@@ -19,7 +19,12 @@ import {
     ON_OVEN_TEMP_CHANGE
 } from "./CreateGeneral/CreateGeneral.actions.view";
 import {ON_RECIPE_SAVE_FAILED, ON_RECIPE_SAVE_SUCCESSFUL, ON_RECIPE_VALIDATION_FAILED} from "./Create.actions";
-import {REMOVE_IMAGE, UPLOAD_IMAGE_FAILED, UPLOAD_IMAGE_SUCCESSFUL} from "./UploadImages/UploadImages.actions";
+import {
+    REMOVE_IMAGE,
+    UPLOAD_IMAGE_AWAIT_RESPONSE,
+    UPLOAD_IMAGE_FAILED,
+    UPLOAD_IMAGE_SUCCESSFUL
+} from "./UploadImages/UploadImages.actions";
 import {EDIT_RECIPE} from "../recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.actions.view";
 import {CREATE_RECIPE} from "../search/Search.actions";
 import {LOAD_RECIPE_AWAIT_RESPONSE} from "../recipe/Recipe.actions";
@@ -36,6 +41,7 @@ const initialState = {
     errors: {},
     saveError: "",
     imageUploadError: "",
+    uploadingImage: false,
     redirectTo: ""
 }
 
@@ -110,11 +116,16 @@ export function create(state = initialState, action) {
                 errors: {},
                 redirectTo: "/recipes/" + action.payload.recipe
             })
+        case UPLOAD_IMAGE_AWAIT_RESPONSE:
+            return newState(state, {
+                uploadingImage: true
+            })
         case UPLOAD_IMAGE_SUCCESSFUL:
             return addImage(state, action.payload)
         case UPLOAD_IMAGE_FAILED:
             return newState(state, {
-                imageUploadError: action.payload.message
+                imageUploadError: action.payload.message,
+                uploadingImage: false
             })
         case EDIT_RECIPE:
             return editRecipe(state, action.payload.recipe)
@@ -340,7 +351,8 @@ function addImage(state, payload) {
             id: payload.image_id,
             url: payload.image_url
         }],
-        imageUploadError: ""
+        imageUploadError: "",
+        uploadingImage: false
     })
 }
 

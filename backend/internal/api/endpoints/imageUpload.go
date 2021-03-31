@@ -1,6 +1,7 @@
 package endpoints
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/process"
@@ -20,6 +21,12 @@ func ImageUpload(c *gin.Context) {
 	image, err := validation.ValidateFile(&formFile, formHeader)
 	if err != nil {
 		log.Printf("Failed to validate image: %v", err)
+
+		if errors.Is(err, validation.ErrFiletypeNotSupported) {
+			c.JSON(http.StatusBadRequest, common.Error(common.ResponseFileTypeNotSupported))
+			return
+		}
+
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseBadImage))
 		return
 	}
