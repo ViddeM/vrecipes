@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import {
     AppContainer, EscapeHatch,
-    HeaderContainer, Logo, LogoButton, LogoContainer, LogoTitleContainer,
+    HeaderContainer, Logo, LogoTitleContainer,
     MainContainer,
     StyledAppBar
 } from "./App.styles";
 import DebugHeader from "../use-cases/debug/DebugHeader.container";
 import {Redirect, Route, Switch} from "react-router";
-import {Icon, IconButton, Typography} from "@material-ui/core";
+import {Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {NavLink} from "react-router-dom";
 import Login from "../use-cases/login/Login.container";
@@ -15,7 +15,6 @@ import Search from "../use-cases/search/Search.container";
 import Recipe from "../use-cases/recipe/Recipe.container";
 import {useWindowSize} from "../common/hooks/useWindowSize/UseWindowSize";
 import Create from "../use-cases/create/Create.container";
-import {ReactComponent as VRecipesLogo} from "../resources/images/group_1_transparent.svg"
 
 
 export const App = props => {
@@ -35,11 +34,9 @@ export const App = props => {
             <StyledAppBar position="static">
                 <HeaderContainer>
                     <LogoTitleContainer>
-                        {/*<LogoButton size="small">*/}
                         <EscapeHatch to="/">
                             <Logo />
                         </EscapeHatch>
-                        {/*</LogoButton>*/}
                         <Typography variant="h4">
                             {size.width > 1024 ? ("VRecept | En recept hanterare") : ("VRecept")}
                         </Typography>

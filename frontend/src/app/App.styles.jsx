@@ -38,22 +38,18 @@ export const LogoTitleContainer = styled.div`
 `;
 
 export const Logo = styled(VRecipesLogo)`
-  height: 100%;
-  width: auto;
+  width: 46px;
+  height: 46px;
 `
 
-export const LogoButton = styled(IconButton)`
-  height: 100%;
-  
-  &.MuiIconButton-sizeSmall .MuiIconButton-label {
-    height: 100%;
-  }
-`;
-
 export const EscapeHatch = styled(NavLink)`
-  height: calc(100% - 10px);
   margin-right: 10px;
-     border-radius: 100%;
+  border-radius: 100%; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   
   &:active {
      background-color: rgba(0,0,0,0.2);
