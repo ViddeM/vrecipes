@@ -10,7 +10,6 @@ import {
     TimeContainer,
     TopRow
 } from "./RecipeCard.styles.screen";
-import {useHistory} from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import IconButton from "@material-ui/core/IconButton";
 import {Center, HLine, HSpace, StyledText} from "../../../../common/styles/Common.styles";
@@ -19,6 +18,7 @@ import Images from "./views/images/Images.container.view";
 import RecipeSteps from "./views/recipe-steps/RecipeSteps.container.view";
 import Ingredients from "./views/ingredients/Ingredients.container.view";
 import RecipeFooter from "./views/recipe-footer/RecipeFooter.container.view";
+import {useHistory} from "react-router";
 
 const RecipeCard = props => {
 

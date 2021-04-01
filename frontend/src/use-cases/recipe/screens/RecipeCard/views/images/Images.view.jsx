@@ -1,5 +1,11 @@
 import React from "react"
-import {FullWidthContainer, FullWidthImage, ImagesContainer, StyledImage} from "./Images.styles.view";
+import {
+    FullWidthContainer,
+    FullWidthImage,
+    ImagesContainer,
+    PDF,
+    StyledImage
+} from "./Images.styles.view";
 import {getImageUrl} from "../../../../../../api/get.Image.api";
 
 const Images = props => {
@@ -9,7 +15,12 @@ const Images = props => {
         <ImagesContainer>
             {props.fullWidth ? (
                 <FullWidthContainer>
-                    <FullWidthImage src={image} alt="Kunde inte visa bild"/>
+                    {(image && image.endsWith(".pdf")) ? (
+                            <PDF src={image}/>
+                        ) : (
+                            <FullWidthImage src={image} alt="Kunde inte visa bild"/>
+                        )
+                    }
                 </FullWidthContainer>
             ) : (
                 <StyledImage src={image} alt="Kunde inte visa bild"/>

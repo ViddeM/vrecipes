@@ -8,6 +8,7 @@ export const StyledImage = styled.img`
 `;
 
 export const FullWidthContainer = styled.div`
+  width: 100%;
   max-width: 100%;
   padding-left: 10px;
   padding-right: 10px;
@@ -20,6 +21,17 @@ export const FullWidthImage = styled.img`
   height: auto;
   border: 1px solid black;
 `;
+
+export const PDF = styled.embed`
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid black;
+  height: auto;
+  
+  @media (min-width: 900px) {
+    height: 80vh;
+  }
+`
 
 export const ImagesContainer = styled.div`
   display: flex;
