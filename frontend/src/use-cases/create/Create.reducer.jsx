@@ -374,7 +374,7 @@ function editRecipe(state, recipe) {
         }
     })
 
-    return newState(state, {
+    return newState(initialState, {
         id: recipe.id,
         recipeName: recipe.name,
         description: recipe.description,
