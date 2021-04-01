@@ -14,7 +14,7 @@ const FileSelect = ({
                 type="file"
                 onChange={e => onSelectFile(e.target.files[0])}
                 ref={fileRef}
-                accept="image/*"
+                accept="application/pdf,image/*"
             />
             <Typography>
                 {selectedFileName != null ? selectedFileName : "Ingen bild vald"}

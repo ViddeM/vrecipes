@@ -5,10 +5,17 @@ export const StyledImage = styled.img`
   border-radius: 5px;
   border: 1px solid black;
   text-align: center;
+  min-width: 100px;
+  min-height: 50px;
 `;
 
 export const ImageContainer = styled.div`
-  position: relative
+  position: relative;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `
 
 export const RemoveImageButton = styled.div`
@@ -20,3 +27,9 @@ export const RemoveImageButton = styled.div`
     padding: 1px;
   }
 `
+
+export const OuterImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

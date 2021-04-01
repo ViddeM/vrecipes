@@ -8,7 +8,7 @@ import {
     StyledCard
 } from "../Create.styles";
 import {
-    ImageContainer,
+    ImageContainer, OuterImageContainer,
     RemoveImageButton,
     StyledImage
 } from "./UploadImages.styles";
@@ -44,24 +44,32 @@ export const UploadImages = props => {
                 {props.images.length > 0 ?
                 props.images.map(image => {
                     let url = getImageUrl(image.url)
+
                     return (
-                    <ImageContainer>
-                        <StyledImage width="260px"
-                                     key={image.id}
-                                     src={url}
-                                     alt="Kunde inte visa bild"
-                        />
-                        <RemoveImageButton>
-                            <RemoveIconButton color="secondary"
-                                              onClick={() => setToRemove(image)}
-                            >
-                                <CancelIcon/>
-                            </RemoveIconButton>
-                        </RemoveImageButton>
-                    </ImageContainer>
+                        <OuterImageContainer>
+                            <ImageContainer>
+                                <StyledImage width="260"
+                                             key={image.id}
+                                             src={url}
+                                             alt="Kunde inte visa bild"
+                                />
+                                <RemoveImageButton>
+                                    <RemoveIconButton color="secondary"
+                                                      onClick={() => setToRemove(image)}
+                                    >
+                                        <CancelIcon/>
+                                    </RemoveIconButton>
+                                </RemoveImageButton>
+                            </ImageContainer>
+                            { url.endsWith(".pdf") && (
+                            <StyledText>
+                                <b>OBS!</b> Förhandsvisning av PDF:er stödjs endast av vissa webläsare.
+                            </StyledText>
+                            )}
+                        </OuterImageContainer>
                     )
-                })
-                :
+
+                }) :
                 <Typography>
                     Inga bilder tillagda
                 </Typography>
@@ -74,14 +82,14 @@ export const UploadImages = props => {
             </FormRow>
             <FormRow>
                 {
-                    props.images.length < 3 ? (
+                    props.images.length < 1 ? (
                     <FileSelect
                     onSelectFile={setFile}
                     selectedFileName={file != null ? file.name : null}
                     />
                     ) : (
                     <Typography>
-                        Max 3 bilder per recept
+                        För tillfället stöds bara en bild per recept
                     </Typography>
                     )
                 }

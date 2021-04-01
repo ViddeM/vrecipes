@@ -21,7 +21,8 @@ var ErrIncorrectContentType = errors.New("content-type does not match detected t
 
 func ValidateFile(file *multipart.File, header *multipart.FileHeader) (*File, error) {
 	contentType := header.Header.Get("Content-Type")
-	if strings.Contains(contentType, "image/") == false {
+	if strings.Contains(contentType, "image/") == false &&
+		contentType != "application/pdf" {
 		return nil, ErrFiletypeNotSupported
 	}
 
