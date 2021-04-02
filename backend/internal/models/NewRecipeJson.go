@@ -26,8 +26,8 @@ func (step *NewRecipeStepJson) SameAs(other *tables.RecipeStep) bool {
 
 type NewRecipeIngredientJson struct {
 	Name   string  `json:"name" validate:"required"`
-	Unit   string  `json:"unit" validate:"required"`
-	Amount float32 `json:"amount" validate:"required"`
+	Unit   string  `json:"unit"`
+	Amount float32 `json:"amount"`
 }
 
 func (ingredient *NewRecipeIngredientJson) SameAs(other *tables.RecipeIngredient) bool {

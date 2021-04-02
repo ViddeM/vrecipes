@@ -95,15 +95,20 @@ function validateIngredients(state) {
     let ingredients = {}
 
     state.ingredients.forEach(ingredient => {
+        const amountNotSet = ingredient.amount <= 0 || ingredient.amount === undefined
+        const unitNotSet = ingredient.unit === ""
+
         let ingredientObj = {}
+        if (amountNotSet && !unitNotSet) {
+            ingredientObj["amount"] = "Specifiera mängd!"
+        }
+
+        if (unitNotSet && !amountNotSet) {
+            ingredientObj["unit"] = "Specifiera enhet!"
+        }
+
         if (ingredient.name.length <= 0) {
             ingredientObj["name"] = "Ej tom!"
-        }
-        if (ingredient.unit.length <= 0) {
-            ingredientObj["unit"] = "Ej tom!"
-        }
-        if (ingredient.amount === undefined || ingredient.amount.length <= 0) {
-            ingredientObj["amount"] = "Ej tom!"
         }
 
         if (Object.keys(ingredientObj).length > 0) {
