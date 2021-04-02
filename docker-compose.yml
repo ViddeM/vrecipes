@@ -9,6 +9,7 @@ services:
             POSTGRES_PASSWORD: password
         ports:
             - 5432:5432
+        # command: -d 5
 
     adminer:
         image: adminer

@@ -6,25 +6,42 @@ import (
 )
 
 var ErrInvalidStepNumbers = errors.New("the provided step values does not follow a continous scale from 0 -> number of steps")
+var ErrInvalidIngredient = errors.New("ingredient amount / unit can only be empty if both are empty")
 
 func ValidateRecipe(recipe *models.NewRecipeJson) error {
-	if validateStepNumbers(recipe.Steps) == false {
-		return ErrInvalidStepNumbers
+	err := validateStepNumbers(recipe.Steps)
+	if err != nil {
+		return err
+	}
+
+	err = validateIngredients(recipe.Ingredients)
+	if err != nil {
+		return err
 	}
 
 	return nil
 }
 
+func validateIngredients(ingredients []models.NewRecipeIngredientJson) error {
+	for _, ingredient := range ingredients {
+		if (ingredient.Amount <= 0 && ingredient.Unit != "") ||
+			(ingredient.Unit == "" && ingredient.Amount > 0) {
+			return ErrInvalidIngredient
+		}
+	}
+	return nil
+}
 
-func validateStepNumbers(steps []models.NewRecipeStepJson) bool {
+
+func validateStepNumbers(steps []models.NewRecipeStepJson) error {
 	var i uint16
 	for i = 0; i < uint16(len(steps)); i++ {
 		if validateStepNumberExists(steps, i) == false {
-			return false
+			return ErrInvalidStepNumbers
 		}
 	}
 
-	return true
+	return nil
 }
 
 func validateStepNumberExists(steps []models.NewRecipeStepJson, i uint16) bool {
