@@ -147,6 +147,8 @@ function validateNumber(newNumber, oldValue) {
         return undefined
     }
 
+    newNumber = newNumber.replaceAll(",", ".")
+
     if (isNaN(newNumber)) {
         return oldValue;
     }
