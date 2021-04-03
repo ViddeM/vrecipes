@@ -1,80 +1,107 @@
 package db
 
 import (
+	"context"
+	"errors"
 	"fmt"
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"github.com/jackc/pgx/v4"
+	"github.com/jackc/pgx/v4/pgxpool"
 	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
-	"github.com/viddem/vrecipes/backend/internal/db/tables"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
-	"gorm.io/gorm/schema"
 	"log"
-	"os"
 )
 
-var db *gorm.DB
+var db *pgxpool.Pool
+var ctx context.Context
 
-// TODO: Rename to 'init' when this package is used.
 func Init() {
 	envVars := common2.GetEnvVars()
 	username := envVars.DbUser
 	password := envVars.DbPassword
 	dbName := envVars.DbName
 	dbHost := envVars.DbHost
+	ctx = context.Background()
 
-	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password) //Build connection string
-
-	conn, err := gorm.Open(postgres.Open(dbUri), &gorm.Config{
-		Logger: logger.New(
-			log.New(os.Stdout, "\r\n", log.LstdFlags),
-			logger.Config{
-				Colorful:      true,
-				LogLevel:      logger.Error, // Change to .Info for better debugging
-			},
-		),
-		NamingStrategy: schema.NamingStrategy{
-			SingularTable: true,
-		},
-	})
-
+	dbUrl := fmt.Sprintf("postgresql://%s:%s@%s/%s?sslmode=disable", username, password, dbHost, dbName)
+	config, err := pgxpool.ParseConfig(dbUrl)
 	if err != nil {
-		log.Fatal(fmt.Sprintf("Failed to connect to database, err: %s", err))
+		log.Fatalf("Failed to parse connection string: %v\n", err)
 	}
+	//config.ConnConfig.Logger = &logger{}
+	//config.ConnConfig.LogLevel = pgx.LogLevelTrace
 
+	conn, err := pgxpool.ConnectConfig(ctx, config)
+	if err != nil {
+		log.Fatalf("Failed to connect to db: %v\n", err)
+	}
 	db = conn
+
+	log.Printf("Successfully created db connection\n")
+
 	if envVars.ResetDb {
 		resetDb()
 	}
-	commands.Init(db)
-	queries.Init(db)
-	createTables()
+
+	commands.Init(db, &ctx)
+	queries.Init(db, &ctx)
+
+	runMigrations(dbUrl)
+
 	setupDb()
 	log.Println("Initialized database connection")
 }
 
+type logger struct{}
+
+func (logger *logger) Log(ctx context.Context, level pgx.LogLevel, msg string, data map[string]interface{}) {
+	log.Printf("Executing SQL: %s\n", msg)
+	log.Printf("Data: %+v", data)
+}
+
 func resetDb() {
-	db.Exec("DROP SCHEMA public CASCADE")
-	db.Exec("CREATE SCHEMA public")
-}
-
-func createTables() {
-	createTable(tables.Image{})
-	createTable(tables.Ingredient{})
-	createTable(tables.User{})
-	createTable(tables.Recipe{})
-	createTable(tables.RecipeImage{})
-	createTable(tables.RecipeIngredient{})
-	createTable(tables.RecipeStep{})
-	createTable(tables.Unit{})
-}
-
-func createTable(model common2.NamedStruct) {
-	err := db.AutoMigrate(model)
+	tx, err := db.Begin(ctx)
 	if err != nil {
-		log.Fatal(fmt.Sprintf("Failed to migrate table %s", model.StructName()))
-	} else {
-		log.Println(fmt.Sprintf("Successfully migrated table %s", model.StructName()))
+		log.Fatalf("Failed to begin transaction: %v\n", err)
 	}
+
+	defer func() {
+		err = tx.Rollback(ctx)
+		log.Printf("Failed to rollback transaction: %v\n", err)
+	}()
+
+	_, err = tx.Exec(ctx, "DROP SCHEMA public CASCADE")
+	if err != nil {
+		log.Fatalf("Failed to drop schema public: %v\n", err)
+	}
+	_, err = tx.Exec(ctx, "CREATE SCHEMA public")
+	if err != nil {
+		log.Fatalf("Failed to create schema public: %v\n", err)
+	}
+
+	err = tx.Commit(ctx)
+	if err != nil {
+		log.Fatalf("Failed to commit transaction: %v\n", err)
+	}
+}
+
+func runMigrations(dbUrl string) {
+	m, err := migrate.New("file://internal/db/migrations", dbUrl)
+	if err != nil {
+		log.Fatalf("Failed to create migrations: %v\n", err)
+	}
+
+	err = m.Up()
+	if err != nil && errors.Is(err, migrate.ErrNoChange) == false {
+		log.Fatalf("Failed to run migrations: %v\n", err)
+	}
+
+	log.Printf("Successfully ran all migrations!\n")
+}
+
+func Close() {
+	db.Close()
 }

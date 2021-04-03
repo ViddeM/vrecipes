@@ -1,7 +1,7 @@
 package tables
 
 type Ingredient struct {
-	Name string `gorm:"primaryKey"`
+	Name string
 }
 
 func (_ Ingredient) StructName() string {

@@ -7,13 +7,9 @@ import (
 )
 
 func DeleteRecipe(recipe *tables.Recipe) error {
-	deletedRecipe := tables.Recipe{
-		ID:            recipe.ID,
-		Name:          fmt.Sprintf("%s_%d_deleted", recipe.Name, recipe.ID),
-		UniqueName:    fmt.Sprintf("%s_%d_deleted", recipe.UniqueName, recipe.ID),
-		Deleted:       true,
-	}
+	deletedName := fmt.Sprintf("%s_%d_deleted", recipe.Name, recipe.ID)
+	deletedUniqueName := fmt.Sprintf("%s_%d_deleted", recipe.UniqueName, recipe.ID)
 
-	err := commands.EditRecipe(&deletedRecipe)
+	err := commands.RecipeSetDeleted(deletedName, deletedUniqueName, recipe.ID)
 	return err
 }

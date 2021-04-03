@@ -1,10 +1,8 @@
 package tables
 
 type RecipeImage struct {
-	Image *Image
-	ImageID uint64 `gorm:"primaryKey"`
-	Recipe *Recipe
-	RecipeID uint64 `gorm:"primaryKey"`
+	ImageID uint64
+	RecipeID uint64
 }
 
 func (_ RecipeImage) StructName() string {

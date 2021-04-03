@@ -9,7 +9,8 @@ const translations = {
     failed_to_retrieve_recipes: "Kunde inte hämta recept",
     failed_to_retrieve_recipe: "Kunde inte hämta recept",
     failed_to_edit_recipe: "Kunde inte ändra recept",
-    malformed_recipe_id: "Internt fel (felaktig recept id)"
+    malformed_recipe_id: "Internt fel (felaktig recept id)",
+    invalid_user_id: "Felaktigt användar-id"
 }
 
 export const DEFAULT_ERROR = "Whoops något gick fel :("

@@ -1,13 +1,12 @@
 package process
 
 import (
-	"errors"
+	"github.com/georgysavva/scany/pgxscan"
 	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
-	"gorm.io/gorm"
 	"strings"
 )
 
@@ -15,7 +14,7 @@ func GetOrCreateIngredient(ingredientName string) (*tables.Ingredient, error) {
 	ingredientName = strings.ToLower(strings.TrimSpace(ingredientName))
 	ingredient, err := queries.GetIngredient(ingredientName)
 	if err != nil {
-		if err == gorm.ErrRecordNotFound {
+		if pgxscan.NotFound(err) {
 			// Ingredient doesn't exist, create a new one
 			ingredient = &tables.Ingredient{
 				Name: ingredientName,
@@ -35,7 +34,7 @@ func GetOrCreateUnit(unitName string) (*tables.Unit, error) {
 	unitName = strings.ToLower(unitName)
 	unit, err := queries.GetUnit(unitName)
 	if err != nil {
-		if err == gorm.ErrRecordNotFound {
+		if pgxscan.NotFound(err) {
 			// Ingredient doesn't exist, create a new one
 			unit = &tables.Unit{
 				Name: unitName,
@@ -64,8 +63,8 @@ func CreateRecipeIngredient(ingredientName string, unitName string, amount float
 
 	recipeIngredient := tables.RecipeIngredient{
 		RecipeID:   recipeId,
-		Ingredient: *ingredient,
-		Unit:       *unit,
+		IngredientName: ingredient.Name,
+		UnitName: unit.Name,
 		Amount:     amount,
 	}
 
@@ -125,7 +124,8 @@ func CreateRecipe(name, description string, ovenTemp, estimatedTime int, userId 
 		CreatedBy:     userId,
 	}
 
-	_, err = commands.CreateRecipe(&recipe)
+	id, err := commands.CreateRecipe(&recipe)
+	recipe.ID = id
 
 	return &recipe, err
 }
@@ -166,7 +166,7 @@ func generateUniqueName(name string) (string, error) {
 
 	_, err := queries.GetRecipeByName(uniqueName)
 	if err != nil {
-		if errors.Is(gorm.ErrRecordNotFound, err) {
+		if pgxscan.NotFound(err) {
 			return uniqueName, nil
 		}
 		return "", err

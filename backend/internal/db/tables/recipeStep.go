@@ -1,10 +1,9 @@
 package tables
 
 type RecipeStep struct {
-	Recipe Recipe
-	RecipeID uint64 `gorm:"primaryKey"`
-	Number uint16 `gorm:"primaryKey"`
-	Step string `gorm:"not null"`
+	RecipeID uint64
+	Number uint16
+	Step string
 }
 
 func (_ RecipeStep) StructName() string {

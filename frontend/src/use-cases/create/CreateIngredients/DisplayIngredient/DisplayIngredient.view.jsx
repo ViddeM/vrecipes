@@ -40,7 +40,7 @@ export const DisplayIngredient = props => {
                                            error={errors.amount !== undefined}
                                            errormessage={errors.amount}
                                            maxLength={8}
-                                           floats
+                                           decimal
                             />
                             <HalfTextField variant="outlined"
                                            label="Mått"

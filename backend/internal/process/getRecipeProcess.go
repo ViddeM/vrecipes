@@ -1,37 +1,36 @@
 package process
 
 import (
-	"errors"
 	"fmt"
+	"github.com/georgysavva/scany/pgxscan"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
-	"gorm.io/gorm"
 	"os"
 )
 
 func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 	recipe, err := queries.GetRecipeByName(uniqueName)
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
+		if pgxscan.NotFound(err) {
 			return nil, common.ErrNoSuchRecipe
 		}
 		return nil, err
 	}
 
 	steps, err := queries.GetStepsForRecipe(recipe.ID)
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+	if err != nil && !pgxscan.NotFound(err) {
 		return nil, err
 	}
 
 	ingredients, err := queries.GetIngredientsForRecipe(recipe.ID)
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+	if err != nil && !pgxscan.NotFound(err) {
 		return nil, err
 	}
 
 	images, err := queries.GetImagesForRecipe(recipe.ID)
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+	if err != nil && !pgxscan.NotFound(err) {
 		return nil, err
 	}
 
@@ -53,7 +52,7 @@ func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 	}, nil
 }
 
-func RecipeStepsToJson(steps []tables.RecipeStep) []models.RecipeStepJson {
+func RecipeStepsToJson(steps []*tables.RecipeStep) []models.RecipeStepJson {
 	recipeStepJsons := make([]models.RecipeStepJson, 0)
 	for _, step := range steps {
 		recipeStepJsons = append(recipeStepJsons, models.RecipeStepJson{
@@ -64,7 +63,7 @@ func RecipeStepsToJson(steps []tables.RecipeStep) []models.RecipeStepJson {
 	return recipeStepJsons
 }
 
-func RecipeIngredientsToJson(ingredients []tables.RecipeIngredient) []models.RecipeIngredientJson {
+func RecipeIngredientsToJson(ingredients []*tables.RecipeIngredient) []models.RecipeIngredientJson {
 	recipeIngredientJsons := make([]models.RecipeIngredientJson, 0)
 	for _, ingredient := range ingredients {
 		recipeIngredientJsons = append(recipeIngredientJsons, models.RecipeIngredientJson{

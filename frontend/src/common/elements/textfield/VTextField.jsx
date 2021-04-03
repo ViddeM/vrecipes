@@ -16,7 +16,7 @@ export const VTextField = props => {
         }
     }
 
-    if (props.floats) {
+    if (props.decimal) {
         forwardProps.inputProps = {
             ...forwardProps.inputProps,
             pattern: "[0-9]+([.,][0-9]+)?"

@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {TimeIcon} from "@material-ui/pickers/_shared/icons/TimeIcon";
+import ScheduleIcon from '@material-ui/icons/Schedule';
 import Card from "@material-ui/core/Card";
 
 export const RecipeCardContainer = styled(Card)`
@@ -55,7 +55,7 @@ export const Column = styled.div`
     flex: 1;
 `;
 
-export const StyledTimeIcon = styled(TimeIcon)`
+export const StyledTimeIcon = styled(ScheduleIcon)`
     margin-top: -5px;
 `;
 

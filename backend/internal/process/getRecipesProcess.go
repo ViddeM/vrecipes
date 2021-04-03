@@ -1,10 +1,9 @@
 package process
 
 import (
-	"errors"
-	"github.com/viddem/vrecipes/backend/internal/db/tables"
+	"github.com/georgysavva/scany/pgxscan"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
-	"gorm.io/gorm"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
 type RecipesJson struct {
@@ -19,13 +18,13 @@ type ShortRecipeJson struct {
 	Author tables.User `json:"author"`
 }
 
-func toShortRecipeJson(recipe *tables.Recipe, imageUrl string) ShortRecipeJson {
+func toShortRecipeJson(recipe *tables.Recipe, user *tables.User, imageUrl string) ShortRecipeJson {
 	return ShortRecipeJson{
 		ID:         recipe.ID,
 		Name:       recipe.Name,
 		UniqueName: recipe.UniqueName,
 		ImageLink:  imageUrl,
-		Author:		recipe.User,
+		Author:		*user,
 	}
 }
 
@@ -36,20 +35,20 @@ func GetRecipes() (*RecipesJson, error) {
 	}
 
 	if recipes == nil {
-		recipes = make([]tables.Recipe, 0)
+		recipes = make([]*tables.Recipe, 0)
 	}
 
 	shortRecipes := make([]ShortRecipeJson, 0)
 	for _, recipe := range recipes {
-		recipeImage, err := queries.GetMainImageForRecipe(recipe.ID)
+		image, err := queries.GetMainImageForRecipe(recipe.ID)
 
 		imageUrl := ""
 		if err != nil {
-			if errors.Is(err, gorm.ErrRecordNotFound) == false {
+			if pgxscan.NotFound(err) == false {
 				return nil, err
 			}
 		} else {
-			imageUrl = imageNameToPath(recipeImage.Image.ID, recipeImage.Image.Name)
+			imageUrl = imageNameToPath(image.ID, image.Name)
 		}
 
 		user, err := queries.GetUser(recipe.CreatedBy)
@@ -57,8 +56,7 @@ func GetRecipes() (*RecipesJson, error) {
 			return nil, err
 		}
 
-		recipe.User = *user
-		shortRecipes = append(shortRecipes, toShortRecipeJson(&recipe, imageUrl))
+		shortRecipes = append(shortRecipes, toShortRecipeJson(recipe, user, imageUrl))
 	}
 
 	return &RecipesJson{
