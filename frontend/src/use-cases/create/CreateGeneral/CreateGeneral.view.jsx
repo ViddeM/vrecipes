@@ -31,7 +31,7 @@ export const CreateGeneral = props => {
                 <FormRow>
                     <PaddingContainer>
                         <TextFieldWithMargin variant="outlined"
-                                             maxLength={60}
+                                             maxLength={120}
                                              label="Receptnamn (obligatorisk)"
                                              flex={"1"}
                                              value={props.name}
