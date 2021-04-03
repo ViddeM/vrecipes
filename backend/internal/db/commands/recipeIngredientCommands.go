@@ -1,22 +1,26 @@
 package commands
 
-import "github.com/viddem/vrecipes/backend/internal/db/tables"
+import (
+	"github.com/georgysavva/scany/pgxscan"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
+)
 
 var createRecipeIngredientCommand = `
 INSERT INTO recipe_ingredient(recipe_id, ingredient_name, unit_name, amount)
 VALUES 						 ($1,		 $2,			  $3,		 $4)
+RETURNING id, recipe_id, ingredient_name, unit_name, amount
 `
 
-func CreateRecipeIngredient(ingredient *tables.RecipeIngredient) error {
+func CreateRecipeIngredient(recipeId uint64, ingredientName, unitName string, amount float32) (*tables.RecipeIngredient, error) {
 	db, err := getDb()
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer db.Release()
 
-	_, err = db.Exec(ctx, createRecipeIngredientCommand, ingredient.RecipeID,
-		ingredient. IngredientName, ingredient.UnitName, ingredient.Amount)
-	return err
+	var recipeIngredient tables.RecipeIngredient
+	err = pgxscan.Get(ctx, db, &recipeIngredient, createRecipeIngredientCommand, recipeId, ingredientName, unitName, amount)
+	return &recipeIngredient, err
 }
 
 var deleteRecipeIngredientCommand = `
@@ -24,13 +28,13 @@ DELETE FROM recipe_ingredient
 WHERE id=$1 
 `
 
-func DeleteRecipeIngredient(ingredient *tables.RecipeIngredient) error {
+func DeleteRecipeIngredient(id uint64) error {
 	db, err := getDb()
 	if err != nil {
 		return err
 	}
 	defer db.Release()
 
-	_, err = db.Exec(ctx, deleteRecipeIngredientCommand, ingredient.ID)
+	_, err = db.Exec(ctx, deleteRecipeIngredientCommand, id)
 	return err
 }

@@ -85,11 +85,7 @@ func updateRecipeSteps(id uint64, steps []models.NewRecipeStepJson) error {
 			}
 		} else if step.SameAs(oldStep) == false {
 			// The step is updated
-			err = commands.UpdateRecipeStep(&tables.RecipeStep{
-				RecipeID: oldStep.RecipeID,
-				Number: oldStep.Number,
-				Step: step.Step,
-			})
+			err = commands.UpdateRecipeStep(step.Step, oldStep.RecipeID, oldStep.Number)
 
 			if err != nil {
 				return err
@@ -101,7 +97,7 @@ func updateRecipeSteps(id uint64, steps []models.NewRecipeStepJson) error {
 		// Delete any excess steps
 		for _, oldStep := range oldSteps {
 			if oldStep.Number >= uint16(len(steps)) {
-				err = commands.DeleteRecipeStep(oldStep)
+				err = commands.DeleteRecipeStep(oldStep.RecipeID, oldStep.Number)
 				if err != nil {
 					return err
 				}
@@ -152,7 +148,7 @@ func updateRecipeIngredients(id uint64, ingredients []models.NewRecipeIngredient
 		}
 
 		if found == false {
-			err = commands.DeleteRecipeIngredient(oldIngredient)
+			err = commands.DeleteRecipeIngredient(oldIngredient.ID)
 			if err != nil {
 				return err
 			}
@@ -183,7 +179,7 @@ func updateRecipeImages(id uint64, images []models.NewRecipeImageJson) error {
 		oldImage := getOldImage(&image, oldImages)
 		if oldImage == nil {
 			// The image is new
-			_, err = connectImageToRecipe(image.ID, id)
+			_, err = connectImageToRecipe(id, image.ID)
 			if err != nil {
 				return err
 			}
@@ -201,10 +197,10 @@ func updateRecipeImages(id uint64, images []models.NewRecipeImageJson) error {
 		}
 
 		if found == false {
-			err = commands.DeleteRecipeImage(&tables.RecipeImage{
-				ImageID:  oldImage.ID,
-				RecipeID: id,
-			})
+			err = commands.DeleteRecipeImage(id, oldImage.ID)
+			if err != nil {
+				return err
+			}
 		}
 	}
 

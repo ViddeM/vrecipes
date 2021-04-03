@@ -8,16 +8,16 @@ import (
 var createUserCommand = `
 INSERT INTO public.user(name, email, provider)
 VALUES(					$1,   $2, 	 $3)
-RETURNING id`
+RETURNING id, name, email, provider`
 
-func CreateUser(user *tables.User) (uint64, error) {
+func CreateUser(name, email, provider string) (*tables.User, error) {
 	db, err := getDb()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 	defer db.Release()
 
-	var id uint64
-	err = pgxscan.Get(ctx, db, &id, createUserCommand, user.Name, user.Email, user.Provider)
-	return id, err
+	var user tables.User
+	err = pgxscan.Get(ctx, db, &user, createUserCommand, name, email, provider)
+	return &user, err
 }

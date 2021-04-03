@@ -1,16 +1,24 @@
 package commands
 
-import "github.com/viddem/vrecipes/backend/internal/db/tables"
+import (
+	"github.com/georgysavva/scany/pgxscan"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
+)
 
-var createUnitCommand = `INSERT INTO unit VALUES($1)`
+var createUnitCommand = `
+INSERT INTO unit 
+VALUES($1)
+returning name
+`
 
-func CreateUnit(unit *tables.Unit) error {
+func CreateUnit(name string) (*tables.Unit, error) {
 	db, err := getDb()
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer db.Release()
 
-	_, err = db.Exec(ctx, createUnitCommand, unit.Name)
-	return err
+	var unit tables.Unit
+	err = pgxscan.Get(ctx, db, &unit, createUnitCommand, name)
+	return &unit, err
 }

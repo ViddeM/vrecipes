@@ -1,29 +1,36 @@
 package commands
 
-import "github.com/viddem/vrecipes/backend/internal/db/tables"
+import (
+	"github.com/georgysavva/scany/pgxscan"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
+)
 
-var createRecipeImageCommand = `INSERT INTO recipe_image VALUES ($1, $2)`
+var createRecipeImageCommand = `
+INSERT INTO recipe_image(recipe_id, image_id)
+VALUES ($1, $2)
+RETURNING recipe_id, image_id`
 
-func CreateRecipeImage(recImg *tables.RecipeImage) error {
+func CreateRecipeImage(recipeId, imageId uint64) (*tables.RecipeImage, error) {
 	db, err := getDb()
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer db.Release()
 
-	_, err = db.Exec(ctx, createRecipeImageCommand, recImg.RecipeID, recImg.ImageID)
-	return err
+	var recipeImage tables.RecipeImage
+	err = pgxscan.Get(ctx, db, &recipeImage, createRecipeImageCommand, recipeId, imageId)
+	return &recipeImage, err
 }
 
 var deleteRecipeImageCommand = `DELETE FROM recipe_image WHERE recipe_id=$1 AND image_id=$2`
 
-func DeleteRecipeImage(recipeImage *tables.RecipeImage) error {
+func DeleteRecipeImage(recipeId, imageId uint64) error {
 	db, err := getDb()
 	if err != nil {
 		return err
 	}
 	defer db.Release()
 
-	_, err = db.Exec(ctx, deleteRecipeImageCommand, recipeImage.RecipeID, recipeImage.ImageID)
+	_, err = db.Exec(ctx, deleteRecipeImageCommand, recipeId, imageId)
 	return err
 }
