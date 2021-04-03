@@ -138,6 +138,7 @@ func updateRecipeIngredients(id uint64, ingredients []models.NewRecipeIngredient
 		}
 	}
 
+	// Remove ingredients that are no longer in the recipe.
 	for _, oldIngredient := range oldIngredients {
 		found := false
 		for _, handled := range handledIngredients {

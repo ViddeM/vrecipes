@@ -50,14 +50,10 @@ func CreateRecipeIngredient(ingredientName string, unitName string, amount float
 		return nil, err
 	}
 
-	var unit *tables.Unit = nil
-	if unitName != "" {
-		unit, err = GetOrCreateUnit(unitName)
-		if err != nil {
-			return nil, err
-		}
+	unit, err := GetOrCreateUnit(unitName)
+	if err != nil {
+		return nil, err
 	}
-	log.Printf("DO SOMETHING WITH THIS? %v\n", unit)
 
 	recipeIngredient, err := commands.CreateRecipeIngredient(recipeId, ingredient.Name, unit.Name, amount)
 	return recipeIngredient, err
