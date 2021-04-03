@@ -28,7 +28,7 @@ const Ingredients = props => (
                     </IngredientNameContainer>
                     <IngredientRowElement>
                         <IngredientText align="right">
-                            {ingredient.amount + " " + ingredient.unit}
+                            {getIngredientAmountUnit(ingredient)}
                         </IngredientText>
                     </IngredientRowElement>
                 </tr>
@@ -37,5 +37,13 @@ const Ingredients = props => (
         </IngredientsTable>
     </IngredientsContainer>
 );
+
+function getIngredientAmountUnit(ingredient) {
+    if (ingredient.amount <= 0 || ingredient.unit === "") {
+        return "--"
+    }
+
+    return ingredient.amount + " " + ingredient.unit
+}
 
 export default Ingredients;

@@ -34,7 +34,11 @@ func GetImagesForRecipe(recipeId uint64) ([]tables.Image, error) {
 	return images, nil
 }
 
-var getMainImageForRecipeQuery = `SELECT image_id, recipe_id FROM recipe_image WHERE recipe_id=$1`
+var getMainImageForRecipeQuery = `
+SELECT image_id, recipe_id 
+FROM recipe_image 
+WHERE recipe_id=$1
+LIMIT 1`
 
 func GetMainImageForRecipe(recipeId uint64) (*tables.Image, error) {
 	db, err := getDb()

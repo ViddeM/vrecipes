@@ -19,7 +19,7 @@ func GetUser(id uint64) (*tables.User, error) {
 	return &user, err
 }
 
-var getUserByEmailQuery = `SELECT id, name, email, provider FROM public.user WHERE email=$1`
+var getUserByEmailQuery = `SELECT id, name, email, provider FROM vrecipes_user WHERE email=$1`
 
 func GetUserByEmail(email string) (*tables.User, error) {
 	db, err := getDb()
