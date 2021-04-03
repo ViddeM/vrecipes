@@ -10,7 +10,7 @@ import (
 func Recipes(c *gin.Context) {
 	recipes, err := process.GetRecipes()
 	if err != nil {
-		log.Printf("Error: Failed to receive recipes due to %s\n", err)
+		log.Printf("Error: Failed to retrieve recipes due to %s\n", err)
 		c.JSON(500, common.Error(common.ResponseFailedToRetrieveRecipes))
 		return
 	}

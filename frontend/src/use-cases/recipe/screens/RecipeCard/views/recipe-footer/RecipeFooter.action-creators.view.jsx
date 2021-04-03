@@ -18,7 +18,7 @@ export function handleDeleteRecipe(recipeId) {
         authorizedApiCall(() => deleteRecipe(recipeId))
             .then(response => {
                 if (response.error) {
-                    return dispatch(onDeleteRecipeSuccessful(response.errResponse))
+                    return dispatch(onDeleteRecipeFailed(response.errResponse))
                 } else {
                     return dispatch(onDeleteRecipeSuccessful(response.response))
                 }

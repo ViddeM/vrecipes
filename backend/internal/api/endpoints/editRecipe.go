@@ -28,6 +28,7 @@ func EditRecipe(c *gin.Context) {
 
 	uniqueName, err := process.EditRecipe(oldRecipe, recipe)
 	if err != nil {
+		log.Printf("Failed to edit recipe: %v\n", err)
 		if errors.Is(err, common.ErrNameTaken) {
 			c.JSON(http.StatusOK, common.Error(common.ResponseRecipeNameExist))
 			return

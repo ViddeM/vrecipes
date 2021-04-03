@@ -17,6 +17,7 @@ func RemoveRecipe(c *gin.Context) {
 
 	err = process.DeleteRecipe(recipe)
 	if err != nil {
+		log.Printf("Faield to delete recipe: %v\n", err)
 		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseFailedToDeleteRecipe))
 		return
 	}

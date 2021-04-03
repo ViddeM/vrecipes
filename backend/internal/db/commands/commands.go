@@ -1,13 +1,19 @@
 package commands
 
-import "gorm.io/gorm"
+import (
+	"context"
+	"github.com/jackc/pgx/v4/pgxpool"
+)
 
-var db *gorm.DB
+var dbPool *pgxpool.Pool
+var ctx context.Context
 
-func Init(conn *gorm.DB) {
-	db = conn
+func Init(conn *pgxpool.Pool, context *context.Context) {
+	dbPool = conn
+	ctx = *context
 }
 
-func getDB() *gorm.DB {
-	return db
+func getDb() (*pgxpool.Conn, error) {
+	data, err := dbPool.Acquire(ctx)
+	return data, err
 }

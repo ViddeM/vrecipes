@@ -31,9 +31,9 @@ type NewRecipeIngredientJson struct {
 }
 
 func (ingredient *NewRecipeIngredientJson) SameAs(other *tables.RecipeIngredient) bool {
-	return ingredient.Name == other.Ingredient.Name &&
+	return ingredient.Name == other.IngredientName &&
 		floatsAreSame(ingredient.Amount, other.Amount) &&
-		ingredient.Unit == other.Unit.Name
+		ingredient.Unit == other.UnitName
 }
 
 type NewRecipeImageJson struct {

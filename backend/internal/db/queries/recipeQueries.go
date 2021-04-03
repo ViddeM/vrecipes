@@ -1,32 +1,54 @@
 package queries
 
 import (
+	"github.com/georgysavva/scany/pgxscan"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
+var getRecipeByNameQuery = `SELECT id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by
+FROM recipe
+WHERE unique_name=$1`
+
 func GetRecipeByName(uniqueName string) (*tables.Recipe, error) {
-	db := getDB()
+	db, err := getDb()
+	if err != nil {
+		return nil, err
+	}
+
 	var recipe tables.Recipe
-	tx := db.Where(&tables.Recipe{
-		UniqueName: uniqueName,
-	}, "uniqueName").First(&recipe)
-	return &recipe, tx.Error
+	err = pgxscan.Get(ctx, db, &recipe, getRecipeByNameQuery, uniqueName)
+	return &recipe, err
 }
+
+var getRecipeByIdQuery = `SELECT id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by
+FROM recipe
+WHERE id=$1`
 
 func GetRecipeById(id uint64) (*tables.Recipe, error) {
-	db := getDB()
+	db, err := getDb()
+	if err != nil {
+		return nil, err
+	}
+	defer db.Release()
+
 	var recipe tables.Recipe
-	tx := db.Where(&tables.Recipe{
-		ID: id,
-	}, "id").First(&recipe)
-	return &recipe, tx.Error
+	err = pgxscan.Get(ctx, db, &recipe, getRecipeByIdQuery, id)
+	return &recipe, err
 }
 
-func GetNonDeletedRecipes() ([]tables.Recipe, error) {
-	db := getDB()
-	var recipes []tables.Recipe
-	tx := db.Where(map[string]interface{}{
-		"deleted": false,
-	}).Find(&recipes)
-	return recipes, tx.Error
+var getNonDeletedRecipesQuery = `SELECT id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by
+FROM recipe
+WHERE deleted=false`
+
+func GetNonDeletedRecipes() ([]*tables.Recipe, error) {
+	db, err := getDb()
+	if err != nil {
+		return nil, err
+	}
+	defer db.Release()
+
+	var recipes []*tables.Recipe
+	err = pgxscan.Select(ctx, db, &recipes, getNonDeletedRecipesQuery)
+
+	return recipes, err
 }

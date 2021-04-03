@@ -1,29 +1,32 @@
 package queries
 
 import (
+	"github.com/georgysavva/scany/pgxscan"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
-func GetImagesForRecipe(recipeId uint64) ([]tables.Image, error) {
-	db := getDB()
-	var recipeImages []tables.RecipeImage
-	tx := db.Where(&tables.RecipeImage{
-		RecipeID: recipeId,
-	}, "recipeId").Find(&recipeImages)
+var getImagesForRecipeQuery = `SELECT image_id, recipe_id FROM recipe_image WHERE recipe_id=$1`
 
-	if tx.Error != nil {
-		return nil, tx.Error
+func GetImagesForRecipe(recipeId uint64) ([]tables.Image, error) {
+	db, err := getDb()
+	if err != nil {
+		return nil, err
+	}
+	defer db.Release()
+
+	var recipeImages []*tables.RecipeImage
+	err = pgxscan.Select(ctx, db, &recipeImages, getImagesForRecipeQuery, recipeId)
+	if err != nil {
+		return nil, err
 	}
 
 	var images []tables.Image
-
 	if recipeImages != nil {
 		for _, recImage := range recipeImages {
 			img, err := GetImageById(recImage.ImageID)
 			if err != nil {
 				return nil, err
 			}
-
 			images = append(images, *img)
 		}
 	}
@@ -31,21 +34,22 @@ func GetImagesForRecipe(recipeId uint64) ([]tables.Image, error) {
 	return images, nil
 }
 
-func GetMainImageForRecipe(recipeId uint64) (*tables.RecipeImage, error) {
-	db := getDB()
+var getMainImageForRecipeQuery = `SELECT image_id, recipe_id FROM recipe_image WHERE recipe_id=$1`
+
+func GetMainImageForRecipe(recipeId uint64) (*tables.Image, error) {
+	db, err := getDb()
+	if err != nil {
+		return nil, err
+	}
+	defer db.Release()
+
 	var recipeImage tables.RecipeImage
-	tx := db.Where(&tables.RecipeImage{
-		RecipeID: recipeId,
-	}, "recipeId").First(&recipeImage)
+	err = pgxscan.Get(ctx, db, &recipeImage, getMainImageForRecipeQuery, recipeId)
 
-	if tx.Error != nil {
-		return &recipeImage, tx.Error
+	if err != nil {
+		return nil, err
 	}
 
-	img, err := GetImageById(recipeImage.ImageID)
-	if err == nil {
-		recipeImage.Image = img
-	}
-
-	return &recipeImage, err
+	img, err := GetImageById(recipeImage.RecipeID)
+	return img, err
 }

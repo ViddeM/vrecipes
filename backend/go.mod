@@ -3,13 +3,12 @@ module github.com/viddem/vrecipes/backend
 go 1.15
 
 require (
+	github.com/georgysavva/scany v0.2.8
 	github.com/gin-contrib/sessions v0.0.3
 	github.com/gin-gonic/gin v1.6.3
+	github.com/golang-migrate/migrate/v4 v4.14.1
+	github.com/jackc/pgx/v4 v4.11.0
 	github.com/joho/godotenv v1.3.0
-	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
-	github.com/modern-go/reflect2 v1.0.1 // indirect
 	golang.org/x/oauth2 v0.0.0-20210323180902-22b0adad7558
-	google.golang.org/api v0.43.0 // indirect
-	gorm.io/driver/postgres v1.0.6
-	gorm.io/gorm v1.20.9
+	google.golang.org/api v0.43.0
 )

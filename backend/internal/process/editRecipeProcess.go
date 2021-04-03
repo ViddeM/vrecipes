@@ -59,7 +59,7 @@ func updateRecipeGeneral(oldRecipe *tables.Recipe, newRecipe *models.NewRecipeJs
 			OvenTemp:      newRecipe.OvenTemperature,
 			EstimatedTime: newRecipe.CookingTime,
 		}
-		err := commands.EditRecipe(&rec)
+		err := commands.UpdateRecipe(rec.Name, rec.UniqueName, rec.Description, rec.OvenTemp, rec.EstimatedTime, rec.ID)
 		if err != nil {
 			return "", err
 		}
@@ -101,7 +101,7 @@ func updateRecipeSteps(id uint64, steps []models.NewRecipeStepJson) error {
 		// Delete any excess steps
 		for _, oldStep := range oldSteps {
 			if oldStep.Number >= uint16(len(steps)) {
-				err = commands.DeleteRecipeStep(&oldStep)
+				err = commands.DeleteRecipeStep(oldStep)
 				if err != nil {
 					return err
 				}
@@ -112,10 +112,10 @@ func updateRecipeSteps(id uint64, steps []models.NewRecipeStepJson) error {
 	return nil
 }
 
-func getStepWithNumber(number uint16, oldSteps []tables.RecipeStep) *tables.RecipeStep {
+func getStepWithNumber(number uint16, oldSteps []*tables.RecipeStep) *tables.RecipeStep {
 	for _, oldStep := range oldSteps {
 		if oldStep.Number == number {
-			return &oldStep
+			return oldStep
 		}
 	}
 	return nil
@@ -145,14 +145,14 @@ func updateRecipeIngredients(id uint64, ingredients []models.NewRecipeIngredient
 	for _, oldIngredient := range oldIngredients {
 		found := false
 		for _, handled := range handledIngredients {
-			if oldIngredient == *handled {
+			if oldIngredient.Equals(handled) {
 				found = true
 				break
 			}
 		}
 
 		if found == false {
-			err = commands.DeleteRecipeIngredient(&oldIngredient)
+			err = commands.DeleteRecipeIngredient(oldIngredient)
 			if err != nil {
 				return err
 			}
@@ -162,10 +162,10 @@ func updateRecipeIngredients(id uint64, ingredients []models.NewRecipeIngredient
 	return nil
 }
 
-func getOldIngredient(ingredient *models.NewRecipeIngredientJson, oldIngredients []tables.RecipeIngredient) *tables.RecipeIngredient {
+func getOldIngredient(ingredient *models.NewRecipeIngredientJson, oldIngredients []*tables.RecipeIngredient) *tables.RecipeIngredient {
 	for _, oldIngredient := range oldIngredients {
-		if ingredient.SameAs(&oldIngredient) {
-			return &oldIngredient
+		if ingredient.SameAs(oldIngredient) {
+			return oldIngredient
 		}
 	}
 

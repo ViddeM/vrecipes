@@ -86,9 +86,10 @@ export const UploadImages = props => {
                 {
                     props.error !== "" && (
                         <StyledText
-                            text={props.error}
                             style={{color: "red"}}
-                        />
+                        >
+                            {props.error}
+                        </StyledText>
                     )
                 }
             </FormColumn>

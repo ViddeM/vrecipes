@@ -1,11 +1,10 @@
 package process
 
 import (
-	"errors"
+	"github.com/georgysavva/scany/pgxscan"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
-	"gorm.io/gorm"
 )
 
 func GetOrCreateUser(name, email, provider string) (*tables.User, error) {
@@ -14,7 +13,7 @@ func GetOrCreateUser(name, email, provider string) (*tables.User, error) {
 		return user, nil
 	}
 
-	if errors.Is(err, gorm.ErrRecordNotFound) == false{
+	if pgxscan.NotFound(err) == false {
 		return nil, err
 	}
 
@@ -24,6 +23,7 @@ func GetOrCreateUser(name, email, provider string) (*tables.User, error) {
 		Provider: provider,
 	}
 
-	err = commands.CreateUser(user)
+	id, err := commands.CreateUser(user)
+	user.ID = id
 	return user, err
 }
