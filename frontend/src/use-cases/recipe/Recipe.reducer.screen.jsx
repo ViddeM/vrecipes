@@ -47,7 +47,7 @@ function handleRecipeResponse(recipe) {
             id: recipe.id,
             name: recipe.name,
             description: recipe.description,
-            steps: recipe.steps,
+            steps: getSortedSteps(recipe.steps),
             ingredients: recipe.ingredients,
             estimatedTime: recipe.estimatedTime,
             ovenTemperature: recipe.ovenTemperature,
@@ -56,4 +56,10 @@ function handleRecipeResponse(recipe) {
         },
         redirectTo: ""
     }
+}
+
+function getSortedSteps(steps) {
+    return steps.sort((a, b) => {
+        return a.number - b.number
+    })
 }

@@ -12,7 +12,7 @@ const RecipeSteps = props => (
         <FullWidth>
             {
                 props.steps.map((step, index) => (
-                    <StepContainer key={index}>
+                    <StepContainer key={step.number}>
                         <div style={{height: "20px"}}/>
                         <StepRow>
                             <StyledText>
