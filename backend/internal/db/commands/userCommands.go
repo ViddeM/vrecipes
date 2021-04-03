@@ -6,7 +6,7 @@ import (
 )
 
 var createUserCommand = `
-INSERT INTO public.user(name, email, provider)
+INSERT INTO vrecipes_user(name, email, provider)
 VALUES(					$1,   $2, 	 $3)
 RETURNING id, name, email, provider`
 
