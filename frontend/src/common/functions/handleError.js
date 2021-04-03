@@ -13,7 +13,6 @@ export function handleError(error, type, defaultMessage = DEFAULT_ERROR) {
     if (errorData !== "" && errorData !== undefined) {
         msg = translate(errorData);
     } else {
-        console.log("ERROR: ", error)
         msg += ", fel: (" + error.message + ")";
     }
 
