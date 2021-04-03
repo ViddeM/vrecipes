@@ -84,7 +84,6 @@ function login(provider, setError) {
             setError("Oväntat svar från servern")
         })
         .catch(error => {
-            console.log("ERROR", error.response)
             if (error.response && error.response.status === 401 && error.response.headers && error.response.headers.location) {
                 window.location.assign(error.response.headers.location)
             } else {

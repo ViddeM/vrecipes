@@ -29,7 +29,6 @@ const Recipe = props => {
         <RecipeContainer>
             {props.error ? (
                 <ErrorContainer>
-                    {console.log("Oh shit we got dat error: ", props.error.message)}
                     <ErrorCard message={props.error.message}/>
                     <BackButton variant="contained"
                                 color="primary"
