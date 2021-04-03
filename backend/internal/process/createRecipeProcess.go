@@ -11,7 +11,7 @@ import (
 )
 
 func GetOrCreateIngredient(ingredientName string) (*tables.Ingredient, error) {
-	ingredientName = strings.ToLower(strings.TrimSpace(ingredientName))
+	ingredientName = strings.TrimSpace(ingredientName)
 	ingredient, err := queries.GetIngredient(ingredientName)
 	if err != nil {
 		if pgxscan.NotFound(err) {
