@@ -1,20 +1,20 @@
-CREATE TABLE image
+CREATE TABLE IF NOT EXISTS image
 (
     id   BIGSERIAL PRIMARY KEY,
-    name TEXT NOT NULL
+                name TEXT NOT NULL
 );
 
-CREATE TABLE ingredient
+CREATE TABLE IF NOT EXISTS ingredient
 (
     name TEXT PRIMARY KEY
 );
 
-CREATE TABLE unit
+CREATE TABLE IF NOT EXISTS unit
 (
     name TEXT PRIMARY KEY
 );
 
-CREATE TABLE "user"
+CREATE TABLE IF NOT EXISTS "user"
 (
     id       BIGSERIAL PRIMARY KEY,
     name     TEXT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE "user"
     provider TEXT NOT NULL
 );
 
-CREATE TABLE recipe
+CREATE TABLE IF NOT EXISTS recipe
 (
     id             BIGSERIAL PRIMARY KEY,
     name           TEXT UNIQUE NOT NULL,
@@ -34,14 +34,14 @@ CREATE TABLE recipe
     created_by     BIGINT REFERENCES "user"(id)
 );
 
-CREATE TABLE recipe_image
+CREATE TABLE IF NOT EXISTS recipe_image
 (
     image_id  BIGINT REFERENCES image (id),
     recipe_id BIGINT REFERENCES recipe (id),
     PRIMARY KEY (image_id, recipe_id)
 );
 
-CREATE TABLE recipe_ingredient
+CREATE TABLE IF NOT EXISTS recipe_ingredient
 (
     id              BIGSERIAL PRIMARY KEY,
     recipe_id       BIGINT REFERENCES recipe (id),
@@ -50,7 +50,7 @@ CREATE TABLE recipe_ingredient
     amount          NUMERIC NOT NULL
 );
 
-CREATE TABLE recipe_step
+CREATE TABLE IF NOT EXISTS recipe_step
 (
     recipe_id BIGINT REFERENCES recipe (id),
     number    INTEGER,

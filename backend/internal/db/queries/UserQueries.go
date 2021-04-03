@@ -5,7 +5,7 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
-var getUserByIdQuery = `SELECT id, name, email, provider FROM public.user WHERE id=$1`
+var getUserByIdQuery = `SELECT id, name, email, provider FROM vrecipes_user WHERE id=$1`
 
 func GetUser(id uint64) (*tables.User, error) {
 	db, err := getDb()
