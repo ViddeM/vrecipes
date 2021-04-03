@@ -1,16 +1,24 @@
 package commands
 
-import "github.com/viddem/vrecipes/backend/internal/db/tables"
+import (
+	"github.com/georgysavva/scany/pgxscan"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
+)
 
-var createIngredientCommand = `INSERT INTO ingredient VALUES ($1)`
+var createIngredientCommand = `
+INSERT INTO ingredient 
+VALUES ($1)
+RETURNING name
+`
 
-func CreateIngredient(ingredient *tables.Ingredient) error {
+func CreateIngredient(name string) (*tables.Ingredient, error) {
 	db, err := getDb()
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer db.Release()
 
-	_, err = db.Exec(ctx, createIngredientCommand, ingredient.Name)
-	return err
+	var ingredient tables.Ingredient
+	err = pgxscan.Get(ctx, db, &ingredient, createIngredientCommand, name)
+	return &ingredient, err
 }

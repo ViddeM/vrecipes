@@ -7,21 +7,19 @@ import (
 
 var createRecipeCommand = `
 INSERT INTO recipe(name, unique_name, description, oven_temp, estimated_time, deleted, created_by)
-		   VALUES ($1,   $2,          $3,          $4,        $5,             $6,      $7)
-RETURNING id`
+		   VALUES ($1,   $2,          $3,          $4,        $5,             $6,	   $7)
+RETURNING id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by`
 
-func CreateRecipe(recipe *tables.Recipe) (uint64, error) {
+func CreateRecipe(name, uniqueName, description string, ovenTemp, estimatedTime int, createdBy uint64) (*tables.Recipe, error) {
 	db, err := getDb()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 	defer db.Release()
 
-	var id uint64
-	err = pgxscan.Get(ctx, db, &id, createRecipeCommand, recipe.Name,
-		recipe.UniqueName, recipe.Description, recipe.OvenTemp,
-		recipe.EstimatedTime, recipe.Deleted, recipe.CreatedBy)
-	return id, err
+	var recipe tables.Recipe
+	err = pgxscan.Get(ctx, db, &recipe, createRecipeCommand, name, uniqueName, description, ovenTemp, estimatedTime, false, createdBy)
+	return &recipe, err
 }
 
 var updateRecipeCommand = `

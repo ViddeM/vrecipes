@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
-	dbModels "github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"github.com/viddem/vrecipes/backend/internal/validation"
 	"os"
@@ -15,9 +14,7 @@ func UploadImage(file *validation.File) (*models.ImageJson, error) {
 	fileName := generateImageName(file.Name)
 	filenameWithPath := fmt.Sprintf("%s%s", fileName, file.FileType)
 
-	id, err := commands.CreateImage(&dbModels.Image{
-		Name: filenameWithPath,
-	})
+	id, err := commands.CreateImage(filenameWithPath)
 	if err != nil {
 		return nil, err
 	}

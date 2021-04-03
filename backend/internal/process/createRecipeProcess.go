@@ -16,10 +16,7 @@ func GetOrCreateIngredient(ingredientName string) (*tables.Ingredient, error) {
 	if err != nil {
 		if pgxscan.NotFound(err) {
 			// Ingredient doesn't exist, create a new one
-			ingredient = &tables.Ingredient{
-				Name: ingredientName,
-			}
-			err := commands.CreateIngredient(ingredient)
+			ingredient, err = commands.CreateIngredient(ingredientName)
 			if err != nil {
 				return nil, err
 			}
@@ -36,10 +33,7 @@ func GetOrCreateUnit(unitName string) (*tables.Unit, error) {
 	if err != nil {
 		if pgxscan.NotFound(err) {
 			// Ingredient doesn't exist, create a new one
-			unit = &tables.Unit{
-				Name: unitName,
-			}
-			err := commands.CreateUnit(unit)
+			unit, err = commands.CreateUnit(unitName)
 			if err != nil {
 				return nil, err
 			}
@@ -61,52 +55,28 @@ func CreateRecipeIngredient(ingredientName string, unitName string, amount float
 		return nil, err
 	}
 
-	recipeIngredient := tables.RecipeIngredient{
-		RecipeID:   recipeId,
-		IngredientName: ingredient.Name,
-		UnitName: unit.Name,
-		Amount:     amount,
-	}
-
-	err = commands.CreateRecipeIngredient(&recipeIngredient)
-	return &recipeIngredient, err
+	recipeIngredient, err := commands.CreateRecipeIngredient(recipeId, ingredient.Name, unit.Name, amount)
+	return recipeIngredient, err
 }
 
 func CreateRecipeStep(step string, number uint16, recipeId uint64) (*tables.RecipeStep, error) {
-	recipeStep := tables.RecipeStep{
-		RecipeID: recipeId,
-		Number:   number,
-		Step:     step,
-	}
-	err := commands.CreateRecipeStep(&recipeStep)
-	if err != nil {
-		return &recipeStep, err
-	}
-
-	return &recipeStep, nil
+	recipeStep, err := commands.CreateRecipeStep(recipeId, number, step)
+	return recipeStep, err
 }
 
 func CreateRecipeImage(imagePath string, recipeId uint64) (*tables.RecipeImage, error) {
-	imageId, err := commands.CreateImage(&tables.Image{
-		Name: imagePath,
-	})
+	imageId, err := commands.CreateImage(imagePath)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return connectImageToRecipe(imageId, recipeId)
+	return connectImageToRecipe(recipeId, imageId)
 }
 
-func connectImageToRecipe(imageId uint64, recipeId uint64) (*tables.RecipeImage, error) {
-	recipeImage := tables.RecipeImage{
-		ImageID:  imageId,
-		RecipeID: recipeId,
-	}
-
-	err := commands.CreateRecipeImage(&recipeImage)
-
-	return &recipeImage, err
+func connectImageToRecipe(recipeId uint64, imageId uint64) (*tables.RecipeImage, error) {
+	recipeImage, err := commands.CreateRecipeImage(recipeId, imageId)
+	return recipeImage, err
 }
 
 func CreateRecipe(name, description string, ovenTemp, estimatedTime int, userId uint64) (*tables.Recipe, error) {
@@ -114,20 +84,8 @@ func CreateRecipe(name, description string, ovenTemp, estimatedTime int, userId 
 	if err != nil {
 		return &tables.Recipe{}, err
 	}
-
-	recipe := tables.Recipe{
-		Name:          name,
-		UniqueName:    uniqueName,
-		Description:   description,
-		OvenTemp:      ovenTemp,
-		EstimatedTime: estimatedTime,
-		CreatedBy:     userId,
-	}
-
-	id, err := commands.CreateRecipe(&recipe)
-	recipe.ID = id
-
-	return &recipe, err
+	recipe, err := commands.CreateRecipe(name, uniqueName, description, ovenTemp, estimatedTime, userId)
+	return recipe, err
 }
 
 func CreateNewRecipe(recipeJson *models.NewRecipeJson, user *tables.User) (string, error) {
@@ -151,7 +109,7 @@ func CreateNewRecipe(recipeJson *models.NewRecipeJson, user *tables.User) (strin
 	}
 
 	for _, image := range recipeJson.Images {
-		_, err := connectImageToRecipe(image.ID, recipe.ID)
+		_, err := connectImageToRecipe(recipe.ID, image.ID)
 		if err != nil {
 			return "", err
 		}

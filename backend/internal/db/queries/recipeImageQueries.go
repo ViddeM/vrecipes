@@ -53,3 +53,18 @@ func GetMainImageForRecipe(recipeId uint64) (*tables.Image, error) {
 	img, err := GetImageById(recipeImage.RecipeID)
 	return img, err
 }
+
+var getRecipeImageQuery = `SELECT image_id, recipe_id FROM recipe_image WHERE recipe_id=$1 AND image_id=$2`
+
+func GetRecipeImage(recipeId, imageId uint64) (*tables.RecipeImage, error) {
+	db, err := getDb()
+	if err != nil {
+		return nil, err
+	}
+	defer db.Release()
+
+	var recipeImage tables.RecipeImage
+	err = pgxscan.Get(ctx, db, &recipeImage, getRecipeImageQuery, recipeId, imageId)
+
+	return &recipeImage, err
+}
