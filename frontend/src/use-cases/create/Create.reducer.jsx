@@ -42,7 +42,8 @@ const initialState = {
     saveError: "",
     imageUploadError: "",
     uploadingImage: false,
-    redirectTo: ""
+    redirectTo: "",
+    unsavedChanges: false
 }
 
 export function create(state = initialState, action) {
@@ -174,10 +175,12 @@ function validateInteger(newNumber, oldValue) {
 }
 
 function newState(oldState, change) {
-    const defaults = Object.assign({}, {
+    const defaults = Object.assign({}, oldState, {
         id: "",
-        redirectTo: ""
-    }, oldState)
+        redirectTo: "",
+        unsavedChanges: true
+    })
+
     return Object.assign({}, defaults, change);
 }
 
@@ -385,7 +388,8 @@ function editRecipe(state, recipe) {
         cookingTime: recipe.estimatedTime,
         ovenTemperature: recipe.ovenTemperature,
         images: recipe.images,
-        redirectTo: ""
+        redirectTo: "",
+        unsavedChanges: false
     })
 }
 

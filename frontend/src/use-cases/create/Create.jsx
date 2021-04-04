@@ -1,5 +1,5 @@
 import React from "react";
-import {CreateContainer, ErrorText} from "./Create.styles";
+import {CreateContainer, ErrorText, WarningText} from "./Create.styles";
 import CreateGeneral from "./CreateGeneral/CreateGeneral.container.view";
 import {Redirect, Route} from "react-router";
 import CreateIngredients from "./CreateIngredients/CreateIngredients.container.view";
@@ -34,7 +34,15 @@ export const Create = props => {
                     props.saveError &&
                     <ErrorText>
                         {props.saveError}
-                    </ErrorText>}
+                    </ErrorText>
+            }
+            {
+                props.unsavedChanges && (
+                    <WarningText>
+                        Du har gjort ändringar som inte har sparats än
+                    </WarningText>
+                )
+            }
             <Button variant="contained"
                     color="primary"
                     onClick={() => props.recipe.id === "" ?

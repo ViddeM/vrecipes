@@ -7,7 +7,8 @@ const mapStateToProps = state => ({
     recipe: state.root.create,
     saveError: state.root.create.saveError,
     redirectTo: state.root.create.redirectTo,
-    id: state.root.create.id
+    id: state.root.create.id,
+    unsavedChanges: state.root.create.unsavedChanges
 });
 
 const mapDispatchToProps = dispatch => ({

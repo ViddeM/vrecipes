@@ -165,3 +165,12 @@ export const ErrorText = styled(Typography)`
   color: red;
   margin: 10px 0 !important;
 `
+
+export const WarningText = styled(Typography)`
+  color: #cd7610;
+  margin: 10px 0 !important;
+`
+
+export const SmallHSpace = styled.div`
+  width: 10px;
+`

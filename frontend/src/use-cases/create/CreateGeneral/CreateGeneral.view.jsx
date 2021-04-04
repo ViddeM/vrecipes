@@ -1,15 +1,15 @@
 import React from "react";
 import {
-    CommunistAlignedIcon,
+    CommunistAlignedIcon, CreateContainer,
     FormColumn,
     FormRow,
-    PaddingContainer,
+    PaddingContainer, SmallHSpace,
     StyledCard,
-    TextFieldWithMargin
+    TextFieldWithMargin, WarningText
 } from "../Create.styles";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {useHistory} from "react-router";
-import {StyledText} from "../../../common/styles/Common.styles";
+import {HSpace, StyledText, VSpace} from "../../../common/styles/Common.styles";
 
 export const CreateGeneral = props => {
     let history = useHistory();
@@ -27,6 +27,14 @@ export const CreateGeneral = props => {
                     <StyledText align="center" variant="h6">
                         Nytt recept
                     </StyledText>
+                    <SmallHSpace />
+                    {
+                        props.unsavedChanges && (
+                        <WarningText>
+                            Du har gjort ändringar som inte har sparats än
+                        </WarningText>
+                        )
+                    }
                 </FormRow>
                 <FormRow>
                     <PaddingContainer>
