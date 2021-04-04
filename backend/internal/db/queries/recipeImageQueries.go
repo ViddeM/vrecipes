@@ -54,7 +54,7 @@ func GetMainImageForRecipe(recipeId uint64) (*tables.Image, error) {
 		return nil, err
 	}
 
-	img, err := GetImageById(recipeImage.RecipeID)
+	img, err := GetImageById(recipeImage.ImageID)
 	return img, err
 }
 
