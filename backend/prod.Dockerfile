@@ -15,5 +15,6 @@ RUN go build -o vrecipes ./cmd/vrecipes/main.go
 FROM alpine
 
 COPY --from=builder /app/vrecipes /vrecipes
+COPY ./internal/db/migrations /internal/db/migrations
 
 ENTRYPOINT ["/vrecipes"]
