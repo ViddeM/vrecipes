@@ -11,6 +11,7 @@ func CheckAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		envVars := common.GetEnvVars()
 		if envVars.AuthEnabled == false && envVars.GinMode == "debug" {
+			log.Printf("Setting test session\n")
 			err := setSession(c, "test", "test", "test", nil)
 			if err != nil {
 				log.Printf("Failed to set test session: %v", err)
@@ -21,7 +22,6 @@ func CheckAuth() gin.HandlerFunc {
 
 		session := sessions.Default(c)
 		token := session.Get("token")
-
 		if token == nil {
 			renewAuth(c)
 			c.Abort()

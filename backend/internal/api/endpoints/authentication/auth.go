@@ -73,6 +73,7 @@ func setSession(c *gin.Context, name, email, provider string, token *oauth2.Toke
 		return err
 	}
 
+	log.Printf("Retrieved session user: %v\n", user)
 	tokenJson, err := json.Marshal(&sessionData{
 		UserID:   user.ID,
 		Token:    token,
@@ -166,7 +167,6 @@ func generateState() (string, error) {
 }
 
 func handleCallback(c *gin.Context, config *oauth2.Config) *oauth2.Token {
-
 	receivedState := c.Query("state")
 	expectedState := sessions.Default(c).Get("oauth-state")
 
