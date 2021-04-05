@@ -3,7 +3,8 @@ import RecipeFooter from "./RecipeFooter.view";
 import {editRecipe, handleDeleteRecipe} from "./RecipeFooter.action-creators.view";
 
 const mapStateToProps = state => ({
-    recipe: state.root.recipe.recipe
+    recipe: state.root.recipe.recipe,
+    loggedInUser: state.root.init.user.id
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -30,8 +30,9 @@ export function init(state = {
             return Object.assign({}, state, {
                 redirectTo: "",
                 user: {
+                    id: action.payload.id,
                     name: action.payload.name,
-                    email: action.payload.email
+                    emails: action.payload.emails
                 }
             })
         case GET_ME_FAILED:

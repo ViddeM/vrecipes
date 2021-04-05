@@ -19,7 +19,9 @@ const RecipeFooter = props => {
                         variant="contained"
                         onClick={() => {
                             setDialogOpen(true)
-                        }}>
+                        }}
+                        disabled={props.loggedInUser !== props.recipe.author.id}
+                >
                     Ta bort
                 </Button>
                 {getDialog(
@@ -31,7 +33,9 @@ const RecipeFooter = props => {
                         variant="contained"
                         onClick={() => {
                             props.editRecipe(props.recipe)
-                        }}>
+                        }}
+                        disabled={props.loggedInUser !== props.recipe.author.id}
+                >
                     Redigera
                 </Button>
             </RecipeFooterContainer>

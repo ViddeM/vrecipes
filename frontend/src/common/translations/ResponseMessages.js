@@ -14,7 +14,9 @@ const translations = {
     failed_to_authenticate: "Kunde inte autentisera användaren",
     invalid_user_id: "Felaktigt användar-id",
     not_authorized: "Inte autentiserad",
-    filetype_not_supported: "Filformatet stöds ej"
+    filetype_not_supported: "Filformatet stöds ej",
+    internal_error: "Internt fel",
+    incorrect_user: "Felaktig användare inloggad"
 }
 
 export const DEFAULT_ERROR = "Whoops något gick fel :("

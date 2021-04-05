@@ -62,6 +62,19 @@ func validateRecipe(c *gin.Context) (*models.NewRecipeJson, error) {
 	return &recipe, err
 }
 
+var ErrUserNotAuthorized = errors.New("user not authorized")
+func validateUserAuthorized(c *gin.Context, userId uint64) error {
+	user, err := getSessionUser(c)
+	if err != nil {
+		return err
+	}
+
+	if user.ID == userId {
+		return nil
+	}
+	return ErrUserNotAuthorized
+}
+
 func getSessionUser(c *gin.Context) (*tables.User, error) {
 	userId, exists := c.Get("userId")
 	if !exists {
