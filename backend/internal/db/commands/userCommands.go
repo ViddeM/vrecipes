@@ -6,11 +6,12 @@ import (
 )
 
 var createUserCommand = `
-INSERT INTO vrecipes_user(name, email, provider)
-VALUES(					$1,   $2, 	 $3)
-RETURNING id, name, email, provider`
+INSERT INTO vrecipes_user(name)
+VALUES(					  $1)
+RETURNING id,name
+`
 
-func CreateUser(name, email, provider string) (*tables.User, error) {
+func CreateUser(name string) (*tables.User, error) {
 	db, err := getDb()
 	if err != nil {
 		return nil, err
@@ -18,6 +19,6 @@ func CreateUser(name, email, provider string) (*tables.User, error) {
 	defer db.Release()
 
 	var user tables.User
-	err = pgxscan.Get(ctx, db, &user, createUserCommand, name, email, provider)
+	err = pgxscan.Get(ctx, db, &user, createUserCommand, name)
 	return &user, err
 }
