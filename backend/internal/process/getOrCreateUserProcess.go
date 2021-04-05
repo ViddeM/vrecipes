@@ -17,6 +17,11 @@ func GetOrCreateUser(name, email, provider string) (*tables.User, error) {
 		return nil, err
 	}
 
-	user, err = commands.CreateUser(name, email, provider)
+	user, err = commands.CreateUser(name)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = commands.CreateUserEmail(user.ID, email, provider)
 	return user, err
 }

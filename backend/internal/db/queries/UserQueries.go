@@ -5,7 +5,10 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
-var getUserByIdQuery = `SELECT id, name, email, provider FROM vrecipes_user WHERE id=$1`
+var getUserByIdQuery = `
+SELECT id, name
+FROM vrecipes_user 
+WHERE id=$1`
 
 func GetUser(id uint64) (*tables.User, error) {
 	db, err := getDb()
@@ -19,7 +22,12 @@ func GetUser(id uint64) (*tables.User, error) {
 	return &user, err
 }
 
-var getUserByEmailQuery = `SELECT id, name, email, provider FROM vrecipes_user WHERE email=$1`
+var getUserByEmailQuery = `
+SELECT id, name
+FROM vrecipes_user
+INNER JOIN user_email ON user_email.user_id=vrecipes_user.id
+WHERE email=$1;
+`
 
 func GetUserByEmail(email string) (*tables.User, error) {
 	db, err := getDb()

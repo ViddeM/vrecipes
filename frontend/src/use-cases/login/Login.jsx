@@ -22,7 +22,7 @@ import {ReactComponent as MicrosoftIcon} from "../../resources/images/icon_micro
 import {Typography} from "@material-ui/core";
 
 
-const Login = props => {
+const Login = () => {
     const [error, setError] = useState("");
 
     return (

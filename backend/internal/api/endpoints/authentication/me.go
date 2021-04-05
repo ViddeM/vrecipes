@@ -3,7 +3,7 @@ package authentication
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/viddem/vrecipes/backend/internal/common"
-	"github.com/viddem/vrecipes/backend/internal/db/queries"
+	"github.com/viddem/vrecipes/backend/internal/process"
 	"log"
 	"net/http"
 )
@@ -21,15 +21,12 @@ func Me(c *gin.Context) {
 	 	return
 	 }
 
-	user, err := queries.GetUser(sessionData.UserID)
+	user, err := process.GetUserJson(sessionData.UserID)
 	if err != nil {
 		log.Printf("Failed to get user from db: %v\n", err)
 		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseInvalidUserId))
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(&me{
-		Name: user.Name,
-		Email: user.Email,
-	}))
+	c.JSON(http.StatusOK, common.Success(user))
 }
