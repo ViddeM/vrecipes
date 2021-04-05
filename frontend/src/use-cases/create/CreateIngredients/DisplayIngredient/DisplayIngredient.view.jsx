@@ -61,7 +61,7 @@ export const DisplayIngredient = props => {
                                            value={ingredient.name}
                                            error={errors.name !== undefined}
                                            errormessage={errors.name}
-                                           maxLength={40}
+                                           maxLength={80}
                             />
                             <IconButtonContainer>
                                 <RemoveIconButton color="secondary"
