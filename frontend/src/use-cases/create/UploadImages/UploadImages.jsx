@@ -27,6 +27,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 export const UploadImages = props => {
     const [file, setFile] = useState(null);
     const [toRemove, setToRemove] = useState(null);
+    const [errored, setErrored] = useState([]);
 
     return (
     <StyledCard>
@@ -44,6 +45,9 @@ export const UploadImages = props => {
                 {props.images.length > 0 ?
                 props.images.map(image => {
                     let url = getImageUrl(image.url)
+                    if (errored.includes(image.url)) {
+                        url = "/static/images/pdf_not_supported.png"
+                    }
 
                     return (
                         <OuterImageContainer>
@@ -52,10 +56,20 @@ export const UploadImages = props => {
                                              key={image.id}
                                              src={url}
                                              alt="Kunde inte visa bild"
+                                             onError={() => {
+                                                 if (!errored.includes(image.url)) {
+                                                     setErrored([...errored, image.url])
+                                                 }
+                                             }}
                                 />
                                 <RemoveImageButton>
                                     <RemoveIconButton color="secondary"
-                                                      onClick={() => setToRemove(image)}
+                                                      onClick={() => {
+                                                          setErrored(errored.filter(imgUrl => {
+                                                              return imgUrl !== image.url
+                                                          }))
+                                                          setToRemove(image);
+                                                      }}
                                     >
                                         <CancelIcon/>
                                     </RemoveIconButton>
@@ -163,34 +177,3 @@ function getDialog(open, onRemove, closeDialog) {
     </Dialog>
     )
 }
-
-// function getDialog(onConfirm) {
-//     return {
-//         renderMain: () => (
-//             <DigitText.Text
-//                 text={"Är du säker på att du vill ta bort denna bilden?"}/>
-//         ),
-//         renderButtons: (confirm, cancel) => (
-//             <ButtonContainer>
-//                 <DigitButton
-//                     raised
-//                     secondary
-//                     text={"NEJ"}
-//                     onClick={cancel}
-//                     flex={"1"}
-//                 />
-//                 <SmallHSpace/>
-//                 <DigitButton
-//                     raised
-//                     primary
-//                     text={"JA"}
-//                     onClick={confirm}
-//                     flex={"1"}
-//                 />
-//             </ButtonContainer>
-//         ),
-//         onConfirm: () => {
-//             onConfirm()
-//         }
-//     }
-// }

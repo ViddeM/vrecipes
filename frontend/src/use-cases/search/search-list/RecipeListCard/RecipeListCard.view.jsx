@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     ImageBorder,
     ImageContainer,
@@ -20,6 +20,14 @@ export const RecipeListCard = props => {
     } else {
         imageUrl = getImageUrl(imageUrl)
     }
+    const [errored, setErrored] = useState(false);
+    if (errored) {
+        if (imageUrl.endsWith(".pdf")) {
+            imageUrl = "static/images/pdf_not_supported.png"
+        } else {
+            imageUrl = "static/images/temp_image.jpg"
+        }
+    }
 
 
     return (
@@ -27,7 +35,15 @@ export const RecipeListCard = props => {
             <NavLink to={"/recipes/" + recipe.unique_name}>
                 <RecipeListCardCard>
                     <ImageBorder>
-                        <ImageContainer style={{backgroundImage: `url(${imageUrl}`}}/>
+                        <ImageContainer src={imageUrl}
+                                        alt="Kunde inte visa bild"
+                                        onError={() => {
+                                            if (!errored) {
+                                                setErrored(true)
+                                            }
+                                        }}
+
+                        />
                     </ImageBorder>
                     <SmallVSpace/>
                     <SmallVSpace/>

@@ -43,7 +43,6 @@ export const Create = props => {
                     </WarningText>
                 )
             }
-            {console.log("RECIPE???", props.recipe)}
             <Button variant="contained"
                     color="primary"
                     onClick={() => props.recipe.id === "" ?

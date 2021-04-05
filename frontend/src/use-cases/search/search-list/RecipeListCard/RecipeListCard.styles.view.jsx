@@ -11,22 +11,25 @@ export const RecipeListCardContainer = styled.div`
 `;
 
 export const ImageBorder = styled.div`
-    padding: 1px;
-    border-radius: 16px;
+    //padding: 1px;
+    //border-radius: 16px;
     width: 100%;
-    background-color: #606060;
+    //background-color: #606060;
 `;
 
-export const ImageContainer = styled.div`
-    border-radius: inherit;
+export const ImageContainer = styled.img`
+    border-radius: 10px;
     width: 100%;
-    height: 300px;  
-    background-color: white;
-    background-size: cover;
+    height: auto;
+    max-height: 320px;
+    color: black;
+    text-align: center;
+    border: 1px solid black;
     
-    -webkit-box-shadow: inset 4px 4px 54px 0px rgba(0,0,0,0.68);
-    -moz-box-shadow: inset 4px 4px 54px 0px rgba(0,0,0,0.68);
-    box-shadow: inset 4px 4px 54px 0px rgba(0,0,0,0.68);
+    
+    //-webkit-box-shadow: inset 4px 4px 54px 0px rgba(0,0,0,0.68);
+    //-moz-box-shadow: inset 4px 4px 54px 0px rgba(0,0,0,0.68);
+    //box-shadow: inset 4px 4px 54px 0px rgba(0,0,0,0.68);
 `;
 
 export const RecipeListCardFooterContainer = styled.div`
