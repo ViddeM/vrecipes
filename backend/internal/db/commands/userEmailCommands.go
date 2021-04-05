@@ -12,13 +12,9 @@ RETURNING user_id, email, provider
 `
 
 func CreateUserEmail(userId uint64, email, provider string) (*tables.UserEmail, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var userEmail tables.UserEmail
-	err = pgxscan.Get(ctx, db, &userEmail, createUserEmailCommand, userId, email, provider)
+	err := pgxscan.Get(ctx, db, &userEmail, createUserEmailCommand, userId, email, provider)
 	return &userEmail, err
 }

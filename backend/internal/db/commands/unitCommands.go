@@ -12,13 +12,9 @@ returning name
 `
 
 func CreateUnit(name string) (*tables.Unit, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var unit tables.Unit
-	err = pgxscan.Get(ctx, db, &unit, createUnitCommand, name)
+	err := pgxscan.Get(ctx, db, &unit, createUnitCommand, name)
 	return &unit, err
 }

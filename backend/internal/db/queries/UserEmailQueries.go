@@ -12,13 +12,9 @@ WHERE user_id=$1
 `;
 
 func GetEmailsForUser(id uint64) ([]*tables.UserEmail, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var emails []*tables.UserEmail
-	err = pgxscan.Select(ctx, db, &emails, getEmailsForUserQuery, id)
+	err := pgxscan.Select(ctx, db, &emails, getEmailsForUserQuery, id)
 	return emails, err
 }

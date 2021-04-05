@@ -31,8 +31,8 @@ func Init() {
 	if err != nil {
 		log.Fatalf("Failed to parse connection string: %v\n", err)
 	}
-	//config.ConnConfig.Logger = &logger{}
-	//config.ConnConfig.LogLevel = pgx.LogLevelTrace
+	config.ConnConfig.Logger = &logger{}
+	config.ConnConfig.LogLevel = pgx.LogLevelInfo
 
 	conn, err := pgxpool.ConnectConfig(ctx, config)
 	if err != nil {
@@ -58,8 +58,7 @@ func Init() {
 type logger struct{}
 
 func (logger *logger) Log(ctx context.Context, level pgx.LogLevel, msg string, data map[string]interface{}) {
-	log.Printf("Executing SQL: %s\n", msg)
-	log.Printf("Data: %+v", data)
+	log.Printf("DB-LOG:::%s:::%s:::%+v\n", level, msg, data)
 }
 
 func resetDb() {

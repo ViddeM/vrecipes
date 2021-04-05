@@ -12,13 +12,9 @@ RETURNING name
 `
 
 func CreateIngredient(name string) (*tables.Ingredient, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var ingredient tables.Ingredient
-	err = pgxscan.Get(ctx, db, &ingredient, createIngredientCommand, name)
+	err := pgxscan.Get(ctx, db, &ingredient, createIngredientCommand, name)
 	return &ingredient, err
 }

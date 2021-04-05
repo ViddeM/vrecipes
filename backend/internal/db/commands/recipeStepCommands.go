@@ -12,14 +12,10 @@ RETURNING recipe_id, number, step
 `
 
 func CreateRecipeStep(recipeId uint64, number uint16, step string) (*tables.RecipeStep, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var recipeStep tables.RecipeStep
-	err = pgxscan.Get(ctx, db, &recipeStep, createRecipeStepCommand, recipeId, number, step)
+	err := pgxscan.Get(ctx, db, &recipeStep, createRecipeStepCommand, recipeId, number, step)
 	return &recipeStep, err
 }
 
@@ -30,13 +26,9 @@ WHERE recipe_id=$2 AND number=$3
 `
 
 func UpdateRecipeStep(step string, recipeId uint64, number uint16) error {
-	db, err := getDb()
-	if err != nil {
-		return err
-	}
-	defer db.Release()
+	db := getDb()
 
-	_, err = db.Exec(ctx, updateRecipeStepCommand, step, recipeId, number)
+	_, err := db.Exec(ctx, updateRecipeStepCommand, step, recipeId, number)
 	return err
 }
 
@@ -46,12 +38,8 @@ WHERE recipe_id=$1 AND number=$2
 `
 
 func DeleteRecipeStep(recipeId uint64, number uint16) error {
-	db, err := getDb()
-	if err != nil {
-		return err
-	}
-	defer db.Release()
+	db := getDb()
 
-	_, err = db.Exec(ctx, deleteRecipeStepCommand, recipeId, number)
+	_, err := db.Exec(ctx, deleteRecipeStepCommand, recipeId, number)
 	return err
 }

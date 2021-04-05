@@ -8,14 +8,10 @@ import (
 var getImagesForRecipeQuery = `SELECT image_id, recipe_id FROM recipe_image WHERE recipe_id=$1`
 
 func GetImagesForRecipe(recipeId uint64) ([]tables.Image, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var recipeImages []*tables.RecipeImage
-	err = pgxscan.Select(ctx, db, &recipeImages, getImagesForRecipeQuery, recipeId)
+	err := pgxscan.Select(ctx, db, &recipeImages, getImagesForRecipeQuery, recipeId)
 	if err != nil {
 		return nil, err
 	}
@@ -41,14 +37,10 @@ WHERE recipe_id=$1
 LIMIT 1`
 
 func GetMainImageForRecipe(recipeId uint64) (*tables.Image, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var recipeImage tables.RecipeImage
-	err = pgxscan.Get(ctx, db, &recipeImage, getMainImageForRecipeQuery, recipeId)
+	err := pgxscan.Get(ctx, db, &recipeImage, getMainImageForRecipeQuery, recipeId)
 
 	if err != nil {
 		return nil, err
@@ -61,14 +53,10 @@ func GetMainImageForRecipe(recipeId uint64) (*tables.Image, error) {
 var getRecipeImageQuery = `SELECT image_id, recipe_id FROM recipe_image WHERE recipe_id=$1 AND image_id=$2`
 
 func GetRecipeImage(recipeId, imageId uint64) (*tables.RecipeImage, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var recipeImage tables.RecipeImage
-	err = pgxscan.Get(ctx, db, &recipeImage, getRecipeImageQuery, recipeId, imageId)
+	err := pgxscan.Get(ctx, db, &recipeImage, getRecipeImageQuery, recipeId, imageId)
 
 	return &recipeImage, err
 }

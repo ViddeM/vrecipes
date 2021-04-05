@@ -13,7 +13,7 @@ func Init(conn *pgxpool.Pool, context *context.Context) {
 	ctx = *context
 }
 
-func getDb() (*pgxpool.Conn, error) {
-	data, err := dbPool.Acquire(ctx)
-	return data, err
+
+func getDb() *pgxpool.Pool {
+	return dbPool
 }

@@ -8,13 +8,9 @@ import (
 var getImageByIdQuery = `SELECT id, name FROM image WHERE id=$1`
 
 func GetImageById(id uint64) (*tables.Image, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var image tables.Image
-	err = pgxscan.Get(ctx, db, &image, getImageByIdQuery, id)
+	err := pgxscan.Get(ctx, db, &image, getImageByIdQuery, id)
 	return &image, err
 }

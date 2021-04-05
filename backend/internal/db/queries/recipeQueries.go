@@ -10,13 +10,10 @@ FROM recipe
 WHERE unique_name=$1`
 
 func GetRecipeByName(uniqueName string) (*tables.Recipe, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
+	db := getDb()
 
 	var recipe tables.Recipe
-	err = pgxscan.Get(ctx, db, &recipe, getRecipeByNameQuery, uniqueName)
+	err := pgxscan.Get(ctx, db, &recipe, getRecipeByNameQuery, uniqueName)
 	return &recipe, err
 }
 
@@ -25,14 +22,10 @@ FROM recipe
 WHERE id=$1`
 
 func GetRecipeById(id uint64) (*tables.Recipe, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var recipe tables.Recipe
-	err = pgxscan.Get(ctx, db, &recipe, getRecipeByIdQuery, id)
+	err := pgxscan.Get(ctx, db, &recipe, getRecipeByIdQuery, id)
 	return &recipe, err
 }
 
@@ -41,14 +34,10 @@ FROM recipe
 WHERE deleted=false`
 
 func GetNonDeletedRecipes() ([]*tables.Recipe, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var recipes []*tables.Recipe
-	err = pgxscan.Select(ctx, db, &recipes, getNonDeletedRecipesQuery)
+	err := pgxscan.Select(ctx, db, &recipes, getNonDeletedRecipesQuery)
 
 	return recipes, err
 }

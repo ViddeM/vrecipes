@@ -12,14 +12,10 @@ RETURNING id, recipe_id, ingredient_name, unit_name, amount
 `
 
 func CreateRecipeIngredient(recipeId uint64, ingredientName, unitName string, amount float32) (*tables.RecipeIngredient, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var recipeIngredient tables.RecipeIngredient
-	err = pgxscan.Get(ctx, db, &recipeIngredient, createRecipeIngredientCommand, recipeId, ingredientName, unitName, amount)
+	err := pgxscan.Get(ctx, db, &recipeIngredient, createRecipeIngredientCommand, recipeId, ingredientName, unitName, amount)
 	return &recipeIngredient, err
 }
 
@@ -29,12 +25,8 @@ WHERE id=$1
 `
 
 func DeleteRecipeIngredient(id uint64) error {
-	db, err := getDb()
-	if err != nil {
-		return err
-	}
-	defer db.Release()
+	db := getDb()
 
-	_, err = db.Exec(ctx, deleteRecipeIngredientCommand, id)
+	_, err := db.Exec(ctx, deleteRecipeIngredientCommand, id)
 	return err
 }

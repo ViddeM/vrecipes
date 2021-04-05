@@ -12,13 +12,9 @@ RETURNING id,name
 `
 
 func CreateUser(name string) (*tables.User, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var user tables.User
-	err = pgxscan.Get(ctx, db, &user, createUserCommand, name)
+	err := pgxscan.Get(ctx, db, &user, createUserCommand, name)
 	return &user, err
 }

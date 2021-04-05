@@ -11,14 +11,10 @@ INSERT INTO recipe(name, unique_name, description, oven_temp, estimated_time, de
 RETURNING id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by`
 
 func CreateRecipe(name, uniqueName, description string, ovenTemp, estimatedTime int, createdBy uint64) (*tables.Recipe, error) {
-	db, err := getDb()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Release()
+	db := getDb()
 
 	var recipe tables.Recipe
-	err = pgxscan.Get(ctx, db, &recipe, createRecipeCommand, name, uniqueName, description, ovenTemp, estimatedTime, false, createdBy)
+	err := pgxscan.Get(ctx, db, &recipe, createRecipeCommand, name, uniqueName, description, ovenTemp, estimatedTime, false, createdBy)
 	return &recipe, err
 }
 
@@ -33,13 +29,9 @@ WHERE id=$6
 `
 
 func UpdateRecipe(name, uniqueName, description string, ovenTemp, estimatedTime int, recipeId uint64) error {
-	db, err := getDb()
-	if err != nil {
-		return err
-	}
-	defer db.Release()
+	db := getDb()
 
-	_, err = db.Exec(ctx, updateRecipeCommand, name, uniqueName, description,
+	_, err := db.Exec(ctx, updateRecipeCommand, name, uniqueName, description,
 		ovenTemp, estimatedTime, recipeId)
 	return err
 }
@@ -53,12 +45,8 @@ WHERE id=$3
 `
 
 func RecipeSetDeleted(name, uniqueName string, id uint64) error {
-	db, err := getDb()
-	if err != nil {
-		return err
-	}
-	defer db.Release()
+	db := getDb()
 
-	_, err = db.Exec(ctx, recipeSetDeletedCommand, name, uniqueName, id)
+	_, err := db.Exec(ctx, recipeSetDeletedCommand, name, uniqueName, id)
 	return err
 }
