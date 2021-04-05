@@ -44,8 +44,9 @@ function onGetMeSuccessful(response) {
     return {
         type: GET_ME_SUCCESSFUL,
         payload: {
+            id: response.data.data.id,
             name: response.data.data.name,
-            email: response.data.data.email
+            emails: response.data.data.emails
         },
         error: false
     }

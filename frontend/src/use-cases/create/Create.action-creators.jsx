@@ -10,6 +10,7 @@ import {putEditedRecipe} from "../../api/put.EditedRecipe.api";
 import {authorizedApiCall} from "../../common/functions/authorizedApiCall";
 
 export function onRecipeSave(recipe) {
+    console.log("SAVE NEW RECIPE?")
     const errors = validateRecipe(recipe)
 
     if (Object.keys(errors).length === 0) {
@@ -43,6 +44,7 @@ export function onRecipeSave(recipe) {
 }
 
 export function onEditedRecipeSave(recipe) {
+    console.log("SAVE EDITED RECIPE?")
     const errors = validateRecipe(recipe)
 
     if (Object.keys(errors).length === 0) {

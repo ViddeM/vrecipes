@@ -26,6 +26,13 @@ func EditRecipe(c *gin.Context) {
 		return
 	}
 
+	err = validateUserAuthorized(c, oldRecipe.CreatedBy)
+	if err != nil {
+		log.Printf("Failed to authorized user: %v\n", err)
+		c.JSON(http.StatusForbidden, common.Error(common.ResponseIncorrectUser))
+		return
+	}
+
 	uniqueName, err := process.EditRecipe(oldRecipe, recipe)
 	if err != nil {
 		log.Printf("Failed to edit recipe: %v\n", err)

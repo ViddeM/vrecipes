@@ -176,7 +176,6 @@ function validateInteger(newNumber, oldValue) {
 
 function newState(oldState, change) {
     const defaults = Object.assign({}, oldState, {
-        id: "",
         redirectTo: "",
         unsavedChanges: true
     })
