@@ -12,11 +12,13 @@ const Ingredients = props => (
     <IngredientsContainer>
         <IngredientsTable>
             <thead>
-            <th colSpan={2}>
-                <StyledText variant="h6">
-                    Ingredienser
-                </StyledText>
-            </th>
+                <tr>
+                    <th colSpan={2}>
+                        <StyledText variant="h6">
+                            Ingredienser
+                        </StyledText>
+                    </th>
+                </tr>
             </thead>
             <tbody>
             {props.ingredients.map((ingredient, index) => (

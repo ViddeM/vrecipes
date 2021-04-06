@@ -20,7 +20,7 @@ const RecipeFooter = props => {
                         onClick={() => {
                             setDialogOpen(true)
                         }}
-                        disabled={props.loggedInUser !== props.recipe.author.id}
+                        disabled={!props.loggedInUser || props.loggedInUser.id !== props.recipe.author.id}
                 >
                     Ta bort
                 </Button>
@@ -34,7 +34,7 @@ const RecipeFooter = props => {
                         onClick={() => {
                             props.editRecipe(props.recipe)
                         }}
-                        disabled={props.loggedInUser !== props.recipe.author.id}
+                        disabled={!props.loggedInUser || props.loggedInUser.id !== props.recipe.author.id}
                 >
                     Redigera
                 </Button>

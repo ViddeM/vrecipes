@@ -4,7 +4,7 @@ import {editRecipe, handleDeleteRecipe} from "./RecipeFooter.action-creators.vie
 
 const mapStateToProps = state => ({
     recipe: state.root.recipe.recipe,
-    loggedInUser: state.root.init.user.id
+    loggedInUser: state.root.init.user
 });
 
 const mapDispatchToProps = dispatch => ({

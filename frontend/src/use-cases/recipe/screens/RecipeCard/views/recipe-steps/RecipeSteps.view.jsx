@@ -5,7 +5,7 @@ import {FullWidth} from "../../RecipeCard.styles.screen";
 
 const RecipeSteps = props => (
     <RecipeStepsContainer>
-        <SubtitleText variant>
+        <SubtitleText variant="h6">
             Gör såhär
         </SubtitleText>
         <FullHLine/>
