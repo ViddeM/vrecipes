@@ -5,7 +5,12 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
-var getIngredientsForRecipeQuery = `SELECT id, recipe_id, ingredient_name, unit_name, amount FROM recipe_ingredient WHERE recipe_id=$1`
+var getIngredientsForRecipeQuery = `
+SELECT id, recipe_id, ingredient_name, unit_name, amount, number 
+FROM recipe_ingredient 
+WHERE recipe_id=$1
+ORDER BY number
+`
 
 func GetIngredientsForRecipe(recipeId uint64) ([]*tables.RecipeIngredient, error) {
 	db := getDb()
@@ -15,7 +20,10 @@ func GetIngredientsForRecipe(recipeId uint64) ([]*tables.RecipeIngredient, error
 	return recipeIngredients, err
 }
 
-var getRecipeIngredientByIdQuery = `SELECT id, recipe_id, ingredient_name, unit_name, amount FROM recipe_ingredient WHERE id=$1`
+var getRecipeIngredientByIdQuery = `
+SELECT id, recipe_id, ingredient_name, unit_name, amount, number 
+FROM recipe_ingredient 
+WHERE id=$1`
 
 func GetRecipeIngredientQuery(id uint64) (*tables.RecipeIngredient, error) {
 	db := getDb()

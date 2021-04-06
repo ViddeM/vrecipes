@@ -123,26 +123,26 @@ func updateRecipeIngredients(id uint64, ingredients []models.NewRecipeIngredient
 		return err
 	}
 
-	var handledIngredients []*tables.RecipeIngredient
-
-	for _, ingredient := range ingredients {
+	var ingredientIdNumMap = make(map[uint64]int)
+	for index, ingredient := range ingredients {
 		oldIngredient := getOldIngredient(&ingredient, oldIngredients)
 		if oldIngredient == nil {
 			// The ingredient is new or updated
-			_, err = CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, id)
+			newRecipeIngredient, err := CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, id, index)
 			if err != nil {
 				return err
 			}
+			ingredientIdNumMap[newRecipeIngredient.ID] = index
 		} else {
-			handledIngredients = append(handledIngredients, oldIngredient)
+			ingredientIdNumMap[oldIngredient.ID] = index
 		}
 	}
 
 	// Remove ingredients that are no longer in the recipe.
 	for _, oldIngredient := range oldIngredients {
 		found := false
-		for _, handled := range handledIngredients {
-			if oldIngredient.Equals(handled) {
+		for handledId, _ := range ingredientIdNumMap {
+			if oldIngredient.ID == handledId {
 				found = true
 				break
 			}
@@ -156,7 +156,10 @@ func updateRecipeIngredients(id uint64, ingredients []models.NewRecipeIngredient
 		}
 	}
 
-	return nil
+	// Update numbers of ingredients
+	err = commands.UpdateRecipeIngredientNumbers(ingredientIdNumMap, id)
+
+	return err
 }
 
 func getOldIngredient(ingredient *models.NewRecipeIngredientJson, oldIngredients []*tables.RecipeIngredient) *tables.RecipeIngredient {

@@ -9,6 +9,7 @@ type RecipeIngredient struct {
 	IngredientName string
 	UnitName string
 	Amount float32
+	Number int
 }
 
 func (_ RecipeIngredient) StructName() string {

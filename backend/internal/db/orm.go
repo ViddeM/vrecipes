@@ -32,7 +32,7 @@ func Init() {
 		log.Fatalf("Failed to parse connection string: %v\n", err)
 	}
 	config.ConnConfig.Logger = &logger{}
-	config.ConnConfig.LogLevel = pgx.LogLevelInfo
+	config.ConnConfig.LogLevel = pgx.LogLevelWarn
 
 	conn, err := pgxpool.ConnectConfig(ctx, config)
 	if err != nil {
