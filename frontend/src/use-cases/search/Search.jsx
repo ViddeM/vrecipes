@@ -35,7 +35,9 @@ const Search = props => {
                         {
                             window.screen.width < 768 ? (
                                 <AddIconButtonContainer>
-                                    <Fab color="secondary">
+                                    <Fab color="secondary"
+                                         onClick={props.newRecipe}
+                                    >
                                         <AddIcon/>
                                     </Fab>
                                 </AddIconButtonContainer>
