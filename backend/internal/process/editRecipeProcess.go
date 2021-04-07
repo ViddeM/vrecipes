@@ -128,7 +128,7 @@ func updateRecipeIngredients(id uint64, ingredients []models.NewRecipeIngredient
 		oldIngredient := getOldIngredient(&ingredient, oldIngredients)
 		if oldIngredient == nil {
 			// The ingredient is new or updated
-			newRecipeIngredient, err := CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, id, index)
+			newRecipeIngredient, err := CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, id)
 			if err != nil {
 				return err
 			}

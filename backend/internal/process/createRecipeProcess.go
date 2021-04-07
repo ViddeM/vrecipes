@@ -44,7 +44,7 @@ func GetOrCreateUnit(unitName string) (*tables.Unit, error) {
 	return unit, nil
 }
 
-func CreateRecipeIngredient(ingredientName string, unitName string, amount float32, recipeId uint64, number int) (*tables.RecipeIngredient, error) {
+func CreateRecipeIngredient(ingredientName string, unitName string, amount float32, recipeId uint64) (*tables.RecipeIngredient, error) {
 	ingredient, err := GetOrCreateIngredient(ingredientName)
 	if err != nil {
 		return nil, err
@@ -55,7 +55,7 @@ func CreateRecipeIngredient(ingredientName string, unitName string, amount float
 		return nil, err
 	}
 
-	recipeIngredient, err := commands.CreateRecipeIngredient(recipeId, ingredient.Name, unit.Name, amount, number)
+	recipeIngredient, err := commands.CreateRecipeIngredient(recipeId, ingredient.Name, unit.Name, amount)
 	return recipeIngredient, err
 }
 
@@ -94,8 +94,8 @@ func CreateNewRecipe(recipeJson *models.NewRecipeJson, user *tables.User) (strin
 		return "", err
 	}
 
-	for index, ingredient := range recipeJson.Ingredients {
-		_, err := CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, recipe.ID, index)
+	for _, ingredient := range recipeJson.Ingredients {
+		_, err := CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, recipe.ID)
 		if err != nil {
 			return "", err
 		}

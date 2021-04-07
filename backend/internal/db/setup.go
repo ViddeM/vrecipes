@@ -65,8 +65,8 @@ func loadFromDefaults() {
 			}
 		}
 
-		for index, ingredient := range recipeJson.Ingredients {
-			_, err = process.CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, recipe.ID, index)
+		for _, ingredient := range recipeJson.Ingredients {
+			_, err = process.CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, recipe.ID)
 			if err != nil {
 				log.Printf("Failed to create default recipe ingredient %+v, due to err: %s\n", ingredient, err)
 			}

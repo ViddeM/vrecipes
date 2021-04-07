@@ -7,15 +7,17 @@ import (
 
 var createRecipeIngredientCommand = `
 INSERT INTO recipe_ingredient(recipe_id, ingredient_name, unit_name, amount, number)
-VALUES 						 ($1,		 $2,			  $3,		 $4,     $5)
+SELECT 						  $1, 		 $2, 			  $3, 		 $4,	 COUNT(*) as number
+FROM recipe_ingredient
+WHERE recipe_id=$1
 RETURNING id, recipe_id, ingredient_name, unit_name, amount, number
 `
 
-func CreateRecipeIngredient(recipeId uint64, ingredientName, unitName string, amount float32, number int) (*tables.RecipeIngredient, error) {
+func CreateRecipeIngredient(recipeId uint64, ingredientName, unitName string, amount float32) (*tables.RecipeIngredient, error) {
 	db := getDb()
 
 	var recipeIngredient tables.RecipeIngredient
-	err := pgxscan.Get(ctx, db, &recipeIngredient, createRecipeIngredientCommand, recipeId, ingredientName, unitName, amount, number)
+	err := pgxscan.Get(ctx, db, &recipeIngredient, createRecipeIngredientCommand, recipeId, ingredientName, unitName, amount)
 	return &recipeIngredient, err
 }
 
