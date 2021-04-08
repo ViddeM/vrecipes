@@ -24,7 +24,7 @@ export const VTextField = props => {
             ...forwardProps.inputProps,
             pattern: "[0-9]+([.,][0-9]+)?"
         }
-        if (props.value <= 0) {
+        if (props.value < 0) {
             forwardProps.value = ""
         }
     }
