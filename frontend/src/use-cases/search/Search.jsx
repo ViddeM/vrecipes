@@ -1,65 +1,61 @@
-import React, {useEffect} from "react"
+import React from "react"
 import {
-    AddIconButtonContainer,
     BodyContainer,
-    CreateRecipeButton,
-    SearchAddContainer,
-    SearchContainer,
-    SearchTextField
+    ModeLeftButton,
+    ModeRightButton,
+    ModeSelectButtonGroup,
+    ModeSelectContainer
 } from "./Search.styles";
-import {SmallVSpace} from "./search-list/RecipeListCard/RecipeListCard.styles.view";
-import ErrorCard from "../../common/views/errorcard";
-import {NavLink} from "react-router-dom";
-import {Fab} from "@material-ui/core";
-import AddIcon from '@material-ui/icons/Add';
-import SearchListView from "./search-list/SearchList.container.view";
+import {useHistory, useLocation} from "react-router";
+import RecipeSearch from "./RecipeSearch/RecipeSearch.container";
+import RecipeBook from "./RecipeBooks/RecipeBookSearch.container";
 
-const Search = props => {
-    useEffect(() => {
-        props.loadRecipes()
-    }, [])
+const MODE_RECIPE = "mode_recipe"
+const MODE_RECIPE_BOOK = "mode_recipe_book"
+
+const Search = () => {
+    let location = useLocation()
+    let history = useHistory()
+    const mode = location.pathname.startsWith("/books") ? MODE_RECIPE_BOOK : MODE_RECIPE
 
     return (
-        <BodyContainer>
-            <SearchContainer className="Search container">
-                <SearchAddContainer>
-                    <SearchTextField variant="outlined"
-                                     label="Sök bland recept"
-                                     onChange={val => props.onSearchChanged(val.target.value)}
-                                     value={props.searchText}
-                                     maxLength={120}
-                    >
-                        Sök efter recept
-                    </SearchTextField>
-                    <NavLink to="/create">
-                        {
-                            window.screen.width < 768 ? (
-                                <AddIconButtonContainer>
-                                    <Fab color="secondary"
-                                         onClick={props.newRecipe}
-                                    >
-                                        <AddIcon/>
-                                    </Fab>
-                                </AddIconButtonContainer>
-                            ) : (
-                                <CreateRecipeButton variant="contained" color="primary"
-                                                    onClick={props.newRecipe}>
-                                    Lägg till recept
-                                </CreateRecipeButton>
-                            )
-                        }
-                    </NavLink>
-                </SearchAddContainer>
-                <SmallVSpace/>
-                {props.error && (
-                    <ErrorCard message={props.error}/>
-                )}
-                {props.error === null && (
-                    <SearchListView/>
-                )}
-            </SearchContainer>
-        </BodyContainer>
+    <BodyContainer>
+        <ModeSelectContainer>
+            <ModeSelectButtonGroup>
+                <ModeLeftButton variant="contained"
+                                color="primary"
+                                disabled={mode === MODE_RECIPE}
+                                onClick={() => {
+                                    history.push("/")
+                                }}
+                >
+                    Recept
+                </ModeLeftButton>
+                <ModeRightButton variant="contained"
+                                 color="primary"
+                                 disabled={mode === MODE_RECIPE_BOOK}
+                                 onClick={() => {
+                                     history.push("/books")
+                                 }}
+                >
+                    Receptböcker
+                </ModeRightButton>
+            </ModeSelectButtonGroup>
+        </ModeSelectContainer>
+        { selectView(mode) }
+    </BodyContainer>
     );
+}
+
+function selectView(mode) {
+    switch(mode) {
+        case MODE_RECIPE:
+            return <RecipeSearch />
+        case MODE_RECIPE_BOOK:
+            return <RecipeBook />
+        default:
+            return <RecipeSearch />
+    }
 }
 
 export default Search;

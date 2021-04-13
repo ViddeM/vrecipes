@@ -1,8 +1,8 @@
-import {CREATE_RECIPE, GET_RECIPES_FAILED, GET_RECIPES_SUCCESSFUL, ON_SEARCH_FIELD_CHANGED} from "./Search.actions";
-import {authorizedApiCall} from "../../common/functions/authorizedApiCall";
-import {getRecipes} from "../../api/get.Recipes.api";
-import {handleError} from "../../common/functions/handleError";
-import {FAILED_TO_LOAD_RECIPES} from "../../common/translations/ResponseMessages";
+import {CREATE_RECIPE, GET_RECIPES_FAILED, GET_RECIPES_SUCCESSFUL, ON_SEARCH_FIELD_CHANGED} from "./RecipeSearch.actions";
+import {authorizedApiCall} from "../../../common/functions/authorizedApiCall";
+import {getRecipes} from "../../../api/get.Recipes.api";
+import {handleError} from "../../../common/functions/handleError";
+import {FAILED_TO_LOAD_RECIPES} from "../../../common/translations/ResponseMessages";
 
 export function onSearchChanged(newValue) {
     return {

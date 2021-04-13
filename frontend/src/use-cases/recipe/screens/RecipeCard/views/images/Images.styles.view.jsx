@@ -19,7 +19,6 @@ export const FullWidthImage = styled.img`
   width: auto;
   max-width: 100%;
   height: auto;
-  border: 1px solid black;
 `;
 
 export const PDF = styled.embed`
@@ -39,4 +38,3 @@ export const ImagesContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
-

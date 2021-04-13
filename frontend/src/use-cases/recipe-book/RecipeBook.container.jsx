@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import Search from "./Search";
+import {RecipeBook} from "./RecipeBook";
 
 const mapStateToProps = state => ({
 });
@@ -7,4 +7,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeBook);

@@ -26,7 +26,7 @@ import {
     UPLOAD_IMAGE_SUCCESSFUL
 } from "./UploadImages/UploadImages.actions";
 import {EDIT_RECIPE} from "../recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.actions.view";
-import {CREATE_RECIPE} from "../search/Search.actions";
+import {CREATE_RECIPE} from "../search/RecipeSearch/RecipeSearch.actions";
 import {LOAD_RECIPE_AWAIT_RESPONSE} from "../recipe/Recipe.actions";
 
 const initialState = {
@@ -155,7 +155,7 @@ function validateNumber(newNumber, oldValue) {
     }
 
     if (newNumber.includes("-")) {
-        newNumber.replaceAll("_", "")
+        newNumber.replaceAll("-", "")
     }
 
     return newNumber.toString()

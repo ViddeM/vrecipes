@@ -1,0 +1,1 @@
+export const ON_RECIPE_BOOK_SEARCH_FIELD_CHANGED = "on_recipe_book_search_field_changed";

@@ -1,15 +1,21 @@
 import {combineReducers} from "redux";
-import {search} from "../use-cases/search/Search.reducer";
+import {search} from "../use-cases/search/RecipeSearch/RecipeSearch.reducer";
 import {GET_ME_FAILED, GET_ME_SUCCESSFUL, INIT, ON_LOGOUT} from "./App.actions";
-import {searchList} from "../use-cases/search/search-list/SearchList.reducer.view";
+import {searchList} from "../use-cases/search/RecipeSearch/search-list/SearchList.reducer.view";
 import {recipe} from "../use-cases/recipe/Recipe.reducer.screen";
 import {create} from "../use-cases/create/Create.reducer"
 import {LIVE_MODE} from "../common/data/Mode";
+import {bookSearch} from "../use-cases/search/RecipeBooks/RecipeBookSearch.reducer";
+import {bookList} from "../use-cases/search/RecipeBooks/book-list/BookList.reducer.view";
+import {book} from "../use-cases/recipe-book/RecipeBook.reducer";
 
 export const rootReducer = combineReducers({
     init,
     search,
     searchList,
+    bookSearch,
+    bookList,
+    book,
     recipe,
     create
 });

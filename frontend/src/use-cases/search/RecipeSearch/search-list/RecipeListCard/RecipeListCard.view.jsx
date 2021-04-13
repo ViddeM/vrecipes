@@ -7,16 +7,16 @@ import {
     RecipeListCardFooterContainer,
     SmallVSpace
 } from "./RecipeListCard.styles.view";
-import {getImageUrl} from "../../../../api/get.Image.api";
+import {getImageUrl} from "../../../../../api/get.Image.api";
 import {NavLink} from "react-router-dom";
 import {Typography} from "@material-ui/core";
-import {Center} from "../../../../common/styles/Common.styles";
+import {Center} from "../../../../../common/styles/Common.styles";
 
 export const RecipeListCard = props => {
     const recipe = props.recipe;
     let imageUrl = recipe.image_link;
     if (imageUrl === undefined || imageUrl === "") {
-        imageUrl = "static/images/temp_image.jpg"
+        imageUrl = "static/images/default_recipe.png"
     } else {
         imageUrl = getImageUrl(imageUrl)
     }
@@ -25,7 +25,7 @@ export const RecipeListCard = props => {
         if (imageUrl.endsWith(".pdf")) {
             imageUrl = "static/images/pdf_not_supported.png"
         } else {
-            imageUrl = "static/images/temp_image.jpg"
+            imageUrl = "static/images/default_recipe.png"
         }
     }
 

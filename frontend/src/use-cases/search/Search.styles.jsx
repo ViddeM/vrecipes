@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import Card from "@material-ui/core/Card";
-import {Typography} from "@material-ui/core";
 import {VTextField} from "../../common/elements/textfield/VTextField";
 import Button from "@material-ui/core/Button";
 
@@ -13,9 +12,9 @@ export const SearchContainer = styled.div`
 `;
 
 export const BodyContainer = styled.div`
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: flex-start;
     justify-content: space-evenly;
     width: 100%;
@@ -43,10 +42,6 @@ export const SearchTextField = styled(VTextField)`
   width: 100%;
 `
 
-export const WelcomeText = styled(Typography)`
-  color: white;
-`
-
 export const CreateRecipeButton = styled(Button)`
   height: 50px;
   margin: 10px !important;
@@ -58,16 +53,49 @@ export const StyledCard = styled(Card)`
     margin-bottom: 40px
 `
 
-export const OutlinedText = styled(Typography)`
-  -webkit-text-fill-color: yellow;
-  -webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: black;
-    font-weight: bold;
-`;
-
 export const AddIconButtonContainer = styled.div`
   position: fixed;
   bottom: 10px;
   right: 10px;
   z-index: 4;
+`
+
+export const ModeSelectContainer = styled.div`
+ width: 100%;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ margin-bottom: 40px;
+`
+
+export const ModeSelectButtonGroup = styled.div`
+  width: 500px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const ModeLeftButton = styled(Button)`
+  flex: 1;
+  border-radius: 0 !important;
+  
+  @media (min-width: 500px) {
+    border-radius: 20px 0 0 20px !important;
+  }
+`
+
+export const ButtonGroupDivider = styled.div`
+  width: 1px;
+  height: 100%;
+  background-color: black;
+`
+
+export const ModeRightButton = styled(Button)`
+  flex: 1;
+  border-radius: 0 !important;
+  
+  @media (min-width: 500px) {
+    border-radius: 0 20px 20px 0 !important;
+  }
 `

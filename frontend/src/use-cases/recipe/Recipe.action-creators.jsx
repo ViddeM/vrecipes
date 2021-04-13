@@ -8,7 +8,7 @@ import {
 } from "./Recipe.actions";
 import {getRecipe} from "../../api/get.Recipe.api";
 import {FAILED_TO_LOAD_RECIPES} from "../../common/translations/ResponseMessages";
-import {loadRecipes} from "../search/Search.action-creators";
+import {loadRecipes} from "../search/RecipeSearch/RecipeSearch.action-creators";
 import {authorizedApiCall} from "../../common/functions/authorizedApiCall";
 
 

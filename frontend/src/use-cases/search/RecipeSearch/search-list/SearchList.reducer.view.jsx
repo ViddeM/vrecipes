@@ -1,29 +1,4 @@
-import {GET_RECIPES_SUCCESSFUL, ON_SEARCH_FIELD_CHANGED} from "../Search.actions";
-
-const mockRecipes = [
-    {
-        id: "0",
-        name: "ChokladBollar",
-        image: "chokladbollar.jpg",
-        author: "Vidar"
-    },
-    {
-        id: "1",
-        name: "Sphagetti & Köttfärssås",
-        image: "temp_image.jpg",
-        author: "Eric"
-    },
-    {
-        id: "2",
-        name: "Ungsbakad lax",
-        author: "Jacob"
-    },
-    {
-        id: "3",
-        name: "Ungsbakad lax",
-        author: "Jacob"
-    }
-];
+import {GET_RECIPES_SUCCESSFUL, ON_SEARCH_FIELD_CHANGED} from "../RecipeSearch.actions";
 
 const initialState = {
     recipes: [],

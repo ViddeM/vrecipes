@@ -1,4 +1,4 @@
-import {GET_RECIPES_FAILED, ON_SEARCH_FIELD_CHANGED} from "./Search.actions";
+import {GET_RECIPES_FAILED, ON_SEARCH_FIELD_CHANGED} from "./RecipeSearch.actions";
 
 const initialState = {
     searchText: "",

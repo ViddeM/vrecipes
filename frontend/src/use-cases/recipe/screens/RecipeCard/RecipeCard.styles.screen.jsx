@@ -60,7 +60,7 @@ export const StyledTimeIcon = styled(ScheduleIcon)`
 `;
 
 export const TopRow = styled.div`
-  margin: 10px;
+  margin: 0 10px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

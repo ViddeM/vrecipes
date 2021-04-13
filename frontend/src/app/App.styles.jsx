@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {AppBar, IconButton} from "@material-ui/core";
+import {AppBar, IconButton, Tabs} from "@material-ui/core";
 import {ReactComponent as VRecipesLogo} from "../resources/images/group_1_transparent.svg"
 import {NavLink} from "react-router-dom";
 
@@ -43,15 +43,15 @@ export const Logo = styled(VRecipesLogo)`
 `
 
 export const EscapeHatch = styled(NavLink)`
-  margin-right: 10px;
   border-radius: 100%; 
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
   
   &:active {
      background-color: rgba(0,0,0,0.2);
   }
 `
+

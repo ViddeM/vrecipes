@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {
     AppContainer, EscapeHatch,
-    HeaderContainer, Logo, LogoTitleContainer,
+    HeaderContainer, HeaderTabs, Logo, LogoTitleContainer,
     MainContainer,
     StyledAppBar
 } from "./App.styles";
@@ -15,6 +15,7 @@ import Search from "../use-cases/search/Search.container";
 import Recipe from "../use-cases/recipe/Recipe.container";
 import {useWindowSize} from "../common/hooks/useWindowSize/UseWindowSize";
 import Create from "../use-cases/create/Create.container";
+import RecipeBook from "../use-cases/recipe-book/RecipeBook.container";
 
 
 export const App = props => {
@@ -38,7 +39,9 @@ export const App = props => {
                             <Logo />
                         </EscapeHatch>
                         <Typography variant="h4">
-                            {size.width > 1024 ? ("VRecept | En recept hanterare") : ("VRecept")}
+                            {size.width > 1024 ?
+                            "VRecept | En recept hanterare" :
+                            "VRecept"}
                         </Typography>
                     </LogoTitleContainer>
                     {props.user === null ? (
@@ -61,6 +64,8 @@ export const App = props => {
                     <Route path="/recipes/:recipeId" component={Recipe}/>
                     <Route path="/create" component={Create}/>
                     <Route path="/login" component={Login}/>
+                    <Route path="/books/:bookId" component={RecipeBook}/>
+                    <Route path="/books" component={Search}/>
                     <Route path="/" component={Search}/>
                 </Switch>
             </MainContainer>
