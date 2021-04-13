@@ -55,7 +55,10 @@ func initAuth(c *gin.Context, config *oauth2.Config) {
 	}
 	session := sessions.Default(c)
 	session.Set("oauth-state", state)
-	session.Options(sessions.Options{MaxAge: 20 * 60})
+	session.Options(sessions.Options{
+		MaxAge: 20 * 60,
+		SameSite: http.SameSiteStrictMode,
+	})
 	err = session.Save()
 	if err != nil {
 		abort(c)
@@ -86,6 +89,7 @@ func setSession(c *gin.Context, name, email, provider string, token *oauth2.Toke
 	session := sessions.Default(c)
 	session.Options(sessions.Options{
 		Path: "/",
+		SameSite: http.SameSiteStrictMode,
 	})
 	session.Set("token", tokenJson)
 
