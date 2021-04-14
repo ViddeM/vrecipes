@@ -18,8 +18,7 @@ export const CreateGeneral = props => {
         <StyledCard>
             <FormColumn>
                 <FormRow style={{justifyContent: "flex-start"}}>
-                    <CommunistAlignedIcon icon={ArrowBackIcon}
-                                          onClick={() => history.goBack()}
+                    <CommunistAlignedIcon onClick={() => history.goBack()}
                                           align="flex-start"
                     >
                         <ArrowBackIcon/>

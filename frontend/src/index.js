@@ -10,6 +10,7 @@ import {logger} from "redux-logger";
 import * as serviceWorker from './serviceWorker';
 import {ThemeProvider} from '@material-ui/core/styles';
 import {BrowserRouter} from "react-router-dom";
+import {svSE} from "@material-ui/core/locale";
 
 
 const theme = createMuiTheme(
@@ -26,7 +27,7 @@ const theme = createMuiTheme(
                 light: "#ffa733"
             }
         }
-    });
+    }, svSE);
 
 function getReducer(root) {
     return combineReducers(

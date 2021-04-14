@@ -24,7 +24,7 @@ export function recipe(state = initialState, action) {
             return initialState;
         case EDIT_RECIPE:
             return Object.assign({}, state, {
-                redirectTo: "/create"
+                redirectTo: "/recipe/create"
             })
         case BACK_TO_SEARCH:
             return Object.assign({}, state, {

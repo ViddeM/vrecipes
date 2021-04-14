@@ -30,7 +30,7 @@ export const RecipeSearch = props => {
             >
                 Sök efter recept
             </SearchTextField>
-            <NavLink to="/create">
+            <NavLink to="/recipe/create">
                 {
                     window.screen.width < 768 ? (
                     <AddIconButtonContainer>

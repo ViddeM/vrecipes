@@ -25,7 +25,7 @@ export const RecipeBookSearch = props => {
             >
                 Sök efter receptböcker
             </SearchTextField>
-            <NavLink to="/create">
+            <NavLink to="/book/create">
                 {
                     window.screen.width < 768 ? (
                     <AddIconButtonContainer>

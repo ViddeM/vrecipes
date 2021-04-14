@@ -16,6 +16,7 @@ import Recipe from "../use-cases/recipe/Recipe.container";
 import {useWindowSize} from "../common/hooks/useWindowSize/UseWindowSize";
 import Create from "../use-cases/create/Create.container";
 import RecipeBook from "../use-cases/recipe-book/RecipeBook.container";
+import CreateBook from "../use-cases/create-book/CreateBook.container";
 
 
 export const App = props => {
@@ -62,10 +63,11 @@ export const App = props => {
             <MainContainer className={"MainContainer"}>
                 <Switch>
                     <Route path="/recipes/:recipeId" component={Recipe}/>
-                    <Route path="/create" component={Create}/>
+                    <Route path="/recipe/create" component={Create}/>
                     <Route path="/login" component={Login}/>
                     <Route path="/books/:bookId" component={RecipeBook}/>
                     <Route path="/books" component={Search}/>
+                    <Route path="/book/create" component={CreateBook}/>
                     <Route path="/" component={Search}/>
                 </Switch>
             </MainContainer>
