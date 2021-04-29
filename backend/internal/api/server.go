@@ -37,9 +37,9 @@ func Init() {
 			authRequired.GET("/recipes/:uniqueName", endpoints.Recipe)
 			authRequired.DELETE("/recipes/:id", endpoints.RemoveRecipe)
 			authRequired.GET("/me", authentication.Me)
+			authRequired.POST("/books", endpoints.NewRecipeBook)
+			authRequired.GET("/books", endpoints.RecipeBooks)
 		}
-
-
 
 		auth := api.Group("/auth")
 		{

@@ -4,9 +4,14 @@ import {Typography} from "@material-ui/core";
 
 const FileSelect = ({
                         onSelectFile,
-                        selectedFileName
+                        selectedFileName,
+                        acceptPdf
                     }) => {
     const fileRef = useRef(null);
+    let accept = "image/*"
+    if (acceptPdf) {
+        accept = "application/pdf," + accept
+    }
 
     return (
         <FileSelectContainer>
@@ -14,7 +19,7 @@ const FileSelect = ({
                 type="file"
                 onChange={e => onSelectFile(e.target.files[0])}
                 ref={fileRef}
-                accept="application/pdf,image/*"
+                accept={accept}
             />
             <Typography>
                 {selectedFileName != null ? selectedFileName : "Ingen bild vald"}

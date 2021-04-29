@@ -4,7 +4,6 @@ import {removeImage, uploadImage} from "./UploadImages.action-creators";
 
 const mapStateToProps = state => ({
     images: state.root.create.images,
-    error: state.root.create.imageUploadError,
     uploadingImage: state.root.create.uploadingImage,
     imageUploadError: state.root.create.imageUploadError
 });

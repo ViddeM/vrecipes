@@ -82,7 +82,7 @@ func connectImageToRecipe(recipeId uint64, imageId uint64) (*tables.RecipeImage,
 func CreateRecipe(name, description string, ovenTemp, estimatedTime int, userId uint64) (*tables.Recipe, error) {
 	uniqueName, err := generateUniqueName(name)
 	if err != nil {
-		return &tables.Recipe{}, err
+		return nil, err
 	}
 	recipe, err := commands.CreateRecipe(name, uniqueName, description, ovenTemp, estimatedTime, userId)
 	return recipe, err

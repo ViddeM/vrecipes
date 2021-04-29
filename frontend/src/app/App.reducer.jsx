@@ -8,6 +8,7 @@ import {LIVE_MODE} from "../common/data/Mode";
 import {bookSearch} from "../use-cases/search/RecipeBooks/RecipeBookSearch.reducer";
 import {bookList} from "../use-cases/search/RecipeBooks/book-list/BookList.reducer.view";
 import {book} from "../use-cases/recipe-book/RecipeBook.reducer";
+import {createBook} from "../use-cases/create-book/CreateBook.reducer";
 
 export const rootReducer = combineReducers({
     init,
@@ -17,7 +18,8 @@ export const rootReducer = combineReducers({
     bookList,
     book,
     recipe,
-    create
+    create,
+    createBook
 });
 
 

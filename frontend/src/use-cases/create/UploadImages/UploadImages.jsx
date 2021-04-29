@@ -100,6 +100,7 @@ export const UploadImages = props => {
                     <FileSelect
                     onSelectFile={setFile}
                     selectedFileName={file != null ? file.name : null}
+                    acceptPdf
                     />
                     ) : (
                     <Typography>
@@ -127,15 +128,6 @@ export const UploadImages = props => {
                     Ladda upp bild
                 </AddIngredientButton>
             </FormRow>
-            {
-                props.error !== "" && (
-                <StyledText
-                    style={{color: "red"}}
-                >
-                    {props.error}
-                </StyledText>
-                )
-            }
         </FormColumn>
     </StyledCard>
     )

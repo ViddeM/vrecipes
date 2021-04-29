@@ -16,7 +16,9 @@ const translations = {
     not_authorized: "Inte autentiserad",
     filetype_not_supported: "Filformatet stöds ej",
     internal_error: "Internt fel",
-    incorrect_user: "Felaktig användare inloggad"
+    incorrect_user: "Felaktig användare inloggad",
+    recipe_book_name_exists: "En receptbok med det namnet finns redan",
+    failed_to_create_recipe_book: "Misslyckades med att skapa receptbok"
 }
 
 export const DEFAULT_ERROR = "Whoops något gick fel :("

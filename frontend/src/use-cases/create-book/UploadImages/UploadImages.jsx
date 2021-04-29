@@ -11,7 +11,9 @@ import {StyledText} from "../../../common/styles/Common.styles";
 import {getImageUrl} from "../../../api/get.Image.api";
 import {
     ImageContainer,
-    OuterImageContainer, RemoveImageButton, StyledImage
+    OuterImageContainer,
+    RemoveImageButton,
+    StyledImage
 } from "../../create/UploadImages/UploadImages.styles";
 import CancelIcon from "@material-ui/icons/Cancel";
 import {Button, Typography} from "@material-ui/core";
@@ -25,7 +27,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 
 export const UploadImages = props => {
     const [file, setFile] = useState(null);
-    const [toRemove, setToRemove] = useState(null);
+    const [removeImage, setRemoveImage] = useState(false);
     const [errored, setErrored] = useState([]);
 
     return (
@@ -37,49 +39,16 @@ export const UploadImages = props => {
                 </StyledText>
             </FormRow>
             <FormRow>
-                {getDialog(toRemove !== null,
-                           // () => props.removeImage(toRemove),
-                           () => setToRemove(null)
+                {getDialog(removeImage,
+                           () => props.removeImage(),
+                           () => setRemoveImage(false)
                 )}
-                {(props.images && props.images.length > 0) ?
-                props.images.map(image => {
-                    let url = getImageUrl(image.url)
-
-                    return (
-                    <OuterImageContainer>
-                        <ImageContainer>
-                            <StyledImage width="260"
-                                         key={image.id}
-                                         src={url}
-                                         alt="Kunde inte visa bild"
-                                         onError={() => {
-                                             if (!errored.includes(image.url)) {
-                                                 setErrored([...errored, image.url])
-                                             }
-                                         }}
-                            />
-                            <RemoveImageButton>
-                                <RemoveIconButton color="secondary"
-                                                  onClick={() => {
-                                                      setErrored(errored.filter(imgUrl => {
-                                                          return imgUrl !== image.url
-                                                      }))
-                                                      setToRemove(image);
-                                                  }}
-                                >
-                                    <CancelIcon/>
-                                </RemoveIconButton>
-                            </RemoveImageButton>
-                        </ImageContainer>
-                        )}
-                    </OuterImageContainer>
-                    )
-
-                }) :
-                <Typography>
-                    Inga bilder tillagda
-                </Typography>
-                }
+                {props.image !== null ?
+                displayImage(props.image, errored, setErrored, setRemoveImage) : (
+                    <Typography>
+                        Inga bilder tillagda
+                    </Typography>
+                )}
                 {
                     props.uploadingImage && (
                     <CircularProgress/>
@@ -87,14 +56,14 @@ export const UploadImages = props => {
                 }
             </FormRow>
             <FormRow>
-                {/*{*/}
-                {/*    props.images.length < 1 && (*/}
-                    <FileSelect
-                    onSelectFile={setFile}
-                    selectedFileName={file != null ? file.name : null}
-                    />
-                {/*    )*/}
-                {/*}*/}
+                {
+                    props.image === null && (
+                        <FileSelect
+                        onSelectFile={setFile}
+                        selectedFileName={file != null ? file.name : null}
+                        />
+                    )
+                }
             </FormRow>
             {
                 props.imageUploadError && (
@@ -115,17 +84,41 @@ export const UploadImages = props => {
                     Ladda upp bild
                 </AddIngredientButton>
             </FormRow>
-            {
-                props.error !== "" && (
-                <StyledText
-                style={{color: "red"}}
-                >
-                    {props.error}
-                </StyledText>
-                )
-            }
         </FormColumn>
     </StyledCard>
+    )
+}
+
+function displayImage(image, errored, setErrored, setRemoveImage) {
+    let url = getImageUrl(image.url)
+
+    return (
+    <OuterImageContainer>
+        <ImageContainer>
+            <StyledImage width="260"
+                         key={image.id}
+                         src={url}
+                         alt="Kunde inte visa bild"
+                         onError={() => {
+                             if (!errored.includes(image.url)) {
+                                 setErrored([...errored, image.url])
+                             }
+                         }}
+            />
+            <RemoveImageButton>
+                <RemoveIconButton color="secondary"
+                                  onClick={() => {
+                                      setErrored(errored.filter(imgUrl => {
+                                          return imgUrl !== image.url
+                                      }))
+                                      setRemoveImage(true);
+                                  }}
+                >
+                    <CancelIcon/>
+                </RemoveIconButton>
+            </RemoveImageButton>
+        </ImageContainer>
+    </OuterImageContainer>
     )
 }
 
