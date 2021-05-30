@@ -22,8 +22,8 @@ const mockBooks = [
 ]
 
 const initialState = {
-    books: mockBooks,
-    filteredBooks: mockBooks,
+    books: [],
+    filteredBooks: [],
     filterText: ""
 }
 

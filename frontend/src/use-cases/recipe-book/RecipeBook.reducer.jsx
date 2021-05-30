@@ -29,7 +29,7 @@ const mockBook = {
 }
 
 const initialState = {
-    book: mockBook
+    book: null
 }
 
 export function book(state = initialState, action) {

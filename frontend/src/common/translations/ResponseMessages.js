@@ -23,6 +23,7 @@ const translations = {
 
 export const DEFAULT_ERROR = "Whoops något gick fel :("
 export const FAILED_TO_LOAD_RECIPES = "Kunde inte ladda recept"
+export const FAILED_TO_LOAD_RECIPE_BOOKS = "Kunde inte ladda receptböcker"
 
 export function translate(message) {
     if (!(message in translations)) {

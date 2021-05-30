@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onSearchChanged: value => dispatch(onSearchChanged(value)),
     newRecipe: () => dispatch(newRecipe()),
-    loadRecipes: () => dispatch(loadRecipes())
+    loadRecipes: () => dispatch(loadRecipes()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeSearch);

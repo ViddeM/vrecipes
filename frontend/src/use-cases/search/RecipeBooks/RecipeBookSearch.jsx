@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {
     AddIconButtonContainer,
     CreateRecipeButton,
@@ -13,6 +13,11 @@ import {SmallVSpace} from "../RecipeSearch/search-list/RecipeListCard/RecipeList
 import BookList from "./book-list/BookList.container.view";
 
 export const RecipeBookSearch = props => {
+    const {loadRecipeBooks} = props
+
+    useEffect(() => {
+        loadRecipeBooks()
+    }, [loadRecipeBooks])
 
     return (
     <SearchContainer className="search-recipe-book-container">
