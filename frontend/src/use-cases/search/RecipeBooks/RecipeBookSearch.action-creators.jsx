@@ -10,7 +10,10 @@ import {
     GET_RECIPES_SUCCESSFUL
 } from "../RecipeSearch/RecipeSearch.actions";
 import {handleError} from "../../../common/functions/handleError";
-import {FAILED_TO_LOAD_RECIPES} from "../../../common/translations/ResponseMessages";
+import {
+    FAILED_TO_LOAD_RECIPE_BOOKS,
+    FAILED_TO_LOAD_RECIPES
+} from "../../../common/translations/ResponseMessages";
 
 export function onBookSearchChanged(newValue) {
     return {
@@ -50,5 +53,5 @@ function onLoadRecipeBooksSuccessful(response) {
 function onLoadRecipeBooksFailed(error) {
     return handleError(error,
                        GET_RECIPE_BOOKS_FAILED,
-                       FAILED_TO_LOAD_RECIPES);
+                       FAILED_TO_LOAD_RECIPE_BOOKS);
 }

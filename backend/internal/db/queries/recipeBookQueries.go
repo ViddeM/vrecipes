@@ -10,7 +10,6 @@ SELECT id, name, unique_name, author, created_by, deleted
 FROM recipe_book
 WHERE unique_name=$1
 `
-
 func GetRecipeBookByName(uniqueName string) (*tables.RecipeBook, error) {
 	db := getDb()
 

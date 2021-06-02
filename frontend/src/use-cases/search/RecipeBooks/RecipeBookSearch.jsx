@@ -11,6 +11,7 @@ import {Fab} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import {SmallVSpace} from "../RecipeSearch/search-list/RecipeListCard/RecipeListCard.styles.view";
 import BookList from "./book-list/BookList.container.view";
+import ErrorCard from "../../../common/views/errorcard";
 
 export const RecipeBookSearch = props => {
     const {loadRecipeBooks} = props
@@ -50,7 +51,12 @@ export const RecipeBookSearch = props => {
             </NavLink>
         </SearchAddContainer>
         <SmallVSpace/>
-        <BookList />
+        {props.error && (
+            <ErrorCard message={props.error}/>
+        )}
+        {props.error === null && (
+            <BookList />
+        )}
     </SearchContainer>
     )
 }

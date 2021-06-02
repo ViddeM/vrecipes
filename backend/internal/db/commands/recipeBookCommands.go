@@ -15,6 +15,6 @@ func CreateRecipeBook(name, uniqueName, author string, createdBy uint64) (*table
 	db := getDb()
 
 	var recipeBook tables.RecipeBook
-	err := pgxscan.Get(ctx, db, &recipeBook, createRecipeBookCommand, name, uniqueName, author, false, createdBy)
+	err := pgxscan.Get(ctx, db, &recipeBook, createRecipeBookCommand, name, uniqueName, author, createdBy)
 	return &recipeBook, err
 }

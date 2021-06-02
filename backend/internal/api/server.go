@@ -39,6 +39,7 @@ func Init() {
 			authRequired.GET("/me", authentication.Me)
 			authRequired.POST("/books", endpoints.NewRecipeBook)
 			authRequired.GET("/books", endpoints.RecipeBooks)
+			authRequired.GET("/books/:uniqueName", endpoints.RecipeBook)
 		}
 
 		auth := api.Group("/auth")

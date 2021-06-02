@@ -1,7 +1,7 @@
 import {GridContainer} from "../CreateBook.styles";
 import {DataGrid, GridToolbar} from "@material-ui/data-grid";
 import {GRID_TRANSLATIONS} from "../CreateBook.translations";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Link} from "@material-ui/core";
 import {
     FormRow,

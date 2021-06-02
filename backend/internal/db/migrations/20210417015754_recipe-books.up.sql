@@ -18,6 +18,6 @@ CREATE TABLE IF NOT EXISTS recipe_book_recipe
 CREATE TABLE IF NOT EXISTS recipe_book_image
 (
     recipe_book_id BIGINT REFERENCES recipe_book (id),
-    image_id       BIGINT REFERENCES recipe (id),
+    image_id       BIGINT REFERENCES image (id),
     PRIMARY KEY (recipe_book_id, image_id)
 )

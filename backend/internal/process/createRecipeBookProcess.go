@@ -39,7 +39,7 @@ func generateUniqueBookName(name string) (string, error) {
 	uniqueName := strings.ReplaceAll(lowerCase, " ", "_")
 
 	_, err := queries.GetRecipeBookByName(uniqueName)
-	if err == nil {
+	if err != nil {
 		if pgxscan.NotFound(err) {
 			return uniqueName, nil
 		}

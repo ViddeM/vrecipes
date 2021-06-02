@@ -7,7 +7,7 @@ import (
 
 var createRecipeBookImageCommand = `
 INSERT INTO recipe_book_image(recipe_book_id, image_id)
-					   VALUES ($1, 			   $2)
+					  VALUES ($1, 			  $2)
 RETURNING recipe_book_id, image_id
 `
 

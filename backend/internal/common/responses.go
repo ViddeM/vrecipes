@@ -24,7 +24,7 @@ func Error(err string) ErrorResponse {
 	}
 }
 
-var (
+const (
 	ResponseRecipeNameExist             = "recipe_name_exists"
 	ResponseFailedToCreateRecipe        = "failed_to_create_recipe"
 	ResponseFailedToEditRecipe          = "failed_to_edit_recipe"
@@ -45,4 +45,6 @@ var (
 	ResponseRecipeBookNameExists        = "recipe_book_name_exists"
 	ResponseFailedToCreateRecipeBook    = "failed_to_create_recipe_book"
 	ResponseFailedToRetrieveRecipeBooks = "failed_to_retrieve_recipe_books"
+	ResponseRecipeBookNotFound          = "recipe_book_not_found"
+	ResponseFailedToRetrieveRecipeBook  = "failed_to_retrieve_recipe_book"
 )

@@ -18,12 +18,14 @@ const translations = {
     internal_error: "Internt fel",
     incorrect_user: "Felaktig användare inloggad",
     recipe_book_name_exists: "En receptbok med det namnet finns redan",
-    failed_to_create_recipe_book: "Misslyckades med att skapa receptbok"
+    failed_to_create_recipe_book: "Misslyckades med att skapa receptbok",
+    recipe_book_not_found: "Receptboken hittades inte",
 }
 
 export const DEFAULT_ERROR = "Whoops något gick fel :("
 export const FAILED_TO_LOAD_RECIPES = "Kunde inte ladda recept"
 export const FAILED_TO_LOAD_RECIPE_BOOKS = "Kunde inte ladda receptböcker"
+export const FAILED_TO_LOAD_RECIPE_BOOK = "Kunde inte ladda receptbok"
 
 export function translate(message) {
     if (!(message in translations)) {

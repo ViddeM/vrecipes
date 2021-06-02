@@ -6,7 +6,8 @@ import {
 } from "./RecipeBookSearch.action-creators";
 
 const mapStateToProps = state => ({
-    searchText: state.root.bookSearch.searchText
+    searchText: state.root.bookSearch.searchText,
+    error: state.root.bookSearch.error,
 });
 
 const mapDispatchToProps = dispatch => ({

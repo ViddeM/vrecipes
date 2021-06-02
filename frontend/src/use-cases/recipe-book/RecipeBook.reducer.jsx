@@ -1,3 +1,9 @@
+import {
+    BACK_TO_BOOK_SEARCH,
+    LOAD_RECIPE_BOOK_FAILED,
+    LOAD_RECIPE_BOOK_SUCCESSFUL
+} from "./RecipeBook.actions";
+
 const mockBook = {
     name: "LPs lilla spritlista",
     author: "Eric Carlsson",
@@ -29,12 +35,39 @@ const mockBook = {
 }
 
 const initialState = {
-    book: null
+    error: null,
+    book: null,
+    redirectTo: "",
 }
 
 export function book(state = initialState, action) {
     switch (action.type) {
+        case LOAD_RECIPE_BOOK_SUCCESSFUL:
+            return Object.assign({}, state, handleRecipeBookResponse(action.payload.response.data.data));
+        case LOAD_RECIPE_BOOK_FAILED:
+            return Object.assign({}, state, {
+                error: action.payload,
+                redirectTo: ""
+            })
+        case BACK_TO_BOOK_SEARCH:
+            return Object.assign({}, state, {
+                redirectTo: "/books"
+            })
         default:
             return state
+    }
+}
+
+function handleRecipeBookResponse(recipeBook) {
+    return {
+        error: null,
+        book: {
+            id: recipeBook.id,
+            name: recipeBook.name,
+            uploadedBy: recipeBook.uploadedBy,
+            author: recipeBook.author,
+            recipes: recipeBook.recipes,
+        },
+        redirectTo: "",
     }
 }

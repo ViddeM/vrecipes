@@ -1,4 +1,7 @@
-import {ON_RECIPE_BOOK_SEARCH_FIELD_CHANGED} from "../RecipeBookSearch.actions";
+import {
+    GET_RECIPE_BOOKS_SUCCESSFUL,
+    ON_RECIPE_BOOK_SEARCH_FIELD_CHANGED
+} from "../RecipeBookSearch.actions";
 
 const mockBooks = [
     {
@@ -6,7 +9,7 @@ const mockBooks = [
         "unique_name": "mormors_lilla_kokbok",
         "name": "Mormors lilla kokbok",
         "author": "Margit Magnusson",
-        "uploaded_by": {
+        "uploadedBy": {
             name: "Vidar Magnusson"
         }
     },
@@ -15,7 +18,7 @@ const mockBooks = [
         "unique_name": "spritboken_2.1",
         "name": "Spritboken 2.1",
         "author": "Some dude",
-        "uploaded_by": {
+        "uploadedBy": {
             name: "Some whitelisted dude"
         }
     }
@@ -36,6 +39,12 @@ export function bookList(state = initialState, action) {
                 filteredBooks: filterBooks(state.books, search),
                 filterText: search
             })
+        case GET_RECIPE_BOOKS_SUCCESSFUL:
+            const recipeBooks = action.payload.response.data.data.recipeBooks;
+            return Object.assign({}, state, {
+                books: recipeBooks,
+                filteredBooks: recipeBooks
+            })
         default:
             return state;
     }
@@ -44,6 +53,6 @@ export function bookList(state = initialState, action) {
 function filterBooks(books, search) {
     return books.filter(book => {
         return book.name.toLowerCase().includes(search) ||
-        book.uploaded_by.name.toLowerCase().includes(search);
+        book.uploadedBy.name.toLowerCase().includes(search);
     })
 }

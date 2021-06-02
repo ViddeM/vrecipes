@@ -7,14 +7,18 @@ import {
     RecipeListCardCard,
     RecipeListCardContainer, RecipeListCardFooterContainer, SmallVSpace
 } from "../../../RecipeSearch/search-list/RecipeListCard/RecipeListCard.styles.view";
+import {getImageUrl} from "../../../../../api/get.Image.api";
 
 export const BookListCard = props => {
     const book = props.book;
-    const imageUrl = "static/images/default_book_2.png"
+    let imageUrl = "static/images/default_book_2.png"
+    if (book.imageLink) {
+       imageUrl = getImageUrl(book.imageLink)
+    }
 
     return (
     <RecipeListCardContainer>
-        <NavLink to={"/books/" + book.unique_name}>
+        <NavLink to={"/books/" + book.uniqueName}>
             <RecipeListCardCard>
                 <ImageBorder>
                     <ImageContainer src={imageUrl}
@@ -30,7 +34,7 @@ export const BookListCard = props => {
                 </Center>
                 <RecipeListCardFooterContainer>
                     <Typography>
-                        {"Upplagd av " + book.uploaded_by.name}
+                        {"Upplagd av " + book.uploadedBy.name}
                     </Typography>
                 </RecipeListCardFooterContainer>
             </RecipeListCardCard>

@@ -52,7 +52,7 @@ export const RecipeSearch = props => {
         </SearchAddContainer>
         <SmallVSpace/>
         {props.error && (
-        <ErrorCard message={props.error}/>
+            <ErrorCard message={props.error}/>
         )}
         {props.error === null && (
         <SearchListView/>

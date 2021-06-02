@@ -58,7 +58,15 @@ func Init() {
 type logger struct{}
 
 func (logger *logger) Log(ctx context.Context, level pgx.LogLevel, msg string, data map[string]interface{}) {
-	log.Printf("DB-LOG:::%s:::%s:::%+v\n", level, msg, data)
+	mapStr := "MAP {\n"
+
+	for k, v := range data {
+		mapStr += fmt.Sprintf("\tMAP_ENTRY::%s: %+v\n", k, v)
+	}
+
+	mapStr += "}"
+
+	log.Printf("DB-LOG:::%s:::%s:::%s::%s\n", level, msg, data, mapStr)
 }
 
 func resetDb() {

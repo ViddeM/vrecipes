@@ -1,13 +1,13 @@
 import React from "react"
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import {useHistory} from "react-router";
+import {Redirect, Route, useHistory} from "react-router";
 import {
     CommunistAlignedIcon,
-    CreateContainer,
+    CreateContainer, ErrorText,
     FormRow,
     PaddingContainer,
     StyledCard,
-    TextFieldWithMargin
+    TextFieldWithMargin, WarningText
 } from "../create/Create.styles";
 import {StyledText, VSpace} from "../../common/styles/Common.styles";
 import Button from "@material-ui/core/Button";
@@ -15,8 +15,17 @@ import UploadImages from "./UploadImages/UploadImages.container";
 import RecipeTable from "./CreateBookRecipeTable/RecipeTable.container";
 
 export const CreateBook = props => {
-
+    const errorsList = Object.keys(props.validationErrors);
     const history = useHistory()
+
+    if (props.redirectTo !== "") {
+        return (
+        <Route>
+            <Redirect to={props.redirectTo}/>
+        </Route>
+        )
+    }
+
     return (
     <CreateContainer>
         <StyledCard>
@@ -38,8 +47,10 @@ export const CreateBook = props => {
                                          maxLength={120}
                                          label="Receptboksnamn (obligatorisk)"
                                          flex={"1"}
-                                         value={props.name}
+                                         value={props.book.name}
                                          onChange={props.onBookNameChange}
+                                         error={props.validationErrors.name !== undefined}
+                                         errormessage={props.validationErrors.name}
                     // error={props.errors.name !== undefined}
                     // errormessage={props.errors.name}
                     />
@@ -51,7 +62,7 @@ export const CreateBook = props => {
                                          maxLength={120}
                                          label="Författare"
                                          flex={"1"}
-                                         value={props.author}
+                                         value={props.book.author}
                                          onChange={props.onBookAuthorChange}
                     // error={props.errors.name !== undefined}
                     // errormessage={props.errors.name}
@@ -61,8 +72,20 @@ export const CreateBook = props => {
         </StyledCard>
         <RecipeTable />
         <UploadImages/>
+        {
+            errorsList.length > 0 ? (
+            <ErrorText>
+                Någonting är fel med receptboken, var vänlig se över receptet och lös problemen.
+            </ErrorText>
+            ) :
+            props.saveError &&
+            <ErrorText>
+                {props.saveError}
+            </ErrorText>
+        }
         <Button variant="contained"
                 color="primary"
+                onClick={() => props.onSave(props.book)}
         // onClick={() => props.recipe.id === "" ?
         // props.onSave(props.recipe) :
         // props.onEditedRecipeSave(props.recipe)

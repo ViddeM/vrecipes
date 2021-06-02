@@ -3,20 +3,22 @@ import {withRouter} from "react-router-dom";
 import {CreateBook} from "./CreateBook";
 import {
     onBookAuthorChange,
-    onBookNameChange
+    onBookNameChange, onRecipeBookSave
 } from "./CreateBook.action-creators";
 import {loadRecipes} from "../search/RecipeSearch/RecipeSearch.action-creators";
 
 const mapStateToProps = state => ({
-    name: state.root.createBook.name,
-    author: state.root.createBook.author,
-    recipes: state.root.createBook.recipes
+    book: state.root.createBook,
+    saveError: state.root.createBook.saveError,
+    validationErrors: state.root.createBook.errors,
+    redirectTo: state.root.createBook.redirectTo,
 });
 
 const mapDispatchToProps = dispatch => ({
     onBookNameChange: newName => dispatch(onBookNameChange(newName)),
     onBookAuthorChange: newAuthor => dispatch(onBookAuthorChange(newAuthor)),
-    loadRecipes: () => dispatch(loadRecipes())
+    loadRecipes: () => dispatch(loadRecipes()),
+    onSave: book => dispatch(onRecipeBookSave(book))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CreateBook));
