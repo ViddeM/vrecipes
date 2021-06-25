@@ -20,6 +20,9 @@ const translations = {
     recipe_book_name_exists: "En receptbok med det namnet finns redan",
     failed_to_create_recipe_book: "Misslyckades med att skapa receptbok",
     recipe_book_not_found: "Receptboken hittades inte",
+    malformed_recipe_book_id: "Internt fel (felaktig receptboks id)",
+    failed_to_edit_recipe_book: "Kunde inte ändra receptbok",
+    failed_to_retrieve_recipe_books: "Kunde inte hämta receptböckerF"
 }
 
 export const DEFAULT_ERROR = "Whoops något gick fel :("
