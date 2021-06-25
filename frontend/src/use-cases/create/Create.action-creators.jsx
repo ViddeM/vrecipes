@@ -43,7 +43,6 @@ export function onRecipeSave(recipe) {
 }
 
 export function onEditedRecipeSave(recipe) {
-    console.log("SAVE EDITED RECIPE?")
     const errors = validateRecipe(recipe)
 
     if (Object.keys(errors).length === 0) {
