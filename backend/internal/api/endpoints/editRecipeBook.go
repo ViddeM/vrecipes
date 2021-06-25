@@ -42,6 +42,7 @@ func EditRecipeBook(c *gin.Context) {
 		}
 
 		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseFailedToEditRecipeBook))
+		return
 	}
 
 	c.JSON(http.StatusOK, common.Success(NewRecipeBookResponse{uniqueName}))
