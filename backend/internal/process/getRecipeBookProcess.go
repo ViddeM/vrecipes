@@ -22,6 +22,11 @@ func GetRecipeBook(uniqueName string) (*models.DetailedRecipeBookJson, error) {
 		return nil, err
 	}
 
+	image, err := queries.GetImageForRecipeBook(recipeBook.ID)
+	if err != nil {
+		return nil, err
+	}
+
 	user, err := queries.GetUser(recipeBook.CreatedBy)
 	if err != nil {
 		return nil, err
@@ -38,6 +43,10 @@ func GetRecipeBook(uniqueName string) (*models.DetailedRecipeBookJson, error) {
 		UploadedBy: *user,
 		Author:     recipeBook.Author,
 		Recipes:    recipeJsons,
+		Image: 		models.ImageJson{
+			Path: imageNameToPath(image.ID, image.Name),
+			ID:   image.ID,
+		},
 	}, nil
 }
 
@@ -53,6 +62,7 @@ func RecipesToJson(recipes []*tables.Recipe) ([]models.RecipeBookRecipeJson, err
 			Name:       recipe.Name,
 			UniqueName: recipe.UniqueName,
 			Author:     author.Name,
+			ID: recipe.ID,
 		})
 	}
 

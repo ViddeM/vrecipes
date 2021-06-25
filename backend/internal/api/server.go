@@ -30,16 +30,17 @@ func Init() {
 			authRequired.Static("/images", envVars.ImageFolder)
 
 			authRequired.GET("/health", endpoints.HealthCheck)
+			authRequired.GET("/recipes/:uniqueName", endpoints.Recipe)
+			authRequired.GET("/recipes", endpoints.Recipes)
 			authRequired.POST("/recipes", endpoints.NewRecipe)
 			authRequired.PUT("/recipes/:id", endpoints.EditRecipe)
-			authRequired.PUT("/images", endpoints.ImageUpload)
-			authRequired.GET("/recipes", endpoints.Recipes)
-			authRequired.GET("/recipes/:uniqueName", endpoints.Recipe)
 			authRequired.DELETE("/recipes/:id", endpoints.RemoveRecipe)
+			authRequired.PUT("/images", endpoints.ImageUpload)
 			authRequired.GET("/me", authentication.Me)
-			authRequired.POST("/books", endpoints.NewRecipeBook)
-			authRequired.GET("/books", endpoints.RecipeBooks)
 			authRequired.GET("/books/:uniqueName", endpoints.RecipeBook)
+			authRequired.GET("/books", endpoints.RecipeBooks)
+			authRequired.POST("/books", endpoints.NewRecipeBook)
+			authRequired.PUT("/books/:id", endpoints.EditRecipeBook)
 		}
 
 		auth := api.Group("/auth")

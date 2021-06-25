@@ -18,3 +18,15 @@ func CreateRecipeBookImage(recipeBookId, imageId uint64) (*tables.RecipeBookImag
 	err := pgxscan.Get(ctx, db, &recipeBookImage, createRecipeBookImageCommand, recipeBookId, imageId)
 	return &recipeBookImage, err
 }
+
+var deleteRecipeBookImageCommand = `
+DELETE FROM recipe_book_image
+WHERE recipe_book_id=$1 AND image_id=$2
+`
+
+func DeleteRecipeBookImage(bookId, imageId uint64) error {
+	db := getDb()
+
+	_, err := db.Exec(ctx, deleteRecipeBookImageCommand, bookId, imageId)
+	return err
+}

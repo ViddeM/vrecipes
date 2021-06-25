@@ -47,4 +47,6 @@ const (
 	ResponseFailedToRetrieveRecipeBooks = "failed_to_retrieve_recipe_books"
 	ResponseRecipeBookNotFound          = "recipe_book_not_found"
 	ResponseFailedToRetrieveRecipeBook  = "failed_to_retrieve_recipe_book"
+	ResponseMalformedRecipeBookId           = "malformed_recipe_book_id"
+	ResponseFailedToEditRecipeBook          = "failed_to_edit_recipe_book"
 )

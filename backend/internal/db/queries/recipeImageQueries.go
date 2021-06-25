@@ -5,7 +5,10 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
-var getImagesForRecipeQuery = `SELECT image_id, recipe_id FROM recipe_image WHERE recipe_id=$1`
+var getImagesForRecipeQuery = `
+SELECT image_id, recipe_id 
+FROM recipe_image 
+WHERE recipe_id=$1`
 
 func GetImagesForRecipe(recipeId uint64) ([]tables.Image, error) {
 	db := getDb()

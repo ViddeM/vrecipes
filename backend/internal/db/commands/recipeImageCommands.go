@@ -18,7 +18,9 @@ func CreateRecipeImage(recipeId, imageId uint64) (*tables.RecipeImage, error) {
 	return &recipeImage, err
 }
 
-var deleteRecipeImageCommand = `DELETE FROM recipe_image WHERE recipe_id=$1 AND image_id=$2`
+var deleteRecipeImageCommand = `
+DELETE FROM recipe_image 
+WHERE recipe_id=$1 AND image_id=$2`
 
 func DeleteRecipeImage(recipeId, imageId uint64) error {
 	db := getDb()

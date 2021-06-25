@@ -32,3 +32,17 @@ func GetNonDeletedRecipeBooks() ([]*tables.RecipeBook, error) {
 
 	return recipeBooks, err
 }
+
+var getRecipeBookByIdQuery = `
+SELECT id, name, unique_name, author, created_by, deleted
+FROM recipe_book
+WHERE id=$1
+`
+
+func GetRecipeBookById(id uint64) (*tables.RecipeBook, error) {
+	db := getDb()
+
+	var recipeBook tables.RecipeBook
+	err := pgxscan.Get(ctx, db, &recipeBook, getRecipeBookByIdQuery, id)
+	return &recipeBook, err
+}

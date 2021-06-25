@@ -18,3 +18,18 @@ func CreateRecipeBook(name, uniqueName, author string, createdBy uint64) (*table
 	err := pgxscan.Get(ctx, db, &recipeBook, createRecipeBookCommand, name, uniqueName, author, createdBy)
 	return &recipeBook, err
 }
+
+var updateRecipeBookCommand = `
+UPDATE recipe_book
+SET name=$1
+	unique_name=$2
+	author=$3
+WHERE id=$4
+`
+
+func UpdateRecipeBook(name, uniqueName, author string, bookId uint64) error {
+	db := getDb()
+
+	_, err := db.Exec(ctx, updateRecipeBookCommand, name, uniqueName, author, bookId)
+	return err
+}
