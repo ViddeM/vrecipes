@@ -14,7 +14,7 @@ WHERE recipe_book_id=$1
 func GetImageForRecipeBook(recipeBookId uint64) (*tables.Image, error) {
 	db := getDb()
 
-	var recipeBookImage tables.RecipeBookImage
+	var recipeBookImage *tables.RecipeBookImage
 	err := pgxscan.Get(ctx, db, &recipeBookImage, getImageForRecipeBookQuery, recipeBookId)
 
 	if err != nil {
@@ -41,7 +41,7 @@ func GetImagesForRecipeBook(recipeBookId uint64) ([]tables.Image, error) {
 	}
 
 	var images []tables.Image
-	if recipeBookImages	!= nil {
+	if recipeBookImages != nil {
 		for _, bookImage := range recipeBookImages {
 			img, err := GetImageById(bookImage.ImageID)
 			if err != nil {

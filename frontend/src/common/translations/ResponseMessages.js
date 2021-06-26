@@ -22,6 +22,7 @@ const translations = {
     recipe_book_not_found: "Receptboken hittades inte",
     malformed_recipe_book_id: "Internt fel (felaktig receptboks id)",
     failed_to_edit_recipe_book: "Kunde inte ändra receptbok",
+    failed_to_retrieve_recipe_book: "Kunde inte hämta receptbok",
     failed_to_retrieve_recipe_books: "Kunde inte hämta receptböcker",
     failed_to_delete_recipe_book: "Kunde inte ta bort receptbok"
 }

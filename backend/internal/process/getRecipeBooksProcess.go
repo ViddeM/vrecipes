@@ -11,11 +11,11 @@ type RecipeBooksJson struct {
 }
 
 type ShortRecipeBookJson struct {
-	ID uint64 `json:"id"`
-	Name string `json:"name"`
-	UniqueName string `json:"uniqueName"`
-	Author string `json:"author"`
-	ImageLink string `json:"imageLink"`
+	ID         uint64      `json:"id"`
+	Name       string      `json:"name"`
+	UniqueName string      `json:"uniqueName"`
+	Author     string      `json:"author"`
+	ImageLink  string      `json:"imageLink"`
 	UploadedBy tables.User `json:"uploadedBy"`
 }
 
@@ -52,12 +52,12 @@ func GetRecipeBooks() (*RecipeBooksJson, error) {
 		} else {
 			imageUrl = imageNameToPath(image.ID, image.Name)
 		}
-		
+
 		user, err := queries.GetUser(book.CreatedBy)
 		if err != nil {
 			return nil, err
 		}
-		
+
 		shortRecipeBooks = append(shortRecipeBooks, toShortRecipeBookJson(book, user, imageUrl))
 	}
 
