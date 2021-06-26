@@ -38,6 +38,7 @@ const (
 	ResponseFailedToRetrieveRecipe      = "failed_to_retrieve_recipe"
 	ResponseMalformedRecipeId           = "malformed_recipe_id"
 	ResponseFailedToDeleteRecipe        = "failed_to_delete_recipe"
+	ResponseFailedToDeleteRecipeBook    = "failed_to_delete_recipe_book"
 	ResponseFailedToAuthenticate        = "failed_to_authenticate"
 	ResponseInvalidUserId               = "invalid_user_id"
 	ResponseNotAuthorized               = "not_authorized"
@@ -47,6 +48,6 @@ const (
 	ResponseFailedToRetrieveRecipeBooks = "failed_to_retrieve_recipe_books"
 	ResponseRecipeBookNotFound          = "recipe_book_not_found"
 	ResponseFailedToRetrieveRecipeBook  = "failed_to_retrieve_recipe_book"
-	ResponseMalformedRecipeBookId           = "malformed_recipe_book_id"
-	ResponseFailedToEditRecipeBook          = "failed_to_edit_recipe_book"
+	ResponseMalformedRecipeBookId       = "malformed_recipe_book_id"
+	ResponseFailedToEditRecipeBook      = "failed_to_edit_recipe_book"
 )

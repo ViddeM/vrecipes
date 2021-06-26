@@ -33,3 +33,18 @@ func UpdateRecipeBook(name, uniqueName, author string, bookId uint64) error {
 	_, err := db.Exec(ctx, updateRecipeBookCommand, name, uniqueName, author, bookId)
 	return err
 }
+
+var recipeBookSetDeletedCommand = `
+UPDATE recipe_book
+SET deleted=true,
+	name=$1,
+	unique_name=$2
+WHERE id=$3
+`
+
+func RecipeBookSetDeleted(name, uniqueName string, id uint64) error {
+	db := getDb()
+
+	_, err := db.Exec(ctx, recipeBookSetDeletedCommand, name, uniqueName, id)
+	return err
+}

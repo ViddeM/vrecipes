@@ -17,7 +17,7 @@ func RemoveRecipe(c *gin.Context) {
 
 	err = validateUserAuthorized(c, recipe.CreatedBy)
 	if err != nil {
-		log.Printf("Failed to authorized user: %v\n", err)
+		log.Printf("Failed to authorize user: %v\n", err)
 		c.JSON(http.StatusForbidden, common.Error(common.ResponseIncorrectUser))
 		return
 	}

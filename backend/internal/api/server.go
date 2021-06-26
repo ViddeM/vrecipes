@@ -40,6 +40,7 @@ func Init() {
 			authRequired.GET("/books/:uniqueName", endpoints.RecipeBook)
 			authRequired.GET("/books", endpoints.RecipeBooks)
 			authRequired.POST("/books", endpoints.NewRecipeBook)
+			authRequired.DELETE("/books/:id", endpoints.RemoveRecipeBook)
 			authRequired.PUT("/books/:id", endpoints.EditRecipeBook)
 		}
 

@@ -1,5 +1,7 @@
 import {
     BACK_TO_BOOK_SEARCH,
+    DELETE_RECIPE_BOOK_FAILED,
+    DELETE_RECIPE_BOOK_SUCCESSFUL,
     EDIT_RECIPE_BOOK,
     LOAD_RECIPE_BOOK_FAILED,
     LOAD_RECIPE_BOOK_SUCCESSFUL,
@@ -65,6 +67,11 @@ export function book(state = initialState, action) {
             })
         case RESET_RECIPE_BOOK:
             return initialState
+        case DELETE_RECIPE_BOOK_SUCCESSFUL:
+            window.location.assign(window.location.origin + "/books")
+            return state
+        case DELETE_RECIPE_BOOK_FAILED:
+            return state
         default:
             return state
     }

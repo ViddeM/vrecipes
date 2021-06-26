@@ -1,5 +1,7 @@
 import {
     BACK_TO_BOOK_SEARCH,
+    DELETE_RECIPE_BOOK_FAILED,
+    DELETE_RECIPE_BOOK_SUCCESSFUL,
     EDIT_RECIPE_BOOK,
     LOAD_RECIPE_BOOK_AWAIT_RESPONSE,
     LOAD_RECIPE_BOOK_FAILED,
@@ -11,6 +13,7 @@ import {getRecipeBook} from "../../api/get.RecipeBook.api";
 import {FAILED_TO_LOAD_RECIPE_BOOK,} from "../../common/translations/ResponseMessages";
 import {handleError} from "../../common/functions/handleError";
 import {loadRecipeBooks} from "../search/RecipeBooks/RecipeBookSearch.action-creators";
+import {deleteRecipeBook} from "../../api/delete.RecipeBook.api";
 
 export function resetRecipeBook() {
     return {
@@ -69,4 +72,37 @@ export function editRecipeBook(book) {
         },
         error: false,
     }
+}
+
+export function handleDeleteRecipeBook(bookId) {
+    return dispatch => {
+        authorizedApiCall(() => deleteRecipeBook(bookId))
+        .then(response => {
+            if (response.error) {
+                return dispatch(onDeleteRecipeBookFailed(response.errResponse))
+            } else {
+                return dispatch(onDeleteRecipeBookSuccessful(response.response))
+            }
+        })
+        .catch(error => {
+            return dispatch(onDeleteRecipeBookFailed(error))
+        })
+    }
+}
+
+function onDeleteRecipeBookSuccessful(response) {
+    alert("Lyckades ta bort receptbok!")
+
+    return {
+        type: DELETE_RECIPE_BOOK_SUCCESSFUL,
+        payload: {
+            response
+        },
+        error: false
+    }
+}
+
+function onDeleteRecipeBookFailed(error) {
+    alert("Misslyckades med att ta bort receptbok")
+    return handleError(error, DELETE_RECIPE_BOOK_FAILED)
 }
