@@ -21,8 +21,8 @@ func CreateRecipeBook(name, uniqueName, author string, createdBy uint64) (*table
 
 var updateRecipeBookCommand = `
 UPDATE recipe_book
-SET name=$1
-	unique_name=$2
+SET name=$1,
+	unique_name=$2,
 	author=$3
 WHERE id=$4
 `
