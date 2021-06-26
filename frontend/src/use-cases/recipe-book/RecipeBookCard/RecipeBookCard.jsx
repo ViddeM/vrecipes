@@ -19,11 +19,18 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import {Typography} from "@material-ui/core";
 import {useHistory} from "react-router";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
+import {getImageUrl} from "../../../api/get.Image.api";
 
 export const RecipeBookCard = props => {
     let history = useHistory()
-    const imageUrl = "/static/images/default_book_2.png"
+    let imageUrl = null
+    if (props.book.image) {
+        imageUrl = getImageUrl(props.book.image.url)
+    }
+
+    if (imageUrl == null) {
+        imageUrl = "/static/images/default_book_2.png";
+    }
 
     return (
     <RecipeBookCardContainer>
@@ -49,7 +56,10 @@ export const RecipeBookCard = props => {
             </RecipeBookAuthorsContainer>
             <RecipeBookHLine/>
             <Center>
-                <RecipeBookCardImage src={imageUrl} alt="Kunde inte visa bild"/>
+                <RecipeBookCardImage
+                    src={imageUrl}
+                    alt="Kunde inte visa bild"
+                />
             </Center>
             <RecipeBookRecipesTable>
                 <thead>
@@ -93,6 +103,10 @@ export const RecipeBookCard = props => {
                 </Button>
                 <Button variant="contained"
                         color="primary"
+                        onClick={() => {
+                            props.editRecipeBook(props.book)
+                        }}
+                        disabled={!props.loggedInUser || props.loggedInUser.id !== props.book.uploadedBy.id}
                 >
                     Redigera
                 </Button>

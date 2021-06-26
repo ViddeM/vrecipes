@@ -16,20 +16,20 @@ export function onRecipeSave(recipe) {
         return dispatch => {
             dispatch({type: ON_RECIPE_SAVE_AWAIT_RESPONSE, error: false})
             authorizedApiCall(() => postNewRecipe(recipe))
-                .then(response => {
-                    if (response.error) {
-                        dispatch(onRecipeSaveFailed(response.errResponse))
+            .then(response => {
+                if (response.error) {
+                    dispatch(onRecipeSaveFailed(response.errResponse))
+                } else {
+                    if (response.response.data.success === false) {
+                        dispatch(onRecipeSaveFailed(response.response.data))
                     } else {
-                        if (response.response.data.success === false) {
-                            dispatch(onRecipeSaveFailed(response.response.data))
-                        } else {
-                            dispatch(onRecipeSaveSuccessful(response.response));
-                        }
+                        dispatch(onRecipeSaveSuccessful(response.response));
                     }
-                })
-                .catch(error => {
-                    dispatch(onRecipeSaveFailed(error));
-                })
+                }
+            })
+            .catch(error => {
+                dispatch(onRecipeSaveFailed(error));
+            })
         };
     }
 
@@ -50,20 +50,20 @@ export function onEditedRecipeSave(recipe) {
             dispatch({type: ON_RECIPE_SAVE_AWAIT_RESPONSE, error: false})
 
             authorizedApiCall(() => putEditedRecipe(recipe))
-                .then(response => {
-                    if (response.error) {
-                        dispatch(onRecipeSaveFailed(response.errResponse))
+            .then(response => {
+                if (response.error) {
+                    dispatch(onRecipeSaveFailed(response.errResponse))
+                } else {
+                    if (response.response.data.success === false) {
+                        dispatch(onRecipeSaveFailed(response.response.data))
                     } else {
-                        if (response.response.data.success === false) {
-                            dispatch(onRecipeSaveFailed(response.response.data))
-                        } else {
-                            dispatch(onRecipeSaveSuccessful(response.response));
-                        }
+                        dispatch(onRecipeSaveSuccessful(response.response));
                     }
-                })
-                .catch(error => {
-                    dispatch(onRecipeSaveFailed(error));
-                })
+                }
+            })
+            .catch(error => {
+                dispatch(onRecipeSaveFailed(error));
+            })
         };
     }
 
@@ -117,8 +117,8 @@ function validateIngredients(state) {
     });
 
     return Object.keys(ingredients).length > 0 ?
-        ingredients :
-        null;
+    ingredients :
+    null;
 }
 
 function validateSteps(state) {
@@ -136,8 +136,8 @@ function validateSteps(state) {
     });
 
     return Object.keys(steps).length > 0 ?
-        steps :
-        null;
+    steps :
+    null;
 }
 
 function validateRecipe(state) {

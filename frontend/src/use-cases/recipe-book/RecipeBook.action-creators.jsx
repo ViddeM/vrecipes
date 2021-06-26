@@ -1,13 +1,14 @@
 import {
     BACK_TO_BOOK_SEARCH,
-    LOAD_RECIPE_BOOK_AWAIT_RESPONSE, LOAD_RECIPE_BOOK_FAILED,
-    LOAD_RECIPE_BOOK_SUCCESSFUL, RESET_RECIPE_BOOK
+    EDIT_RECIPE_BOOK,
+    LOAD_RECIPE_BOOK_AWAIT_RESPONSE,
+    LOAD_RECIPE_BOOK_FAILED,
+    LOAD_RECIPE_BOOK_SUCCESSFUL,
+    RESET_RECIPE_BOOK
 } from "./RecipeBook.actions";
 import {authorizedApiCall} from "../../common/functions/authorizedApiCall";
 import {getRecipeBook} from "../../api/get.RecipeBook.api";
-import {
-    FAILED_TO_LOAD_RECIPE_BOOK,
-} from "../../common/translations/ResponseMessages";
+import {FAILED_TO_LOAD_RECIPE_BOOK,} from "../../common/translations/ResponseMessages";
 import {handleError} from "../../common/functions/handleError";
 import {loadRecipeBooks} from "../search/RecipeBooks/RecipeBookSearch.action-creators";
 
@@ -54,8 +55,18 @@ export function backToBookSearch() {
     return dispatch => {
         dispatch(loadRecipeBooks())
         dispatch({
-            type: BACK_TO_BOOK_SEARCH,
-            error: false,
-         })
+                     type: BACK_TO_BOOK_SEARCH,
+                     error: false,
+                 })
+    }
+}
+
+export function editRecipeBook(book) {
+    return {
+        type: EDIT_RECIPE_BOOK,
+        payload: {
+            book: book,
+        },
+        error: false,
     }
 }

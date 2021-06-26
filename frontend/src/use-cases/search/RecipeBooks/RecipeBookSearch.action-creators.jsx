@@ -1,4 +1,5 @@
 import {
+    CREATE_RECIPE_BOOK,
     GET_RECIPE_BOOKS_FAILED,
     GET_RECIPE_BOOKS_SUCCESSFUL,
     ON_RECIPE_BOOK_SEARCH_FIELD_CHANGED
@@ -54,4 +55,11 @@ function onLoadRecipeBooksFailed(error) {
     return handleError(error,
                        GET_RECIPE_BOOKS_FAILED,
                        FAILED_TO_LOAD_RECIPE_BOOKS);
+}
+
+export function newRecipeBook() {
+    return {
+        type: CREATE_RECIPE_BOOK,
+        error: false,
+    }
 }

@@ -2,3 +2,5 @@ export const ON_RECIPE_BOOK_SEARCH_FIELD_CHANGED = "on_recipe_book_search_field_
 
 export const GET_RECIPE_BOOKS_SUCCESSFUL = "get_recipe_books_successful"
 export const GET_RECIPE_BOOKS_FAILED = "get_recipe_books_failed"
+
+export const CREATE_RECIPE_BOOK = "create_recipe_book"

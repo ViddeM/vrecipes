@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {RecipeBook} from "./RecipeBook";
 import {
-    backToBookSearch,
+    backToBookSearch, editRecipeBook,
     loadRecipeBook,
     resetRecipeBook
 } from "./RecipeBook.action-creators";

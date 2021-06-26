@@ -43,6 +43,7 @@ export const RecipeBookCardContentContainer = styled.div`
 export const RecipeBookCardImage = styled.img`
   margin: 10px 10px;
   height: auto;
+  max-width: calc(100% - 20px);
 `
 
 export const RecipeBookRecipesTable = styled.table`

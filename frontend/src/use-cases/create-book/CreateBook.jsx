@@ -3,11 +3,12 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import {Redirect, Route, useHistory} from "react-router";
 import {
     CommunistAlignedIcon,
-    CreateContainer, ErrorText,
+    CreateContainer,
+    ErrorText,
     FormRow,
     PaddingContainer,
     StyledCard,
-    TextFieldWithMargin, WarningText
+    TextFieldWithMargin
 } from "../create/Create.styles";
 import {StyledText, VSpace} from "../../common/styles/Common.styles";
 import Button from "@material-ui/core/Button";
@@ -51,8 +52,6 @@ export const CreateBook = props => {
                                          onChange={props.onBookNameChange}
                                          error={props.validationErrors.name !== undefined}
                                          errormessage={props.validationErrors.name}
-                    // error={props.errors.name !== undefined}
-                    // errormessage={props.errors.name}
                     />
                 </PaddingContainer>
             </FormRow>
@@ -64,18 +63,17 @@ export const CreateBook = props => {
                                          flex={"1"}
                                          value={props.book.author}
                                          onChange={props.onBookAuthorChange}
-                    // error={props.errors.name !== undefined}
-                    // errormessage={props.errors.name}
                     />
                 </PaddingContainer>
             </FormRow>
         </StyledCard>
-        <RecipeTable />
+        <RecipeTable/>
         <UploadImages/>
         {
             errorsList.length > 0 ? (
             <ErrorText>
-                Någonting är fel med receptboken, var vänlig se över receptet och lös problemen.
+                Någonting är fel med receptboken, var vänlig se över receptet
+                och lös problemen.
             </ErrorText>
             ) :
             props.saveError &&
@@ -85,11 +83,10 @@ export const CreateBook = props => {
         }
         <Button variant="contained"
                 color="primary"
-                onClick={() => props.onSave(props.book)}
-        // onClick={() => props.recipe.id === "" ?
-        // props.onSave(props.recipe) :
-        // props.onEditedRecipeSave(props.recipe)
-        // }
+                onClick={() => props.book.id === "" ?
+                props.onSave(props.book) :
+                props.onEditedBookSave(props.book)
+                }
         >
             Spara recept
         </Button>

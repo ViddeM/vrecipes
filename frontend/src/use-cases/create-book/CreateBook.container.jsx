@@ -3,7 +3,7 @@ import {withRouter} from "react-router-dom";
 import {CreateBook} from "./CreateBook";
 import {
     onBookAuthorChange,
-    onBookNameChange, onRecipeBookSave
+    onBookNameChange, onEditedRecipeBookSave, onRecipeBookSave
 } from "./CreateBook.action-creators";
 import {loadRecipes} from "../search/RecipeSearch/RecipeSearch.action-creators";
 
@@ -18,7 +18,8 @@ const mapDispatchToProps = dispatch => ({
     onBookNameChange: newName => dispatch(onBookNameChange(newName)),
     onBookAuthorChange: newAuthor => dispatch(onBookAuthorChange(newAuthor)),
     loadRecipes: () => dispatch(loadRecipes()),
-    onSave: book => dispatch(onRecipeBookSave(book))
+    onSave: book => dispatch(onRecipeBookSave(book)),
+    onEditedBookSave: book => dispatch(onEditedRecipeBookSave(book)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CreateBook));

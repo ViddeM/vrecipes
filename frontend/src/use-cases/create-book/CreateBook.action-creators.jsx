@@ -9,6 +9,7 @@ import {
 import {authorizedApiCall} from "../../common/functions/authorizedApiCall";
 import {postNewRecipeBook} from "../../api/post.NewRecipeBook.api";
 import {handleError} from "../../common/functions/handleError";
+import {putEditedRecipeBook} from "../../api/put.EditedRecipeBook.api";
 
 export function onBookNameChange(newName) {
     return {
@@ -68,7 +69,8 @@ function onRecipeBookSaveSuccessful(response) {
         type: ON_RECIPE_BOOK_SAVE_SUCCESSFUL,
         payload: {
             book: response.data.data.recipeBookUniqueName
-        }
+        },
+        error: false
     }
 }
 
@@ -76,6 +78,39 @@ function onRecipeBookSaveFailed(error) {
     return handleError(error, ON_RECIPE_BOOK_SAVE_FAILED, "Kunde inte spara receptbok, försök igen senare.");
 }
 
+export function onEditedRecipeBookSave(book) {
+    const errors = validateRecipeBook(book)
+
+    if (Object.keys(errors).length === 0) {
+        return dispatch => {
+            dispatch({type: ON_RECIPE_BOOK_SAVE_AWAIT_RESPONSE, error: false})
+
+            authorizedApiCall(() => putEditedRecipeBook(book))
+            .then(response => {
+                if (response.error) {
+                    dispatch(onRecipeBookSaveFailed(response.errResponse))
+                } else {
+                    if (response.response.data.success === false) {
+                        dispatch(onRecipeBookSaveFailed(response.response.data))
+                    } else {
+                        dispatch(onRecipeBookSaveSuccessful(response.response));
+                    }
+                }
+            })
+            .catch(error => {
+                dispatch(onRecipeBookSaveFailed(error));
+            })
+        };
+    }
+
+    return {
+        type: ON_RECIPE_BOOK_VALIDATION_FAILED,
+        payload: {
+            errors: errors
+        },
+        error: false,
+    }
+}
 
 function validateRecipeBook(book) {
     let errors = {}

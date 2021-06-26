@@ -6,12 +6,14 @@ export function postNewRecipeBook(book) {
 }
 
 export function getRecipeBookData(book) {
+    let images = []
+    if (book.image) {
+        images.push(book.image.id);
+    }
     return {
         name: book.name,
         author: book.author,
         recipes: book.selected.map(s => parseInt(s)),
-        images: [
-            book.image.id
-        ]
+        images: images
     }
 }

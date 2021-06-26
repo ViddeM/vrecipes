@@ -1,24 +1,29 @@
 import {
     ON_RECIPE_BOOK_AUTHOR_CHANGE,
     ON_RECIPE_BOOK_NAME_CHANGE,
-    ON_RECIPE_BOOK_SAVE_FAILED, ON_RECIPE_BOOK_SAVE_SUCCESSFUL,
+    ON_RECIPE_BOOK_SAVE_FAILED,
+    ON_RECIPE_BOOK_SAVE_SUCCESSFUL,
     ON_RECIPE_BOOK_VALIDATION_FAILED
 } from "./CreateBook.actions";
 import {
     GET_RECIPES_FAILED,
     GET_RECIPES_SUCCESSFUL
 } from "../search/RecipeSearch/RecipeSearch.actions";
-import {
-    ON_RECIPE_ROW_SELECTION_CHANGE
-} from "./CreateBookRecipeTable/RecipeTable.actions";
+import {ON_RECIPE_ROW_SELECTION_CHANGE} from "./CreateBookRecipeTable/RecipeTable.actions";
 import {
     REMOVE_BOOK_IMAGE,
-    UPLOAD_BOOK_IMAGE_AWAIT_RESPONSE, UPLOAD_BOOK_IMAGE_FAILED,
+    UPLOAD_BOOK_IMAGE_AWAIT_RESPONSE,
+    UPLOAD_BOOK_IMAGE_FAILED,
     UPLOAD_BOOK_IMAGE_SUCCESSFUL
 } from "./UploadImages/UploadImages.actions";
-import {LOAD_RECIPE_BOOK_AWAIT_RESPONSE} from "../recipe-book/RecipeBook.actions";
+import {
+    EDIT_RECIPE_BOOK,
+    LOAD_RECIPE_BOOK_AWAIT_RESPONSE
+} from "../recipe-book/RecipeBook.actions";
+import {CREATE_RECIPE_BOOK} from "../search/RecipeBooks/RecipeBookSearch.actions";
 
 const initialState = {
+    id: "",
     name: "",
     author: "",
     recipes: [],
@@ -98,6 +103,10 @@ export function createBook(state = initialState, action) {
             return newState(state, {
                 redirectTo: "",
             })
+        case EDIT_RECIPE_BOOK:
+            return editRecipeBook(state, action.payload.book)
+        case CREATE_RECIPE_BOOK:
+            return initialState
         default:
             return state;
     }
@@ -105,9 +114,9 @@ export function createBook(state = initialState, action) {
 
 function newState(oldState, changes) {
     return Object.assign({
-        redirectTo: "",
-        error: ""
-     }, oldState, changes)
+                             redirectTo: "",
+                             error: ""
+                         }, oldState, changes)
 }
 
 function handleGetRecipes(oldState, recipes) {
@@ -120,5 +129,20 @@ function handleGetRecipes(oldState, recipes) {
                 uploadedBy: recipe.author.name
             }
         })
+    })
+}
+
+function editRecipeBook(state, book) {
+    console.log("BOOK: ", book)
+    let recipes = book.recipes;
+
+    return newState(initialState, {
+        id: book.id,
+        name: book.name,
+        author: book.author,
+        recipes: recipes,
+        selected: recipes.map(recipe => recipe.id.toString()),
+        image: book.image,
+        redirectTo: "",
     })
 }

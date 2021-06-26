@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {RecipeBookSearch} from "./RecipeBookSearch";
 import {
-    loadRecipeBooks,
+    loadRecipeBooks, newRecipeBook,
     onBookSearchChanged
 } from "./RecipeBookSearch.action-creators";
 
@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onBookSearchChanged: newVal => dispatch(onBookSearchChanged(newVal)),
     loadRecipeBooks: () => dispatch(loadRecipeBooks()),
+    newRecipeBook: () => dispatch(newRecipeBook())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeBookSearch);

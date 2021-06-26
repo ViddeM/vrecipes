@@ -1,7 +1,9 @@
 import {
     BACK_TO_BOOK_SEARCH,
+    EDIT_RECIPE_BOOK,
     LOAD_RECIPE_BOOK_FAILED,
-    LOAD_RECIPE_BOOK_SUCCESSFUL
+    LOAD_RECIPE_BOOK_SUCCESSFUL,
+    RESET_RECIPE_BOOK
 } from "./RecipeBook.actions";
 
 const mockBook = {
@@ -27,11 +29,15 @@ const mockBook = {
             author: "Kalle"
         },
         {
-            name: "Some recipe with long name lol qasdasdasd 123123123 asddsjghdfsiugaluigadfiugfdluigd" ,
+            name: "Some recipe with long name lol qasdasdasd 123123123 asddsjghdfsiugaluigadfiugfdluigd",
             uniqueName: "some_unique_name_4",
             author: "Ada lasd aga e a  ggggg 333 scvcvx  qq"
         }
-    ]
+    ],
+    image: {
+        path: "",
+        id: 0,
+    }
 }
 
 const initialState = {
@@ -53,6 +59,12 @@ export function book(state = initialState, action) {
             return Object.assign({}, state, {
                 redirectTo: "/books"
             })
+        case EDIT_RECIPE_BOOK:
+            return Object.assign({}, state, {
+                redirectTo: "/book/create"
+            })
+        case RESET_RECIPE_BOOK:
+            return initialState
         default:
             return state
     }
@@ -67,6 +79,7 @@ function handleRecipeBookResponse(recipeBook) {
             uploadedBy: recipeBook.uploadedBy,
             author: recipeBook.author,
             recipes: recipeBook.recipes,
+            image: recipeBook.image
         },
         redirectTo: "",
     }

@@ -36,6 +36,7 @@ export const RecipeBookSearch = props => {
                     window.screen.width < 768 ? (
                     <AddIconButtonContainer>
                         <Fab color="secondary"
+                             onClick={props.newRecipeBook}
                         >
                             <AddIcon/>
                         </Fab>
@@ -43,6 +44,7 @@ export const RecipeBookSearch = props => {
                     ) : (
                     <CreateRecipeButton variant="contained"
                                         color="primary"
+                                        onClick={props.newRecipeBook}
                     >
                         Lägg till receptbok
                     </CreateRecipeButton>
