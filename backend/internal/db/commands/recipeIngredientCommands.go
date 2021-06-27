@@ -2,6 +2,7 @@ package commands
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -13,7 +14,7 @@ WHERE recipe_id=$1
 RETURNING id, recipe_id, ingredient_name, unit_name, amount, number
 `
 
-func CreateRecipeIngredient(recipeId uint64, ingredientName, unitName string, amount float32) (*tables.RecipeIngredient, error) {
+func CreateRecipeIngredient(recipeId uuid.UUID, ingredientName, unitName string, amount float32) (*tables.RecipeIngredient, error) {
 	db := getDb()
 
 	var recipeIngredient tables.RecipeIngredient
@@ -27,7 +28,7 @@ FROM recipe_ingredient
 WHERE id=$1 
 `
 
-func DeleteRecipeIngredient(id uint64) error {
+func DeleteRecipeIngredient(id uuid.UUID) error {
 	db := getDb()
 
 	_, err := db.Exec(ctx, deleteRecipeIngredientCommand, id)
@@ -46,7 +47,7 @@ UPDATE recipe_ingredient
 WHERE id=$2
 `
 
-func UpdateRecipeIngredientNumbers(idNumMap map[uint64]int, recipeId uint64) error {
+func UpdateRecipeIngredientNumbers(idNumMap map[uuid.UUID]int, recipeId uuid.UUID) error {
 	db := getDb()
 	tx, err := db.Begin(ctx)
 	if err != nil {

@@ -1,11 +1,12 @@
 package process
 
 import (
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/models"
 )
 
-func GetUserJson(id uint64) (*models.User, error) {
+func GetUserJson(id uuid.UUID) (*models.User, error) {
 	user, err := queries.GetUser(id)
 	if err != nil {
 		return nil, err

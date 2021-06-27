@@ -2,6 +2,7 @@ package process
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
@@ -11,11 +12,11 @@ type RecipesJson struct {
 }
 
 type ShortRecipeJson struct {
-	ID uint64 `json:"id"`
-	Name string `json:"name"`
-	UniqueName string `json:"unique_name"`
-	ImageLink string `json:"image_link"`
-	Author tables.User `json:"author"`
+	ID         uuid.UUID   `json:"id"`
+	Name       string      `json:"name"`
+	UniqueName string      `json:"unique_name"`
+	ImageLink  string      `json:"image_link"`
+	Author     tables.User `json:"author"`
 }
 
 func toShortRecipeJson(recipe *tables.Recipe, user *tables.User, imageUrl string) ShortRecipeJson {
@@ -24,7 +25,7 @@ func toShortRecipeJson(recipe *tables.Recipe, user *tables.User, imageUrl string
 		Name:       recipe.Name,
 		UniqueName: recipe.UniqueName,
 		ImageLink:  imageUrl,
-		Author:		*user,
+		Author:     *user,
 	}
 }
 

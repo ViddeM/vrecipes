@@ -2,6 +2,7 @@ package queries
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -12,7 +13,7 @@ WHERE recipe_id=$1
 ORDER BY number
 `
 
-func GetIngredientsForRecipe(recipeId uint64) ([]*tables.RecipeIngredient, error) {
+func GetIngredientsForRecipe(recipeId uuid.UUID) ([]*tables.RecipeIngredient, error) {
 	db := getDb()
 
 	var recipeIngredients []*tables.RecipeIngredient
@@ -25,7 +26,7 @@ SELECT id, recipe_id, ingredient_name, unit_name, amount, number
 FROM recipe_ingredient 
 WHERE id=$1`
 
-func GetRecipeIngredientQuery(id uint64) (*tables.RecipeIngredient, error) {
+func GetRecipeIngredientQuery(id uuid.UUID) (*tables.RecipeIngredient, error) {
 	db := getDb()
 
 	var recipeIngredient tables.RecipeIngredient

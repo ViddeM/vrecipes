@@ -1,9 +1,12 @@
 package models
 
-import "github.com/viddem/vrecipes/backend/internal/db/tables"
+import (
+	"github.com/google/uuid"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
+)
 
 type DetailedRecipeBookJson struct {
-	ID         uint64                 `json:"id"`
+	ID         uuid.UUID              `json:"id"`
 	Name       string                 `json:"name"`
 	UploadedBy tables.User            `json:"uploadedBy"`
 	Author     string                 `json:"author"`
@@ -12,8 +15,8 @@ type DetailedRecipeBookJson struct {
 }
 
 type RecipeBookRecipeJson struct {
-	ID         uint64 `json:"id"`
-	Name       string `json:"name"`
-	UniqueName string `json:"uniqueName"`
-	Author     string `json:"author"`
+	ID         uuid.UUID `json:"id"`
+	Name       string    `json:"name"`
+	UniqueName string    `json:"uniqueName"`
+	Author     string    `json:"author"`
 }

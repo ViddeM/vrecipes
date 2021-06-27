@@ -2,6 +2,7 @@ package queries
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -10,7 +11,7 @@ SELECT image_id, recipe_id
 FROM recipe_image 
 WHERE recipe_id=$1`
 
-func GetImagesForRecipe(recipeId uint64) ([]tables.Image, error) {
+func GetImagesForRecipe(recipeId uuid.UUID) ([]tables.Image, error) {
 	db := getDb()
 
 	var recipeImages []*tables.RecipeImage
@@ -39,7 +40,7 @@ FROM recipe_image
 WHERE recipe_id=$1
 LIMIT 1`
 
-func GetMainImageForRecipe(recipeId uint64) (*tables.Image, error) {
+func GetMainImageForRecipe(recipeId uuid.UUID) (*tables.Image, error) {
 	db := getDb()
 
 	var recipeImage tables.RecipeImage
@@ -55,7 +56,7 @@ func GetMainImageForRecipe(recipeId uint64) (*tables.Image, error) {
 
 var getRecipeImageQuery = `SELECT image_id, recipe_id FROM recipe_image WHERE recipe_id=$1 AND image_id=$2`
 
-func GetRecipeImage(recipeId, imageId uint64) (*tables.RecipeImage, error) {
+func GetRecipeImage(recipeId, imageId uuid.UUID) (*tables.RecipeImage, error) {
 	db := getDb()
 
 	var recipeImage tables.RecipeImage

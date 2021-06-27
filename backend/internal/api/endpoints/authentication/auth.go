@@ -8,6 +8,7 @@ import (
 	"errors"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/process"
 	"golang.org/x/oauth2"
@@ -18,9 +19,9 @@ import (
 )
 
 type sessionData struct {
-	UserID uint64 `json:"user_id"`
-	Token *oauth2.Token `json:"token"`
-	Provider string `json:"provider"`
+	UserID   uuid.UUID     `json:"user_id"`
+	Token    *oauth2.Token `json:"token"`
+	Provider string        `json:"provider"`
 }
 
 type whiteList struct {
@@ -33,7 +34,7 @@ var (
 
 var providers []providerInit
 
-type providerInit func ()
+type providerInit func()
 
 func registerOnInit(provider providerInit) {
 	providers = append(providers, provider)
@@ -56,7 +57,7 @@ func initAuth(c *gin.Context, config *oauth2.Config) {
 	session := sessions.Default(c)
 	session.Set("oauth-state", state)
 	session.Options(sessions.Options{
-		MaxAge: 20 * 60,
+		MaxAge:   20 * 60,
 		SameSite: http.SameSiteStrictMode,
 	})
 	err = session.Save()
@@ -88,7 +89,7 @@ func setSession(c *gin.Context, name, email, provider string, token *oauth2.Toke
 
 	session := sessions.Default(c)
 	session.Options(sessions.Options{
-		Path: "/",
+		Path:     "/",
 		SameSite: http.SameSiteStrictMode,
 	})
 	session.Set("token", tokenJson)
@@ -120,7 +121,7 @@ func resetSession(c *gin.Context) {
 	session.Options(
 		sessions.Options{
 			MaxAge: -1,
-			Path: "/",
+			Path:   "/",
 		})
 	_ = session.Save()
 }

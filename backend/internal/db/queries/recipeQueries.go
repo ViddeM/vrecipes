@@ -2,6 +2,7 @@ package queries
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -21,7 +22,7 @@ var getRecipeByIdQuery = `SELECT id, name, unique_name, description, oven_temp, 
 FROM recipe
 WHERE id=$1`
 
-func GetRecipeById(id uint64) (*tables.Recipe, error) {
+func GetRecipeById(id uuid.UUID) (*tables.Recipe, error) {
 	db := getDb()
 
 	var recipe tables.Recipe
@@ -50,7 +51,7 @@ WHERE recipe_book_recipe.recipe_book_id = $1
 AND recipe.deleted = false;
 `
 
-func GetRecipesForRecipeBook(recipeBookId uint64) ([]*tables.Recipe, error) {
+func GetRecipesForRecipeBook(recipeBookId uuid.UUID) ([]*tables.Recipe, error) {
 	db := getDb()
 
 	var recipes []*tables.Recipe

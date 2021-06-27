@@ -1,8 +1,10 @@
 package tables
 
+import "github.com/google/uuid"
+
 type RecipeImage struct {
-	ImageID uint64
-	RecipeID uint64
+	ImageID  uuid.UUID
+	RecipeID uuid.UUID
 }
 
 func (_ RecipeImage) StructName() string {

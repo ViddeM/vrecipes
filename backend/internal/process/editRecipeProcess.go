@@ -1,6 +1,7 @@
 package process
 
 import (
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
@@ -31,7 +32,7 @@ func EditRecipe(oldRecipe *tables.Recipe, newRecipe *models.NewRecipeJson) (stri
 	return uniqueName, nil
 }
 
-func updateRecipeGeneral(oldRecipe *tables.Recipe, newRecipe *models.NewRecipeJson) (string, error)  {
+func updateRecipeGeneral(oldRecipe *tables.Recipe, newRecipe *models.NewRecipeJson) (string, error) {
 	uniqueName := oldRecipe.UniqueName
 	changed := false
 	if oldRecipe.Name != newRecipe.Name {
@@ -68,7 +69,7 @@ func updateRecipeGeneral(oldRecipe *tables.Recipe, newRecipe *models.NewRecipeJs
 	return uniqueName, nil
 }
 
-func updateRecipeSteps(id uint64, steps []models.NewRecipeStepJson) error {
+func updateRecipeSteps(id uuid.UUID, steps []models.NewRecipeStepJson) error {
 	oldSteps, err := queries.GetStepsForRecipe(id)
 	if err != nil {
 		return err
@@ -117,13 +118,13 @@ func getStepWithNumber(number uint16, oldSteps []*tables.RecipeStep) *tables.Rec
 	return nil
 }
 
-func updateRecipeIngredients(id uint64, ingredients []models.NewRecipeIngredientJson) error {
+func updateRecipeIngredients(id uuid.UUID, ingredients []models.NewRecipeIngredientJson) error {
 	oldIngredients, err := queries.GetIngredientsForRecipe(id)
 	if err != nil {
 		return err
 	}
 
-	var ingredientIdNumMap = make(map[uint64]int)
+	var ingredientIdNumMap = make(map[uuid.UUID]int)
 	for index, ingredient := range ingredients {
 		oldIngredient := getOldIngredient(&ingredient, oldIngredients)
 		if oldIngredient == nil {
@@ -172,13 +173,13 @@ func getOldIngredient(ingredient *models.NewRecipeIngredientJson, oldIngredients
 	return nil
 }
 
-func updateRecipeImages(id uint64, images []models.NewRecipeImageJson) error {
+func updateRecipeImages(id uuid.UUID, images []models.NewRecipeImageJson) error {
 	oldImages, err := queries.GetImagesForRecipe(id)
 	if err != nil {
 		return err
 	}
 
-	var handledImages []uint64
+	var handledImages []uuid.UUID
 	for _, image := range images {
 		oldImage := getOldImage(&image, oldImages)
 		if oldImage == nil {

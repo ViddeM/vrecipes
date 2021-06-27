@@ -2,6 +2,7 @@ package db
 
 import (
 	"encoding/json"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/process"
 	"io/ioutil"
@@ -13,13 +14,13 @@ type RecipeJson struct {
 	tables.Recipe
 	Ingredients []RecipeIngredientJson `json:"ingredients"`
 	Steps       []RecipeStepJson       `json:"steps"`
-	Image string `json:"image"`
+	Image       string                 `json:"image"`
 }
 
 type RecipeIngredientJson struct {
-	Name string `json:"name"`
+	Name   string  `json:"name"`
 	Amount float32 `json:"amount"`
-	Unit string `json:"unit"`
+	Unit   string  `json:"unit"`
 }
 
 type RecipeStepJson string
@@ -53,7 +54,7 @@ func loadFromDefaults() {
 	}
 
 	for _, recipeJson := range defaultDb.Recipes {
-		recipe, err := process.CreateRecipe(recipeJson.Name, recipeJson.Description, recipeJson.OvenTemp, recipeJson.EstimatedTime, 1)
+		recipe, err := process.CreateRecipe(recipeJson.Name, recipeJson.Description, recipeJson.OvenTemp, recipeJson.EstimatedTime, uuid.New())
 		if err != nil {
 			log.Printf("Failed to create default recipe %+v, due to err: %s\n", recipeJson, err)
 		}

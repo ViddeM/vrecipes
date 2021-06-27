@@ -2,6 +2,7 @@ package process
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
@@ -44,7 +45,7 @@ func GetOrCreateUnit(unitName string) (*tables.Unit, error) {
 	return unit, nil
 }
 
-func CreateRecipeIngredient(ingredientName string, unitName string, amount float32, recipeId uint64) (*tables.RecipeIngredient, error) {
+func CreateRecipeIngredient(ingredientName string, unitName string, amount float32, recipeId uuid.UUID) (*tables.RecipeIngredient, error) {
 	ingredient, err := GetOrCreateIngredient(ingredientName)
 	if err != nil {
 		return nil, err
@@ -59,12 +60,12 @@ func CreateRecipeIngredient(ingredientName string, unitName string, amount float
 	return recipeIngredient, err
 }
 
-func CreateRecipeStep(step string, number uint16, recipeId uint64) (*tables.RecipeStep, error) {
+func CreateRecipeStep(step string, number uint16, recipeId uuid.UUID) (*tables.RecipeStep, error) {
 	recipeStep, err := commands.CreateRecipeStep(recipeId, number, step)
 	return recipeStep, err
 }
 
-func CreateRecipeImage(imagePath string, recipeId uint64) (*tables.RecipeImage, error) {
+func CreateRecipeImage(imagePath string, recipeId uuid.UUID) (*tables.RecipeImage, error) {
 	imageId, err := commands.CreateImage(imagePath)
 
 	if err != nil {
@@ -74,12 +75,12 @@ func CreateRecipeImage(imagePath string, recipeId uint64) (*tables.RecipeImage, 
 	return connectImageToRecipe(recipeId, imageId)
 }
 
-func connectImageToRecipe(recipeId uint64, imageId uint64) (*tables.RecipeImage, error) {
+func connectImageToRecipe(recipeId uuid.UUID, imageId uuid.UUID) (*tables.RecipeImage, error) {
 	recipeImage, err := commands.CreateRecipeImage(recipeId, imageId)
 	return recipeImage, err
 }
 
-func CreateRecipe(name, description string, ovenTemp, estimatedTime int, userId uint64) (*tables.Recipe, error) {
+func CreateRecipe(name, description string, ovenTemp, estimatedTime int, userId uuid.UUID) (*tables.Recipe, error) {
 	uniqueName, err := generateUniqueName(name)
 	if err != nil {
 		return nil, err

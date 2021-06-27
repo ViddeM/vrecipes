@@ -1,13 +1,14 @@
 package queries
 
 import (
-	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
 var getImageByIdQuery = `SELECT id, name FROM image WHERE id=$1`
 
-func GetImageById(id uint64) (*tables.Image, error) {
+func GetImageById(id uuid.UUID) (*tables.Image, error) {
 	db := getDb()
 
 	var image tables.Image

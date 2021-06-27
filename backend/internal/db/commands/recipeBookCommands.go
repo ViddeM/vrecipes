@@ -2,6 +2,7 @@ package commands
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -11,7 +12,7 @@ INSERT INTO recipe_book(name, unique_name, author, deleted, created_by)
 RETURNING id, name, unique_name, author
 `
 
-func CreateRecipeBook(name, uniqueName, author string, createdBy uint64) (*tables.RecipeBook, error) {
+func CreateRecipeBook(name, uniqueName, author string, createdBy uuid.UUID) (*tables.RecipeBook, error) {
 	db := getDb()
 
 	var recipeBook tables.RecipeBook
@@ -27,7 +28,7 @@ SET name=$1,
 WHERE id=$4
 `
 
-func UpdateRecipeBook(name, uniqueName, author string, bookId uint64) error {
+func UpdateRecipeBook(name, uniqueName, author string, bookId uuid.UUID) error {
 	db := getDb()
 
 	_, err := db.Exec(ctx, updateRecipeBookCommand, name, uniqueName, author, bookId)
@@ -42,7 +43,7 @@ SET deleted=true,
 WHERE id=$3
 `
 
-func RecipeBookSetDeleted(name, uniqueName string, id uint64) error {
+func RecipeBookSetDeleted(name, uniqueName string, id uuid.UUID) error {
 	db := getDb()
 
 	_, err := db.Exec(ctx, recipeBookSetDeletedCommand, name, uniqueName, id)

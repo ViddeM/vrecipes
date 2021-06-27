@@ -2,6 +2,7 @@ package process
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
@@ -49,7 +50,7 @@ func generateUniqueBookName(name string) (string, error) {
 	return uniqueName, common.ErrNameTaken
 }
 
-func createRecipeBookRecipes(recipeBookId uint64, recipes []uint64) error {
+func createRecipeBookRecipes(recipeBookId uuid.UUID, recipes []uuid.UUID) error {
 	for _, recipe := range recipes {
 		_, err := commands.CreateRecipeBookRecipe(recipeBookId, recipe)
 		if err != nil {
@@ -59,7 +60,7 @@ func createRecipeBookRecipes(recipeBookId uint64, recipes []uint64) error {
 	return nil
 }
 
-func connectImagesToRecipeBook(recipeBookId uint64, imageIds []uint64) error {
+func connectImagesToRecipeBook(recipeBookId uuid.UUID, imageIds []uuid.UUID) error {
 	for _, imageId := range imageIds {
 		_, err := commands.CreateRecipeBookImage(recipeBookId, imageId)
 		if err != nil {

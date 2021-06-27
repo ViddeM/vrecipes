@@ -1,6 +1,8 @@
 package tables
 
+import "github.com/google/uuid"
+
 type RecipeBookRecipe struct {
-	RecipeBookId uint64
-	RecipeId uint64
+	RecipeBookId uuid.UUID
+	RecipeId     uuid.UUID
 }

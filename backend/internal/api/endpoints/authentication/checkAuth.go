@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"log"
+	"net/http"
 )
 
 func CheckAuth() gin.HandlerFunc {
@@ -15,6 +16,7 @@ func CheckAuth() gin.HandlerFunc {
 			err := setSession(c, "test", "test", "test", nil)
 			if err != nil {
 				log.Printf("Failed to set test session: %v", err)
+				c.JSON(http.StatusInternalServerError, "failed_to_set_test_session")
 				c.Abort()
 				return
 			}

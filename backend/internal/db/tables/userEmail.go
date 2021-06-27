@@ -1,7 +1,9 @@
 package tables
 
+import "github.com/google/uuid"
+
 type UserEmail struct {
-	UserId uint64
-	Email string
+	UserId   uuid.UUID
+	Email    string
 	Provider string
 }

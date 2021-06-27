@@ -2,6 +2,7 @@ package commands
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -11,7 +12,7 @@ VALUES(				   $1,		$2,	   $3)
 RETURNING user_id, email, provider
 `
 
-func CreateUserEmail(userId uint64, email, provider string) (*tables.UserEmail, error) {
+func CreateUserEmail(userId uuid.UUID, email, provider string) (*tables.UserEmail, error) {
 	db := getDb()
 
 	var userEmail tables.UserEmail

@@ -3,6 +3,7 @@ package endpoints
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
@@ -63,7 +64,8 @@ func validateRecipe(c *gin.Context) (*models.NewRecipeJson, error) {
 }
 
 var ErrUserNotAuthorized = errors.New("user not authorized")
-func validateUserAuthorized(c *gin.Context, userId uint64) error {
+
+func validateUserAuthorized(c *gin.Context, userId uuid.UUID) error {
 	user, err := getSessionUser(c)
 	if err != nil {
 		return err
@@ -81,11 +83,16 @@ func getSessionUser(c *gin.Context) (*tables.User, error) {
 		return nil, ErrNoUserInContext
 	}
 
-	i, ok := userId.(uint64)
+	idStr, ok := userId.(string)
 	if !ok {
 		return nil, ErrInvalidUserIdInContext
 	}
 
+	i, err := uuid.Parse(idStr)
+	if err != nil {
+		return nil, ErrInvalidUserIdInContext
+	}
+	
 	user, err := queries.GetUser(i)
 	return user, err
 }

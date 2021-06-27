@@ -1,14 +1,16 @@
 package tables
 
+import "github.com/google/uuid"
+
 type Recipe struct {
-	ID uint64
-	Name string
-	UniqueName string
-	Description string
-	OvenTemp int
+	ID            uuid.UUID
+	Name          string
+	UniqueName    string
+	Description   string
+	OvenTemp      int
 	EstimatedTime int
-	Deleted bool
-	CreatedBy uint64
+	Deleted       bool
+	CreatedBy     uuid.UUID
 }
 
 func (_ Recipe) StructName() string {

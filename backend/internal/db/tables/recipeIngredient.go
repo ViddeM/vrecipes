@@ -1,15 +1,18 @@
 package tables
 
-import "github.com/viddem/vrecipes/backend/internal/common"
+import (
+	"github.com/google/uuid"
+	"github.com/viddem/vrecipes/backend/internal/common"
+)
 
 // An ingredient in a recipe
 type RecipeIngredient struct {
-	ID uint64
-	RecipeID uint64
+	ID             uuid.UUID
+	RecipeID       uuid.UUID
 	IngredientName string
-	UnitName string
-	Amount float32
-	Number int
+	UnitName       string
+	Amount         float32
+	Number         int
 }
 
 func (_ RecipeIngredient) StructName() string {

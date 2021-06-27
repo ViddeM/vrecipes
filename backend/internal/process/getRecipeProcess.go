@@ -3,6 +3,7 @@ package process
 import (
 	"fmt"
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
@@ -48,7 +49,7 @@ func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 		Steps:           RecipeStepsToJson(steps),
 		Ingredients:     RecipeIngredientsToJson(ingredients),
 		Images:          RecipeImagesToJson(images),
-		Author:			 *user,
+		Author:          *user,
 	}, nil
 }
 
@@ -86,7 +87,7 @@ func RecipeImagesToJson(images []tables.Image) []models.ImageJson {
 	return recipeImageJsons
 }
 
-func imageNameToPath(id uint64, name string) string {
+func imageNameToPath(id uuid.UUID, name string) string {
 	imagePath := common.GetEnvVars().ImageFolder
 	filePath := fmt.Sprintf("%s/%s", imagePath, name)
 	_, err := os.Stat(filePath)

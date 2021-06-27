@@ -2,6 +2,7 @@ package commands
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -11,7 +12,7 @@ INSERT INTO recipe_book_image(recipe_book_id, image_id)
 RETURNING recipe_book_id, image_id
 `
 
-func CreateRecipeBookImage(recipeBookId, imageId uint64) (*tables.RecipeBookImage, error) {
+func CreateRecipeBookImage(recipeBookId, imageId uuid.UUID) (*tables.RecipeBookImage, error) {
 	db := getDb()
 
 	var recipeBookImage tables.RecipeBookImage
@@ -24,7 +25,7 @@ DELETE FROM recipe_book_image
 WHERE recipe_book_id=$1 AND image_id=$2
 `
 
-func DeleteRecipeBookImage(bookId, imageId uint64) error {
+func DeleteRecipeBookImage(bookId, imageId uuid.UUID) error {
 	db := getDb()
 
 	_, err := db.Exec(ctx, deleteRecipeBookImageCommand, bookId, imageId)

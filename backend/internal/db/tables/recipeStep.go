@@ -1,9 +1,11 @@
 package tables
 
+import "github.com/google/uuid"
+
 type RecipeStep struct {
-	RecipeID uint64
-	Number uint16
-	Step string
+	RecipeID uuid.UUID
+	Number   uint16
+	Step     string
 }
 
 func (_ RecipeStep) StructName() string {

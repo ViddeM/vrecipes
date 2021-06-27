@@ -3,13 +3,13 @@ package endpoints
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/common"
-	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
+	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/process"
 	"log"
 	"net/http"
-	"strconv"
 )
 
 func EditRecipe(c *gin.Context) {
@@ -50,7 +50,7 @@ func EditRecipe(c *gin.Context) {
 
 func validateRecipeId(c *gin.Context) (*tables.Recipe, error) {
 	idStr := c.Param("id")
-	id, err := strconv.ParseUint(idStr, 10, 64)
+	id, err := uuid.Parse(idStr)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseMalformedRecipeId))
 		return nil, err

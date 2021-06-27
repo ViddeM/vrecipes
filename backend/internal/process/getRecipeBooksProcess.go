@@ -2,6 +2,7 @@ package process
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
@@ -11,7 +12,7 @@ type RecipeBooksJson struct {
 }
 
 type ShortRecipeBookJson struct {
-	ID         uint64      `json:"id"`
+	ID         uuid.UUID   `json:"id"`
 	Name       string      `json:"name"`
 	UniqueName string      `json:"uniqueName"`
 	Author     string      `json:"author"`

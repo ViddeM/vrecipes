@@ -2,6 +2,7 @@ package queries
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -10,6 +11,7 @@ SELECT id, name, unique_name, author, created_by, deleted
 FROM recipe_book
 WHERE unique_name=$1
 `
+
 func GetRecipeBookByName(uniqueName string) (*tables.RecipeBook, error) {
 	db := getDb()
 
@@ -39,7 +41,7 @@ FROM recipe_book
 WHERE id=$1
 `
 
-func GetRecipeBookById(id uint64) (*tables.RecipeBook, error) {
+func GetRecipeBookById(id uuid.UUID) (*tables.RecipeBook, error) {
 	db := getDb()
 
 	var recipeBook tables.RecipeBook

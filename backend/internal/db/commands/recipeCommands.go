@@ -2,6 +2,7 @@ package commands
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -10,7 +11,7 @@ INSERT INTO recipe(name, unique_name, description, oven_temp, estimated_time, de
 		   VALUES ($1,   $2,          $3,          $4,        $5,             $6,	   $7)
 RETURNING id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by`
 
-func CreateRecipe(name, uniqueName, description string, ovenTemp, estimatedTime int, createdBy uint64) (*tables.Recipe, error) {
+func CreateRecipe(name, uniqueName, description string, ovenTemp, estimatedTime int, createdBy uuid.UUID) (*tables.Recipe, error) {
 	db := getDb()
 
 	var recipe tables.Recipe
@@ -28,7 +29,7 @@ SET name=$1,
 WHERE id=$6
 `
 
-func UpdateRecipe(name, uniqueName, description string, ovenTemp, estimatedTime int, recipeId uint64) error {
+func UpdateRecipe(name, uniqueName, description string, ovenTemp, estimatedTime int, recipeId uuid.UUID) error {
 	db := getDb()
 
 	_, err := db.Exec(ctx, updateRecipeCommand, name, uniqueName, description,
@@ -44,7 +45,7 @@ SET deleted=true,
 WHERE id=$3
 `
 
-func RecipeSetDeleted(name, uniqueName string, id uint64) error {
+func RecipeSetDeleted(name, uniqueName string, id uuid.UUID) error {
 	db := getDb()
 
 	_, err := db.Exec(ctx, recipeSetDeletedCommand, name, uniqueName, id)

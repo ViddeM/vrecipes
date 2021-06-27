@@ -1,8 +1,10 @@
 package tables
 
+import "github.com/google/uuid"
+
 type User struct {
-	ID uint64 `json:"id"`
-	Name string `json:"name"`
+	ID   uuid.UUID `json:"id"`
+	Name string    `json:"name"`
 }
 
 func (_ User) StructName() string {

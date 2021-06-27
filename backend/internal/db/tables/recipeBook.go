@@ -1,10 +1,12 @@
 package tables
 
+import "github.com/google/uuid"
+
 type RecipeBook struct {
-	ID uint64
-	Name string
+	ID         uuid.UUID
+	Name       string
 	UniqueName string
-	Author string
-	CreatedBy uint64
-	Deleted bool
+	Author     string
+	CreatedBy  uuid.UUID
+	Deleted    bool
 }

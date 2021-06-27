@@ -1,6 +1,7 @@
 package process
 
 import (
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
@@ -35,11 +36,11 @@ func updateRecipeBookGeneral(oldRecipeBook *tables.RecipeBook, newRecipeBook *mo
 		uniqueName = newUniqueName
 		changed = true
 	}
-	
+
 	if oldRecipeBook.Author != newRecipeBook.Author {
 		changed = true
 	}
-	
+
 	if changed {
 		err := commands.UpdateRecipeBook(newRecipeBook.Name, uniqueName, newRecipeBook.Author, oldRecipeBook.ID)
 		if err != nil {
@@ -50,12 +51,11 @@ func updateRecipeBookGeneral(oldRecipeBook *tables.RecipeBook, newRecipeBook *mo
 	return uniqueName, nil
 }
 
-func updateRecipeBookRecipes(bookId uint64, recipes []uint64) error {
+func updateRecipeBookRecipes(bookId uuid.UUID, recipes []uuid.UUID) error {
 	oldRecipes, err := queries.GetRecipesForRecipeBook(bookId)
 	if err != nil {
 		return err
 	}
-
 
 	for _, recipeId := range recipes {
 		if recipeWithIdIsInList(recipeId, oldRecipes) == false {
@@ -87,7 +87,7 @@ func updateRecipeBookRecipes(bookId uint64, recipes []uint64) error {
 	return nil
 }
 
-func recipeWithIdIsInList(id uint64, oldRecipes []*tables.Recipe) bool {
+func recipeWithIdIsInList(id uuid.UUID, oldRecipes []*tables.Recipe) bool {
 	for _, oldRecipe := range oldRecipes {
 		if oldRecipe.ID == id {
 			return true
@@ -97,14 +97,14 @@ func recipeWithIdIsInList(id uint64, oldRecipes []*tables.Recipe) bool {
 	return false
 }
 
-func updateRecipeBookImages(bookId uint64, images []uint64) error {
+func updateRecipeBookImages(bookId uuid.UUID, images []uuid.UUID) error {
 	oldImages, err := queries.GetImagesForRecipeBook(bookId)
 	if err != nil {
 		return err
 	}
 
-	var handledImages []uint64
-	var newImages []uint64
+	var handledImages []uuid.UUID
+	var newImages []uuid.UUID
 	for _, image := range images {
 		oldImage := getOldBookImage(image, oldImages)
 		if oldImage == nil {
@@ -139,7 +139,7 @@ func updateRecipeBookImages(bookId uint64, images []uint64) error {
 	return nil
 }
 
-func getOldBookImage(image uint64, oldImages []tables.Image) *tables.Image {
+func getOldBookImage(image uuid.UUID, oldImages []tables.Image) *tables.Image {
 	for _, oldImage := range oldImages {
 		if image == oldImage.ID {
 			return &oldImage

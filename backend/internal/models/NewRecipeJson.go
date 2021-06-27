@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"math"
 )
@@ -16,8 +17,8 @@ type NewRecipeJson struct {
 }
 
 type NewRecipeStepJson struct {
-	Number      uint16 `json:"number" validate:"required"`
-	Step string `json:"step" validate:"required"`
+	Number uint16 `json:"number" validate:"required"`
+	Step   string `json:"step" validate:"required"`
 }
 
 func (step *NewRecipeStepJson) SameAs(other *tables.RecipeStep) bool {
@@ -37,7 +38,7 @@ func (ingredient *NewRecipeIngredientJson) SameAs(other *tables.RecipeIngredient
 }
 
 type NewRecipeImageJson struct {
-	ID uint64 `json:"id" validate:"required"`
+	ID uuid.UUID `json:"id" validate:"required"`
 }
 
 func (image *NewRecipeImageJson) SameAs(other *tables.Image) bool {
@@ -45,7 +46,7 @@ func (image *NewRecipeImageJson) SameAs(other *tables.Image) bool {
 }
 
 func floatsAreSame(a, b float32) bool {
-	if math.Abs(float64(b - a)) < 0.0001 {
+	if math.Abs(float64(b-a)) < 0.0001 {
 		return true
 	}
 	return false

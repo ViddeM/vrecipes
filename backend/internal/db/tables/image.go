@@ -1,7 +1,9 @@
 package tables
 
+import "github.com/google/uuid"
+
 type Image struct {
-	ID uint64
+	ID   uuid.UUID
 	Name string
 }
 

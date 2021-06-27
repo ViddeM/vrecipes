@@ -2,6 +2,7 @@ package queries
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -10,7 +11,7 @@ SELECT id, name
 FROM vrecipes_user 
 WHERE id=$1`
 
-func GetUser(id uint64) (*tables.User, error) {
+func GetUser(id uuid.UUID) (*tables.User, error) {
 	db := getDb()
 
 	var user tables.User
