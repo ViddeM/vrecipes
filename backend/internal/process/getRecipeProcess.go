@@ -95,7 +95,7 @@ func imageNameToPath(id uuid.UUID, name string) string {
 		return name
 	}
 
-	nameWithId := fmt.Sprintf("%d_%s", id, name)
+	nameWithId := fmt.Sprintf("%s_%s", id, name)
 	filePath = fmt.Sprintf("%s/%s", imagePath, nameWithId)
 	return nameWithId
 }

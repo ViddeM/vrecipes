@@ -19,7 +19,7 @@ func UploadImage(file *validation.File) (*models.ImageJson, error) {
 		return nil, err
 	}
 
-	uniqueFilename := fmt.Sprintf("%d_%s", id, filenameWithPath)
+	uniqueFilename := fmt.Sprintf("%s_%s", id, filenameWithPath)
 	folder := common.GetEnvVars().ImageFolder
 	path := fmt.Sprintf("%s/%s", folder, uniqueFilename)
 	newFile, err := os.Create(path)
@@ -41,4 +41,3 @@ func UploadImage(file *validation.File) (*models.ImageJson, error) {
 func generateImageName(name string) string {
 	return base64.URLEncoding.EncodeToString([]byte(name))
 }
-
