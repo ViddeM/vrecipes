@@ -1,5 +1,3 @@
-BEGIN; -- TODO: Remove
-
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- ==============================================================
@@ -344,5 +342,3 @@ ALTER TABLE recipe_ingredient
 
 ALTER TABLE vrecipes_user
     DROP COLUMN old_id;
-
-COMMIT; -- TODO: Remove
