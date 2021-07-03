@@ -8,17 +8,22 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/api/endpoints/authentication"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"log"
+	"net/http"
 )
 
 var router *gin.Engine
 
 func Init() {
 	log.Println("Initializing GIN api")
-	router  = gin.Default()
+	router = gin.Default()
 	authentication.Init()
 
 	envVars := common.GetEnvVars()
 	store := cookie.NewStore([]byte(envVars.Secret))
+	store.Options(sessions.Options{
+		SameSite: http.SameSiteLaxMode,
+		Path:     "/",
+	})
 	router.Use(sessions.Sessions("authentication", store))
 
 	api := router.Group("/api")
@@ -81,4 +86,3 @@ func Start() {
 		log.Fatalf("Failed to start webserver due to err: %s\n", err)
 	}
 }
-
