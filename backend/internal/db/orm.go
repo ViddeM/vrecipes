@@ -12,6 +12,7 @@ import (
 	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
+	"github.com/viddem/vrecipes/backend/internal/db/specialMigrations"
 	"log"
 )
 
@@ -49,7 +50,28 @@ func Init() {
 	commands.Init(db, &ctx)
 	queries.Init(db, &ctx)
 
+	oldImages, err := specialMigrations.PrepareImageNameUpgrade(db, &ctx)
+	if err != nil {
+		log.Fatalf("Failed to check for / prepare special migration: %v\n", err)
+	}
+
+	// Avoid caching issues
+	v, err := db.Exec(ctx, "DISCARD ALL")
+	if err != nil {
+		log.Fatalf("Failed to discard db cache: %v\n", err)
+	}
+
+	fmt.Printf("Result from discard? :: %v\n", v.Update())
+
 	runMigrations(dbUrl)
+
+	if oldImages != nil {
+		log.Printf("Performing special migration")
+		err := specialMigrations.PerformSpecialMigration(db, &ctx, oldImages)
+		if err != nil {
+			log.Fatalf("Failed to perform special migration: %v\n", err)
+		}
+	}
 
 	setupDb()
 	log.Println("Initialized database connection")
