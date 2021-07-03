@@ -8,7 +8,7 @@ import (
 var createUserCommand = `
 INSERT INTO vrecipes_user(name)
 VALUES(					  $1)
-RETURNING id,name
+RETURNING id, name
 `
 
 func CreateUser(name string) (*tables.User, error) {

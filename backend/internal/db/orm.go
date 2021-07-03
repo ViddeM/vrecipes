@@ -56,12 +56,10 @@ func Init() {
 	}
 
 	// Avoid caching issues
-	v, err := db.Exec(ctx, "DISCARD ALL")
+	_, err = db.Exec(ctx, "DISCARD ALL")
 	if err != nil {
 		log.Fatalf("Failed to discard db cache: %v\n", err)
 	}
-
-	fmt.Printf("Result from discard? :: %v\n", v.Update())
 
 	runMigrations(dbUrl)
 

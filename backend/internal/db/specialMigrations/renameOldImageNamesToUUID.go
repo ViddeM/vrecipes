@@ -10,6 +10,7 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"log"
 	"os"
+	"strings"
 )
 
 type OldImage struct {
@@ -22,6 +23,9 @@ var imageNameUpdateNecessaryMigration uint64 = 20210627124019
 func PrepareImageNameUpgrade(db *pgxpool.Pool, ctx *context.Context) ([]*OldImage, error) {
 	migrationVersions, err := getMigrationVersions(db, ctx)
 	if err != nil {
+		if strings.Contains(err.Error(), `relation "schema_migrations" does not exist`) {
+			return nil, nil
+		}
 		return nil, err
 	}
 
@@ -32,6 +36,7 @@ func PrepareImageNameUpgrade(db *pgxpool.Pool, ctx *context.Context) ([]*OldImag
 	}
 
 	images, err := getAllOldImages(db, ctx)
+
 	return images, err
 }
 

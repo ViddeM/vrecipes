@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS image
 (
     id   BIGSERIAL PRIMARY KEY,
-                name TEXT NOT NULL
+    name TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS ingredient
@@ -31,28 +31,37 @@ CREATE TABLE IF NOT EXISTS recipe
     oven_temp      BIGINT,
     estimated_time BIGINT,
     deleted        BOOLEAN,
-    created_by     BIGINT REFERENCES "user"(id)
+    created_by     BIGINT
+        CONSTRAINT fk_recipe_user REFERENCES "user" (id)
 );
 
 CREATE TABLE IF NOT EXISTS recipe_image
 (
-    image_id  BIGINT REFERENCES image (id),
-    recipe_id BIGINT REFERENCES recipe (id),
+    image_id  BIGINT
+        -- Constraint named to support older DB versions
+        CONSTRAINT fk_recipe_image_image REFERENCES image (id),
+    recipe_id BIGINT
+        -- Constraint named to support older DB versions
+        CONSTRAINT fk_recipe_image_recipe REFERENCES recipe (id),
     PRIMARY KEY (image_id, recipe_id)
 );
 
 CREATE TABLE IF NOT EXISTS recipe_ingredient
 (
     id              BIGSERIAL PRIMARY KEY,
-    recipe_id       BIGINT REFERENCES recipe (id),
+    recipe_id       BIGINT
+        -- Constraint named to support older DB versions
+        CONSTRAINT fk_recipe_ingredient_recipe REFERENCES recipe (id),
     ingredient_name TEXT REFERENCES ingredient (name),
     unit_name       TEXT REFERENCES unit (name) NOT NULL,
-    amount          NUMERIC NOT NULL
+    amount          NUMERIC                     NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS recipe_step
 (
-    recipe_id BIGINT REFERENCES recipe (id),
+    recipe_id BIGINT
+        -- Constraint named to support older DB versions
+        CONSTRAINT fk_recipe_step_recipe REFERENCES recipe (id),
     number    INTEGER,
     step      TEXT NOT NULL,
     PRIMARY KEY (recipe_id, number)
