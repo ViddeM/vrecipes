@@ -56,10 +56,6 @@ func initAuth(c *gin.Context, config *oauth2.Config) {
 	}
 	session := sessions.Default(c)
 	session.Set("oauth-state", state)
-	session.Options(sessions.Options{
-		MaxAge:   20 * 60,
-		SameSite: http.SameSiteStrictMode,
-	})
 	err = session.Save()
 	if err != nil {
 		abort(c)
@@ -88,10 +84,6 @@ func setSession(c *gin.Context, name, email, provider string, token *oauth2.Toke
 	}
 
 	session := sessions.Default(c)
-	session.Options(sessions.Options{
-		Path:     "/",
-		SameSite: http.SameSiteStrictMode,
-	})
 	session.Set("token", tokenJson)
 
 	err = session.Save()
@@ -173,7 +165,8 @@ func generateState() (string, error) {
 
 func handleCallback(c *gin.Context, config *oauth2.Config) *oauth2.Token {
 	receivedState := c.Query("state")
-	expectedState := sessions.Default(c).Get("oauth-state")
+	session := sessions.Default(c)
+	expectedState := session.Get("oauth-state")
 
 	if receivedState != expectedState {
 		log.Printf("Invalid oauth state, expected '%s', got '%s'\n", expectedState, receivedState)
