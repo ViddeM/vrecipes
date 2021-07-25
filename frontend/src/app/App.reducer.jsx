@@ -9,8 +9,10 @@ import {bookSearch} from "../use-cases/search/RecipeBooks/RecipeBookSearch.reduc
 import {bookList} from "../use-cases/search/RecipeBooks/book-list/BookList.reducer.view";
 import {book} from "../use-cases/recipe-book/RecipeBook.reducer";
 import {createBook} from "../use-cases/create-book/CreateBook.reducer";
+import {recipeTags} from "../use-cases/search/RecipeTags/RecipeTags.reducer";
 
-export const rootReducer = combineReducers({
+export const rootReducer = combineReducers(
+{
     init,
     search,
     searchList,
@@ -19,7 +21,8 @@ export const rootReducer = combineReducers({
     book,
     recipe,
     create,
-    createBook
+    createBook,
+    recipeTags
 });
 
 
