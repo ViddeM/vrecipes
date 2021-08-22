@@ -9,3 +9,7 @@ export function recipeTagsSearchChanged(newText) {
         error: false
     }
 }
+
+export function saveNewRecipeTag(name, description, color) {
+    
+}
