@@ -1,5 +1,5 @@
 import React from "react";
-import {TagChip} from "./Tag.styles";
+import {TagChip, TagText} from "./Tag.styles";
 import {useTheme} from "@material-ui/core/styles";
 import {RGBToHSL} from "../../functions/colors";
 
@@ -7,16 +7,19 @@ export const Tag = props => {
     const theme = useTheme();
 
     return (
-    <TagChip p={parseColor(props.color)} theme={theme} href={props.url}>
-        {/*<TagText variant="subtitle2" textColor={getTextColor(props.color)}>*/}
-        {props.text}
-        {/*</TagText>*/}
+    <TagChip p={parseColor(props.color)} theme={theme}
+             href={props.url ? props.url : undefined}
+             style={props.url ? undefined : {cursor: "text"}}>
+        <TagText variant="subtitle2" textColor={getTextColor(props.color)}>
+            {props.text}
+        </TagText>
     </TagChip>
     )
 };
 
 function getTextColor(bgColor) {
-    let rgb = parseHexColor(bgColor)
+    // let rgb = parseHexColor(bgColor)
+    let rgb = bgColor;
     let luminance = (
     0.299 * rgb.r
     + 0.587 * rgb.g
