@@ -1,9 +1,10 @@
 import styled from "styled-components";
-//
-// export const TagText = styled(Typography)`
-//   color: ${props => props.textColor};
-//   word-wrap: normal;
-// `
+import {Typography} from "@material-ui/core";
+
+export const TagText = styled(Typography)`
+  color: ${props => props.textColor};
+  word-wrap: normal;
+`
 
 export const TagChip = styled.a`
   height: 22px;
