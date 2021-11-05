@@ -2,6 +2,7 @@ package process
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
@@ -10,8 +11,12 @@ import (
 
 func CreateNewTag(tagJson *models.NewTagJson) (*tables.Tag, error) {
 	_, err := queries.GetTagByName(tagJson.Name)
-	if err != nil && !pgxscan.NotFound(err) {
-		return nil, err
+	if err != nil {
+		if pgxscan.NotFound(err) == false {
+			return nil, err
+		}
+	} else {
+		return nil, common.ErrNameTaken
 	}
 
 	tag, err := commands.CreateTag(tagJson.Name, tagJson.Description, tagJson.Color.R, tagJson.Color.G, tagJson.Color.B)
