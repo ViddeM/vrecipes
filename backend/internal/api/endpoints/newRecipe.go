@@ -89,6 +89,5 @@ func getSessionUser(c *gin.Context) (*tables.User, error) {
 		return nil, ErrInvalidUserIdInContext
 	}
 
-	user, err := queries.GetUser(id)
-	return user, err
+	return queries.GetUser(id)
 }
