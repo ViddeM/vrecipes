@@ -1,6 +1,6 @@
 import {
     ON_CREATE_NEW_TAG_AWAIT_RESPONSE,
-    ON_CREATE_NEW_TAG_ERROR,
+    ON_CREATE_NEW_TAG_FAILED,
     ON_CREATE_NEW_TAG_SUCCESSFUL
 } from "./CreateTag.actions";
 import {authorizedApiCall} from "../../../../common/functions/authorizedApiCall";
@@ -26,7 +26,7 @@ export function createNewTag(name, description, rgb) {
 }
 
 function onTagSaveFailed(error) {
-    return handleError(error, ON_CREATE_NEW_TAG_ERROR, "Kunde inte skapa tagg");
+    return handleError(error, ON_CREATE_NEW_TAG_FAILED, "Kunde inte skapa tagg");
 }
 
 function onTagSaveSuccessful() {

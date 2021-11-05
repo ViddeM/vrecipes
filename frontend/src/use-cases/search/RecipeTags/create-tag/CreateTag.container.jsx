@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import CreateTag from "./CreateTag";
 
 const mapStateToProps = state => ({
-    tags: state.root.recipeTags.filteredTags
+    tags: state.root.recipeTags.filteredTags,
+    createTagError: state.root.recipeTags.createTagError
 })
 
 const mapDispatchToProps = dispatch => ({

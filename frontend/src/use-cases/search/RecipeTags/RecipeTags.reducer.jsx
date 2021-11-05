@@ -2,6 +2,10 @@ import {
     ON_RECIPE_TAGS_SEARCH_FIELD_CHANGE,
     ON_SET_CREATING_TAG
 } from "./RecipeTags.actions";
+import {
+    ON_CREATE_NEW_TAG_FAILED,
+    ON_CREATE_NEW_TAG_SUCCESSFUL
+} from "./create-tag/CreateTag.actions";
 
 const mockTags = [
     {
@@ -53,7 +57,8 @@ const initialState = {
     searchText: "",
     tags: mockTags,
     filteredTags: mockTags,
-    creatingTag: false
+    creatingTag: false,
+    createTagError: "",
 }
 
 export function recipeTags(state = initialState, action) {
@@ -69,7 +74,18 @@ export function recipeTags(state = initialState, action) {
             })
         case ON_SET_CREATING_TAG:
             return Object.assign({}, state, {
-                creatingTag: action.payload.creatingTag
+                creatingTag: action.payload.creatingTag,
+                createTagError: ""
+            })
+        case ON_CREATE_NEW_TAG_FAILED:
+            return Object.assign({}, state, {
+                createTagError: action.payload.message
+            })
+        case ON_CREATE_NEW_TAG_SUCCESSFUL:
+            // Reload page?
+            return Object.assign({}, state, {
+                createTagError: "",
+                creatingTag: false,
             })
         default:
             return state;
