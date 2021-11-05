@@ -83,16 +83,12 @@ func getSessionUser(c *gin.Context) (*tables.User, error) {
 		return nil, ErrNoUserInContext
 	}
 
-	idStr, ok := userId.(string)
+	id, ok := userId.(uuid.UUID)
 	if !ok {
+		log.Printf("Failed to cast %s to UUID", userId)
 		return nil, ErrInvalidUserIdInContext
 	}
 
-	i, err := uuid.Parse(idStr)
-	if err != nil {
-		return nil, ErrInvalidUserIdInContext
-	}
-	
-	user, err := queries.GetUser(i)
+	user, err := queries.GetUser(id)
 	return user, err
 }
