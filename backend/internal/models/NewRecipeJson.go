@@ -7,13 +7,13 @@ import (
 )
 
 type NewRecipeJson struct {
-	Name            string                    `json:"name" validate:"required"`
+	Name            string                    `json:"name" binding:"required"`
 	Description     string                    `json:"description"`
-	OvenTemperature int                       `json:"ovenTemperature" validate:"required,lte=9999"`
-	CookingTime     int                       `json:"cookingTime" validate:"required"`
-	Steps           []NewRecipeStepJson       `json:"steps" validate:"required,dive,required"`
-	Ingredients     []NewRecipeIngredientJson `json:"ingredients" validate:"required,dive,required"`
-	Images          []NewRecipeImageJson      `json:"images" validate:"required,dive,required"`
+	OvenTemperature int                       `json:"ovenTemperature" binding:"required,lte=9999"`
+	CookingTime     int                       `json:"cookingTime" binding:"required"`
+	Steps           []NewRecipeStepJson       `json:"steps" binding:"required,dive,required"`
+	Ingredients     []NewRecipeIngredientJson `json:"ingredients" binding:"required,dive,required"`
+	Images          []NewRecipeImageJson      `json:"images" binding:"required,dive,required"`
 }
 
 type NewRecipeStepJson struct {

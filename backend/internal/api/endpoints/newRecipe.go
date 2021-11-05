@@ -54,7 +54,7 @@ func NewRecipe(c *gin.Context) {
 
 func validateRecipe(c *gin.Context) (*models.NewRecipeJson, error) {
 	var recipe models.NewRecipeJson
-	err := c.BindJSON(&recipe)
+	err := c.ShouldBindJSON(&recipe)
 	if err != nil {
 		return nil, err
 	}
