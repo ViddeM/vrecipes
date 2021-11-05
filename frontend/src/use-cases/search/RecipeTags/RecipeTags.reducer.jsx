@@ -1,4 +1,7 @@
-import {ON_RECIPE_TAGS_SEARCH_FIELD_CHANGE} from "./RecipeTags.actions";
+import {
+    ON_RECIPE_TAGS_SEARCH_FIELD_CHANGE,
+    ON_SET_CREATING_TAG
+} from "./RecipeTags.actions";
 
 const mockTags = [
     {
@@ -50,6 +53,7 @@ const initialState = {
     searchText: "",
     tags: mockTags,
     filteredTags: mockTags,
+    creatingTag: false
 }
 
 export function recipeTags(state = initialState, action) {
@@ -62,6 +66,10 @@ export function recipeTags(state = initialState, action) {
                     return tag.name.includes(text) ||
                     tag.description.includes(text)
                 })
+            })
+        case ON_SET_CREATING_TAG:
+            return Object.assign({}, state, {
+                creatingTag: action.payload.creatingTag
             })
         default:
             return state;

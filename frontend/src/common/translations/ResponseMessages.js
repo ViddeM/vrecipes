@@ -24,7 +24,9 @@ const translations = {
     failed_to_edit_recipe_book: "Kunde inte ändra receptbok",
     failed_to_retrieve_recipe_book: "Kunde inte hämta receptbok",
     failed_to_retrieve_recipe_books: "Kunde inte hämta receptböcker",
-    failed_to_delete_recipe_book: "Kunde inte ta bort receptbok"
+    failed_to_delete_recipe_book: "Kunde inte ta bort receptbok",
+    tag_name_taken: "Tag namnet är redan taget",
+    failed_to_create_tag: "Kunde inte skapa tag",
 }
 
 export const DEFAULT_ERROR = "Whoops något gick fel :("
