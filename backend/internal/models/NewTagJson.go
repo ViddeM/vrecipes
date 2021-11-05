@@ -1,13 +1,13 @@
 package models
 
 type NewTagJson struct {
-	Name        string    `json:"name" validate:"required"`
+	Name        string    `json:"name" binding:"required"`
 	Description string    `json:"description"`
-	Color       ColorJson `json:"color" validate:"required"`
+	Color       ColorJson `json:"color" binding:"required"`
 }
 
 type ColorJson struct {
-	R uint8 `json:"r" validate:"required"`
-	G uint8 `json:"g" validate:"required"`
-	B uint8 `json:"b" validate:"required"`
+	R uint8 `json:"r"`
+	G uint8 `json:"g"`
+	B uint8 `json:"b"`
 }
