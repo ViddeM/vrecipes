@@ -29,7 +29,7 @@ export const RecipeTags = props => {
                           onClick={() => {
                               props.setCreatingTag(true);
                           }}>
-                Ny recept tagg
+                Ny tagg
             </NewTagButton>
         </TagsPageToolbar>
         {props.creatingTag && (

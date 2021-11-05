@@ -13,13 +13,16 @@ import {Tag} from "../../../../common/elements/Tag/Tag";
 import CachedIcon from "@material-ui/icons/Cached";
 import {useState} from "react";
 import {TagsTextField} from "../RecipeTags.styles";
+import {translations} from "../../../../common/translations/ResponseMessages";
+import {ErrorText} from "../../../create/Create.styles";
 
 export const CreateTag = props => {
     const [colorPickerOpen, toggleColorPicker] = useState(false);
     const [newTagColor, setNewTagColor] = useState(randomColor());
     const [newTagName, setNewTagName] = useState("");
     const [newTagDescription, setNewTagDescription] = useState("");
-    const [sameNameError, setSameNameError] = useState(false);
+
+    const tagNameTaken = props.createTagError === translations.tag_name_taken;
 
     return (
     <NewTagContainer>
@@ -34,10 +37,9 @@ export const CreateTag = props => {
                                let val = e.target.value;
                                if (val.length <= 30) {
                                    setNewTagName(val)
-                                   setSameNameError(false);
                                }
                            }}
-                           error={sameNameError}
+                           error={tagNameTaken}
                            errormessage={"Taggnamnet är redan taget"}
             />
             <TagsTextField
@@ -84,23 +86,19 @@ export const CreateTag = props => {
                 <NewTagActionButton color="primary" variant="contained"
                                     disabled={newTagName === ""}
                                     onClick={() => {
-                                        let nameTaken = false;
-                                        props.tags.forEach(tag => {
-                                            if (tag.name.toLowerCase() === newTagName.toLowerCase()) {
-                                                nameTaken = true;
-                                            }
-                                        })
-                                        if (nameTaken) {
-                                            setSameNameError(true);
-                                        } else {
-                                            props.saveTag(newTagName, newTagDescription, newTagColor)
-                                            setSameNameError(false);
-                                        }
+                                        props.saveTag(newTagName, newTagDescription, newTagColor)
                                     }}
                 >
                     Skapa Tagg
                 </NewTagActionButton>
             </NewTagActionButtonGroup>
+        </NewTagRow>
+        <NewTagRow>
+            {(props.createTagError && props.createTagError !== "" && !tagNameTaken) && (
+            <ErrorText>
+                {props.createTagError}
+            </ErrorText>
+            )}
         </NewTagRow>
     </NewTagContainer>
     )
