@@ -34,7 +34,7 @@ func NewTag(c *gin.Context) {
 
 func validateTag(c *gin.Context) (*models.NewTagJson, error) {
 	var tag models.NewTagJson
-	err := c.BindJSON(&tag)
+	err := c.ShouldBindJSON(&tag)
 
 	return &tag, err
 }
