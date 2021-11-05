@@ -1,4 +1,4 @@
-const translations = {
+export const translations = {
     recipe_name_exists: "Ett recept med det namnet finns redan",
     recipe_not_found: "Receptet hittades inte",
     invalid_json: "Ett internt fel har inträffat (felaktig json)",
