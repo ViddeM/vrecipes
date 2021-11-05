@@ -1,4 +1,7 @@
-import {ON_RECIPE_TAGS_SEARCH_FIELD_CHANGE} from "./RecipeTags.actions";
+import {
+    ON_RECIPE_TAGS_SEARCH_FIELD_CHANGE,
+    ON_SET_CREATING_TAG
+} from "./RecipeTags.actions";
 
 export function recipeTagsSearchChanged(newText) {
     return {
@@ -10,6 +13,12 @@ export function recipeTagsSearchChanged(newText) {
     }
 }
 
-export function saveNewRecipeTag(name, description, color) {
-    
+export function setCreatingTag(creatingTag) {
+    return {
+        type: ON_SET_CREATING_TAG,
+        payload: {
+            creatingTag: creatingTag
+        },
+        error: false
+    }
 }
