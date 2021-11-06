@@ -120,6 +120,12 @@ export const TagsActionButton = styled.button
     color: ${props => props.theme.palette.primary.dark};
     text-decoration: underline;
   }
+
+  &:disabled {
+    text-decoration: none;
+    color: gray;
+    cursor: default;
+  }
 `
 
 
