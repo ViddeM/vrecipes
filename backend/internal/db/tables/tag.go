@@ -9,6 +9,7 @@ type Tag struct {
 	ColorRed    uint8
 	ColorGreen  uint8
 	ColorBlue   uint8
+	CreatedBy   uuid.UUID
 }
 
 func (_ Tag) StructName() string {
