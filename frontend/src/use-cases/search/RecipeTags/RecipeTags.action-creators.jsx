@@ -1,7 +1,13 @@
 import {
+    LOAD_TAGS_FAILED,
+    LOAD_TAGS_SUCCESSFUL,
     ON_RECIPE_TAGS_SEARCH_FIELD_CHANGE,
     ON_SET_CREATING_TAG
 } from "./RecipeTags.actions";
+import {authorizedApiCall} from "../../../common/functions/authorizedApiCall";
+import {getTags} from "../../../api/get.Tags.api";
+import {handleError} from "../../../common/functions/handleError";
+import {FAILED_TO_LOAD_RECIPES} from "../../../common/translations/ResponseMessages";
 
 export function recipeTagsSearchChanged(newText) {
     return {
@@ -21,4 +27,33 @@ export function setCreatingTag(creatingTag) {
         },
         error: false
     }
+}
+
+export function loadTags() {
+    return dispatch => {
+        authorizedApiCall(getTags)
+        .then(response => {
+            if (response.error) {
+                return dispatch(onLoadTagsFailed(response.errResponse))
+            } else {
+                return dispatch(onLoadTagsSuccessful(response.response))
+            }
+        }).catch(error => {
+            return dispatch(onLoadTagsFailed(error))
+        })
+    }
+}
+
+function onLoadTagsSuccessful(response) {
+    return {
+        type: LOAD_TAGS_SUCCESSFUL,
+        payload: {
+            response
+        },
+        error: false
+    }
+}
+
+function onLoadTagsFailed(error) {
+    return handleError(error, LOAD_TAGS_FAILED, FAILED_TO_LOAD_RECIPES);
 }

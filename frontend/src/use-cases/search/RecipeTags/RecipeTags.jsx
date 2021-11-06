@@ -14,8 +14,15 @@ import {Link, Typography} from "@material-ui/core";
 import {Tag} from "../../../common/elements/Tag/Tag";
 import {useTheme} from "@material-ui/core/styles";
 import CreateTag from "./create-tag/CreateTag.container";
+import {useEffect} from "react";
 
 export const RecipeTags = props => {
+    const {loadTags} = props
+
+    useEffect(() => {
+        loadTags()
+    }, [loadTags, props.update])
+
     return (
     <TagsPageTable>
         <TagsPageToolbar>
