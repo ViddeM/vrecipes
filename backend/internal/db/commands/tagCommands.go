@@ -7,8 +7,8 @@ import (
 )
 
 var createTagCommand = `
-INSERT INTO tag(name, description, color_red, color_green, color_blue, created_by)
-		 VALUES($1,   $2,		   $3, 		  $4, 		   $5, 		   $6)
+INSERT INTO tag(name, description, color_red, color_green, color_blue, created_by, deleted)
+		 VALUES($1,   $2,		   $3, 		  $4, 		   $5, 		   $6,         false)
 RETURNING id, description, color_red, color_green, color_blue, created_by
 `
 
