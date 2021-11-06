@@ -1,4 +1,5 @@
 import {
+    LOAD_TAGS_SUCCESSFUL,
     ON_RECIPE_TAGS_SEARCH_FIELD_CHANGE,
     ON_SET_CREATING_TAG
 } from "./RecipeTags.actions";
@@ -7,58 +8,13 @@ import {
     ON_CREATE_NEW_TAG_SUCCESSFUL
 } from "./create-tag/CreateTag.actions";
 
-const mockTags = [
-    {
-        name: "vegetariskt",
-        description: "A longer, cooler description of the tag that might " +
-        "be spread out on two lines!",
-        color: {
-            r: 0,
-            g: 0,
-            b: 0
-        },
-        recipeCount: 15,
-        author: {
-            id: 0,
-            name: "Vidar Magnusson"
-        }
-    },
-    {
-        name: "laktosfritt",
-        description: "Bra för de som inte laktosen tål",
-        color: {
-            r: 200,
-            g: 15,
-            b: 200
-        },
-        recipeCount: 4,
-        author: {
-            id: 2,
-            name: ""
-        }
-    },
-    {
-        name: "fisk",
-        description: "Simmar ej längre",
-        color: {
-            r: 0,
-            g: 110,
-            b: 200
-        },
-        recipeCount: 0,
-        author: {
-            id: 1,
-            name: "Karl-Bertil Johnsson"
-        }
-    }
-]
-
 const initialState = {
     searchText: "",
-    tags: mockTags,
-    filteredTags: mockTags,
+    tags: [],
+    filteredTags: [],
     creatingTag: false,
     createTagError: "",
+    update: false
 }
 
 export function recipeTags(state = initialState, action) {
@@ -86,6 +42,14 @@ export function recipeTags(state = initialState, action) {
             return Object.assign({}, state, {
                 createTagError: "",
                 creatingTag: false,
+                update: true
+            })
+        case LOAD_TAGS_SUCCESSFUL:
+            const tags = action.payload.response.data.data.tags;
+            return Object.assign({}, state, {
+                tags: tags,
+                filteredTags: tags,
+                update: false
             })
         default:
             return state;
