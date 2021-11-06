@@ -10,7 +10,7 @@ export const Tag = props => {
     <TagChip p={parseColor(props.color)} theme={theme}
              href={props.url ? props.url : undefined}
              style={props.url ? undefined : {cursor: "text"}}>
-        <TagText variant="subtitle2" textColor={getTextColor(props.color)}>
+        <TagText variant="subtitle2" textcolor={getTextColor(props.color)}>
             {props.text}
         </TagText>
     </TagChip>
