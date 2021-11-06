@@ -8,7 +8,10 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/models"
 )
 
-func EditRecipe(oldRecipe *tables.Recipe, newRecipe *models.NewRecipeJson) (string, error) {
+func EditRecipe(
+	oldRecipe *tables.Recipe,
+	newRecipe *models.NewRecipeJson,
+) (string, error) {
 	uniqueName, err := updateRecipeGeneral(oldRecipe, newRecipe)
 	if err != nil {
 		return "", err
@@ -32,7 +35,10 @@ func EditRecipe(oldRecipe *tables.Recipe, newRecipe *models.NewRecipeJson) (stri
 	return uniqueName, nil
 }
 
-func updateRecipeGeneral(oldRecipe *tables.Recipe, newRecipe *models.NewRecipeJson) (string, error) {
+func updateRecipeGeneral(
+	oldRecipe *tables.Recipe,
+	newRecipe *models.NewRecipeJson,
+) (string, error) {
 	uniqueName := oldRecipe.UniqueName
 	changed := false
 	if oldRecipe.Name != newRecipe.Name {
@@ -52,15 +58,14 @@ func updateRecipeGeneral(oldRecipe *tables.Recipe, newRecipe *models.NewRecipeJs
 	}
 
 	if changed {
-		rec := tables.Recipe{
-			ID:            oldRecipe.ID,
-			Name:          newRecipe.Name,
-			UniqueName:    uniqueName,
-			Description:   newRecipe.Description,
-			OvenTemp:      newRecipe.OvenTemperature,
-			EstimatedTime: newRecipe.CookingTime,
-		}
-		err := commands.UpdateRecipe(rec.Name, rec.UniqueName, rec.Description, rec.OvenTemp, rec.EstimatedTime, rec.ID)
+		err := commands.UpdateRecipe(
+			newRecipe.Name,
+			uniqueName,
+			newRecipe.Description,
+			newRecipe.OvenTemperature,
+			newRecipe.CookingTime,
+			oldRecipe.ID,
+		)
 		if err != nil {
 			return "", err
 		}
@@ -86,7 +91,11 @@ func updateRecipeSteps(id uuid.UUID, steps []models.NewRecipeStepJson) error {
 			}
 		} else if step.SameAs(oldStep) == false {
 			// The step is updated
-			err = commands.UpdateRecipeStep(step.Step, oldStep.RecipeID, oldStep.Number)
+			err = commands.UpdateRecipeStep(
+				step.Step,
+				oldStep.RecipeID,
+				oldStep.Number,
+			)
 
 			if err != nil {
 				return err
@@ -98,7 +107,10 @@ func updateRecipeSteps(id uuid.UUID, steps []models.NewRecipeStepJson) error {
 		// Delete any excess steps
 		for _, oldStep := range oldSteps {
 			if oldStep.Number >= uint16(len(steps)) {
-				err = commands.DeleteRecipeStep(oldStep.RecipeID, oldStep.Number)
+				err = commands.DeleteRecipeStep(
+					oldStep.RecipeID,
+					oldStep.Number,
+				)
 				if err != nil {
 					return err
 				}
@@ -109,7 +121,10 @@ func updateRecipeSteps(id uuid.UUID, steps []models.NewRecipeStepJson) error {
 	return nil
 }
 
-func getStepWithNumber(number uint16, oldSteps []*tables.RecipeStep) *tables.RecipeStep {
+func getStepWithNumber(
+	number uint16,
+	oldSteps []*tables.RecipeStep,
+) *tables.RecipeStep {
 	for _, oldStep := range oldSteps {
 		if oldStep.Number == number {
 			return oldStep
@@ -118,7 +133,10 @@ func getStepWithNumber(number uint16, oldSteps []*tables.RecipeStep) *tables.Rec
 	return nil
 }
 
-func updateRecipeIngredients(id uuid.UUID, ingredients []models.NewRecipeIngredientJson) error {
+func updateRecipeIngredients(
+	id uuid.UUID,
+	ingredients []models.NewRecipeIngredientJson,
+) error {
 	oldIngredients, err := queries.GetIngredientsForRecipe(id)
 	if err != nil {
 		return err
@@ -129,7 +147,12 @@ func updateRecipeIngredients(id uuid.UUID, ingredients []models.NewRecipeIngredi
 		oldIngredient := getOldIngredient(&ingredient, oldIngredients)
 		if oldIngredient == nil {
 			// The ingredient is new or updated
-			newRecipeIngredient, err := CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, id)
+			newRecipeIngredient, err := CreateRecipeIngredient(
+				ingredient.Name,
+				ingredient.Unit,
+				ingredient.Amount,
+				id,
+			)
 			if err != nil {
 				return err
 			}
@@ -142,7 +165,7 @@ func updateRecipeIngredients(id uuid.UUID, ingredients []models.NewRecipeIngredi
 	// Remove ingredients that are no longer in the recipe.
 	for _, oldIngredient := range oldIngredients {
 		found := false
-		for handledId, _ := range ingredientIdNumMap {
+		for handledId := range ingredientIdNumMap {
 			if oldIngredient.ID == handledId {
 				found = true
 				break
@@ -163,7 +186,10 @@ func updateRecipeIngredients(id uuid.UUID, ingredients []models.NewRecipeIngredi
 	return err
 }
 
-func getOldIngredient(ingredient *models.NewRecipeIngredientJson, oldIngredients []*tables.RecipeIngredient) *tables.RecipeIngredient {
+func getOldIngredient(
+	ingredient *models.NewRecipeIngredientJson,
+	oldIngredients []*tables.RecipeIngredient,
+) *tables.RecipeIngredient {
 	for _, oldIngredient := range oldIngredients {
 		if ingredient.SameAs(oldIngredient) {
 			return oldIngredient
@@ -173,7 +199,10 @@ func getOldIngredient(ingredient *models.NewRecipeIngredientJson, oldIngredients
 	return nil
 }
 
-func updateRecipeImages(id uuid.UUID, images []models.NewRecipeImageJson) error {
+func updateRecipeImages(
+	id uuid.UUID,
+	images []models.NewRecipeImageJson,
+) error {
 	oldImages, err := queries.GetImagesForRecipe(id)
 	if err != nil {
 		return err
@@ -212,7 +241,10 @@ func updateRecipeImages(id uuid.UUID, images []models.NewRecipeImageJson) error 
 	return nil
 }
 
-func getOldImage(image *models.NewRecipeImageJson, oldImages []tables.Image) *tables.Image {
+func getOldImage(
+	image *models.NewRecipeImageJson,
+	oldImages []tables.Image,
+) *tables.Image {
 	for _, oldImage := range oldImages {
 		if image.SameAs(&oldImage) {
 			return &oldImage

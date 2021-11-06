@@ -67,18 +67,24 @@ func initAuth(c *gin.Context, config *oauth2.Config) {
 	c.String(http.StatusUnauthorized, url)
 }
 
-func setSession(c *gin.Context, name, email, provider string, token *oauth2.Token) error {
+func setSession(
+	c *gin.Context,
+	name, email, provider string,
+	token *oauth2.Token,
+) error {
 	user, err := process.GetOrCreateUser(name, email, provider)
 	if err != nil {
 		return err
 	}
 
 	log.Printf("Retrieved session user: %v\n", user)
-	tokenJson, err := json.Marshal(&sessionData{
-		UserID:   user.ID,
-		Token:    token,
-		Provider: provider,
-	})
+	tokenJson, err := json.Marshal(
+		&sessionData{
+			UserID:   user.ID,
+			Token:    token,
+			Provider: provider,
+		},
+	)
 	if err != nil {
 		return err
 	}
@@ -112,9 +118,12 @@ func resetSession(c *gin.Context) {
 	session.Clear()
 	session.Options(
 		sessions.Options{
-			MaxAge: -1,
-			Path:   "/",
-		})
+			MaxAge:   -1,
+			Path:     "/",
+			Secure:   true,
+			HttpOnly: true,
+		},
+	)
 	_ = session.Save()
 }
 
@@ -124,7 +133,10 @@ func renewAuth(c *gin.Context) {
 }
 
 func abort(c *gin.Context) {
-	c.JSON(http.StatusInternalServerError, common.Error(common.ResponseFailedToAuthenticate))
+	c.JSON(
+		http.StatusInternalServerError,
+		common.Error(common.ResponseFailedToAuthenticate),
+	)
 }
 
 func checkIfWhitelisted(email string) bool {
@@ -169,7 +181,11 @@ func handleCallback(c *gin.Context, config *oauth2.Config) *oauth2.Token {
 	expectedState := session.Get("oauth-state")
 
 	if receivedState != expectedState {
-		log.Printf("Invalid oauth state, expected '%s', got '%s'\n", expectedState, receivedState)
+		log.Printf(
+			"Invalid oauth state, expected '%s', got '%s'\n",
+			expectedState,
+			receivedState,
+		)
 		abort(c)
 		return nil
 	}

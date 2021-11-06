@@ -12,11 +12,26 @@ INSERT INTO tag(name, description, color_red, color_green, color_blue, created_b
 RETURNING id, description, color_red, color_green, color_blue, created_by
 `
 
-func CreateTag(name, description string, colorRed, colorGreen, colorBlue uint8, createdBy uuid.UUID) (*tables.Tag, error) {
+func CreateTag(
+	name, description string,
+	colorRed, colorGreen, colorBlue uint8,
+	createdBy uuid.UUID,
+) (*tables.Tag, error) {
 	db := getDb()
 
 	var tag tables.Tag
-	err := pgxscan.Get(ctx, db, &tag, createTagCommand, name, description, colorRed, colorGreen, colorBlue, createdBy)
+	err := pgxscan.Get(
+		ctx,
+		db,
+		&tag,
+		createTagCommand,
+		name,
+		description,
+		colorRed,
+		colorGreen,
+		colorBlue,
+		createdBy,
+	)
 	return &tag, err
 }
 
@@ -31,5 +46,36 @@ func TagSetDeleted(name string, id uuid.UUID) error {
 	db := getDb()
 
 	_, err := db.Exec(ctx, tagSetDeletedCommand, name, id)
+	return err
+}
+
+var updateTagCommand = `
+UPDATE tag
+SET name=$1,
+	description=$2,
+	color_red=$3,
+	color_green=$4,
+	color_blue=$5
+WHERE id = $6
+`
+
+func UpdateTag(
+	name, description string,
+	red, green, blue uint8,
+	id uuid.UUID,
+) error {
+	db := getDb()
+
+	_, err := db.Exec(
+		ctx,
+		updateTagCommand,
+		name,
+		description,
+		red,
+		green,
+		blue,
+		id,
+	)
+
 	return err
 }
