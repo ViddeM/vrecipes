@@ -16,6 +16,7 @@ type TagJson struct {
 	Name        string           `json:"name"`
 	Description string           `json:"description"`
 	Color       models.ColorJson `json:"color"`
+	RecipeCount uint64           `json:"recipeCount"`
 	Author      tables.User      `json:"author"`
 }
 
@@ -36,6 +37,11 @@ func GetTags() (*TagsJson, error) {
 			return nil, err
 		}
 
+		recipeCount, err := queries.CountRecipesWithTag(&tag.ID)
+		if err != nil {
+			return nil, err
+		}
+
 		tagJsons = append(tagJsons, TagJson{
 			ID:          tag.ID,
 			Name:        tag.Name,
@@ -45,7 +51,8 @@ func GetTags() (*TagsJson, error) {
 				G: &tag.ColorGreen,
 				B: &tag.ColorBlue,
 			},
-			Author: *user,
+			RecipeCount: recipeCount,
+			Author:      *user,
 		})
 	}
 

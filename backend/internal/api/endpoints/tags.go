@@ -11,7 +11,7 @@ func Tags(c *gin.Context) {
 	tags, err := process.GetTags()
 	if err != nil {
 		log.Printf("Error: Failed to retrieve tags due to %s\n", err)
-		c.JSON(500, common.ResponseFailedToRetrieveTags)
+		c.JSON(500, common.Error(common.ResponseFailedToRetrieveTags))
 		return
 	}
 
