@@ -52,4 +52,5 @@ const (
 	ResponseFailedToEditRecipeBook      = "failed_to_edit_recipe_book"
 	ResponseTagNameTaken                = "tag_name_taken"
 	ResponseFailedToCreateTag           = "failed_to_create_tag"
+	ResponseFailedToRetrieveTags        = "failed_to_retrieve_tags"
 )
