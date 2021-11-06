@@ -16,6 +16,7 @@ func EditRecipe(c *gin.Context) {
 	recipe, err := validateRecipe(c)
 	if err != nil {
 		log.Printf("Failed to validate edit recipe json: %v\n", err)
+		c.JSON(http.StatusBadRequest, common.Error(common.ResponseInvalidJson))
 		return
 	}
 

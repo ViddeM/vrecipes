@@ -56,4 +56,5 @@ const (
 	ResponseMalformedTagId              = "malformed_tag_id"
 	ResponseTagNotFound                 = "tag_not_found"
 	ResponseFailedToDeleteTag           = "failed_to_delete_tag"
+	ResponseFailedToEditTag             = "failed_to_edit_tag"
 )

@@ -20,10 +20,14 @@ func Init() {
 
 	envVars := common.GetEnvVars()
 	store := cookie.NewStore([]byte(envVars.Secret))
-	store.Options(sessions.Options{
-		SameSite: http.SameSiteLaxMode,
-		Path:     "/",
-	})
+	store.Options(
+		sessions.Options{
+			SameSite: http.SameSiteLaxMode,
+			Path:     "/",
+			Secure:   true,
+			HttpOnly: true,
+		},
+	)
 	router.Use(sessions.Sessions("authentication", store))
 
 	api := router.Group("/api")
@@ -50,6 +54,7 @@ func Init() {
 			authRequired.POST("/tags", endpoints.NewTag)
 			authRequired.GET("/tags", endpoints.Tags)
 			authRequired.DELETE("/tags/:id", endpoints.RemoveTag)
+			authRequired.PUT("/tags/:id", endpoints.EditTag)
 		}
 
 		auth := api.Group("/auth")
