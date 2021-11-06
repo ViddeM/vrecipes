@@ -153,7 +153,6 @@ const colorPickerTranslations = {
 export function translate(val) {
     let translated = colorPickerTranslations[val];
     if (translated) {
-        console.log("Asked to translate", val, " returning", translated);
         return translated;
     }
     console.error("Could not find translation for ", val);

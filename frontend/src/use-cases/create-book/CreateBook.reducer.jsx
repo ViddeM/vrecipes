@@ -133,7 +133,6 @@ function handleGetRecipes(oldState, recipes) {
 }
 
 function editRecipeBook(state, book) {
-    console.log("BOOK: ", book)
     let recipes = book.recipes;
 
     return newState(initialState, {

@@ -4,3 +4,4 @@ export const LOAD_TAGS_SUCCESSFUL = "load_tags_successful";
 export const LOAD_TAGS_FAILED = "load_tags_failed";
 export const DELETE_TAG_FAILED = "delete_tag_failed";
 export const DELETE_TAG_SUCCESSFUL = "delete_tag_successful";
+export const ON_EDIT_TAG = "on_edit_tag";
