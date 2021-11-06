@@ -66,10 +66,23 @@ export default RecipeTags;
 
 const TagRow = props => {
     const [deleteDialogOpen, setDialogOpen] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const {id, color, description, name, recipeCount, author} = props.tag;
     const theme = useTheme();
-    const minimal = window.screen.width <= 880;
+
+    useEffect(() => {
+        const resizeListener = () => {
+            setWindowWidth(window.innerWidth)
+        }
+        window.addEventListener('resize', resizeListener)
+
+        return () => {
+            window.removeEventListener('resize', resizeListener);
+        }
+    }, [])
+
+    const minimal = windowWidth <= 880;
 
     return (
     <TableRow>
