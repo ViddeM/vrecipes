@@ -1,4 +1,6 @@
 import {
+    DELETE_TAG_FAILED,
+    DELETE_TAG_SUCCESSFUL,
     LOAD_TAGS_SUCCESSFUL,
     ON_RECIPE_TAGS_SEARCH_FIELD_CHANGE,
     ON_SET_CREATING_TAG
@@ -51,6 +53,12 @@ export function recipeTags(state = initialState, action) {
                 filteredTags: tags,
                 update: false
             })
+        case DELETE_TAG_SUCCESSFUL:
+            return Object.assign({}, state, {
+                update: true
+            })
+        case DELETE_TAG_FAILED:
+            return state
         default:
             return state;
     }
