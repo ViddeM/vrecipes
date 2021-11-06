@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {Typography} from "@material-ui/core";
 
 export const TagText = styled(Typography)`
-  color: ${props => props.textColor};
+  color: ${props => props.textcolor};
   word-wrap: normal;
 `
 
