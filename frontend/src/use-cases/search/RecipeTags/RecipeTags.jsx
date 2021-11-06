@@ -10,11 +10,16 @@ import {
     TagsTableText,
     TagsTextField
 } from "./RecipeTags.styles";
-import {Link, Typography} from "@material-ui/core";
+import {Button, Link, Typography} from "@material-ui/core";
 import {Tag} from "../../../common/elements/Tag/Tag";
 import {useTheme} from "@material-ui/core/styles";
 import CreateTag from "./create-tag/CreateTag.container";
-import {useEffect} from "react";
+import React, {useEffect, useState} from "react";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
 
 export const RecipeTags = props => {
     const {loadTags} = props
@@ -49,7 +54,8 @@ export const RecipeTags = props => {
                 </Typography>
             </TableHeader>
             {props.tags.map(tag => (
-            <TagRow tag={tag} key={tag.name}/>
+            <TagRow tag={tag} loggedInUser={props.loggedInUser} key={tag.name}
+                    deleteTag={props.deleteTag}/>
             ))}
         </TagsTable>
     </TagsPageTable>
@@ -59,7 +65,9 @@ export const RecipeTags = props => {
 export default RecipeTags;
 
 const TagRow = props => {
-    const {color, description, name, recipeCount, author} = props.tag;
+    const [deleteDialogOpen, setDialogOpen] = useState(false);
+
+    const {id, color, description, name, recipeCount, author} = props.tag;
     const theme = useTheme();
     const minimal = window.screen.width <= 880;
 
@@ -92,12 +100,53 @@ const TagRow = props => {
         </>
         )}
         <TagsTableElement width={minimal ? "50%" : "15%"} align={"right"}>
-            <TagsActionButton theme={theme}>
+            <TagsActionButton theme={theme}
+                              disabled={!props.loggedInUser || props.loggedInUser.id !== author.id}>
                 Ändra
             </TagsActionButton>
-            <TagsActionButton theme={theme}>
+            <TagsActionButton theme={theme}
+                              disabled={!props.loggedInUser || props.loggedInUser.id !== author.id}
+                              onClick={() => setDialogOpen(true)}>
                 Ta bort
             </TagsActionButton>
+            {
+                getDialog(deleteDialogOpen, () => props.deleteTag(id), () => setDialogOpen(false))
+            }
         </TagsTableElement>
     </TableRow>)
+}
+
+
+function getDialog(open, onRemove, closeDialog) {
+    return (
+    <Dialog
+    open={open}
+    onClose={closeDialog}
+    aria-labelledby="alert-delete-tag-title"
+    aria-describedby="alert-delete-tag-description"
+    >
+        <DialogTitle id="alert-delete-tag-title">
+            {"Ta bort tagg?"}
+        </DialogTitle>
+        <DialogContent>
+            <DialogContentText id="alert-delete-tag-description">
+                Är du säkert på att du vill ta bort denna tagg?
+            </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+            <Button color="secondary"
+                    variant="contained"
+                    onClick={closeDialog}
+            >
+                Nej
+            </Button>
+            <Button color="primary"
+                    variant="contained"
+                    onClick={onRemove}
+            >
+                Ja
+            </Button>
+        </DialogActions>
+    </Dialog>
+    )
 }
