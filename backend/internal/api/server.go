@@ -49,6 +49,7 @@ func Init() {
 			authRequired.PUT("/books/:id", endpoints.EditRecipeBook)
 			authRequired.POST("/tags", endpoints.NewTag)
 			authRequired.GET("/tags", endpoints.Tags)
+			authRequired.DELETE("/tags/:id", endpoints.RemoveTag)
 		}
 
 		auth := api.Group("/auth")

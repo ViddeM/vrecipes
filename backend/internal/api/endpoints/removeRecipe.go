@@ -11,7 +11,7 @@ import (
 func RemoveRecipe(c *gin.Context) {
 	recipe, err := validateRecipeId(c)
 	if err != nil {
-		log.Printf("Failed to validate recipe id: %v", err)
+		log.Printf("Failed to validate recipe id: %v\n", err)
 		return
 	}
 
@@ -24,7 +24,7 @@ func RemoveRecipe(c *gin.Context) {
 
 	err = process.DeleteRecipe(recipe)
 	if err != nil {
-		log.Printf("Faield to delete recipe: %v\n", err)
+		log.Printf("Failed to delete recipe: %v\n", err)
 		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseFailedToDeleteRecipe))
 		return
 	}

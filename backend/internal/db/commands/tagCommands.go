@@ -19,3 +19,17 @@ func CreateTag(name, description string, colorRed, colorGreen, colorBlue uint8, 
 	err := pgxscan.Get(ctx, db, &tag, createTagCommand, name, description, colorRed, colorGreen, colorBlue, createdBy)
 	return &tag, err
 }
+
+var tagSetDeletedCommand = `
+UPDATE tag
+SET deleted=true,
+	name=$1
+WHERE id=$2
+`
+
+func TagSetDeleted(name string, id uuid.UUID) error {
+	db := getDb()
+
+	_, err := db.Exec(ctx, tagSetDeletedCommand, name, id)
+	return err
+}

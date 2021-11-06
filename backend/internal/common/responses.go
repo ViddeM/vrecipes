@@ -53,4 +53,7 @@ const (
 	ResponseTagNameTaken                = "tag_name_taken"
 	ResponseFailedToCreateTag           = "failed_to_create_tag"
 	ResponseFailedToRetrieveTags        = "failed_to_retrieve_tags"
+	ResponseMalformedTagId              = "malformed_tag_id"
+	ResponseTagNotFound                 = "tag_not_found"
+	ResponseFailedToDeleteTag           = "failed_to_delete_tag"
 )
