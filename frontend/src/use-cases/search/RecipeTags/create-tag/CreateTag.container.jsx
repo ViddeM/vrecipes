@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    saveTag: tag => dispatch(createNewTag(tag))
+    saveTag: (name, description, rgb) => dispatch(createNewTag(name, description, rgb))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateTag);
