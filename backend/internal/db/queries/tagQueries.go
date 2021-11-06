@@ -2,6 +2,7 @@ package queries
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -16,6 +17,20 @@ func GetTagByName(name string) (*tables.Tag, error) {
 
 	var tag tables.Tag
 	err := pgxscan.Get(ctx, db, &tag, getTagByNameQuery, name)
+	return &tag, err
+}
+
+var getTagByIdQuery = `
+SELECT id, name, description, color_red, color_green, color_blue, created_by
+FROM tag
+WHERE id=$1
+`
+
+func GetTagById(id uuid.UUID) (*tables.Tag, error) {
+	db := getDb()
+
+	var tag tables.Tag
+	err := pgxscan.Get(ctx, db, &tag, getTagByIdQuery, id)
 	return &tag, err
 }
 
