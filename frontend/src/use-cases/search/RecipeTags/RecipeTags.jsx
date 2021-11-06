@@ -73,12 +73,12 @@ const TagRow = props => {
 
     return (
     <TableRow>
-        <TagsTableElement width={minimal ? "50%" : "15%"}>
+        <TagsTableElement width={minimal ? "50%" : "20%"}>
             <Tag color={color} text={name} url={"https://google.com"}/>
         < /TagsTableElement>
         {minimal === false && (
         <>
-            <TagsTableElement width="40%" buffer={"16px"}>
+            <TagsTableElement width="35%" buffer={"16px"}>
                 <TagsTableText>
                     {description}
                 </TagsTableText>

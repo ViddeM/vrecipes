@@ -7,7 +7,6 @@ export const TagText = styled(Typography)`
 `
 
 export const TagChip = styled.a`
-  height: 22px;
   border-radius: 24px;
   padding: 0 10px;
   margin-right: 5px;
