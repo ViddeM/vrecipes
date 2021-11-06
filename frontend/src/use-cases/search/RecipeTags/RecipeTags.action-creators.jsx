@@ -3,6 +3,7 @@ import {
     DELETE_TAG_SUCCESSFUL,
     LOAD_TAGS_FAILED,
     LOAD_TAGS_SUCCESSFUL,
+    ON_EDIT_TAG,
     ON_RECIPE_TAGS_SEARCH_FIELD_CHANGE,
     ON_SET_CREATING_TAG
 } from "./RecipeTags.actions";
@@ -92,4 +93,14 @@ function onDeleteTagSuccessful(response) {
 function onDeleteTagFailed(error) {
     alert("Misslyckades med att ta bort tagg")
     return handleError(error, DELETE_TAG_FAILED)
+}
+
+export function editTag(tag) {
+    return {
+        type: ON_EDIT_TAG,
+        payload: {
+            tag
+        },
+        error: false
+    }
 }
