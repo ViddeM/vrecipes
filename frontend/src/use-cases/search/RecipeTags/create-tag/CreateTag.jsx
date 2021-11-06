@@ -11,16 +11,22 @@ import {
 } from "./CreateTag.styles";
 import {Tag} from "../../../../common/elements/Tag/Tag";
 import CachedIcon from "@material-ui/icons/Cached";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {TagsTextField} from "../RecipeTags.styles";
 import {translations} from "../../../../common/translations/ResponseMessages";
 import {ErrorText} from "../../../create/Create.styles";
 
 export const CreateTag = props => {
     const [colorPickerOpen, toggleColorPicker] = useState(false);
-    const [newTagColor, setNewTagColor] = useState(randomColor());
+    const [newTagColor, setNewTagColor] = useState({});
     const [newTagName, setNewTagName] = useState("");
     const [newTagDescription, setNewTagDescription] = useState("");
+
+    useEffect(() => {
+        setNewTagColor(props.color ? props.color : randomColor());
+        setNewTagName(props.name ? props.name : "");
+        setNewTagDescription(props.description ? props.description : "");
+    }, [props.name, props.color, props.description]);
 
     const tagNameTaken = props.createTagError === translations.tag_name_taken;
 
@@ -86,10 +92,14 @@ export const CreateTag = props => {
                 <NewTagActionButton color="primary" variant="contained"
                                     disabled={newTagName === ""}
                                     onClick={() => {
-                                        props.saveTag(newTagName, newTagDescription, newTagColor)
+                                        if (props.editing) {
+                                            props.editTag(props.tagId, newTagName, newTagDescription, newTagColor)
+                                        } else {
+                                            props.saveTag(newTagName, newTagDescription, newTagColor)
+                                        }
                                     }}
                 >
-                    Skapa Tagg
+                    {props.editing ? "Spara ändringar" : "Skapa Tagg"}
                 </NewTagActionButton>
             </NewTagActionButtonGroup>
         </NewTagRow>
@@ -102,7 +112,8 @@ export const CreateTag = props => {
         </NewTagRow>
     </NewTagContainer>
     )
-};
+}
+;
 
 function randomColor() {
     return {

@@ -1,6 +1,7 @@
 import {RecipeTags} from "./RecipeTags";
 import {connect} from "react-redux";
 import {
+    editTag,
     handleDeleteTag,
     loadTags,
     recipeTagsSearchChanged,
@@ -19,7 +20,8 @@ const mapDispatchToProps = dispatch => ({
     onSearch: text => dispatch(recipeTagsSearchChanged(text)),
     setCreatingTag: creatingTag => dispatch(setCreatingTag(creatingTag)),
     loadTags: () => dispatch(loadTags()),
-    deleteTag: id => dispatch(handleDeleteTag(id))
+    deleteTag: id => dispatch(handleDeleteTag(id)),
+    editTag: tag => dispatch(editTag(tag))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeTags);

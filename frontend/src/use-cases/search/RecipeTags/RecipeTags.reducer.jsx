@@ -2,12 +2,14 @@ import {
     DELETE_TAG_FAILED,
     DELETE_TAG_SUCCESSFUL,
     LOAD_TAGS_SUCCESSFUL,
+    ON_EDIT_TAG,
     ON_RECIPE_TAGS_SEARCH_FIELD_CHANGE,
     ON_SET_CREATING_TAG
 } from "./RecipeTags.actions";
 import {
     ON_CREATE_NEW_TAG_FAILED,
-    ON_CREATE_NEW_TAG_SUCCESSFUL
+    ON_CREATE_NEW_TAG_SUCCESSFUL,
+    ON_EDIT_TAG_SAVE_FAILED
 } from "./create-tag/CreateTag.actions";
 
 const initialState = {
@@ -16,7 +18,14 @@ const initialState = {
     filteredTags: [],
     creatingTag: false,
     createTagError: "",
-    update: false
+    update: false,
+    editTag: {
+        edit: false,
+        name: undefined,
+        description: undefined,
+        color: undefined,
+        tagId: undefined,
+    }
 }
 
 export function recipeTags(state = initialState, action) {
@@ -33,9 +42,17 @@ export function recipeTags(state = initialState, action) {
         case ON_SET_CREATING_TAG:
             return Object.assign({}, state, {
                 creatingTag: action.payload.creatingTag,
-                createTagError: ""
+                createTagError: "",
+                editTag: {
+                    name: undefined,
+                    description: undefined,
+                    color: undefined,
+                    tagId: undefined,
+                    edit: false
+                }
             })
         case ON_CREATE_NEW_TAG_FAILED:
+        case ON_EDIT_TAG_SAVE_FAILED:
             return Object.assign({}, state, {
                 createTagError: action.payload.message
             })
@@ -59,6 +76,18 @@ export function recipeTags(state = initialState, action) {
             })
         case DELETE_TAG_FAILED:
             return state
+        case ON_EDIT_TAG:
+            let tag = action.payload.tag;
+            return Object.assign({}, state, {
+                creatingTag: true,
+                editTag: {
+                    name: tag.name,
+                    description: tag.description,
+                    color: tag.color,
+                    tagId: tag.id,
+                    edit: true
+                }
+            })
         default:
             return state;
     }

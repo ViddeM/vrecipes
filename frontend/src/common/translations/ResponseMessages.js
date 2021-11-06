@@ -27,6 +27,11 @@ export const translations = {
     failed_to_delete_recipe_book: "Kunde inte ta bort receptbok",
     tag_name_taken: "Tag namnet är redan taget",
     failed_to_create_tag: "Kunde inte skapa tag",
+    failed_to_retrieve_tags: "Kunde inte hämta taggar",
+    malformed_tag_id: "Felformatterad tagg id",
+    tag_not_found: "Kunde inte hitta taggen",
+    failed_to_delete_tag: "Kunde inte ta bort tagg",
+    failed_to_edit_tag: "Kunde inte spara taggen"
 }
 
 export const DEFAULT_ERROR = "Whoops något gick fel :("

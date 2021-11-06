@@ -55,7 +55,7 @@ export const RecipeTags = props => {
             </TableHeader>
             {props.tags.map(tag => (
             <TagRow tag={tag} loggedInUser={props.loggedInUser} key={tag.name}
-                    deleteTag={props.deleteTag}/>
+                    deleteTag={props.deleteTag} editTag={props.editTag}/>
             ))}
         </TagsTable>
     </TagsPageTable>
@@ -114,7 +114,15 @@ const TagRow = props => {
         )}
         <TagsTableElement width={minimal ? "50%" : "15%"} align={"right"}>
             <TagsActionButton theme={theme}
-                              disabled={!props.loggedInUser || props.loggedInUser.id !== author.id}>
+                              disabled={!props.loggedInUser || props.loggedInUser.id !== author.id}
+                              onClick={() => props.editTag(
+                              {
+                                  id: id,
+                                  name: name,
+                                  description: description,
+                                  color: color
+                              })}
+            >
                 Ändra
             </TagsActionButton>
             <TagsActionButton theme={theme}
