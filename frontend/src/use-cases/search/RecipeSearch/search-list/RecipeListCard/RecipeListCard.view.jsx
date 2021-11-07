@@ -12,7 +12,7 @@ import {getImageUrl} from "../../../../../api/get.Image.api";
 import {NavLink} from "react-router-dom";
 import {Typography} from "@material-ui/core";
 import {Center} from "../../../../../common/styles/Common.styles";
-import {Tag} from "../../../../../common/elements/Tag/Tag";
+import {Tag} from "../../../../../common/elements/tag/Tag";
 
 export const RecipeListCard = props => {
     const recipe = props.recipe;
