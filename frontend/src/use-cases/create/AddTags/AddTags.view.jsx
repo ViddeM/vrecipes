@@ -73,6 +73,7 @@ export const AddTags = props => {
                               onChange={(e, value, reason) => {
                                   props.selectTags(value.map(tag => tag.id))
                               }}
+                              value={props.selectedTags}
                 />
             </FormRow>
         </FormColumn>
