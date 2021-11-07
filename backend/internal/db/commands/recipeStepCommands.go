@@ -7,16 +7,28 @@ import (
 )
 
 var createRecipeStepCommand = `
-INSERT INTO recipe_step
-VALUES ($1, $2, $3)
+INSERT INTO recipe_step(recipe_id, number, step)
+VALUES 				   ($1, 	   $2, 	   $3)
 RETURNING recipe_id, number, step
 `
 
-func CreateRecipeStep(recipeId uuid.UUID, number uint16, step string) (*tables.RecipeStep, error) {
+func CreateRecipeStep(
+	recipeId uuid.UUID,
+	number uint16,
+	step string,
+) (*tables.RecipeStep, error) {
 	db := getDb()
 
 	var recipeStep tables.RecipeStep
-	err := pgxscan.Get(ctx, db, &recipeStep, createRecipeStepCommand, recipeId, number, step)
+	err := pgxscan.Get(
+		ctx,
+		db,
+		&recipeStep,
+		createRecipeStepCommand,
+		recipeId,
+		number,
+		step,
+	)
 	return &recipeStep, err
 }
 
