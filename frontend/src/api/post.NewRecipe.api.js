@@ -32,6 +32,7 @@ export function getRecipeData(recipe) {
         ovenTemperature: recipe.ovenTemperature !== undefined ? parseInt(recipe.ovenTemperature) : -1,
         ingredients: ingredients,
         images: images,
-        steps: steps
+        steps: steps,
+        tags: recipe.selectedTags
     }
 }

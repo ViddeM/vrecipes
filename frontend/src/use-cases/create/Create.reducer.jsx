@@ -18,7 +18,11 @@ import {
     ON_NAME_CHANGE,
     ON_OVEN_TEMP_CHANGE
 } from "./CreateGeneral/CreateGeneral.actions.view";
-import {ON_RECIPE_SAVE_FAILED, ON_RECIPE_SAVE_SUCCESSFUL, ON_RECIPE_VALIDATION_FAILED} from "./Create.actions";
+import {
+    ON_RECIPE_SAVE_FAILED,
+    ON_RECIPE_SAVE_SUCCESSFUL,
+    ON_RECIPE_VALIDATION_FAILED
+} from "./Create.actions";
 import {
     REMOVE_IMAGE,
     UPLOAD_IMAGE_AWAIT_RESPONSE,
@@ -28,6 +32,7 @@ import {
 import {EDIT_RECIPE} from "../recipe/screens/RecipeCard/views/recipe-footer/RecipeFooter.actions.view";
 import {CREATE_RECIPE} from "../search/RecipeSearch/RecipeSearch.actions";
 import {LOAD_RECIPE_AWAIT_RESPONSE} from "../recipe/Recipe.actions";
+import {ON_TAGS_SELECTED} from "./AddTags/AddTags.actions.view";
 
 const initialState = {
     id: "",
@@ -43,7 +48,9 @@ const initialState = {
     imageUploadError: "",
     uploadingImage: false,
     redirectTo: "",
-    unsavedChanges: false
+    unsavedChanges: false,
+    allTags: [],
+    selectedTags: [],
 }
 
 export function create(state = initialState, action) {
@@ -138,6 +145,10 @@ export function create(state = initialState, action) {
             return newState(state, {
                 redirectTo: ""
             })
+        case ON_TAGS_SELECTED:
+            return newState(state, {
+                selectedTags: action.payload.tags
+            })
         default:
             return state;
     }
@@ -225,57 +236,57 @@ function newStep(state) {
 
 function updateIngredientUnit(state, newUnit, ingredientId) {
     return newState(state, {
-            ingredients: state.ingredients.map(ingredient =>
-                ingredient.id === ingredientId ?
-                    {
-                        ...ingredient,
-                        unit: newUnit
-                    } :
-                    ingredient
-            )
-        }
+                        ingredients: state.ingredients.map(ingredient =>
+                                                           ingredient.id === ingredientId ?
+                                                           {
+                                                               ...ingredient,
+                                                               unit: newUnit
+                                                           } :
+                                                           ingredient
+                        )
+                    }
     )
 }
 
 function updateIngredientName(state, newName, ingredientId) {
     return newState(state, {
-            ingredients: state.ingredients.map(ingredient =>
-                ingredient.id === ingredientId ?
-                    {
-                        ...ingredient,
-                        name: newName
-                    } :
-                    ingredient
-            )
-        }
+                        ingredients: state.ingredients.map(ingredient =>
+                                                           ingredient.id === ingredientId ?
+                                                           {
+                                                               ...ingredient,
+                                                               name: newName
+                                                           } :
+                                                           ingredient
+                        )
+                    }
     )
 }
 
 function updateIngredientAmount(state, newAmount, ingredientId) {
     return newState(state, {
-            ingredients: state.ingredients.map(ingredient => {
-                    if (ingredient.id === ingredientId) {
-                        const amount = validateNumber(newAmount, ingredient.amount)
-                        return {
-                            ...ingredient,
-                            amount: amount
-                        }
-                    }
+                        ingredients: state.ingredients.map(ingredient => {
+                                                               if (ingredient.id === ingredientId) {
+                                                                   const amount = validateNumber(newAmount, ingredient.amount)
+                                                                   return {
+                                                                       ...ingredient,
+                                                                       amount: amount
+                                                                   }
+                                                               }
 
-                    return ingredient
-                }
-            )
-        }
+                                                               return ingredient
+                                                           }
+                        )
+                    }
     )
 }
 
 function updateStepDescription(state, newDescription, id) {
     return newState(state, {
         steps: state.steps.map(step => step.id === id ? {
-                ...step,
-                step: newDescription
-            } :
-            step
+            ...step,
+            step: newDescription
+        } :
+        step
         )
     })
 }
@@ -302,12 +313,12 @@ function removeStep(state, id) {
     state.steps.forEach(step => {
         if (step.id !== id) {
             step.number > removed.number ?
-                newSteps.push(
-                    {
-                        ...step,
-                        number: step.number - 1
-                    }) :
-                newSteps.push(step);
+            newSteps.push(
+            {
+                ...step,
+                number: step.number - 1
+            }) :
+            newSteps.push(step);
         }
     })
 
@@ -388,7 +399,8 @@ function editRecipe(state, recipe) {
         ovenTemperature: recipe.ovenTemperature,
         images: recipe.images,
         redirectTo: "",
-        unsavedChanges: false
+        unsavedChanges: false,
+        selectedTags: recipe.tags.map(tag => tag.id)
     })
 }
 
