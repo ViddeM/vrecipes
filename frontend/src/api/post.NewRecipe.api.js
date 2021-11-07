@@ -24,6 +24,7 @@ export function getRecipeData(recipe) {
             id: image.id
         }
     })
+    const tags = recipe.selectedTags.map(tag => tag.id)
 
     return {
         name: recipe.recipeName,
@@ -33,6 +34,6 @@ export function getRecipeData(recipe) {
         ingredients: ingredients,
         images: images,
         steps: steps,
-        tags: recipe.selectedTags
+        tags: tags
     }
 }
