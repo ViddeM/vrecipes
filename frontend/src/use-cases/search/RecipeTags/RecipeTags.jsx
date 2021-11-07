@@ -53,10 +53,14 @@ export const RecipeTags = props => {
                     {props.tags.length + " taggar"}
                 </Typography>
             </TableHeader>
-            {props.tags.map(tag => (
+            {props.tags.length > 0 ? props.tags.map(tag => (
             <TagRow tag={tag} loggedInUser={props.loggedInUser} key={tag.name}
                     deleteTag={props.deleteTag} editTag={props.editTag}/>
-            ))}
+            )) : (
+                <TableRow>
+                    Det finns inga taggar, skapa några!
+                </TableRow>
+            )}
         </TagsTable>
     </TagsPageTable>
     )
@@ -151,7 +155,8 @@ function getDialog(open, onRemove, closeDialog) {
         </DialogTitle>
         <DialogContent>
             <DialogContentText id="alert-delete-tag-description">
-                Är du säkert på att du vill ta bort denna tagg?
+                Är du säkert på att du vill ta bort denna tagg?<br/>
+                Detta kommer ta bort taggen från alla recept som har den.
             </DialogContentText>
         </DialogContent>
         <DialogActions>

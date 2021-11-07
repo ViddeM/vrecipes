@@ -1,13 +1,15 @@
 package process
 
 import (
-	"fmt"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
 func DeleteTag(tag *tables.Tag) error {
-	deletedName := fmt.Sprintf("%s_%s_deleted", tag.Name, tag.ID)
+	err := commands.DeleteRecipeTagsByTagId(tag.ID)
+	if err != nil {
+		return err
+	}
 
-	return commands.TagSetDeleted(deletedName, tag.ID)
+	return commands.DeleteTag(tag.ID)
 }
