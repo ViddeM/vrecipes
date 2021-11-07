@@ -26,6 +26,7 @@ import Ingredients from "./views/ingredients/Ingredients.container.view";
 import RecipeFooter from "./views/recipe-footer/RecipeFooter.container.view";
 import {useHistory} from "react-router";
 import {Tag} from "../../../../common/elements/tag/Tag";
+import {tagNameToUnique} from "../../../../common/functions/tagNameToUnique";
 
 const RecipeCard = props => {
 
@@ -56,9 +57,7 @@ const RecipeCard = props => {
                 <HLine/>
                 <TagContainer>
                     {props.recipe.tags.map(tag => (
-                    <Tag key={tag.id} text={tag.name} color={tag.color}
-                         url={"https://google.com"}/>
-
+                    <Tag key={tag.id} text={tag.name} color={tag.color}/>
                     ))}
                 </TagContainer>
             </>

@@ -1,21 +1,33 @@
 import React from "react";
-import {TagChip, TagText} from "./Tag.styles";
+import {TagChip, TagLink, TagText} from "./Tag.styles";
 import {useTheme} from "@material-ui/core/styles";
 import {RGBToHSL} from "../../functions/colors";
+import {tagNameToUnique} from "../../functions/tagNameToUnique";
 
 export const Tag = props => {
-    const theme = useTheme();
 
-    return (
-    <TagChip p={parseColor(props.color)} theme={theme}
-             href={props.url ? props.url : undefined}
-             style={props.url ? undefined : {cursor: "text"}}>
-        <TagText variant="subtitle2" textcolor={getTextColor(props.color)}>
-            {props.text}
-        </TagText>
-    </TagChip>
-    )
+    if (props.noLink) {
+        return <TagWithoutLink color={props.color} text={props.text}/>
+    } else {
+        return (
+            <TagLink href={`${window.location.origin.toString()}?tags=${tagNameToUnique(props.text)}`}>
+                <TagWithoutLink color={props.color} text={props.text} />
+            </TagLink>
+        )
+    }
+
 };
+
+const TagWithoutLink = props => {
+    const theme = useTheme();
+    return (
+        <TagChip p={parseColor(props.color)} theme={theme}>
+            <TagText variant="subtitle2" textcolor={getTextColor(props.color)}>
+                {props.text}
+            </TagText>
+        </TagChip>
+    );
+}
 
 function getTextColor(bgColor) {
     // let rgb = parseHexColor(bgColor)
