@@ -191,7 +191,6 @@ export const TagMenuColumn = styled.div`
 `;
 
 export const TagMenuItem = styled.div`
-  border-top: 1px solid rgba(0, 0, 0, 0.2) !important;
   width: 100% !important;
   display: flex;
   flex-direction: row;
