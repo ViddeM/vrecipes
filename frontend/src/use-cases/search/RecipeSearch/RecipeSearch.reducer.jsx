@@ -1,8 +1,13 @@
-import {GET_RECIPES_FAILED, ON_SEARCH_FIELD_CHANGED} from "./RecipeSearch.actions";
+import {
+    GET_RECIPES_FAILED,
+    ON_SEARCH_FIELD_CHANGED,
+    SEARCH_SET_FILTER_TAGS
+} from "./RecipeSearch.actions";
 
 const initialState = {
     searchText: "",
-    error: null
+    error: null,
+    selectedTags: []
 }
 
 export function search(state = initialState, action) {
@@ -15,6 +20,10 @@ export function search(state = initialState, action) {
             return Object.assign({}, state, {
                 error: action.payload.message
             });
+        case SEARCH_SET_FILTER_TAGS:
+            return Object.assign({}, state, {
+                selectedTags: action.payload.tags
+            })
         default:
             return state;
     }

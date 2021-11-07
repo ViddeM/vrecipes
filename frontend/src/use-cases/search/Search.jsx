@@ -23,7 +23,8 @@ const Search = () => {
     return (
     <BodyContainer>
         <ModeSelectContainer>
-            <ButtonGroup variant="contained" color="primary">
+            <ButtonGroup variant="contained" color="primary"
+                         orientation={window.innerWidth < 768 ? "vertical" : "horizontal"}>
                 <Button disabled={mode === MODE_RECIPE} onClick={() => {
                     history.push("/")
                 }}>

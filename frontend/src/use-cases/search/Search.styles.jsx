@@ -20,7 +20,7 @@ export const BodyContainer = styled.div`
   width: 100%;
 `;
 
-export const SearchAddContainer = styled(Card)`
+export const SearchCard = styled(Card)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,8 +30,18 @@ export const SearchAddContainer = styled(Card)`
   margin-bottom: 20px;
   width: 50%;
   min-width: 280px;
+`;
+
+export const SearchCardRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
 
   @media (min-width: 1024px) {
+    justify-content: center;
     flex-direction: row;
     align-items: baseline;
   }

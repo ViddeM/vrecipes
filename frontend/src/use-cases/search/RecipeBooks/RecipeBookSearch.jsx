@@ -2,7 +2,7 @@ import React, {useEffect} from "react"
 import {
     AddIconButtonContainer,
     CreateRecipeButton,
-    SearchAddContainer,
+    SearchCard,
     SearchContainer,
     SearchTextField
 } from "../Search.styles";
@@ -22,7 +22,7 @@ export const RecipeBookSearch = props => {
 
     return (
     <SearchContainer className="search-recipe-book-container">
-        <SearchAddContainer>
+        <SearchCard>
             <SearchTextField variant="outlined"
                              label="Sök bland receptböcker"
                              maxLength={120}
@@ -51,13 +51,13 @@ export const RecipeBookSearch = props => {
                     )
                 }
             </NavLink>
-        </SearchAddContainer>
+        </SearchCard>
         <SmallVSpace/>
         {props.error && (
-            <ErrorCard message={props.error}/>
+        <ErrorCard message={props.error}/>
         )}
         {props.error === null && (
-            <BookList />
+        <BookList/>
         )}
     </SearchContainer>
     )

@@ -11,7 +11,7 @@ import {
     TagsTextField
 } from "./RecipeTags.styles";
 import {Button, Link, Typography} from "@material-ui/core";
-import {Tag} from "../../../common/elements/Tag/Tag";
+import {Tag} from "../../../common/elements/tag/Tag";
 import {useTheme} from "@material-ui/core/styles";
 import CreateTag from "./create-tag/CreateTag.container";
 import React, {useEffect, useState} from "react";

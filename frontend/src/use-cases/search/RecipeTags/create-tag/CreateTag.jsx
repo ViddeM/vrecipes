@@ -9,7 +9,7 @@ import {
     NewTagRow,
     TagsColorPicker
 } from "./CreateTag.styles";
-import {Tag} from "../../../../common/elements/Tag/Tag";
+import {Tag} from "../../../../common/elements/tag/Tag";
 import CachedIcon from "@material-ui/icons/Cached";
 import {useEffect, useState} from "react";
 import {TagsTextField} from "../RecipeTags.styles";
