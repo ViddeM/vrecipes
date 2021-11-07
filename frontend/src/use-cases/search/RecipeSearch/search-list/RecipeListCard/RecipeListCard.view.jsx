@@ -31,44 +31,6 @@ export const RecipeListCard = props => {
         }
     }
 
-    let tags = [
-        {
-            "id": "123-asd",
-            "name": "Vegetarisk",
-            "color": "#FF00A0"
-        },
-        {
-            "id": "123-bsd",
-            "name": "Lol meme",
-            "color": "#00FFA0"
-        },
-        {
-            "id": "123-csd",
-            "name": "Lol meme",
-            "color": "#00FFA0"
-        },
-        {
-            "id": "123-dsd",
-            "name": "Some other tag",
-            "color": "#AEF022"
-        },
-        {
-            "id": "123-esd",
-            "name": "Lol meme",
-            "color": "#00FFA0"
-        },
-        {
-            "id": "123-fsd",
-            "name": "foodz stuffs",
-            "color": "#FFFF00"
-        },
-        {
-            "id": "130-111",
-            "name": "some long tag",
-            "color": "#000000"
-        }
-    ]
-
     return (
     <RecipeListCardContainer>
         <NavLink to={"/recipes/" + recipe.unique_name}>
@@ -98,7 +60,7 @@ export const RecipeListCard = props => {
                 </RecipeListCardFooterContainer>
                 <TagGrid>
                     {
-                        tags.map(tag => (
+                        recipe.tags.map(tag => (
                         <Tag key={tag.id} color={tag.color} text={tag.name}/>
                         ))
                     }
