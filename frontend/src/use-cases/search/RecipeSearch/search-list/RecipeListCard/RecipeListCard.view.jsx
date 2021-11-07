@@ -61,7 +61,7 @@ export const RecipeListCard = props => {
                 <TagGrid>
                     {
                         recipe.tags.map(tag => (
-                        <Tag key={tag.id} color={tag.color} text={tag.name}/>
+                        <Tag key={tag.id} color={tag.color} text={tag.name} noLink={true}/>
                         ))
                     }
                 </TagGrid>

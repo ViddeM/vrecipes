@@ -20,6 +20,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
+import {tagNameToUnique} from "../../../common/functions/tagNameToUnique";
 
 export const RecipeTags = props => {
     const {loadTags} = props
@@ -91,7 +92,7 @@ const TagRow = props => {
     return (
     <TableRow>
         <TagsTableElement width={minimal ? "50%" : "20%"}>
-            <Tag color={color} text={name} url={"https://google.com"}/>
+            <Tag color={color} text={name} />
         < /TagsTableElement>
         {minimal === false && (
         <>
@@ -103,7 +104,7 @@ const TagRow = props => {
             <TagsTableElement width="10%" buffer={"16px"}>
                 {recipeCount > 0 && (
                 <TagsTableText display={"block"}>
-                    <Link href={"/"}>
+                    <Link href={`${window.location.origin.toString()}?tags=${tagNameToUnique(name)}`}>
                         {recipeCount + " recept"}
                     </Link>
                 </TagsTableText>
