@@ -1,23 +1,13 @@
 package process
 
 import (
-	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
 )
 
 type TagsJson struct {
-	Tags []TagJson `json:"tags"`
-}
-
-type TagJson struct {
-	ID          uuid.UUID        `json:"id"`
-	Name        string           `json:"name"`
-	Description string           `json:"description"`
-	Color       models.ColorJson `json:"color"`
-	RecipeCount uint64           `json:"recipeCount"`
-	Author      tables.User      `json:"author"`
+	Tags []models.TagJson `json:"tags"`
 }
 
 func GetTags() (*TagsJson, error) {
@@ -30,7 +20,7 @@ func GetTags() (*TagsJson, error) {
 		tags = make([]*tables.Tag, 0)
 	}
 
-	tagJsons := make([]TagJson, 0)
+	tagJsons := make([]models.TagJson, 0)
 	for _, tag := range tags {
 		user, err := queries.GetUser(tag.CreatedBy)
 		if err != nil {
@@ -42,18 +32,20 @@ func GetTags() (*TagsJson, error) {
 			return nil, err
 		}
 
-		tagJsons = append(tagJsons, TagJson{
-			ID:          tag.ID,
-			Name:        tag.Name,
-			Description: tag.Description,
-			Color: models.ColorJson{
-				R: &tag.ColorRed,
-				G: &tag.ColorGreen,
-				B: &tag.ColorBlue,
+		tagJsons = append(
+			tagJsons, models.TagJson{
+				ID:          tag.ID,
+				Name:        tag.Name,
+				Description: tag.Description,
+				Color: models.ColorJson{
+					R: &tag.ColorRed,
+					G: &tag.ColorGreen,
+					B: &tag.ColorBlue,
+				},
+				RecipeCount: recipeCount,
+				Author:      *user,
 			},
-			RecipeCount: recipeCount,
-			Author:      *user,
-		})
+		)
 	}
 
 	return &TagsJson{

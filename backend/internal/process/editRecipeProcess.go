@@ -32,6 +32,11 @@ func EditRecipe(
 		return "", err
 	}
 
+	err = updateRecipeTags(oldRecipe.ID, newRecipe.Tags)
+	if err != nil {
+		return "", err
+	}
+
 	return uniqueName, nil
 }
 
@@ -251,5 +256,52 @@ func getOldImage(
 		}
 	}
 
+	return nil
+}
+
+func updateRecipeTags(recipeId uuid.UUID, tags []uuid.UUID) error {
+	oldTags, err := queries.GetTagsForRecipe(&recipeId)
+	if err != nil {
+		return err
+	}
+
+	for _, tag := range tags {
+		oldTag := getOldTag(tag, oldTags)
+		if oldTag == nil {
+			// The tag is new
+			_, err := connectTagToRecipe(recipeId, tag)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	for _, oldTag := range oldTags {
+		found := false
+		for _, tag := range tags {
+			if oldTag.TagId == tag {
+				found = true
+				break
+			}
+		}
+
+		if !found {
+			// The tag was removed
+			err = commands.DeleteRecipeTag(recipeId, oldTag.TagId)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
+}
+
+func getOldTag(tag uuid.UUID, oldTags []*tables.RecipeTag) *tables.RecipeTag {
+	for _, oldTag := range oldTags {
+		if oldTag.TagId == tag {
+			return oldTag
+		}
+	}
 	return nil
 }

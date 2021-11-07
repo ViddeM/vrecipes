@@ -15,6 +15,7 @@ type DetailedRecipeJson struct {
 	Ingredients     []RecipeIngredientJson `json:"ingredients"`
 	Images          []ImageJson            `json:"images"`
 	Author          tables.User            `json:"author"`
+	Tags            []TagJson              `json:"tags"`
 }
 
 type RecipeStepJson struct {

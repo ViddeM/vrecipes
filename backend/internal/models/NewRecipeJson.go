@@ -14,6 +14,7 @@ type NewRecipeJson struct {
 	Steps           []NewRecipeStepJson       `json:"steps" binding:"required,dive,required"`
 	Ingredients     []NewRecipeIngredientJson `json:"ingredients" binding:"required,dive,required"`
 	Images          []NewRecipeImageJson      `json:"images" binding:"required,dive,required"`
+	Tags            []uuid.UUID               `json:"tags" binding:"required"`
 }
 
 type NewRecipeStepJson struct {

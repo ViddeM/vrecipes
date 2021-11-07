@@ -8,14 +8,24 @@ import (
 
 var createRecipeImageCommand = `
 INSERT INTO recipe_image(recipe_id, image_id)
-VALUES ($1, $2)
+VALUES 					($1, 		$2)
 RETURNING recipe_id, image_id`
 
-func CreateRecipeImage(recipeId, imageId uuid.UUID) (*tables.RecipeImage, error) {
+func CreateRecipeImage(recipeId, imageId uuid.UUID) (
+	*tables.RecipeImage,
+	error,
+) {
 	db := getDb()
 
 	var recipeImage tables.RecipeImage
-	err := pgxscan.Get(ctx, db, &recipeImage, createRecipeImageCommand, recipeId, imageId)
+	err := pgxscan.Get(
+		ctx,
+		db,
+		&recipeImage,
+		createRecipeImageCommand,
+		recipeId,
+		imageId,
+	)
 	return &recipeImage, err
 }
 
