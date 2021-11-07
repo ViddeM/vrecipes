@@ -35,15 +35,14 @@ export const SearchCard = styled(Card)`
 export const SearchCardRow = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  align-items: baseline;
   width: 100%;
   margin-bottom: 10px;
 
   @media (min-width: 1024px) {
-    justify-content: center;
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
   }
 `;
 
@@ -54,7 +53,7 @@ export const SearchTextField = styled(VTextField)`
 
 export const CreateRecipeButton = styled(Button)`
   height: 50px;
-  margin: 10px !important;
+  margin-left: 20px !important;
 `
 
 export const StyledCard = styled(Card)`

@@ -6,7 +6,7 @@ export const TagText = styled(Typography)`
   word-wrap: normal;
 `
 
-export const TagChip = styled.a`
+export const TagChip = styled.div`
   border-radius: 24px;
   padding: 0 10px;
   margin-right: 5px;
@@ -22,14 +22,17 @@ export const TagChip = styled.a`
   --border-threshold: 0.96;
   --perceived-lightness: calc(var(--label-r) * 0.2126 / 255 + var(--label-g) * 0.7152 / 255 + var(--label-b) * 0.0722 / 255);
   --lightness-switch: max(0, min(calc(var(--perceived-lightness) * -1000 - var(--lightness-threshold) * -1000), 1));
-  --border-alpha: max(0, min(calc(var(--perceived-lightness) * 100 - var(--border-threshold) * 100), 1));
+  --border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
   background: rgb(var(--label-r), var(--label-g), var(--label-b));
-  border-color: hsla(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 25) * 1%), var(--border-alpha));
   color: hsl(0, 0%, calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  cursor: pointer;
+  border: 1px solid hsla(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 25) * 1%), var(--border-alpha));
   text-decoration: none;
 
   font-family: ${props => props.theme.typography.button.fontFamily};
 }`
+
+export const TagLink = styled.a`
+  cursor: pointer !important;
+  text-decoration: none;
+  border-style: none;
+`

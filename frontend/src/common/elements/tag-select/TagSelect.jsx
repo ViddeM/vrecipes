@@ -9,12 +9,8 @@ import {Tag} from "../tag/Tag";
 import React, {useEffect} from "react";
 
 export const TagSelect = (props) => {
-    const {loadTags, allTags, selectedTags, selectTags} = props
+    const {allTags, selectedTags, selectTags} = props
 
-    useEffect(() => {
-        loadTags()
-    }, [loadTags])
-    
     return (
     <Autocomplete id="tag-select"
                   multiple
@@ -43,14 +39,16 @@ export const TagSelect = (props) => {
                   <TextField {...params}
                              variant="outlined"
                              label="Taggar"
-                             placeholder="Favorites"
+                             placeholder="Sök taggar"
                   />
                   )}
                   renderTags={tags => {
                       return tags.map(tag => (
-                      <Tag key={tag.id} color={tag.color}
-                           url={"google.com"}
-                           text={tag.name}/>
+                      <Tag key={tag.id}
+                           color={tag.color}
+                           text={tag.name}
+                           noLink={true}
+                      />
                       ))
                   }}
                   filterOptions={(tags, state) => {
@@ -65,3 +63,5 @@ export const TagSelect = (props) => {
     />
     )
 }
+
+export default TagSelect

@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {FormColumn, FormRow, StyledCard} from "../Create.styles";
 import {StyledText} from "../../../common/styles/Common.styles";
-import TagSelect from "../../../common/elements/tag-select/TagSelect.container";
+import TagSelect from "../../../common/elements/tag-select/TagSelect";
 
 export const AddTags = props => {
+    const {loadTags, allTags, selectedTags, selectTags} = props
+
+    useEffect(() => {
+        loadTags()
+    }, [loadTags])
+
     return (
     <StyledCard>
         <FormColumn>
@@ -13,8 +19,10 @@ export const AddTags = props => {
                 </StyledText>
             </FormRow>
             <FormRow>
-                <TagSelect selectedTags={props.selectedTags}
-                           selectTags={props.selectTags}/>
+                <TagSelect selectedTags={selectedTags}
+                           selectTags={selectTags}
+                           allTags={allTags}
+                />
             </FormRow>
         </FormColumn>
     </StyledCard>
