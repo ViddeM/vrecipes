@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:16.13
 
 WORKDIR /usr/src/vrecipes/frontend
 COPY package.json yarn.lock ./
