@@ -19,49 +19,49 @@ export const DisplayStep = props => {
     const errors = props.props.errors;
 
     return (
-        <DisplayDraggableContainer>
-            <Draggable draggableId={step.id.toString()} index={index}>
-                {(provided, snapshot) => (
-                    <DisplayDraggableCard
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                        )}>
-                        <AdaptiveContainer>
-                            <DehazeIcon/>
-                            <SmallSpace/>
-                            <Typography variant="h6">
-                                {(step.number + 1).toString() + "."}
-                            </Typography>
-                            <SmallHSpace/>
-                            <FullTextField variant="outlined"
-                                           label="Tillvägagångssätt"
-                                           onChange={e =>
-                                               props.props.onStepDescriptionChange(e.target.value, step.id)
-                                           }
-                                           value={step.step}
-                                           error={errors.name !== undefined}
-                                           errormessage={errors.name}
-                                           maxLength={400}
-                                           multiline
-                                           rows={3}
-                                           rowsMax={8}
-                            />
-                            <IconButtonContainer>
-                                <RemoveIconButton color="secondary"
-                                                  onClick={props.props.onStepRemove}
-                                >
-                                    <ClearIcon/>
-                                </RemoveIconButton>
-                            </IconButtonContainer>
-                        </AdaptiveContainer>
-                    </DisplayDraggableCard>
-                )}
-            </Draggable>
-        </DisplayDraggableContainer>
+    <DisplayDraggableContainer>
+        <Draggable draggableId={step.id.toString()} index={index}>
+            {(provided, snapshot) => (
+            <DisplayDraggableCard
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            style={getItemStyle(
+            snapshot.isDragging,
+            provided.draggableProps.style
+            )}>
+                <AdaptiveContainer>
+                    <DehazeIcon/>
+                    <SmallSpace/>
+                    <Typography variant="h6">
+                        {(step.number + 1).toString() + "."}
+                    </Typography>
+                    <SmallHSpace/>
+                    <FullTextField variant="outlined"
+                                   label="Tillvägagångssätt"
+                                   onChange={e =>
+                                   props.props.onStepDescriptionChange(e.target.value, step.id)
+                                   }
+                                   value={step.step}
+                                   error={errors.name !== undefined}
+                                   errormessage={errors.name}
+                                   maxLength={400}
+                                   multiline
+                                   minRows={3}
+                                   maxRows={8}
+                    />
+                    <IconButtonContainer>
+                        <RemoveIconButton color="secondary"
+                                          onClick={props.props.onStepRemove}
+                        >
+                            <ClearIcon/>
+                        </RemoveIconButton>
+                    </IconButtonContainer>
+                </AdaptiveContainer>
+            </DisplayDraggableCard>
+            )}
+        </Draggable>
+    </DisplayDraggableContainer>
     );
 };
 

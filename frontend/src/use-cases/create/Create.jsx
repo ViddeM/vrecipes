@@ -8,6 +8,7 @@ import CreateSteps from "./CreateSteps/CreateSteps.container.view";
 import UploadImages from "./UploadImages/UploadImages.container";
 import Button from "@material-ui/core/Button";
 import {VSpace} from "../../common/styles/Common.styles";
+import AddTags from "./AddTags/AddTags.container.view";
 
 export const Create = props => {
     const errorsList = Object.keys(props.errors);
@@ -25,6 +26,7 @@ export const Create = props => {
         <CreateGeneral/>
         <CreateIngredients/>
         <CreateSteps/>
+        <AddTags/>
         <UploadImages/>
         {
             errorsList.length > 0 ? (
