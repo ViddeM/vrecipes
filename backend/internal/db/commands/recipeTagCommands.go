@@ -39,3 +39,15 @@ func DeleteRecipeTag(recipeId, tagId uuid.UUID) error {
 	_, err := db.Exec(ctx, deleteRecipeTagCommand, recipeId, tagId)
 	return err
 }
+
+var deleteRecipeTagsByTagIdCommand = `
+DELETE FROM recipe_tag
+WHERE tag_id=$1
+`
+
+func DeleteRecipeTagsByTagId(tagId uuid.UUID) error {
+	db := getDb()
+
+	_, err := db.Exec(ctx, deleteRecipeTagsByTagIdCommand, tagId)
+	return err
+}

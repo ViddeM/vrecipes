@@ -11,7 +11,7 @@ type TagsJson struct {
 }
 
 func GetTags() (*TagsJson, error) {
-	tags, err := queries.GetNonDeletedTags()
+	tags, err := queries.GetAllTags()
 	if err != nil {
 		return nil, err
 	}

@@ -7,8 +7,8 @@ import (
 )
 
 var createTagCommand = `
-INSERT INTO tag(name, description, color_red, color_green, color_blue, created_by, deleted)
-		 VALUES($1,   $2,		   $3, 		  $4, 		   $5, 		   $6,         false)
+INSERT INTO tag(name, description, color_red, color_green, color_blue, created_by)
+		 VALUES($1,   $2,		   $3, 		  $4, 		   $5, 		   $6)
 RETURNING id, description, color_red, color_green, color_blue, created_by
 `
 
@@ -35,17 +35,16 @@ func CreateTag(
 	return &tag, err
 }
 
-var tagSetDeletedCommand = `
-UPDATE tag
-SET deleted=true,
-	name=$1
-WHERE id=$2
+var deleteTagCommand = `
+DELETE
+FROM tag
+WHERE id=$1
 `
 
-func TagSetDeleted(name string, id uuid.UUID) error {
+func DeleteTag(id uuid.UUID) error {
 	db := getDb()
-
-	_, err := db.Exec(ctx, tagSetDeletedCommand, name, id)
+	
+	_, err := db.Exec(ctx, deleteTagCommand, id)
 	return err
 }
 
