@@ -400,7 +400,7 @@ function editRecipe(state, recipe) {
         images: recipe.images,
         redirectTo: "",
         unsavedChanges: false,
-        selectedTags: recipe.tags.map(tag => tag.id)
+        selectedTags: recipe.tags
     })
 }
 
