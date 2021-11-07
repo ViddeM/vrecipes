@@ -40,6 +40,16 @@ func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 		return nil, err
 	}
 
+	recipeTags, err := queries.GetTagsForRecipe(&recipe.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	tags, err := recipeTagsToTagJsons(recipeTags)
+	if err != nil {
+		return nil, err
+	}
+
 	return &models.DetailedRecipeJson{
 		ID:              recipe.ID,
 		Name:            recipe.Name,
@@ -50,16 +60,19 @@ func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 		Ingredients:     RecipeIngredientsToJson(ingredients),
 		Images:          RecipeImagesToJson(images),
 		Author:          *user,
+		Tags:            tags,
 	}, nil
 }
 
 func RecipeStepsToJson(steps []*tables.RecipeStep) []models.RecipeStepJson {
 	recipeStepJsons := make([]models.RecipeStepJson, 0)
 	for _, step := range steps {
-		recipeStepJsons = append(recipeStepJsons, models.RecipeStepJson{
-			Number:      step.Number,
-			Description: step.Step,
-		})
+		recipeStepJsons = append(
+			recipeStepJsons, models.RecipeStepJson{
+				Number:      step.Number,
+				Description: step.Step,
+			},
+		)
 	}
 	return recipeStepJsons
 }
@@ -67,11 +80,13 @@ func RecipeStepsToJson(steps []*tables.RecipeStep) []models.RecipeStepJson {
 func RecipeIngredientsToJson(ingredients []*tables.RecipeIngredient) []models.RecipeIngredientJson {
 	recipeIngredientJsons := make([]models.RecipeIngredientJson, 0)
 	for _, ingredient := range ingredients {
-		recipeIngredientJsons = append(recipeIngredientJsons, models.RecipeIngredientJson{
-			Name:   ingredient.IngredientName,
-			Unit:   ingredient.UnitName,
-			Amount: ingredient.Amount,
-		})
+		recipeIngredientJsons = append(
+			recipeIngredientJsons, models.RecipeIngredientJson{
+				Name:   ingredient.IngredientName,
+				Unit:   ingredient.UnitName,
+				Amount: ingredient.Amount,
+			},
+		)
 	}
 	return recipeIngredientJsons
 }
@@ -79,10 +94,12 @@ func RecipeIngredientsToJson(ingredients []*tables.RecipeIngredient) []models.Re
 func RecipeImagesToJson(images []tables.Image) []models.ImageJson {
 	recipeImageJsons := make([]models.ImageJson, 0)
 	for _, image := range images {
-		recipeImageJsons = append(recipeImageJsons, models.ImageJson{
-			Path: imageNameToPath(image.ID, image.Name),
-			ID:   image.ID,
-		})
+		recipeImageJsons = append(
+			recipeImageJsons, models.ImageJson{
+				Path: imageNameToPath(image.ID, image.Name),
+				ID:   image.ID,
+			},
+		)
 	}
 	return recipeImageJsons
 }
