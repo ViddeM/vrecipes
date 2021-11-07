@@ -25,7 +25,7 @@ import RecipeSteps from "./views/recipe-steps/RecipeSteps.container.view";
 import Ingredients from "./views/ingredients/Ingredients.container.view";
 import RecipeFooter from "./views/recipe-footer/RecipeFooter.container.view";
 import {useHistory} from "react-router";
-import {Tag} from "../../../../common/elements/Tag/Tag";
+import {Tag} from "../../../../common/elements/tag/Tag";
 
 const RecipeCard = props => {
 
