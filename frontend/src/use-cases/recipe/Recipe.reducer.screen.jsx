@@ -1,4 +1,9 @@
-import {BACK_TO_SEARCH, LOAD_RECIPE_FAILED, LOAD_RECIPE_SUCCESSFUL, RESET_RECIPE} from "./Recipe.actions";
+import {
+    BACK_TO_SEARCH,
+    LOAD_RECIPE_FAILED,
+    LOAD_RECIPE_SUCCESSFUL,
+    RESET_RECIPE
+} from "./Recipe.actions";
 import {
     DELETE_RECIPE_FAILED,
     DELETE_RECIPE_SUCCESSFUL,
@@ -52,7 +57,8 @@ function handleRecipeResponse(recipe) {
             estimatedTime: recipe.estimatedTime,
             ovenTemperature: recipe.ovenTemperature,
             images: recipe.images,
-            author: recipe.author
+            author: recipe.author,
+            tags: recipe.tags
         },
         redirectTo: ""
     }
