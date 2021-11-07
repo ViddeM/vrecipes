@@ -9,7 +9,7 @@ import (
 var countRecipesWithTagQuery = `
 SELECT COUNT(*)
 FROM recipe_tag JOIN recipe ON recipe_tag.recipe_id = recipe.id
-WHERE tag_id=$1 AND recipe.deleted=false
+WHERE tag_id=$1
 `
 
 func CountRecipesWithTag(tagId *uuid.UUID) (uint64, error) {

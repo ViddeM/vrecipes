@@ -6,7 +6,6 @@ CREATE TABLE tag
     color_red   INTEGER          NOT NULL,
     color_green INTEGER          NOT NULL,
     color_blue  INTEGER          NOT NULL,
-    deleted     bool             NOT NULL,
     created_by  uuid REFERENCES vrecipes_user (id),
     UNIQUE (name)
 );

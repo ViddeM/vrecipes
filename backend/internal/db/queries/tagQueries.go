@@ -34,17 +34,16 @@ func GetTagById(id uuid.UUID) (*tables.Tag, error) {
 	return &tag, err
 }
 
-var getNonDeletedTagsQuery = `
+var getAllTagsQuery = `
 SELECT id, name, description, color_red, color_green, color_blue, created_by
 FROM tag
-WHERE deleted=false
 `
 
-func GetNonDeletedTags() ([]*tables.Tag, error) {
+func GetAllTags() ([]*tables.Tag, error) {
 	db := getDb()
 
 	var tags []*tables.Tag
-	err := pgxscan.Select(ctx, db, &tags, getNonDeletedTagsQuery)
+	err := pgxscan.Select(ctx, db, &tags, getAllTagsQuery)
 
 	return tags, err
 }
