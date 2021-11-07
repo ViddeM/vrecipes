@@ -71,7 +71,7 @@ export const AddTags = props => {
                                   || tag.description.toLowerCase().includes(searchStr))
                               }}
                               onChange={(e, value, reason) => {
-                                  props.selectTags(value.map(tag => tag.id))
+                                  props.selectTags(value)
                               }}
                               value={props.selectedTags}
                 />
