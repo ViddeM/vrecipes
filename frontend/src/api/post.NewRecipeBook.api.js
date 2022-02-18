@@ -13,7 +13,7 @@ export function getRecipeBookData(book) {
     return {
         name: book.name,
         author: book.author,
-        recipes: book.selected.map(s => parseInt(s)),
+        recipes: book.selected,
         images: images
     }
 }

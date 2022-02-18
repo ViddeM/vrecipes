@@ -3,10 +3,7 @@ import {DataGrid, GridToolbar} from "@material-ui/data-grid";
 import {GRID_TRANSLATIONS} from "../CreateBook.translations";
 import React, {useEffect} from "react";
 import {Link} from "@material-ui/core";
-import {
-    FormRow,
-    StyledCard
-} from "../../create/Create.styles";
+import {FormRow, StyledCard} from "../../create/Create.styles";
 import {StyledText} from "../../../common/styles/Common.styles";
 
 export const RecipeTable = props => {
@@ -21,7 +18,8 @@ export const RecipeTable = props => {
             field: 'recipeName', headerName: 'Receptnamn', flex: 1,
             renderCell: params => {
                 return (
-                <Link target="_blank" href={`/recipes/${params.row.uniqueName}`}>
+                <Link target="_blank"
+                      href={`/recipes/${params.row.uniqueName}`}>
                     {params.value}
                 </Link>
                 )
@@ -49,9 +47,10 @@ export const RecipeTable = props => {
                       density="compact"
                       selectionModel={props.selected}
                       onSelectionModelChange={(s) => {
-                          props.onRecipeTableRowSelectionChange(s.selectionModel)
+                          props.onRecipeTableRowSelectionChange(s)
                       }}
             />
         </GridContainer>
     </StyledCard>
-)}
+    )
+}
