@@ -17,6 +17,10 @@ func GetRecipeBook(uniqueName string) (*models.DetailedRecipeBookJson, error) {
 		return nil, err
 	}
 
+	if recipeBook.Deleted {
+		return nil, common.ErrNoSuchRecipeBook
+	}
+
 	recipes, err := queries.GetRecipesForRecipeBook(recipeBook.ID)
 	if err != nil && !pgxscan.NotFound(err) {
 		return nil, err

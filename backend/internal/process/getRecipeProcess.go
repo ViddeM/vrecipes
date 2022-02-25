@@ -20,6 +20,10 @@ func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 		return nil, err
 	}
 
+	if recipe.Deleted {
+		return nil, common.ErrNoSuchRecipe
+	}
+
 	steps, err := queries.GetStepsForRecipe(recipe.ID)
 	if err != nil && !pgxscan.NotFound(err) {
 		return nil, err
