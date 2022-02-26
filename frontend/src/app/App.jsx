@@ -1,7 +1,10 @@
 import React, {useEffect} from "react";
 import {
-    AppContainer, EscapeHatch,
-    HeaderContainer, HeaderTabs, Logo, LogoTitleContainer,
+    AppContainer,
+    EscapeHatch,
+    HeaderContainer,
+    Logo,
+    LogoTitleContainer,
     MainContainer,
     StyledAppBar
 } from "./App.styles";
@@ -28,50 +31,50 @@ export const App = props => {
     }, [initialize])
 
     return (
-        <AppContainer>
-            {props.redirectTo !== "" && (
-                <Redirect to={props.redirectTo}/>
-            )}
-            <DebugHeader/>
-            <StyledAppBar position="static">
-                <HeaderContainer>
-                    <LogoTitleContainer>
-                        <EscapeHatch to="/">
-                            <Logo />
-                        </EscapeHatch>
-                        <Typography variant="h4">
-                            {size.width > 1024 ?
-                            "VRecept | En recept hanterare" :
-                            "VRecept"}
-                        </Typography>
-                    </LogoTitleContainer>
-                    {props.user === null ? (
-                        <NavLink to={"/login"}>
-                            <Button variant="contained" color="secondary"
-                                    disabled={window.location.pathname === "/login"}>
-                                Logga in
-                            </Button>
-                        </NavLink>
-                    ) : (
-                        <Button onClick={props.logout} variant="contained"
-                                color="secondary">
-                            Logga Ut
-                        </Button>
-                    )}
-                </HeaderContainer>
-            </StyledAppBar>
-            <MainContainer className={"MainContainer"}>
-                <Switch>
-                    <Route path="/recipes/:recipeId" component={Recipe}/>
-                    <Route path="/recipe/create" component={Create}/>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/books/:bookId" component={RecipeBook}/>
-                    <Route path="/books" component={Search}/>
-                    <Route path="/book/create" component={CreateBook}/>
-                    <Route path="/" component={Search}/>
-                </Switch>
-            </MainContainer>
-        </AppContainer>
+    <AppContainer>
+        {props.redirectTo !== "" && (
+        <Redirect to={props.redirectTo}/>
+        )}
+        <DebugHeader/>
+        <StyledAppBar position="static">
+            <HeaderContainer>
+                <LogoTitleContainer>
+                    <EscapeHatch to="/">
+                        <Logo/>
+                    </EscapeHatch>
+                    <Typography variant="h4">
+                        {size.width > 1024 ?
+                         "VRecept | En recept hanterare" :
+                         "VRecept"}
+                    </Typography>
+                </LogoTitleContainer>
+                {props.user === null ? (
+                <NavLink to={"/login"}>
+                    <Button variant="contained" color="secondary"
+                            disabled={window.location.pathname === "/login"}>
+                        Logga in
+                    </Button>
+                </NavLink>
+                ) : (
+                 <Button onClick={props.logout} variant="contained"
+                         color="secondary">
+                     Logga Ut
+                 </Button>
+                 )}
+            </HeaderContainer>
+        </StyledAppBar>
+        <MainContainer className={"MainContainer"}>
+            <Switch>
+                <Route path="/recipes/:recipeId" component={Recipe}/>
+                <Route path="/recipe/create" component={Create}/>
+                <Route path="/login" component={Login}/>
+                <Route path="/books/:bookId" component={RecipeBook}/>
+                <Route path="/books" component={Search}/>
+                <Route path="/book/create" component={CreateBook}/>
+                <Route path="/" component={Search}/>
+            </Switch>
+        </MainContainer>
+    </AppContainer>
     );
 }
 

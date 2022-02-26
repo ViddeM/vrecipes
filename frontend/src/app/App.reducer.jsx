@@ -53,7 +53,7 @@ export function init(state = {
         case ON_LOGOUT:
             return Object.assign({}, state, {
                 user: null,
-                redirectTo: "/login"
+                redirectTo: "/"
             })
         default:
             return state;

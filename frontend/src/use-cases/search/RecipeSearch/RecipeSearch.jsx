@@ -62,25 +62,27 @@ export const RecipeSearch = props => {
                            selectTags={selectTags}
                            allTags={allTags}
                 />
+                {props.loggedInUser && (
                 <NavLink to="/recipe/create">
                     {
                         window.innerWidth < 768 ? (
-                            <AddIconButtonContainer>
-                                <Fab color="secondary"
-                                     onClick={props.newRecipe}
-                                >
-                                    <AddIcon/>
-                                </Fab>
-                            </AddIconButtonContainer>
+                        <AddIconButtonContainer>
+                            <Fab color="secondary"
+                                 onClick={props.newRecipe}
+                            >
+                                <AddIcon/>
+                            </Fab>
+                        </AddIconButtonContainer>
                         ) : (
-                            <CreateRecipeButton variant="contained"
-                                                color="primary"
-                                                onClick={props.newRecipe}>
-                                Lägg till recept
-                            </CreateRecipeButton>
+                        <CreateRecipeButton variant="contained"
+                                            color="primary"
+                                            onClick={props.newRecipe}>
+                            Lägg till recept
+                        </CreateRecipeButton>
                         )
                     }
                 </NavLink>
+                )}
             </SearchCardRow>
         </SearchCard>
         <SmallVSpace/>

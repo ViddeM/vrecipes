@@ -1,6 +1,5 @@
 import {GET_ME_FAILED, GET_ME_SUCCESSFUL, INIT, ON_LOGOUT} from "./App.actions";
 import {BETA_MODE, DEBUG_MODE, LIVE_MODE} from "../common/data/Mode";
-import {authorizedApiCall} from "../common/functions/authorizedApiCall";
 import {getMe} from "../api/get.Me.api";
 import {handleError} from "../common/functions/handleError";
 import {postLogout} from "../api/post.Logout.api";
@@ -15,28 +14,24 @@ export function initialize() {
 
     return dispatch => {
         dispatch({
-            type: INIT,
-            payload: {
-                mode: mode
-            },
-            error: false
-        })
+                     type: INIT,
+                     payload: {
+                         mode: mode
+                     },
+                     error: false
+                 })
 
-        authorizedApiCall(() => getMe())
-            .then(response => {
-                if (response.error) {
-                    dispatch(onGetMeFailed(response.errResponse))
-                } else {
-                    if (response.response.data.success === false) {
-                        dispatch(onGetMeFailed(response.response.data))
-                    } else {
-                        dispatch(onGetMeSuccessful(response.response))
-                    }
-                }
-            })
-            .catch(error => {
-                dispatch(onGetMeFailed(error))
-            })
+        getMe()
+        .then(response => {
+            if (response.data.success === false) {
+                dispatch(onGetMeFailed(response.data))
+            } else {
+                dispatch(onGetMeSuccessful(response))
+            }
+        })
+        .catch(error => {
+            dispatch(onGetMeFailed(error))
+        })
     }
 }
 
@@ -59,12 +54,13 @@ function onGetMeFailed(error) {
 export function logout() {
     return dispatch => {
         postLogout()
-            .then(response => {
-            })
-            .catch(error => {
-            })
+        .then(response => {
+        })
+        .catch(error => {
+        })
 
-        dispatch({
+        dispatch(
+        {
             type: ON_LOGOUT,
             error: false
         })

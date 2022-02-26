@@ -1,13 +1,15 @@
 import {connect} from "react-redux";
 import {RecipeBookSearch} from "./RecipeBookSearch";
 import {
-    loadRecipeBooks, newRecipeBook,
+    loadRecipeBooks,
+    newRecipeBook,
     onBookSearchChanged
 } from "./RecipeBookSearch.action-creators";
 
 const mapStateToProps = state => ({
     searchText: state.root.bookSearch.searchText,
     error: state.root.bookSearch.error,
+    loggedInUser: state.root.init.user
 });
 
 const mapDispatchToProps = dispatch => ({
