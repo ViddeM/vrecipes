@@ -14,6 +14,7 @@ const mapStateToProps = state => ({
     mode: state.root.init.mode,
     selectedTags: state.root.search.selectedTags,
     allTags: state.root.recipeTags.tags,
+    loggedInUser: state.root.init.user
 });
 
 const mapDispatchToProps = dispatch => ({

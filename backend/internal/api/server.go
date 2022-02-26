@@ -32,27 +32,28 @@ func Init() {
 
 	api := router.Group("/api")
 	{
+		api.GET("/health", endpoints.HealthCheck)
+		api.GET("/recipes/:uniqueName", endpoints.Recipe)
+		api.GET("/recipes", endpoints.Recipes)
+		api.GET("/books/:uniqueName", endpoints.RecipeBook)
+		api.GET("/books", endpoints.RecipeBooks)
+		api.GET("/tags", endpoints.Tags)
+
 		authRequired := api.Group("")
 		{
 			authRequired.Use(authentication.CheckAuth())
 
 			authRequired.Static("/images", envVars.ImageFolder)
 
-			authRequired.GET("/health", endpoints.HealthCheck)
-			authRequired.GET("/recipes/:uniqueName", endpoints.Recipe)
-			authRequired.GET("/recipes", endpoints.Recipes)
+			authRequired.GET("/me", authentication.Me)
 			authRequired.POST("/recipes", endpoints.NewRecipe)
 			authRequired.PUT("/recipes/:id", endpoints.EditRecipe)
 			authRequired.DELETE("/recipes/:id", endpoints.RemoveRecipe)
 			authRequired.PUT("/images", endpoints.ImageUpload)
-			authRequired.GET("/me", authentication.Me)
-			authRequired.GET("/books/:uniqueName", endpoints.RecipeBook)
-			authRequired.GET("/books", endpoints.RecipeBooks)
 			authRequired.POST("/books", endpoints.NewRecipeBook)
 			authRequired.DELETE("/books/:id", endpoints.RemoveRecipeBook)
 			authRequired.PUT("/books/:id", endpoints.EditRecipeBook)
 			authRequired.POST("/tags", endpoints.NewTag)
-			authRequired.GET("/tags", endpoints.Tags)
 			authRequired.DELETE("/tags/:id", endpoints.RemoveTag)
 			authRequired.PUT("/tags/:id", endpoints.EditTag)
 		}

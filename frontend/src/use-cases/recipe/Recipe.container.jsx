@@ -5,7 +5,7 @@ import {backToSearch, loadRecipe, resetRecipe} from "./Recipe.action-creators";
 const mapStateToProps = state => ({
     error: state.root.recipe.error,
     recipe: state.root.recipe.recipe,
-    redirectTo: state.root.recipe.redirectTo
+    redirectTo: state.root.recipe.redirectTo,
 });
 
 const mapDispatchToProps = dispatch => ({

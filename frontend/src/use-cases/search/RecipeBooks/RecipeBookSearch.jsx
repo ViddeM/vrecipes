@@ -31,6 +31,7 @@ export const RecipeBookSearch = props => {
             >
                 Sök efter receptböcker
             </SearchTextField>
+            {props.loggedInUser && (
             <NavLink to="/book/create">
                 {
                     window.screen.width < 768 ? (
@@ -51,6 +52,7 @@ export const RecipeBookSearch = props => {
                     )
                 }
             </NavLink>
+            )}
         </SearchCard>
         <SmallVSpace/>
         {props.error && (

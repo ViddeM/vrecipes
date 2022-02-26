@@ -38,12 +38,14 @@ export const RecipeTags = props => {
                            onChange={e => props.onSearch(e.target.value)}
 
             />
+            {props.loggedInUser && (
             <NewTagButton color="primary" variant="contained"
                           onClick={() => {
                               props.setCreatingTag(true);
                           }}>
                 Ny tagg
             </NewTagButton>
+            )}
         </TagsPageToolbar>
         {props.creatingTag && (
         <CreateTag setCreatingTag={props.setCreatingTag}/>
@@ -58,10 +60,10 @@ export const RecipeTags = props => {
             <TagRow tag={tag} loggedInUser={props.loggedInUser} key={tag.name}
                     deleteTag={props.deleteTag} editTag={props.editTag}/>
             )) : (
-                <TableRow>
-                    Det finns inga taggar, skapa några!
-                </TableRow>
-            )}
+             <TableRow>
+                 Det finns inga taggar, skapa några!
+             </TableRow>
+             )}
         </TagsTable>
     </TagsPageTable>
     )
@@ -92,7 +94,7 @@ const TagRow = props => {
     return (
     <TableRow>
         <TagsTableElement width={minimal ? "50%" : "20%"}>
-            <Tag color={color} text={name} />
+            <Tag color={color} text={name}/>
         < /TagsTableElement>
         {minimal === false && (
         <>
@@ -104,7 +106,9 @@ const TagRow = props => {
             <TagsTableElement width="10%" buffer={"16px"}>
                 {recipeCount > 0 && (
                 <TagsTableText display={"block"}>
-                    <Link href={`${window.location.origin.toString()}?tags=${tagNameToUnique(name)}`}>
+                    <Link
+                    href={`${window.location.origin.toString()}?tags=${tagNameToUnique(
+                    name)}`}>
                         {recipeCount + " recept"}
                     </Link>
                 </TagsTableText>
@@ -117,6 +121,7 @@ const TagRow = props => {
             </TagsTableElement>
         </>
         )}
+        {props.loggedInUser && (
         <TagsTableElement width={minimal ? "50%" : "15%"} align={"right"}>
             <TagsActionButton theme={theme}
                               disabled={!props.loggedInUser || props.loggedInUser.id !== author.id}
@@ -136,9 +141,13 @@ const TagRow = props => {
                 Ta bort
             </TagsActionButton>
             {
-                getDialog(deleteDialogOpen, () => props.deleteTag(id), () => setDialogOpen(false))
+                getDialog(deleteDialogOpen,
+                          () => props.deleteTag(id),
+                          () => setDialogOpen(false)
+                )
             }
         </TagsTableElement>
+        )}
     </TableRow>)
 }
 

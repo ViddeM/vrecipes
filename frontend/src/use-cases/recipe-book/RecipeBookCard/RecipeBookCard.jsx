@@ -101,6 +101,7 @@ export const RecipeBookCard = props => {
                 ))}
                 </tbody>
             </RecipeBookRecipesTable>
+            {props.loggedInUser && (
             <BottomRow>
                 <Button variant="contained"
                         color="secondary"
@@ -126,6 +127,7 @@ export const RecipeBookCard = props => {
                     Redigera
                 </Button>
             </BottomRow>
+            )}
         </RecipeBookCardContentContainer>
     </RecipeBookCardContainer>
     );
