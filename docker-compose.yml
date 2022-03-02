@@ -2,7 +2,6 @@ version: "3"
 services:
     db:
         image: postgres
-        restart: always
         environment:
             POSTGRES_USER: vrecipes
             POSTGRES_DB: vrecipes
@@ -13,7 +12,6 @@ services:
 
     adminer:
         image: adminer
-        restart: always
         ports:
             - 8080:8080
 
