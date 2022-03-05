@@ -3,11 +3,12 @@ const nextConfig = {
     reactStrictMode: true,
 }
 
-const {i18n} = require("./next-i18next.config")
-
 module.exports = {
     nextConfig,
-    i18n,
+    i18n: {
+        locales: ['en', 'se'],
+        defaultLocale: 'se',
+    },
     async rewrites() {
         return [
             {
