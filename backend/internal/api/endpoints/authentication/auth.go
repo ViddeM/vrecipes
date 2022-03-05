@@ -19,13 +19,13 @@ import (
 )
 
 type sessionData struct {
-	UserID   uuid.UUID     `json:"user_id"`
+	UserID   uuid.UUID     `json:"userId"`
 	Token    *oauth2.Token `json:"token"`
 	Provider string        `json:"provider"`
 }
 
 type whiteList struct {
-	Emails []string `json:"whitelisted_emails"`
+	Emails []string `json:"whitelistedEmails"`
 }
 
 var (
