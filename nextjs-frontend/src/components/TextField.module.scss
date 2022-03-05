@@ -1,6 +1,21 @@
 @import '../resources/styles/vars';
 
 .textFieldBase {
-  border-radius: 0;
   height: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 0 6px;
+  border-radius: $border-radius;
+
+  &:active {
+    border: 1px solid green;
+  }
+
+  &::selection {
+    background-color: $primary-color;
+    color: white;
+  }
+
+  &:focus-visible {
+    border: 1px solid green;
+  }
 }

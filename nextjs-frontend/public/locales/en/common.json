@@ -2,5 +2,11 @@
   "header": {
     "pageTitle": "VRecipes",
     "loginButton": "Sign in"
+  },
+  "recipe": {
+    "searchRecipes": "Search recipes"
+  },
+  "common": {
+    "search": "Search"
   }
 }

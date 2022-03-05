@@ -2,5 +2,11 @@
   "header": {
     "pageTitle": "VRecept",
     "loginButton": "Logga in"
+  },
+  "recipe": {
+    "searchRecipes": "Sök recept"
+  },
+  "common": {
+    "search": "Sök"
   }
 }
