@@ -15,8 +15,8 @@ type RecipesJson struct {
 type ShortRecipeJson struct {
 	ID         uuid.UUID        `json:"id"`
 	Name       string           `json:"name"`
-	UniqueName string           `json:"unique_name"`
-	ImageLink  string           `json:"image_link"`
+	UniqueName string           `json:"uniqueName"`
+	ImageLink  string           `json:"imageLink"`
 	Author     tables.User      `json:"author"`
 	Tags       []models.TagJson `json:"tags"`
 }
