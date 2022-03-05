@@ -14,4 +14,34 @@ html {
 body {
   margin: 0;
   padding: 0;
+  background-color: #f0f0f0;
+}
+
+.card {
+  background-color: white;
+  border-radius: $border-radius;
+  padding: 10px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+  0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+  0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.marginLeft {
+  margin-left: $space-small;
+}
+
+.marginRight {
+  margin-right: $space-small;
+}
+
+.marginTop {
+  margin-top: $space-small;
+}
+
+.marginBottom {
+  margin-bottom: $space-small;
+}
+
+.marginBottomBig {
+  margin-bottom: $space-big;
 }
