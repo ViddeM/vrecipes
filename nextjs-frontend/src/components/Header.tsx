@@ -1,11 +1,11 @@
 import styles from "./Header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import {useTranslation} from "react-i18next";
 import ButtonBase from "./Buttons";
+import {useTranslations} from "../hooks/useTranslations";
 
 const Header = () => {
-    const {t} = useTranslation();
+    const {t} = useTranslations();
 
     return (
         <header className={styles.headerContainer}>
@@ -17,12 +17,12 @@ const Header = () => {
                         </div>
                     </Link>
                     <h1>
-                        {t('header.pageTitle')}
+                        {t.header.pageTitle}
                     </h1>
                 </div>
                 <div className={`${styles.headerActionsContainer} ${styles.headerSection}`}>
                     <ButtonBase variant='primary' size='normal'>
-                        {t('header.loginButton')}
+                        {t.header.loginButton}
                     </ButtonBase>
                 </div>
             </div>

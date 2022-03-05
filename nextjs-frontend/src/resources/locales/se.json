@@ -7,6 +7,10 @@
     "searchRecipes": "Sök recept"
   },
   "common": {
-    "search": "Sök"
+    "search": "Sök",
+    "loading": "Laddar..."
+  },
+  "errors": {
+    "default": "Ett okänt fel har inträffat"
   }
 }

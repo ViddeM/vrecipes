@@ -7,6 +7,10 @@
     "searchRecipes": "Search recipes"
   },
   "common": {
-    "search": "Search"
+    "search": "Search",
+    "loading": "Loading..."
+  },
+  "errors": {
+    "default": "An unknown error has occured"
   }
 }
