@@ -1,0 +1,26 @@
+@import 'src/resources/styles/vars.scss';
+
+.buttonBase {
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+
+  &:hover {
+    cursor: pointer;
+    filter: brightness(1.2);
+  }
+
+  &:focus {
+    filter: brightness(1.1);
+  }
+}
+
+.buttonNormal {
+  width: 100px;
+  height: 36px;
+}
+
+.buttonPrimary {
+  background-color: $primary-color;
+}
