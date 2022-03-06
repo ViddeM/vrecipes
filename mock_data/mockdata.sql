@@ -56,10 +56,10 @@ VALUES  (0, 'Put thing in thing', '133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b'),
 
 -- Insert recipes
 INSERT INTO image   (id, name)
-VALUES              ('0d9828df-f640-4e2e-8c4d-c826321ff7eb', 'Sachertorte'),
-                    ('0fd8e893-6f17-4aa6-99e6-5c35bc1988a0', 'bbq sauce'),
-                    ('1eadf68b-4e03-4197-8e13-83673acaae6d', 'ballgren'),
-                    ('5d321c96-61c6-45a0-8c1f-129fd221e817', 'hentie');
+VALUES              ('0d9828df-f640-4e2e-8c4d-c826321ff7eb', 'Sachertorte.jpg'),
+                    ('0fd8e893-6f17-4aa6-99e6-5c35bc1988a0', 'bbq sauce.png'),
+                    ('1eadf68b-4e03-4197-8e13-83673acaae6d', 'ballgren.png'),
+                    ('5d321c96-61c6-45a0-8c1f-129fd221e817', 'hentie.png');
 
 -- Connect images to recipes
 INSERT INTO recipe_image    (recipe_id, image_id)
