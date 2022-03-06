@@ -1,15 +1,51 @@
 @import "../resources/styles/vars";
 
 $recipe-card-width: 320px;
+$recipe-card-height: 400px;
+
+$recipe-img-height: 200px;
 
 .recipeCard {
+  padding: 0;
   width: $recipe-card-width;
-  margin: 5px;
-  color: rgba(0, 0, 0, 0.6);
+  border: 1px solid white;
+  transition: border 400ms;
 
   &:hover {
-    color: black;
     border: 1px solid $primary-color;
-    margin: 4px;
+
+    p {
+      color: black
+    }
   }
+
+  p {
+    transition: color 600ms;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  img {
+    padding: 0;
+    height: $recipe-img-height;
+    width: inherit;
+    object-fit: cover;
+
+  }
+
+}
+
+.recipeCardContent {
+  margin: 5px;
+}
+
+.recipeCardTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flexRowBetween {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
