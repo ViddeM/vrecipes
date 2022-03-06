@@ -1,8 +1,10 @@
 import axios, { AxiosResponse } from "axios";
-import { ShortRecipe } from "./ListRecipe";
+import { ShortRecipe } from "./ShortRecipe";
+import { Recipe } from "./Recipe";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = "http://localhost:3000/api";
+const IMAGE_BASE_URL = "/api/images";
 
 interface RawApiResponse<ResponseData> {
   success: boolean;
@@ -16,6 +18,16 @@ export const Api = {
       return handleResponse(
         axios.get<RawApiResponse<{ recipes: ShortRecipe[] }>>("/recipes")
       );
+    },
+    getOne: (unique_name: string) => {
+      return handleResponse(
+        axios.get<RawApiResponse<Recipe>>(`/recipes/${unique_name}`)
+      );
+    },
+  },
+  images: {
+    formatImageUrl: (imageUrl: string): string => {
+      return `${IMAGE_BASE_URL}/${imageUrl}`;
     },
   },
 };
