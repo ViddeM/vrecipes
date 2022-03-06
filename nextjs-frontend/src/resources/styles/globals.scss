@@ -23,7 +23,7 @@ body {
   border-radius: $border-radius;
   padding: 10px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
 .marginLeft {
@@ -53,12 +53,12 @@ h1 {
 }
 
 h3 {
-  font-size: 24px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
 }
-
-// TODO: Fix h2/h3 etc.
 
 p {
   margin: 0;
 }
+

@@ -22,3 +22,15 @@
     grid-template-columns: repeat(5, minmax(0px, 1fr));
   }
 }
+
+.searchContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.searchButton {
+  flex-grow: 1;
+}

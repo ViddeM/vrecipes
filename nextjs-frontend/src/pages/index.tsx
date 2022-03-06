@@ -28,19 +28,21 @@ const Home = ({ recipes, error }: HomeProps) => {
 
   return (
     <DefaultLayout>
-      <div className="card marginBottomBig">
-        <TextField
-          className={`${styles.headerSection} marginRight`}
-          placeholder={`${t.recipe.searchRecipes}`}
-        />
-        <Button variant="primary" size="normal">
-          {t.common.search}
-        </Button>
-      </div>
-      <div className={styles.recipeCardsList}>
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.uniqueName} recipe={recipe} />
-        ))}
+      <div>
+        <div className={`${styles.searchContainer} card marginBottomBig`}>
+          <TextField
+            className={`marginRight ${styles.searchButton}`}
+            placeholder={`${t.recipe.searchRecipes}`}
+          />
+          <Button variant="primary" size="normal">
+            {t.common.search}
+          </Button>
+        </div>
+        <div className={styles.recipeCardsList}>
+          {recipes.map((recipe) => (
+            <RecipeCard key={recipe.uniqueName} recipe={recipe} />
+          ))}
+        </div>
       </div>
     </DefaultLayout>
   );

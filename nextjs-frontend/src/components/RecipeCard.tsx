@@ -1,7 +1,11 @@
 import styles from "./RecipeCard.module.scss";
 import { ShortRecipe } from "../api/ListRecipe";
 import { useTranslations } from "../hooks/useTranslations";
-import {useState} from "react";
+import { useState } from "react";
+import Tag from "./Tag";
+import TagContainer from "./TagContainer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 export interface RecipeCardProps {
   recipe: ShortRecipe;
@@ -12,26 +16,42 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
 
   const [errored, setErrored] = useState(false);
 
+  const URL_PREFIX = "api/static/images/";
+
   let imageUrl = recipe.imageLink;
   if (imageUrl === undefined || imageUrl === "") {
-    imageUrl = "/default_recipe_image.png"
+    imageUrl = "/default_recipe_image.png";
   } else {
-    imageUrl = getImageUrl(imageUrl)
+    imageUrl = URL_PREFIX + imageUrl;
   }
   if (errored) {
-    if (imageUrl.endsWith(".pdf")) {
-      imageUrl = "static/images/pdf_not_supported.png"
-    } else {
-      imageUrl = "static/images/default_recipe.png"
-    }
+    imageUrl = "static/images/default_recipe.png";
   }
+
+  console.log(recipe);
 
   return (
     <div className={`card ${styles.recipeCard}`}>
-      <img alt={t.recipe.imageAltText} src={recipe.imageLink} onError={() => {
-        setErrored(true);
-      }}/>
-      <h1>{recipe.name}</h1>
+      <img
+        alt={t.recipe.imageAltText}
+        src={imageUrl}
+        onError={() => {
+          setErrored(true);
+        }}
+      />
+      <div className={styles.recipeCardContent}>
+        <h3 className={styles.recipeCardTitle}>{recipe.name}</h3>
+        <p>{recipe.author.name}</p>
+        <div className={styles.flexRowBetween}>
+          <p>
+            TEMP RECEPT TID
+            <FontAwesomeIcon icon={faClock} />
+          </p>
+          <p> {t.recipe.ingredients} TEMP </p>
+        </div>
+
+        <TagContainer tags={recipe.tags} noLink={true} />
+      </div>
     </div>
   );
 };

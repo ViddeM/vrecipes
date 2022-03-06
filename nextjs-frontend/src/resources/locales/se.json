@@ -5,7 +5,8 @@
   },
   "recipe": {
     "searchRecipes": "Sök recept",
-    "imageAltText": "Bild på receptet"
+    "imageAltText": "Bild på receptet",
+    "ingredients": "Ingredienser"
   },
   "common": {
     "search": "Sök",
