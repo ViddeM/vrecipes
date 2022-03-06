@@ -9,6 +9,7 @@ html {
 
 * {
   box-sizing: border-box;
+  font-family: $font;
 }
 
 body {
@@ -43,4 +44,21 @@ body {
 
 .marginBottomBig {
   margin-bottom: $space-big;
+}
+
+h1 {
+  font-size: 42px;
+  font-weight: 400;
+  margin: 0;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+// TODO: Fix h2/h3 etc.
+
+p {
+  margin: 0;
 }
