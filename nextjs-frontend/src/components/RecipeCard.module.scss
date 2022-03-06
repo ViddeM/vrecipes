@@ -1,5 +1,15 @@
+@import "../resources/styles/vars";
+
 $recipe-card-width: 320px;
 
 .recipeCard {
   width: $recipe-card-width;
+  margin: 5px;
+  color: rgba(0, 0, 0, 0.6);
+
+  &:hover {
+    color: black;
+    border: 1px solid $primary-color;
+    margin: 4px;
+  }
 }
