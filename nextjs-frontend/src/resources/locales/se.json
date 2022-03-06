@@ -4,7 +4,8 @@
     "loginButton": "Logga in"
   },
   "recipe": {
-    "searchRecipes": "Sök recept"
+    "searchRecipes": "Sök recept",
+    "imageAltText": "Bild på receptet"
   },
   "common": {
     "search": "Sök",
