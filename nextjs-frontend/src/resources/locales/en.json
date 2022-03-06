@@ -6,11 +6,14 @@
   "recipe": {
     "searchRecipes": "Search recipes",
     "imageAltText": "Image of the recipe",
-    "ingredients": "Ingredients"
+    "ingredients": "Ingredients",
+    "description": "Description",
+    "steps": "Steps"
   },
   "common": {
     "search": "Search",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "createdBy": "Created by"
   },
   "errors": {
     "default": "An unknown error has occured"

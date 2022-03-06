@@ -6,11 +6,14 @@
   "recipe": {
     "searchRecipes": "Sök recept",
     "imageAltText": "Bild på receptet",
-    "ingredients": "Ingredienser"
+    "ingredients": "Ingredienser",
+    "description": "Beskrivning",
+    "steps": "Gör såhär"
   },
   "common": {
     "search": "Sök",
-    "loading": "Laddar..."
+    "loading": "Laddar...",
+    "createdBy": "Skapad av"
   },
   "errors": {
     "default": "Ett okänt fel har inträffat"

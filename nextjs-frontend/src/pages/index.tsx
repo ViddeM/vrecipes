@@ -3,7 +3,7 @@ import styles from "./index.module.scss";
 import TextField from "../components/TextField";
 import DefaultLayout from "../layouts/DefaultLayout";
 import Button from "../components/Buttons";
-import { ShortRecipe } from "../api/ListRecipe";
+import { ShortRecipe } from "../api/ShortRecipe";
 import { Api } from "../api/Api";
 import ErrorCard from "../components/ErrorCard";
 import Loading from "../components/Loading";

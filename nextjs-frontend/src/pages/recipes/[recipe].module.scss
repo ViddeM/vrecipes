@@ -1,0 +1,71 @@
+@import "../../resources/styles/vars";
+
+.recipeContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alignLeft {
+  justify-content: flex-start;
+}
+
+.infoBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.rightAligned {
+  justify-content: right;
+}
+
+.timeIcon {
+  margin-left: 4px;
+}
+
+.imageIngredientsContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 5px;
+  width: 100%;
+}
+
+.recipeStepsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+
+  @media (min-width: 1024px) {
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+}
+
+.stepRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.longText {
+  word-break: break-word;
+}
