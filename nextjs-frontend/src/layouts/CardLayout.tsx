@@ -1,4 +1,4 @@
-import styles from "./DefaultLayout.module.scss";
+import styles from "./CardLayout.module.scss";
 
 const DefaultLayout: React.FC = ({ children }) => {
   return (
