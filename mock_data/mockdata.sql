@@ -66,4 +66,4 @@ INSERT INTO recipe_image    (recipe_id, image_id)
 VALUES                      ('133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b', '0d9828df-f640-4e2e-8c4d-c826321ff7eb'),
                             ('1e538581-9e9a-4da7-80f6-3127f246c17f', '0fd8e893-6f17-4aa6-99e6-5c35bc1988a0'),
                             ('4213b5e5-0c63-4d31-ba96-f54a574bb040', '1eadf68b-4e03-4197-8e13-83673acaae6d'),
-                            ('dfed936b-8e2a-458c-a2d7-1c13c14079d6', '5d321c96-61c6-45a0-8c1f-129fd221e817')
+                            ('dfed936b-8e2a-458c-a2d7-1c13c14079d6', '5d321c96-61c6-45a0-8c1f-129fd221e817');
