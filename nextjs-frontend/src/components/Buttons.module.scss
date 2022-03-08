@@ -22,6 +22,17 @@
   height: 36px;
 }
 
+// TODO: large/small button sizes taken at random, set reasonable values for these when needed.
+.button-size-large {
+  width: 140px;
+  height: 44px;
+}
+
+.button-size-small {
+  width: 80px;
+  height: 26px;
+}
+
 .button-primary {
   background-color: $primary-color;
 }
@@ -29,4 +40,29 @@
 .button-secondary {
   background-color: $secondary-color;
   color: $secondary-text-color;
+}
+
+.button-opaque {
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0.5);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.iconButton {
+  border-radius: 100%;
+  box-sizing: content-box;
+  width: 24px;
+  height: 24px;
+  padding: 12px;
+}
+
+.iconButtonIcon {
+  font-size: 1.5rem;
 }

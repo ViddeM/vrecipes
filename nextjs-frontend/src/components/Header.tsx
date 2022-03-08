@@ -1,7 +1,7 @@
 import styles from "./Header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import ButtonBase from "./Buttons";
+import { Button } from "./Buttons";
 import { useTranslations } from "../hooks/useTranslations";
 
 const Header = () => {
@@ -25,9 +25,9 @@ const Header = () => {
         <div
           className={`${styles.headerActionsContainer} ${styles.headerSection}`}
         >
-          <ButtonBase variant="primary" size="normal">
+          <Button variant="opaque" size="normal">
             {t.header.loginButton}
-          </ButtonBase>
+          </Button>
         </div>
       </div>
     </header>

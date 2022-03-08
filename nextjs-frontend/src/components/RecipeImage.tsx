@@ -3,6 +3,7 @@ import { useTranslations } from "../hooks/useTranslations";
 import defaultRecipePicture from "../../public/default_recipe_image.png";
 import Image from "next/image";
 import styles from "./RecipeImage.module.scss";
+import { useState } from "react";
 
 export type ImageProps = {
   url?: string;
@@ -11,11 +12,12 @@ export type ImageProps = {
 export const RecipeImage = ({ url }: ImageProps) => {
   const { t } = useTranslations();
 
+  const [errored, setErrored] = useState(false);
+
   let image: StaticImageData | string = defaultRecipePicture;
-  if (url) {
+  if (url && !errored) {
     image = Api.images.formatImageUrl(url);
   }
-  console.log("Le image", image);
 
   return (
     <div className={styles.imageContainer}>
@@ -26,6 +28,7 @@ export const RecipeImage = ({ url }: ImageProps) => {
         layout="responsive"
         width="100%"
         height="100%"
+        onError={() => setErrored(true)}
       />
     </div>
   );
