@@ -33,6 +33,8 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
 
   const image = recipe.images.length > 0 ? recipe.images[0].url : undefined;
 
+  console.log("Recipe: ", recipe);
+
   return (
     <CardLayout>
       <div className={`card ${styles.recipeContainer}`}>
@@ -41,56 +43,80 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
             <IconButton variant="opaque" icon={faArrowLeft} />
           </Link>
 
-          <div className={styles.infoBox}>
-            <p>{`${t.recipe.oven} ${recipe.ovenTemperature}°`}</p>
-            <p className="marginLeftBig">
-              {`${recipe.estimatedTime} ${t.recipe.minutesShort}`}
-              <FontAwesomeIcon icon={faClock} className={styles.timeIcon} />
-            </p>
-          </div>
+          {(recipe.estimatedTime > 0 || recipe.ovenTemperature > 0) && (
+            <div className={styles.infoBox}>
+              {recipe.ovenTemperature > 0 && (
+                <p>{`${t.recipe.oven} ${recipe.ovenTemperature}°`}</p>
+              )}
+              {recipe.estimatedTime > 0 && (
+                <p className="marginLeftBig">
+                  {`${recipe.estimatedTime} ${t.recipe.minutesShort}`}
+                  <FontAwesomeIcon icon={faClock} className={styles.timeIcon} />
+                </p>
+              )}
+            </div>
+          )}
         </div>
 
         <h1>{recipe.name}</h1>
 
         <p>{`${t.common.createdBy} ${recipe.author.name}`}</p>
 
-        <div className={`marginTopBig ${styles.column}`}>
-          <h3>{t.recipe.description}</h3>
-          <p>{recipe.description}</p>
-        </div>
-
-        <div className={styles.tagsContainer}>
-          {recipe.tags.map((tag) => (
-            <Tag noLink={false} color={tag.color} text={tag.name} />
-          ))}
-        </div>
-
-        <div className={styles.imageIngredientsContainer}>
-          <div className={styles.growContainer}>
-            <RecipeImage url={image} />
+        {recipe.description && (
+          <div className={`marginTopBig ${styles.column}`}>
+            <h3>{t.recipe.description}</h3>
+            <p>{recipe.description}</p>
           </div>
-          <div className="marginRight marginTop" />
-          <div className={styles.growContainer}>
-            <IngredientTable ingredients={recipe.ingredients} />
-          </div>
-        </div>
+        )}
 
-        <div className={`${styles.column} ${styles.alignLeft}`}>
-          <h3>{t.recipe.steps}</h3>
-          <div className={styles.recipeDivider} />
-          <div style={{ width: "100%" }}>
-            {recipe.steps.map((step) => (
-              <div key={step.number}>
-                <div className={styles.stepSpace} />
-                <div className={styles.stepRow}>
-                  <p className="marginRight">{`${step.number + 1}. `}</p>
-                  <p className={styles.longText}>{step.description}</p>
-                </div>
-              </div>
+        {recipe.tags.length > 0 && (
+          <div className={styles.tagsContainer}>
+            {recipe.tags.map((tag) => (
+              <Tag
+                key={tag.id}
+                noLink={false}
+                color={tag.color}
+                text={tag.name}
+              />
             ))}
-            <div className={styles.stepSpace} />
           </div>
-        </div>
+        )}
+
+        {(image || recipe.ingredients.length > 0) && (
+          <div className={styles.imageIngredientsContainer}>
+            {image && (
+              <div className={styles.growContainer}>
+                <RecipeImage url={image} />
+              </div>
+            )}
+            <div className="marginRight marginTop" />
+
+            {recipe.ingredients.length > 0 && (
+              <div className={styles.growContainer}>
+                <IngredientTable ingredients={recipe.ingredients} />
+              </div>
+            )}
+          </div>
+        )}
+
+        {recipe.steps.length > 0 && (
+          <div className={`${styles.column} ${styles.alignLeft}`}>
+            <h3>{t.recipe.steps}</h3>
+            <div className={styles.recipeDivider} />
+            <div style={{ width: "100%" }}>
+              {recipe.steps.map((step) => (
+                <div key={step.number}>
+                  <div className={styles.stepSpace} />
+                  <div className={styles.stepRow}>
+                    <p className="marginRight">{`${step.number + 1}. `}</p>
+                    <p className={styles.longText}>{step.description}</p>
+                  </div>
+                </div>
+              ))}
+              <div className={styles.stepSpace} />
+            </div>
+          </div>
+        )}
 
         <div className={`marginBottom ${styles.recipeDivider}`} />
 
