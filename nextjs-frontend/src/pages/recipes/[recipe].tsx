@@ -7,11 +7,13 @@ import styles from "./[recipe].module.scss";
 import CardLayout from "../../layouts/CardLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useTranslations } from "../../hooks/useTranslations";
 import { RecipeImage } from "../../components/RecipeImage";
 import { IngredientTable } from "../../components/IngredientTable";
 import Tag from "../../components/Tag";
-import Button from "../../components/Buttons";
+import { Button, IconButton } from "../../components/Buttons";
+import Link from "next/link";
 
 type RecipeProps = {
   recipe?: Recipe;
@@ -34,17 +36,23 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
   return (
     <CardLayout>
       <div className={`card ${styles.recipeContainer}`}>
+        <div className={`${styles.row}`}>
+          <Link href={"/"}>
+            <IconButton variant="opaque" icon={faArrowLeft} />
+          </Link>
+
+          <div className={styles.infoBox}>
+            <p>{`${t.recipe.oven} ${recipe.ovenTemperature}°`}</p>
+            <p className="marginLeftBig">
+              {recipe.estimatedTime}
+              <FontAwesomeIcon icon={faClock} className={styles.timeIcon} />
+            </p>
+          </div>
+        </div>
+
         <h1>{recipe.name}</h1>
 
         <p>{`${t.common.createdBy} ${recipe.author.name}`}</p>
-
-        <div className={styles.infoBox}>
-          <p>{`${t.recipe.oven} ${recipe.ovenTemperature}°`}</p>
-          <p className="marginLeftBig">
-            {recipe.estimatedTime}
-            <FontAwesomeIcon icon={faClock} className={styles.timeIcon} />
-          </p>
-        </div>
 
         <div className={`marginTopBig ${styles.column}`}>
           <h3>{t.recipe.description}</h3>
@@ -58,27 +66,33 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
         </div>
 
         <div className={styles.imageIngredientsContainer}>
-          <RecipeImage url={image} />
+          <div className={styles.growContainer}>
+            <RecipeImage url={image} />
+          </div>
           <div className="marginRight marginTop" />
-          <IngredientTable ingredients={recipe.ingredients} />
+          <div className={styles.growContainer}>
+            <IngredientTable ingredients={recipe.ingredients} />
+          </div>
         </div>
 
         <div className={`${styles.column} ${styles.alignLeft}`}>
           <h3>{t.recipe.steps}</h3>
+          <div className={styles.recipeDivider} />
           <div style={{ width: "100%" }}>
             {recipe.steps.map((step) => (
               <div key={step.number}>
-                <div className="marginTop" />
+                <div className={styles.stepSpace} />
                 <div className={styles.stepRow}>
-                  <p className="marginRight">{`${step.number}. `}</p>
+                  <p className="marginRight">{`${step.number + 1}. `}</p>
                   <p className={styles.longText}>{step.description}</p>
                 </div>
               </div>
             ))}
+            <div className={styles.stepSpace} />
           </div>
         </div>
 
-        <div className={`marginTop marginBottom ${styles.recipeDivider}`} />
+        <div className={`marginBottom ${styles.recipeDivider}`} />
 
         <div className={styles.row}>
           {/*  Footer with edit/delete actions*/}
