@@ -9,7 +9,8 @@
     "ingredients": "Ingredients",
     "description": "Description",
     "steps": "Steps",
-    "oven": "Oven"
+    "oven": "Oven",
+    "minutesShort": "min"
   },
   "common": {
     "search": "Search",

@@ -8,4 +8,6 @@ export interface ShortRecipe {
   imageLink: string;
   author: Author;
   tags: Tag[];
+  estimatedTime: number;
+  numberOfIngredients: number;
 }

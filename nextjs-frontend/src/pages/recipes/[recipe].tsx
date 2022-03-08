@@ -44,7 +44,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
           <div className={styles.infoBox}>
             <p>{`${t.recipe.oven} ${recipe.ovenTemperature}°`}</p>
             <p className="marginLeftBig">
-              {recipe.estimatedTime}
+              {`${recipe.estimatedTime} ${t.recipe.minutesShort}`}
               <FontAwesomeIcon icon={faClock} className={styles.timeIcon} />
             </p>
           </div>

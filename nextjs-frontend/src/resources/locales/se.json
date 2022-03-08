@@ -9,7 +9,8 @@
     "ingredients": "Ingredienser",
     "description": "Beskrivning",
     "steps": "Gör såhär",
-    "oven": "Ugn"
+    "oven": "Ugn",
+    "minutesShort": "min"
   },
   "common": {
     "search": "Sök",
