@@ -1,5 +1,5 @@
 import styles from "./RecipeCard.module.scss";
-import { ShortRecipe } from "../api/ListRecipe";
+import { ShortRecipe } from "../api/ShortRecipe";
 import { useTranslations } from "../hooks/useTranslations";
 import { useState } from "react";
 import Tag from "./Tag";

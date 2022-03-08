@@ -5,6 +5,7 @@
   background-color: black;
   color: white;
   border: 1px solid white;
+  font-weight: 600;
 
   &:hover {
     cursor: pointer;
@@ -23,4 +24,9 @@
 
 .button-primary {
   background-color: $primary-color;
+}
+
+.button-secondary {
+  background-color: $secondary-color;
+  color: $secondary-text-color;
 }

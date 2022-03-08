@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, FC } from "react";
 import styles from "./Buttons.module.scss";
 
 export type ButtonVariant = {
-  variant: "primary";
+  variant: "primary" | "secondary";
 };
 
 export type ButtonSize = {

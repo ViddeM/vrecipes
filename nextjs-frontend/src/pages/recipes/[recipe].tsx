@@ -10,6 +10,8 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { useTranslations } from "../../hooks/useTranslations";
 import { RecipeImage } from "../../components/RecipeImage";
 import { IngredientTable } from "../../components/IngredientTable";
+import Tag from "../../components/Tag";
+import Button from "../../components/Buttons";
 
 type RecipeProps = {
   recipe?: Recipe;
@@ -32,23 +34,27 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
   return (
     <CardLayout>
       <div className={`card ${styles.recipeContainer}`}>
-        <div className={styles.row}>
-          <h1>{recipe.name}</h1>
-        </div>
+        <h1>{recipe.name}</h1>
+
+        <p>{`${t.common.createdBy} ${recipe.author.name}`}</p>
+
         <div className={styles.infoBox}>
-          <p>{`${recipe.ovenTemperature}°`}</p>
+          <p>{`${t.recipe.oven} ${recipe.ovenTemperature}°`}</p>
           <p className="marginLeftBig">
             {recipe.estimatedTime}
             <FontAwesomeIcon icon={faClock} className={styles.timeIcon} />
           </p>
         </div>
-        <div className={styles.row}>
-          <p>{`${t.common.createdBy} ${recipe.author.name}`}</p>
-        </div>
 
-        <div className={`${styles.column} marginTop`}>
+        <div className={`marginTopBig ${styles.column}`}>
           <h3>{t.recipe.description}</h3>
           <p>{recipe.description}</p>
+        </div>
+
+        <div className={styles.tagsContainer}>
+          {recipe.tags.map((tag) => (
+            <Tag noLink={false} color={tag.color} text={tag.name} />
+          ))}
         </div>
 
         <div className={styles.imageIngredientsContainer}>
@@ -71,12 +77,25 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
             ))}
           </div>
         </div>
+
+        <div className={`marginTop marginBottom ${styles.recipeDivider}`} />
+
+        <div className={styles.row}>
+          {/*  Footer with edit/delete actions*/}
+          <Button variant="secondary" size="normal">
+            Delete
+          </Button>
+          <Button variant="primary" size="normal">
+            Edit
+          </Button>
+        </div>
       </div>
     </CardLayout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  // @ts-ignore
   const { recipe } = context.params;
   let res = await Api.recipes.getOne(recipe);
 

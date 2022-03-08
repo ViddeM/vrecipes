@@ -8,7 +8,7 @@ VALUES ('test@test.com', 'facebook', '7cc2fc04-7379-4361-9f4e-079054933d2f');
 
 -- Insert recipes
 INSERT INTO recipe (id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by)
-VALUES  ('133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b', 'A recipe', 'a_recipe', 'Desc', 200, 35, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'), 
+VALUES  ('133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b', 'A recipe', 'a_recipe', 'A long nice description of something fun that this recipe intails, very good yes. I dont really know what we can put in here but lets try everything!', 200, 35, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'), 
         ('1e538581-9e9a-4da7-80f6-3127f246c17f', 'A recipe 2', 'a_recipe_2', 'Desc', 190, 20, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
         ('bddb104d-a28e-4bec-97bf-14ad93fc4b20', 'A recipe 3', 'a_recipe_3', 'Desc', 0, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
         ('4213b5e5-0c63-4d31-ba96-f54a574bb040', 'A recipe 4', 'a_recipe_4', 'Desc', 0, 30, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
