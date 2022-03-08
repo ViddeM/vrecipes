@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Button } from "./Buttons";
 import { useTranslations } from "../hooks/useTranslations";
 
+const LOGIN_ENDPOINT = "/login";
+
 const Header = () => {
   const { t } = useTranslations();
 
@@ -12,22 +14,28 @@ const Header = () => {
       <div className={styles.header}>
         <div className={`${styles.logoTitleContainer} ${styles.headerSection}`}>
           <Link href="/">
-            <div className={styles.escapeHatch}>
-              <Image
-                src="/transparent_vrecipes_logo.svg"
-                width="46"
-                height="46"
-              />
-            </div>
+            <a>
+              <div className={styles.escapeHatch}>
+                <Image
+                  src="/transparent_vrecipes_logo.svg"
+                  width="46"
+                  height="46"
+                />
+              </div>
+            </a>
           </Link>
           <h1>{t.header.pageTitle}</h1>
         </div>
         <div
           className={`${styles.headerActionsContainer} ${styles.headerSection}`}
         >
-          <Button variant="opaque" size="normal">
-            {t.header.loginButton}
-          </Button>
+          <Link href={LOGIN_ENDPOINT}>
+            <a>
+              <Button variant="primary" size="normal">
+                {t.header.loginButton}
+              </Button>
+            </a>
+          </Link>
         </div>
       </div>
     </header>

@@ -33,14 +33,14 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
 
   const image = recipe.images.length > 0 ? recipe.images[0].url : undefined;
 
-  console.log("Recipe: ", recipe);
-
   return (
     <CardLayout>
       <div className={`card ${styles.recipeContainer}`}>
         <div className={`${styles.row}`}>
           <Link href={"/"}>
-            <IconButton variant="opaque" icon={faArrowLeft} />
+            <a>
+              <IconButton variant="opaque" icon={faArrowLeft} />
+            </a>
           </Link>
 
           {(recipe.estimatedTime > 0 || recipe.ovenTemperature > 0) && (
