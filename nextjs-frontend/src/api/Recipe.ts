@@ -9,8 +9,8 @@ export interface Recipe {
   name: string;
   uniqueName: string;
   description: string;
-  ovenTemperature: string;
-  estimatedTime: string;
+  ovenTemperature: number;
+  estimatedTime: number;
   steps: Step[];
   ingredients: Ingredient[];
   images: Image[];

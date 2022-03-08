@@ -25,13 +25,23 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
         <div className={styles.recipeCardContent}>
           <h3 className={styles.recipeCardTitle}>{recipe.name}</h3>
           <p>{recipe.author.name}</p>
-          <div className={styles.flexRowBetween}>
-            <p>
-              {`${recipe.estimatedTime} ${t.recipe.minutesShort} `}{" "}
-              <FontAwesomeIcon icon={faClock} />
-            </p>
-            <p> {`${t.recipe.ingredients} ${recipe.numberOfIngredients}`} </p>
-          </div>
+
+          {(recipe.estimatedTime > 0 || recipe.numberOfIngredients > 0) && (
+            <div className={styles.flexRowBetween}>
+              {recipe.estimatedTime > 0 && (
+                <p>
+                  {`${recipe.estimatedTime} ${t.recipe.minutesShort} `}{" "}
+                  <FontAwesomeIcon icon={faClock} />
+                </p>
+              )}
+              {recipe.numberOfIngredients > 0 && (
+                <p>
+                  {" "}
+                  {`${recipe.numberOfIngredients} ${t.recipe.ingredients}`}{" "}
+                </p>
+              )}
+            </div>
+          )}
 
           <TagContainer tags={recipe.tags} noLink={true} />
         </div>
