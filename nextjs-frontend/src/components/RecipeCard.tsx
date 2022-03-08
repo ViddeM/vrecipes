@@ -2,7 +2,6 @@ import styles from "./RecipeCard.module.scss";
 import { ShortRecipe } from "../api/ShortRecipe";
 import { useTranslations } from "../hooks/useTranslations";
 import { useState } from "react";
-import Tag from "./Tag";
 import TagContainer from "./TagContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
@@ -24,6 +23,8 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
   } else {
     imageUrl = URL_PREFIX + imageUrl;
   }
+
+  // Backup in case the image can't be rendered, such as pdfs in non safari browsers.
   if (errored) {
     imageUrl = "static/images/default_recipe.png";
   }
@@ -44,7 +45,6 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
         <p>{recipe.author.name}</p>
         <div className={styles.flexRowBetween}>
           <p>
-            TEMP RECEPT TID
             <FontAwesomeIcon icon={faClock} />
           </p>
           <p> {t.recipe.ingredients} TEMP </p>
