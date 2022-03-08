@@ -8,7 +8,8 @@
     "imageAltText": "Image of the recipe",
     "ingredients": "Ingredients",
     "description": "Description",
-    "steps": "Steps"
+    "steps": "Steps",
+    "oven": "Oven"
   },
   "common": {
     "search": "Search",

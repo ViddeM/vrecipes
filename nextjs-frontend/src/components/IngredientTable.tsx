@@ -1,18 +1,21 @@
 import styles from "./IngredientTable.module.scss";
 import { Ingredient } from "../api/Ingredient";
+import { useTranslations } from "../hooks/useTranslations";
 
 export type IngredientTableProps = {
   ingredients: Ingredient[];
 };
 
 export const IngredientTable = ({ ingredients }: IngredientTableProps) => {
+  let { t } = useTranslations();
+
   return (
     <div className={styles.ingredientsContainer}>
       <table className={styles.ingredientTable}>
         <thead>
           <tr>
             <th colSpan={2}>
-              <h3>Ingredienser</h3>
+              <h3>{t.recipe.ingredients}</h3>
             </th>
           </tr>
         </thead>

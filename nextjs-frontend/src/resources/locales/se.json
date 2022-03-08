@@ -8,7 +8,8 @@
     "imageAltText": "Bild på receptet",
     "ingredients": "Ingredienser",
     "description": "Beskrivning",
-    "steps": "Gör såhär"
+    "steps": "Gör såhär",
+    "oven": "Ugn"
   },
   "common": {
     "search": "Sök",

@@ -4,11 +4,6 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
-
-  @media (min-width: 1024px) {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
 }
 
 .ingredientTable {
