@@ -27,9 +27,10 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
           <p>{recipe.author.name}</p>
           <div className={styles.flexRowBetween}>
             <p>
-              TEMP TIME <FontAwesomeIcon icon={faClock} />
+              {`${recipe.estimatedTime} ${t.recipe.minutesShort} `}{" "}
+              <FontAwesomeIcon icon={faClock} />
             </p>
-            <p> {t.recipe.ingredients} TEMP NO </p>
+            <p> {`${t.recipe.ingredients} ${recipe.numberOfIngredients}`} </p>
           </div>
 
           <TagContainer tags={recipe.tags} noLink={true} />

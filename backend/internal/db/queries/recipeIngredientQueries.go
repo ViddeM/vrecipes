@@ -33,3 +33,17 @@ func GetRecipeIngredientQuery(id uuid.UUID) (*tables.RecipeIngredient, error) {
 	err := pgxscan.Get(ctx, db, &recipeIngredient, getRecipeIngredientByIdQuery, id)
 	return &recipeIngredient, err
 }
+
+var getNumberOfRecipeIngredientsQuery = `
+SELECT COUNT(*)
+FROM recipe_ingredient
+WHERE recipe_id=$1
+`
+
+func GetNumberOfIngredientsForRecipe(recipeId uuid.UUID) (int, error) {
+	db := getDb()
+
+	var ingredientCount int
+	err := pgxscan.Get(ctx, db, &ingredientCount, getNumberOfRecipeIngredientsQuery, recipeId)
+	return ingredientCount, err
+}
