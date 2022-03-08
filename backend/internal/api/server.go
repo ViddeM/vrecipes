@@ -32,6 +32,8 @@ func Init() {
 
 	api := router.Group("/api")
 	{
+		api.Static("/images", envVars.ImageFolder)
+
 		api.GET("/health", endpoints.HealthCheck)
 		api.GET("/recipes/:uniqueName", endpoints.Recipe)
 		api.GET("/recipes", endpoints.Recipes)
@@ -42,8 +44,6 @@ func Init() {
 		authRequired := api.Group("")
 		{
 			authRequired.Use(authentication.CheckAuth())
-
-			authRequired.Static("/images", envVars.ImageFolder)
 
 			authRequired.GET("/me", authentication.Me)
 			authRequired.POST("/recipes", endpoints.NewRecipe)
