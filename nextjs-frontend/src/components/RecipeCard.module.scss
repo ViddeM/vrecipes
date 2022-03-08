@@ -1,6 +1,6 @@
 @import "../resources/styles/vars";
 
-$recipe-card-width: 320px;
+$recipe-card-width: 310px;
 $recipe-card-height: 400px;
 
 $recipe-img-height: 200px;
@@ -15,7 +15,7 @@ $recipe-img-height: 200px;
     border: 1px solid $primary-color;
 
     p {
-      color: black
+      color: black;
     }
   }
 
@@ -29,13 +29,11 @@ $recipe-img-height: 200px;
     height: $recipe-img-height;
     width: inherit;
     object-fit: cover;
-
   }
-
 }
 
 .recipeCardContent {
-  margin: 5px;
+  padding: 5px;
 }
 
 .recipeCardTitle {
