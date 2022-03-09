@@ -25,7 +25,7 @@ type sessionData struct {
 }
 
 type whiteList struct {
-	Emails []string `json:"whitelistedEmails"`
+	Emails []string `json:"whitelisted_emails"`
 }
 
 var (

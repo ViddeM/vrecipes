@@ -3,11 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./Buttons";
 import { useTranslations } from "../hooks/useTranslations";
+import { useMe } from "../hooks/useMe";
 
 const LOGIN_ENDPOINT = "/login";
 
 const Header = () => {
   const { t } = useTranslations();
+  const { isLoggedIn } = useMe();
 
   return (
     <header className={styles.headerContainer}>
@@ -32,7 +34,7 @@ const Header = () => {
           <Link href={LOGIN_ENDPOINT}>
             <a>
               <Button variant="primary" size="normal">
-                {t.header.loginButton}
+                {isLoggedIn ? t.header.logoutButton : t.header.loginButton}
               </Button>
             </a>
           </Link>

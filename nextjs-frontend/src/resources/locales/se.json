@@ -1,7 +1,8 @@
 {
   "header": {
     "pageTitle": "VRecept",
-    "loginButton": "Logga in"
+    "loginButton": "Logga in",
+    "logoutButton": "Logga ut"
   },
   "login": {
     "loginTitle": "Logga in",

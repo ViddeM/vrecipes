@@ -1,10 +1,11 @@
-import axios, {AxiosResponse} from "axios";
-import {ShortRecipe} from "./ShortRecipe";
-import {Recipe} from "./Recipe";
+import axios, { AxiosResponse } from "axios";
+import { ShortRecipe } from "./ShortRecipe";
+import { Recipe } from "./Recipe";
+import { IMAGE_BASE_URL } from "./Endpoints";
+import { Me } from "./Me";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = "http://localhost:3000/api";
-const IMAGE_BASE_URL = "/api/images";
 
 interface RawApiResponse<ResponseData> {
   success: boolean;
@@ -27,13 +28,16 @@ export const Api = {
   },
   login: {
     github: () => {
-      return handleResponse(axios.get("/auth/github"));
+      return handleResponse(axios.get("/auth/github"), true);
     },
   },
   images: {
     formatImageUrl: (imageUrl: string): string => {
       return `${IMAGE_BASE_URL}/${imageUrl}`;
     },
+  },
+  getMe: () => {
+    return handleResponse(axios.get<RawApiResponse<Me>>("/me"));
   },
 };
 
@@ -43,7 +47,8 @@ export interface ApiResponse<T> {
 }
 
 function handleResponse<T>(
-  response: Promise<AxiosResponse<RawApiResponse<T>, any>>
+  response: Promise<AxiosResponse<RawApiResponse<T>, any>>,
+  handleAuth?: boolean
 ): Promise<ApiResponse<T>> {
   return response
     .then((responseData) => {
@@ -63,25 +68,23 @@ function handleResponse<T>(
         data: data.data,
       };
     })
-    .catch((error) => {
-      console.log("ERROR: ", error);
+    .catch((err) => {
+      if (handleAuth) {
+        if (
+          err.response &&
+          err.response.status === 401 &&
+          err.response.headers &&
+          err.response.headers.location
+        ) {
+          window.location.assign(err.response.headers.location);
+        } else {
+          console.log("NO LOCATION!", err);
+        }
+      }
+
+      console.log("ERROR: ", err);
       return {
         errorTranslationString: "errors.default",
       };
     });
 }
-
-function authorizedApiCall<T>(
-  response: Promise<AxiosResponse<RawApiResponse<T>>>
-): Promise<AxiosResponse<RawApiResponse<T>>> {
-  return response.then((responseInfo) => {
-    if (responseInfo.headers["location"]) {
-      window.location.href = responseInfo.headers["location"];
-    }
-
-    // TODO: Finish
-    return response;
-  });
-}
-
-function getErrorString() {}

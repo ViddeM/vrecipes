@@ -9,10 +9,12 @@ import ErrorCard from "../components/ErrorCard";
 import Loading from "../components/Loading";
 import { useTranslations } from "../hooks/useTranslations";
 import RecipeCard from "../components/RecipeCard";
+import { Me } from "../api/Me";
 
 type HomeProps = {
   recipes?: ShortRecipe[];
   error?: string;
+  me?: Me;
 };
 
 const Home = ({ recipes, error }: HomeProps) => {

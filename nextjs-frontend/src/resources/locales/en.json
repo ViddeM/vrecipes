@@ -1,7 +1,8 @@
 {
   "header": {
     "pageTitle": "VRecipes",
-    "loginButton": "Sign in"
+    "loginButton": "Sign in",
+    "logoutButton": "Sign out"
   },
   "login": {
     "loginTitle": "Sign in",

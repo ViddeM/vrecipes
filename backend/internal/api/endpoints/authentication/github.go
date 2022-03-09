@@ -14,38 +14,40 @@ import (
 
 type githubUserResponse struct {
 	Login string `json:"login"`
-	Name string `json:"name"`
+	Name  string `json:"name"`
 }
 
 type githubUserEmailResponse []githubUserEmail
 
 type githubUserEmail struct {
-	Email string `json:"email"`
-	Verified bool `json:"verified"`
-	Primary bool `json:"primary"`
+	Email      string `json:"email"`
+	Verified   bool   `json:"verified"`
+	Primary    bool   `json:"primary"`
 	Visibility string `json:"visibility"`
 }
 
 var (
 	errScopeNotFound = errors.New("required scope not found")
-	providerGithub="github"
-	githubConfig *oauth2.Config
+	providerGithub   = "github"
+	githubConfig     *oauth2.Config
 )
 
 func init() {
-	registerOnInit(func () {
-		envVars := common.GetEnvVars()
+	registerOnInit(
+		func() {
+			envVars := common.GetEnvVars()
 
-		githubConfig = &oauth2.Config{
-			ClientID:     envVars.GithubClientId,
-			ClientSecret: envVars.GithubSecret,
-			Endpoint:     github.Endpoint,
-			RedirectURL:  envVars.GithubRedirectUri,
-			Scopes:       []string{
-				"user:email",
-			},
-		}
-	})
+			githubConfig = &oauth2.Config{
+				ClientID:     envVars.GithubClientId,
+				ClientSecret: envVars.GithubSecret,
+				Endpoint:     github.Endpoint,
+				RedirectURL:  envVars.GithubRedirectUri,
+				Scopes: []string{
+					"user:email",
+				},
+			}
+		},
+	)
 }
 
 func GithubInitAuth(c *gin.Context) {
@@ -86,7 +88,7 @@ func GithubCallback(c *gin.Context) {
 				abort(c)
 				return
 			}
-
+			
 			c.Redirect(http.StatusTemporaryRedirect, "/")
 			return
 		}
@@ -97,20 +99,24 @@ func GithubCallback(c *gin.Context) {
 
 func githubEmailRequest(accessToken string) (*githubUserEmailResponse, error) {
 	var user githubUserEmailResponse
-	_, err := common.GetRequest(common.GetEnvVars().GithubUserEmailEndpoint, map[string]string{
-		"Authorization": fmt.Sprintf("token %s", accessToken),
-		"Accept": "application/vnd.github.v3+json",
-	}, &user)
+	_, err := common.GetRequest(
+		common.GetEnvVars().GithubUserEmailEndpoint, map[string]string{
+			"Authorization": fmt.Sprintf("token %s", accessToken),
+			"Accept":        "application/vnd.github.v3+json",
+		}, &user,
+	)
 
 	return &user, err
 }
 
 func githubUserRequest(accessToken string) (*githubUserResponse, error) {
 	var user githubUserResponse
-	resp, err := common.GetRequest(common.GetEnvVars().GithubUserEndpoint, map[string]string{
-		"Authorization": fmt.Sprintf("token %s", accessToken),
-		"Accept": "application/vnd.github.v3+json",
-	}, &user)
+	resp, err := common.GetRequest(
+		common.GetEnvVars().GithubUserEndpoint, map[string]string{
+			"Authorization": fmt.Sprintf("token %s", accessToken),
+			"Accept":        "application/vnd.github.v3+json",
+		}, &user,
+	)
 
 	if err != nil {
 		return nil, err
