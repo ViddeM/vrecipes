@@ -3,6 +3,10 @@
     "pageTitle": "VRecept",
     "loginButton": "Logga in"
   },
+  "login": {
+    "loginTitle": "Logga in",
+    "loginWithGithub": "Logga in med Github"
+  },
   "recipe": {
     "searchRecipes": "Sök recept",
     "imageAltText": "Bild på receptet",

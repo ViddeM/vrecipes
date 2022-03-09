@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from "axios";
-import { ShortRecipe } from "./ShortRecipe";
-import { Recipe } from "./Recipe";
+import axios, {AxiosResponse} from "axios";
+import {ShortRecipe} from "./ShortRecipe";
+import {Recipe} from "./Recipe";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = "http://localhost:3000/api";
@@ -23,6 +23,11 @@ export const Api = {
       return handleResponse(
         axios.get<RawApiResponse<Recipe>>(`/recipes/${unique_name}`)
       );
+    },
+  },
+  login: {
+    github: () => {
+      return handleResponse(axios.get("/auth/github"));
     },
   },
   images: {
@@ -64,6 +69,19 @@ function handleResponse<T>(
         errorTranslationString: "errors.default",
       };
     });
+}
+
+function authorizedApiCall<T>(
+  response: Promise<AxiosResponse<RawApiResponse<T>>>
+): Promise<AxiosResponse<RawApiResponse<T>>> {
+  return response.then((responseInfo) => {
+    if (responseInfo.headers["location"]) {
+      window.location.href = responseInfo.headers["location"];
+    }
+
+    // TODO: Finish
+    return response;
+  });
 }
 
 function getErrorString() {}
