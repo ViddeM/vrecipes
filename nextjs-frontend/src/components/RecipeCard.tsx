@@ -19,8 +19,8 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
   return (
     <Link href={`${RECIPES_ENDPOINT}/${recipe.uniqueName}`}>
       <a className={`noStyleLink card ${styles.recipeCard}`}>
-        <div>
-          <RecipeImage url={recipe.imageLink} />
+        <div className={styles.recipeCardImageContainer}>
+          <RecipeImage url={recipe.imageLink} border="top" />
         </div>
         <div className={styles.recipeCardContent}>
           <h3 className={styles.recipeCardTitle}>{recipe.name}</h3>
@@ -36,7 +36,6 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
               )}
               {recipe.numberOfIngredients > 0 && (
                 <p>
-                  {" "}
                   {`${recipe.numberOfIngredients} ${t.recipe.ingredients}`}{" "}
                 </p>
               )}

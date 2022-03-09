@@ -5,11 +5,15 @@ import Image from "next/image";
 import styles from "./RecipeImage.module.scss";
 import { useState } from "react";
 
-export type ImageProps = {
+export type ImageBorderProps = {
+  border: "all" | "bottom" | "top" | "none";
+};
+
+export type ImageProps = ImageBorderProps & {
   url?: string;
 };
 
-export const RecipeImage = ({ url }: ImageProps) => {
+export const RecipeImage = ({ border = "all", url }: ImageProps) => {
   const { t } = useTranslations();
 
   const [errored, setErrored] = useState(false);
@@ -24,7 +28,7 @@ export const RecipeImage = ({ url }: ImageProps) => {
       <Image
         src={image}
         alt={t.recipe.imageAltText}
-        className={styles.imageStyle}
+        className={border !== "none" ? styles[`border-${border}`] : ""}
         layout="responsive"
         width="100%"
         height="100%"
