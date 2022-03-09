@@ -8,20 +8,18 @@ export type ButtonVariant = {
 };
 
 export type ButtonBaseProps = ButtonHTMLAttributes<HTMLButtonElement> &
-  ButtonVariant & {
-    classes?: string;
-  };
+  ButtonVariant;
 
 // Not generally meant to be used directly.
-const ButtonBase: FC<ButtonBaseProps> = ({ ...props }) => {
-  let variant = styles[`button-${props.variant}`];
+const ButtonBase: FC<ButtonBaseProps> = ({ variant, className, ...props }) => {
+  let variantStyle = styles[`button-${variant}`];
 
   return (
     <button
-      className={`${styles.buttonBase} ${variant} ${
-        props.classes ? props.classes : ""
-      }`}
       {...props}
+      className={`${className ? className : ""} ${
+        styles.buttonBase
+      } ${variantStyle}`}
     />
   );
 };
@@ -32,20 +30,32 @@ export type ButtonSize = {
 
 export type ButtonProps = ButtonBaseProps & ButtonSize;
 
-export const Button: FC<ButtonProps> = ({ ...props }) => {
-  let size = styles[`button-size-${props.size}`];
+export const Button: FC<ButtonProps> = ({ size, className, ...props }) => {
+  let sizeStyle = styles[`button-size-${size}`];
 
-  return <ButtonBase {...props} classes={size} />;
+  return (
+    <ButtonBase
+      {...props}
+      className={`${sizeStyle} ${className ? className : ""}`}
+    />
+  );
 };
 
 export type IconButtonProps = ButtonBaseProps & {
   icon: IconDefinition;
 };
 
-export const IconButton: FC<IconButtonProps> = ({ ...props }) => {
+export const IconButton: FC<IconButtonProps> = ({
+  icon,
+  className,
+  ...props
+}) => {
   return (
-    <ButtonBase {...props} classes={styles.iconButton}>
-      <FontAwesomeIcon icon={props.icon} className={styles.iconButtonIcon} />
+    <ButtonBase
+      {...props}
+      className={`${styles.iconButton} ${className ? className : ""}`}
+    >
+      <FontAwesomeIcon icon={icon} className={styles.iconButtonIcon} />
     </ButtonBase>
   );
 };

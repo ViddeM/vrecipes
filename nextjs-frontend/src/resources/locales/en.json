@@ -3,6 +3,10 @@
     "pageTitle": "VRecipes",
     "loginButton": "Sign in"
   },
+  "login": {
+    "loginTitle": "Sign in",
+    "loginWithGithub": "Sign in with Github"
+  },
   "recipe": {
     "searchRecipes": "Search recipes",
     "imageAltText": "Image of the recipe",
