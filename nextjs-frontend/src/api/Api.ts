@@ -1,8 +1,8 @@
-import axios, { AxiosResponse } from "axios";
-import { ShortRecipe } from "./ShortRecipe";
-import { Recipe } from "./Recipe";
-import { IMAGE_BASE_URL } from "./Endpoints";
-import { Me } from "./Me";
+import axios, {AxiosResponse} from "axios";
+import {ShortRecipe} from "./ShortRecipe";
+import {Recipe} from "./Recipe";
+import {IMAGE_BASE_URL} from "./Endpoints";
+import {Me} from "./Me";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = "http://localhost:3000/api";
@@ -26,18 +26,21 @@ export const Api = {
       );
     },
   },
-  login: {
-    github: () => {
+  user: {
+    githubLogin: () => {
       return handleResponse(axios.get("/auth/github"), true);
+    },
+    logout: () => {
+      return handleResponse(axios.post("/auth/logout"), false);
+    },
+    getMe: () => {
+      return handleResponse(axios.get<RawApiResponse<Me>>("/me"));
     },
   },
   images: {
     formatImageUrl: (imageUrl: string): string => {
       return `${IMAGE_BASE_URL}/${imageUrl}`;
     },
-  },
-  getMe: () => {
-    return handleResponse(axios.get<RawApiResponse<Me>>("/me"));
   },
 };
 
@@ -58,6 +61,8 @@ function handleResponse<T>(
         if (!error) {
           error = "unknown";
         }
+        // 0fd8e893-6f17-4aa6-99e6-5c35bc1988a0_bbq_sauce.jpg
+        // 0fd8e893-6f17-4aa6-99e6-5c35bc1988a0_bbq sauce.png
 
         return {
           errorTranslationString: `errors.${error}`,
@@ -82,7 +87,6 @@ function handleResponse<T>(
         }
       }
 
-      console.log("ERROR: ", err);
       return {
         errorTranslationString: "errors.default",
       };
