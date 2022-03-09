@@ -6,7 +6,7 @@ import styles from "./RecipeImage.module.scss";
 import { useState } from "react";
 
 export type ImageBorderProps = {
-  border: "all" | "bottom" | "top" | "none";
+  border?: "all" | "bottom" | "top" | "none";
 };
 
 export type ImageProps = ImageBorderProps & {

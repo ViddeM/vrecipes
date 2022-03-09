@@ -9,7 +9,7 @@ const LOGIN_ENDPOINT = "/login";
 
 const Header = () => {
   const { t } = useTranslations();
-  const { isLoggedIn } = useMe();
+  const { isLoggedIn, logout } = useMe();
 
   return (
     <header className={styles.headerContainer}>
@@ -31,13 +31,19 @@ const Header = () => {
         <div
           className={`${styles.headerActionsContainer} ${styles.headerSection}`}
         >
-          <Link href={LOGIN_ENDPOINT}>
-            <a>
-              <Button variant="primary" size="normal">
-                {isLoggedIn ? t.header.logoutButton : t.header.loginButton}
-              </Button>
-            </a>
-          </Link>
+          {isLoggedIn ? (
+            <Button size="normal" variant="primary" onClick={logout}>
+              {t.header.logoutButton}
+            </Button>
+          ) : (
+            <Link href={LOGIN_ENDPOINT}>
+              <a>
+                <Button variant="primary" size="normal">
+                  {t.header.loginButton}
+                </Button>
+              </a>
+            </Link>
+          )}
         </div>
       </div>
     </header>

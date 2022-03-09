@@ -8,7 +8,7 @@ VALUES ('test@test.com', 'facebook', '7cc2fc04-7379-4361-9f4e-079054933d2f');
 
 -- Insert recipes
 INSERT INTO recipe (id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by)
-VALUES  ('133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b', 'A recipe', 'a_recipe', 'A long nice description of something fun that this recipe intails, very good yes. I dont really know what we can put in here but lets try everything!', 200, 35, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'), 
+VALUES  ('133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b', 'A recipe', 'a_recipe', 'A long nice description of something fun that this recipe intails, very good yes. I dont really know what we can put in here but lets try everything!', 200, 35, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
         ('1e538581-9e9a-4da7-80f6-3127f246c17f', 'A recipe 2', 'a_recipe_2', 'Desc', 190, 20, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
         ('bddb104d-a28e-4bec-97bf-14ad93fc4b20', 'A recipe 3', 'a_recipe_3', 'Desc', 0, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
         ('4213b5e5-0c63-4d31-ba96-f54a574bb040', 'A recipe 4', 'a_recipe_4', 'Desc', 0, 30, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
@@ -54,12 +54,12 @@ INSERT INTO recipe_step (number, step, recipe_id)
 VALUES  (0, 'Put thing in thing', '133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b'),
         (1, 'Put other thing in the other thing', '133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b');
 
--- Insert recipes
+-- Insert images
 INSERT INTO image   (id, name)
 VALUES              ('0d9828df-f640-4e2e-8c4d-c826321ff7eb', 'Sachertorte.jpg'),
-                    ('0fd8e893-6f17-4aa6-99e6-5c35bc1988a0', 'bbq sauce.png'),
+                    ('0fd8e893-6f17-4aa6-99e6-5c35bc1988a0', 'bbq_sauce.jpg'),
                     ('1eadf68b-4e03-4197-8e13-83673acaae6d', 'ballgren.png'),
-                    ('5d321c96-61c6-45a0-8c1f-129fd221e817', 'hentie.png');
+                    ('5d321c96-61c6-45a0-8c1f-129fd221e817', 'hentie.jpg');
 
 -- Connect images to recipes
 INSERT INTO recipe_image    (recipe_id, image_id)
