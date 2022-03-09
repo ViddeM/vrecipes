@@ -14,6 +14,7 @@ import { IngredientTable } from "../../components/IngredientTable";
 import Tag from "../../components/Tag";
 import { Button, IconButton } from "../../components/Buttons";
 import Link from "next/link";
+import { useMe } from "../../hooks/useMe";
 
 type RecipeProps = {
   recipe?: Recipe;
@@ -22,6 +23,7 @@ type RecipeProps = {
 
 const Recipe = ({ recipe, error }: RecipeProps) => {
   let { t } = useTranslations();
+  let { me, isLoggedIn } = useMe();
 
   if (error) {
     return <ErrorCard error={error} />;
@@ -118,17 +120,29 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
           </div>
         )}
 
-        <div className={`marginBottom ${styles.recipeDivider}`} />
+        {isLoggedIn && (
+          <>
+            <div className={`marginBottom ${styles.recipeDivider}`} />
 
-        <div className={styles.row}>
-          {/*  Footer with edit/delete actions*/}
-          <Button variant="secondary" size="normal">
-            Delete
-          </Button>
-          <Button variant="primary" size="normal">
-            Edit
-          </Button>
-        </div>
+            <div className={styles.row}>
+              {/*  Footer with edit/delete actions*/}
+              <Button
+                variant="secondary"
+                size="normal"
+                disabled={me?.id !== recipe.author.id}
+              >
+                Delete
+              </Button>
+              <Button
+                variant="primary"
+                size="normal"
+                disabled={me?.id !== recipe.author.id}
+              >
+                Edit
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </CardLayout>
   );

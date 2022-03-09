@@ -61,9 +61,6 @@ function handleResponse<T>(
         if (!error) {
           error = "unknown";
         }
-        // 0fd8e893-6f17-4aa6-99e6-5c35bc1988a0_bbq_sauce.jpg
-        // 0fd8e893-6f17-4aa6-99e6-5c35bc1988a0_bbq sauce.png
-
         return {
           errorTranslationString: `errors.${error}`,
         };
