@@ -26,10 +26,12 @@ const Login = () => {
           className={`${styles.signInButton} ${styles.githubButton}`}
           onClick={() => {
             Api.user.githubLogin().then((val) => {
-              if (val.errorTranslationString) {
-                setError(translate(val.errorTranslationString));
-              } else {
-                setError(t.errors.default);
+              if (val.error) {
+                if (val.errorTranslationString) {
+                  setError(translate(val.errorTranslationString));
+                } else {
+                  setError(t.errors.default);
+                }
               }
             });
           }}

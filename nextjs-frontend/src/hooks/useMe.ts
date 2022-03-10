@@ -28,7 +28,6 @@ export const useMe = (): Auth => {
 
 function logout() {
   Api.user.logout().finally(() => {
-    console.log("Should be logged out?");
     window.location.assign("/");
   });
 }

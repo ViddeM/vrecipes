@@ -1,8 +1,8 @@
-import axios, {AxiosResponse} from "axios";
-import {ShortRecipe} from "./ShortRecipe";
-import {Recipe} from "./Recipe";
-import {IMAGE_BASE_URL} from "./Endpoints";
-import {Me} from "./Me";
+import axios, { AxiosResponse } from "axios";
+import { ShortRecipe } from "./ShortRecipe";
+import { Recipe } from "./Recipe";
+import { IMAGE_BASE_URL } from "./Endpoints";
+import { Me } from "./Me";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = "http://localhost:3000/api";
@@ -46,6 +46,7 @@ export const Api = {
 
 export interface ApiResponse<T> {
   errorTranslationString?: string;
+  error?: boolean;
   data?: T;
 }
 
@@ -62,6 +63,7 @@ function handleResponse<T>(
           error = "unknown";
         }
         return {
+          error: true,
           errorTranslationString: `errors.${error}`,
         };
       }
@@ -79,12 +81,14 @@ function handleResponse<T>(
           err.response.headers.location
         ) {
           window.location.assign(err.response.headers.location);
+          return {};
         } else {
           console.log("NO LOCATION!", err);
         }
       }
 
       return {
+        error: true,
         errorTranslationString: "errors.default",
       };
     });
