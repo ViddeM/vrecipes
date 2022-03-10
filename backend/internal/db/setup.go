@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
+	"github.com/viddem/vrecipes/backend/internal/models"
 	"github.com/viddem/vrecipes/backend/internal/process"
 	"io/ioutil"
 	"log"
@@ -54,26 +55,38 @@ func loadFromDefaults() {
 	}
 
 	for _, recipeJson := range defaultDb.Recipes {
-		recipe, err := process.CreateRecipe(recipeJson.Name, recipeJson.Description, recipeJson.OvenTemp, recipeJson.EstimatedTime, uuid.New())
+		initialRecipe, err := process.CreateRecipe(recipeJson.Name, uuid.New())
 		if err != nil {
 			log.Printf("Failed to create default recipe %+v, due to err: %s\n", recipeJson, err)
 		}
 
+		var fullRecipe = models.EditRecipeJson{
+			Name:            initialRecipe.Name,
+			Description:     recipeJson.Description,
+			OvenTemperature: recipeJson.OvenTemp,
+			CookingTime:     recipeJson.EstimatedTime,
+		}
+
+		_, err = process.EditRecipe(initialRecipe, &fullRecipe)
+		if err != nil {
+			log.Printf("Failed to edit default recipe %+v, due to err: %s\n", fullRecipe, err)
+		}
+
 		for num, step := range recipeJson.Steps {
-			_, err := process.CreateRecipeStep(string(step), uint16(num), recipe.ID)
+			_, err := process.CreateRecipeStep(string(step), uint16(num), initialRecipe.ID)
 			if err != nil {
 				log.Printf("Failed to create default recipe step %s, due to err: %s\n", step, err)
 			}
 		}
 
 		for _, ingredient := range recipeJson.Ingredients {
-			_, err = process.CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, recipe.ID)
+			_, err = process.CreateRecipeIngredient(ingredient.Name, ingredient.Unit, ingredient.Amount, initialRecipe.ID)
 			if err != nil {
 				log.Printf("Failed to create default recipe ingredient %+v, due to err: %s\n", ingredient, err)
 			}
 		}
 
-		_, err = process.CreateRecipeImage(recipeJson.Image, recipe.ID)
+		_, err = process.CreateRecipeImage(recipeJson.Image, initialRecipe.ID)
 		if err != nil {
 			log.Printf("Failed to create default recipe image %s, due to err: %s\n", recipeJson.Image, err)
 		}

@@ -1,0 +1,22 @@
+.createCardColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+.createElement {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.createTextField {
+  width: 100%;
+}
+
+.createRecipeButton {
+  width: 100%;
+}

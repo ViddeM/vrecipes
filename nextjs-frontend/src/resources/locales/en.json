@@ -16,13 +16,18 @@
     "steps": "Steps",
     "oven": "Oven",
     "minutesShort": "min",
-    "createRecipe": "Create recipe"
+    "createRecipe": "Create recipe",
+    "createRecipeTitle": "Create Recipe",
+    "recipeName": "Recipe name"
   },
   "common": {
     "loading": "Loading...",
     "createdBy": "Created by"
   },
   "errors": {
-    "default": "An unknown error has occured"
+    "default": "An unknown error has occured",
+    "invalid_json": "An internal error has occured, please contact the system administrator",
+    "failed_to_create_recipe": "Failed to create recipe",
+    "recipe_name_exists": "A recipe with that name already exists"
   }
 }

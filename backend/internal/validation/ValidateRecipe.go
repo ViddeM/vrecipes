@@ -12,7 +12,7 @@ var ErrInvalidIngredient = errors.New("ingredient amount / unit can only be empt
 var ErrImageNotExist = errors.New("the image does not exist")
 var ErrTagNotExist = errors.New("the tag doesn't exist")
 
-func ValidateRecipe(recipe *models.NewRecipeJson) error {
+func ValidateRecipe(recipe *models.EditRecipeJson) error {
 	err := validateStepNumbers(recipe.Steps)
 	if err != nil {
 		return err
@@ -36,7 +36,7 @@ func ValidateRecipe(recipe *models.NewRecipeJson) error {
 	return nil
 }
 
-func validateIngredients(ingredients []models.NewRecipeIngredientJson) error {
+func validateIngredients(ingredients []models.EditRecipeIngredientJson) error {
 	for _, ingredient := range ingredients {
 		if (ingredient.Amount <= 0 && ingredient.Unit != "") ||
 			(ingredient.Unit == "" && ingredient.Amount > 0) {
@@ -46,7 +46,7 @@ func validateIngredients(ingredients []models.NewRecipeIngredientJson) error {
 	return nil
 }
 
-func validateStepNumbers(steps []models.NewRecipeStepJson) error {
+func validateStepNumbers(steps []models.EditRecipeStepJson) error {
 	var i uint16
 	for i = 0; i < uint16(len(steps)); i++ {
 		if validateStepNumberExists(steps, i) == false {
@@ -57,7 +57,7 @@ func validateStepNumbers(steps []models.NewRecipeStepJson) error {
 	return nil
 }
 
-func validateStepNumberExists(steps []models.NewRecipeStepJson, i uint16) bool {
+func validateStepNumberExists(steps []models.EditRecipeStepJson, i uint16) bool {
 	for _, step := range steps {
 		if step.Number == i {
 			return true
@@ -66,7 +66,7 @@ func validateStepNumberExists(steps []models.NewRecipeStepJson, i uint16) bool {
 	return false
 }
 
-func validateImages(images []models.NewRecipeImageJson) error {
+func validateImages(images []models.EditRecipeImageJson) error {
 	for _, image := range images {
 		_, err := queries.GetImageById(image.ID)
 		if err != nil {

@@ -104,9 +104,7 @@ func connectTagToRecipe(recipeId, tagId uuid.UUID) (*tables.RecipeTag, error) {
 }
 
 func CreateRecipe(
-	name, description string,
-	ovenTemp, estimatedTime int,
-	userId uuid.UUID,
+	name string, userId uuid.UUID,
 ) (*tables.Recipe, error) {
 	uniqueName, err := generateUniqueName(name)
 	if err != nil {
@@ -115,9 +113,9 @@ func CreateRecipe(
 	recipe, err := commands.CreateRecipe(
 		name,
 		uniqueName,
-		description,
-		ovenTemp,
-		estimatedTime,
+		"",
+		0,
+		0,
 		userId,
 	)
 	return recipe, err
@@ -127,48 +125,9 @@ func CreateNewRecipe(
 	recipeJson *models.NewRecipeJson,
 	user *tables.User,
 ) (string, error) {
-	recipe, err := CreateRecipe(
-		recipeJson.Name,
-		recipeJson.Description,
-		recipeJson.OvenTemperature,
-		recipeJson.CookingTime,
-		user.ID,
-	)
+	recipe, err := CreateRecipe(recipeJson.Name, user.ID)
 	if err != nil {
 		return "", err
-	}
-
-	for _, ingredient := range recipeJson.Ingredients {
-		_, err := CreateRecipeIngredient(
-			ingredient.Name,
-			ingredient.Unit,
-			ingredient.Amount,
-			recipe.ID,
-		)
-		if err != nil {
-			return "", err
-		}
-	}
-
-	for _, step := range recipeJson.Steps {
-		_, err := CreateRecipeStep(step.Step, step.Number, recipe.ID)
-		if err != nil {
-			return "", err
-		}
-	}
-
-	for _, image := range recipeJson.Images {
-		_, err := connectImageToRecipe(recipe.ID, image.ID)
-		if err != nil {
-			return "", err
-		}
-	}
-
-	for _, tagId := range recipeJson.Tags {
-		_, err := connectTagToRecipe(recipe.ID, tagId)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	return recipe.UniqueName, nil
