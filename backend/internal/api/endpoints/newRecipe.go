@@ -9,20 +9,19 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"github.com/viddem/vrecipes/backend/internal/process"
-	"github.com/viddem/vrecipes/backend/internal/validation"
 	"log"
 	"net/http"
 )
 
-type NewRecipeResponse struct {
-	RecipeUniqueName string `json:"recipeUniqueName"`
-}
-
 var ErrNoUserInContext = errors.New("no userID could be extracted from the context")
 var ErrInvalidUserIdInContext = errors.New("the userID in the context was of an invalid type")
 
+type NewRecipeJson struct {
+	UniqueName string `json:"uniqueName"`
+}
+
 func NewRecipe(c *gin.Context) {
-	recipe, err := validateRecipe(c)
+	recipeJson, err := validateNewRecipe(c)
 	if err != nil {
 		log.Printf("Failed to validate new recipe json: %v\n", err)
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseInvalidJson))
@@ -36,7 +35,7 @@ func NewRecipe(c *gin.Context) {
 		return
 	}
 
-	uniqueName, err := process.CreateNewRecipe(recipe, user)
+	uniqueName, err := process.CreateNewRecipe(recipeJson, user)
 	if err != nil {
 		if errors.Is(err, common.ErrNameTaken) {
 			log.Printf("Tried to create duplicate recipe")
@@ -49,17 +48,12 @@ func NewRecipe(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(NewRecipeResponse{uniqueName}))
+	c.JSON(http.StatusOK, common.Success(NewRecipeJson{UniqueName: uniqueName}))
 }
 
-func validateRecipe(c *gin.Context) (*models.NewRecipeJson, error) {
+func validateNewRecipe(c *gin.Context) (*models.NewRecipeJson, error) {
 	var recipe models.NewRecipeJson
 	err := c.ShouldBindJSON(&recipe)
-	if err != nil {
-		return nil, err
-	}
-
-	err = validation.ValidateRecipe(&recipe)
 	return &recipe, err
 }
 

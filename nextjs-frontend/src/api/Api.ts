@@ -3,6 +3,7 @@ import { ShortRecipe } from "./ShortRecipe";
 import { Recipe } from "./Recipe";
 import { IMAGE_BASE_ENDPOINT } from "./Endpoints";
 import { Me } from "./Me";
+import { UniqueName } from "./UniqueName";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = "http://localhost:3000/api";
@@ -23,6 +24,14 @@ export const Api = {
     getOne: (unique_name: string) => {
       return handleResponse(
         axios.get<RawApiResponse<Recipe>>(`/recipes/${unique_name}`)
+      );
+    },
+    create: (name: string) => {
+      return handleResponse(
+        axios.post<RawApiResponse<UniqueName>>("/recipes", {
+          name: name,
+        }),
+        true
       );
     },
   },
@@ -59,13 +68,9 @@ function handleResponse<T>(
     .then((responseData) => {
       let data = responseData.data;
       if (!data.success || data.error || !data.data) {
-        let error = data.error;
-        if (!error) {
-          error = "unknown";
-        }
         return {
           error: true,
-          errorTranslationString: `errors.${error}`,
+          errorTranslationString: handleError(data),
           rawResponse: responseData,
         };
       }
@@ -76,6 +81,7 @@ function handleResponse<T>(
       };
     })
     .catch((err) => {
+      console.log("Err ", err);
       if (handleAuth) {
         if (
           err.response &&
@@ -85,15 +91,27 @@ function handleResponse<T>(
         ) {
           window.location.assign(err.response.headers.location);
           return { rawResponse: err.response };
-        } else {
-          console.log("NO LOCATION!", err);
         }
+      }
+
+      let error = "errors.default";
+      if (err.response && err.response.data) {
+        error = handleError(err.response.data);
       }
 
       return {
         error: true,
-        errorTranslationString: "errors.default",
+        errorTranslationString: error,
         rawResponse: err.response,
       };
     });
+}
+
+function handleError<T>(data: RawApiResponse<T>): string {
+  let error = data.error;
+  if (!error) {
+    error = "default";
+  }
+
+  return `errors.${error}`;
 }

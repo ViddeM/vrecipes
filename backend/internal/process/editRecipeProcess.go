@@ -10,7 +10,7 @@ import (
 
 func EditRecipe(
 	oldRecipe *tables.Recipe,
-	newRecipe *models.NewRecipeJson,
+	newRecipe *models.EditRecipeJson,
 ) (string, error) {
 	uniqueName, err := updateRecipeGeneral(oldRecipe, newRecipe)
 	if err != nil {
@@ -42,7 +42,7 @@ func EditRecipe(
 
 func updateRecipeGeneral(
 	oldRecipe *tables.Recipe,
-	newRecipe *models.NewRecipeJson,
+	newRecipe *models.EditRecipeJson,
 ) (string, error) {
 	uniqueName := oldRecipe.UniqueName
 	changed := false
@@ -79,7 +79,7 @@ func updateRecipeGeneral(
 	return uniqueName, nil
 }
 
-func updateRecipeSteps(id uuid.UUID, steps []models.NewRecipeStepJson) error {
+func updateRecipeSteps(id uuid.UUID, steps []models.EditRecipeStepJson) error {
 	oldSteps, err := queries.GetStepsForRecipe(id)
 	if err != nil {
 		return err
@@ -140,7 +140,7 @@ func getStepWithNumber(
 
 func updateRecipeIngredients(
 	id uuid.UUID,
-	ingredients []models.NewRecipeIngredientJson,
+	ingredients []models.EditRecipeIngredientJson,
 ) error {
 	oldIngredients, err := queries.GetIngredientsForRecipe(id)
 	if err != nil {
@@ -192,7 +192,7 @@ func updateRecipeIngredients(
 }
 
 func getOldIngredient(
-	ingredient *models.NewRecipeIngredientJson,
+	ingredient *models.EditRecipeIngredientJson,
 	oldIngredients []*tables.RecipeIngredient,
 ) *tables.RecipeIngredient {
 	for _, oldIngredient := range oldIngredients {
@@ -206,7 +206,7 @@ func getOldIngredient(
 
 func updateRecipeImages(
 	id uuid.UUID,
-	images []models.NewRecipeImageJson,
+	images []models.EditRecipeImageJson,
 ) error {
 	oldImages, err := queries.GetImagesForRecipe(id)
 	if err != nil {
@@ -247,7 +247,7 @@ func updateRecipeImages(
 }
 
 func getOldImage(
-	image *models.NewRecipeImageJson,
+	image *models.EditRecipeImageJson,
 	oldImages []tables.Image,
 ) *tables.Image {
 	for _, oldImage := range oldImages {

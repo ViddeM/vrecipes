@@ -16,13 +16,18 @@
     "steps": "Gör såhär",
     "oven": "Ugn",
     "minutesShort": "min",
-    "createRecipe": "Skapa recept"
+    "createRecipe": "Skapa recept",
+    "createRecipeTitle": "Skapa Recept",
+    "recipeName": "Receptnamn"
   },
   "common": {
     "loading": "Laddar...",
     "createdBy": "Skapad av"
   },
   "errors": {
-    "default": "Ett okänt fel har inträffat"
+    "default": "Ett okänt fel har inträffat",
+    "invalid_json": "Ett internt fel har inträffat, var god kontakta systemadministratören",
+    "failed_to_create_recipe": "Misslyckades med att skapa recept",
+    "recipe_name_exists": "Ett recept med det namnet finns redan"
   }
 }

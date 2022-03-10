@@ -7,13 +7,19 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
+	"github.com/viddem/vrecipes/backend/internal/models"
 	"github.com/viddem/vrecipes/backend/internal/process"
+	"github.com/viddem/vrecipes/backend/internal/validation"
 	"log"
 	"net/http"
 )
 
+type EditRecipeJson struct {
+	UniqueName string `json:"uniqueName"`
+}
+
 func EditRecipe(c *gin.Context) {
-	recipe, err := validateRecipe(c)
+	recipeJson, err := validateEditRecipe(c)
 	if err != nil {
 		log.Printf("Failed to validate edit recipe json: %v\n", err)
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseInvalidJson))
@@ -33,7 +39,7 @@ func EditRecipe(c *gin.Context) {
 		return
 	}
 
-	uniqueName, err := process.EditRecipe(oldRecipe, recipe)
+	uniqueName, err := process.EditRecipe(oldRecipe, recipeJson)
 	if err != nil {
 		log.Printf("Failed to edit recipe: %v\n", err)
 		if errors.Is(err, common.ErrNameTaken) {
@@ -45,7 +51,20 @@ func EditRecipe(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(NewRecipeResponse{uniqueName}))
+	c.JSON(http.StatusOK, common.Success(EditRecipeJson{
+		UniqueName: uniqueName,
+	}))
+}
+
+func validateEditRecipe(c *gin.Context) (*models.EditRecipeJson, error) {
+	var recipe models.EditRecipeJson
+	err := c.ShouldBindJSON(&recipe)
+	if err != nil {
+		return nil, err
+	}
+
+	err = validation.ValidateRecipe(&recipe)
+	return &recipe, err
 }
 
 func validateRecipeId(c *gin.Context) (*tables.Recipe, error) {
