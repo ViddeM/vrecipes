@@ -153,6 +153,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { recipe } = context.params;
   let res = await Api.recipes.getOne(recipe);
 
+  if (res.rawResponse?.status === 404) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       error: res.errorTranslationString ?? null,

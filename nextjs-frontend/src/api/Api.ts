@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { ShortRecipe } from "./ShortRecipe";
 import { Recipe } from "./Recipe";
-import { IMAGE_BASE_URL } from "./Endpoints";
+import { IMAGE_BASE_ENDPOINT } from "./Endpoints";
 import { Me } from "./Me";
 
 // FIXME: should be changed before prod...
@@ -39,7 +39,7 @@ export const Api = {
   },
   images: {
     formatImageUrl: (imageUrl: string): string => {
-      return `${IMAGE_BASE_URL}/${imageUrl}`;
+      return `${IMAGE_BASE_ENDPOINT}/${imageUrl}`;
     },
   },
 };
@@ -48,6 +48,7 @@ export interface ApiResponse<T> {
   errorTranslationString?: string;
   error?: boolean;
   data?: T;
+  rawResponse: AxiosResponse<RawApiResponse<T>>;
 }
 
 function handleResponse<T>(
@@ -65,11 +66,13 @@ function handleResponse<T>(
         return {
           error: true,
           errorTranslationString: `errors.${error}`,
+          rawResponse: responseData,
         };
       }
 
       return {
         data: data.data,
+        rawResponse: responseData,
       };
     })
     .catch((err) => {
@@ -81,7 +84,7 @@ function handleResponse<T>(
           err.response.headers.location
         ) {
           window.location.assign(err.response.headers.location);
-          return {};
+          return { rawResponse: err.response };
         } else {
           console.log("NO LOCATION!", err);
         }
@@ -90,6 +93,7 @@ function handleResponse<T>(
       return {
         error: true,
         errorTranslationString: "errors.default",
+        rawResponse: err.response,
       };
     });
 }
