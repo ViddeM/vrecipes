@@ -2,7 +2,7 @@ import type { GetServerSideProps } from "next";
 import styles from "./index.module.scss";
 import TextField from "../components/TextField";
 import DefaultLayout from "../layouts/DefaultLayout";
-import { Button } from "../components/Buttons";
+import { Button, IconButton } from "../components/Buttons";
 import { ShortRecipe } from "../api/ShortRecipe";
 import { Api } from "../api/Api";
 import ErrorCard from "../components/ErrorCard";
@@ -10,6 +10,10 @@ import Loading from "../components/Loading";
 import { useTranslations } from "../hooks/useTranslations";
 import RecipeCard from "../components/RecipeCard";
 import { Me } from "../api/Me";
+import useMediaQuery from "../hooks/useMediaQuery";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { CREATE_RECIPE_ENDPOINT } from "../api/Endpoints";
 
 type HomeProps = {
   recipes?: ShortRecipe[];
@@ -17,8 +21,11 @@ type HomeProps = {
   me?: Me;
 };
 
+const LARGER_THAN_MOBILE_BREAKPOINT = 600;
+
 const Home = ({ recipes, error }: HomeProps) => {
   const { t } = useTranslations();
+  const isLargeWindow = useMediaQuery(LARGER_THAN_MOBILE_BREAKPOINT);
 
   if (error) {
     return <ErrorCard error={error} />;
@@ -36,9 +43,22 @@ const Home = ({ recipes, error }: HomeProps) => {
             className={`marginRight ${styles.searchButton}`}
             placeholder={`${t.recipe.searchRecipes}`}
           />
-          <Button variant="primary" size="normal">
-            {t.common.search}
-          </Button>
+
+          <Link href={CREATE_RECIPE_ENDPOINT}>
+            {isLargeWindow ? (
+              <Button variant="primary" size="normal">
+                {t.recipe.createRecipe}
+              </Button>
+            ) : (
+              <div className={styles.addIconButtonContainer}>
+                <IconButton
+                  variant="primary"
+                  icon={faAdd}
+                  onClick={() => console.log("CLICK")}
+                />
+              </div>
+            )}
+          </Link>
         </div>
         <div className={styles.recipeCardsList}>
           {recipes.map((recipe) => (

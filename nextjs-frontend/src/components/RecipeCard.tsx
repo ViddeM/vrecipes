@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { RecipeImage } from "./RecipeImage";
 import Link from "next/link";
-
-const RECIPES_ENDPOINT = "/recipes";
+import { RECIPES_BASE_ENDPOINT } from "../api/Endpoints";
 
 export interface RecipeCardProps {
   recipe: ShortRecipe;
@@ -17,7 +16,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
   const { t } = useTranslations();
 
   return (
-    <Link href={`${RECIPES_ENDPOINT}/${recipe.uniqueName}`}>
+    <Link href={`${RECIPES_BASE_ENDPOINT}/${recipe.uniqueName}`}>
       <a className={`noStyleLink card ${styles.recipeCard}`}>
         <div className={styles.recipeCardImageContainer}>
           <RecipeImage url={recipe.imageLink} border="top" />

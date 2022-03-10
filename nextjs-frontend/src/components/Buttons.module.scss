@@ -6,9 +6,9 @@
   color: white;
   border: 1px solid white;
   font-weight: 600;
+  cursor: pointer;
 
   &:hover {
-    cursor: pointer;
     filter: brightness(1.2);
   }
 
@@ -19,9 +19,9 @@
   &:disabled {
     color: rgba(0, 0, 0, 0.26);
     background-color: rgba(0, 0, 0, 0.12);
+    cursor: default;
 
     &:hover {
-      cursor: default;
       filter: none;
     }
   }

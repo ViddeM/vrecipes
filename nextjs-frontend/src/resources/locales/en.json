@@ -15,10 +15,10 @@
     "description": "Description",
     "steps": "Steps",
     "oven": "Oven",
-    "minutesShort": "min"
+    "minutesShort": "min",
+    "createRecipe": "Create recipe"
   },
   "common": {
-    "search": "Search",
     "loading": "Loading...",
     "createdBy": "Created by"
   },

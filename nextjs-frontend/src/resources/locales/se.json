@@ -15,10 +15,10 @@
     "description": "Beskrivning",
     "steps": "Gör såhär",
     "oven": "Ugn",
-    "minutesShort": "min"
+    "minutesShort": "min",
+    "createRecipe": "Skapa recept"
   },
   "common": {
-    "search": "Sök",
     "loading": "Laddar...",
     "createdBy": "Skapad av"
   },
