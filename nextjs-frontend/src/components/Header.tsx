@@ -4,8 +4,7 @@ import Image from "next/image";
 import { Button } from "./Buttons";
 import { useTranslations } from "../hooks/useTranslations";
 import { useMe } from "../hooks/useMe";
-
-const LOGIN_ENDPOINT = "/login";
+import { LOGIN_ENDPOINT } from "../api/Endpoints";
 
 const Header = () => {
   const { t } = useTranslations();
