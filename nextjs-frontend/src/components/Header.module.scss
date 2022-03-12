@@ -26,12 +26,15 @@
   align-items: center;
   margin-right: 10px;
 
+  transition: transform 250ms;
+
   &:active {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
   }
 
   &:hover {
     cursor: pointer;
+    transform: rotate(-180deg);
   }
 }
 
@@ -46,7 +49,6 @@
 }
 
 .headerActionsContainer {
-  display: flex;
   display: flex;
   flex-direction: row-reverse;
   align-content: center;

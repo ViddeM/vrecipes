@@ -1,0 +1,27 @@
+.pageCover {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  transition: background-color 250ms;
+  z-index: 1300;
+}
+
+.modalCard {
+  //margin-top: 20vh;
+  //width: 100%;
+  max-width: 400px;
+  //margin-left: auto;
+  //margin-right: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1301;
+}
+
+.modalActions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+}

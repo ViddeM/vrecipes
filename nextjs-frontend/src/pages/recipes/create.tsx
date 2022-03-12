@@ -20,7 +20,6 @@ const CreateRecipe = () => {
         setError(translate(data.errorTranslationString));
       } else {
         let uniqueName = data.data?.uniqueName;
-        console.log("DATA", data.data, "UNIQUENAME", uniqueName);
         window.location.assign(`${RECIPES_BASE_ENDPOINT}/${uniqueName}`);
       }
     });

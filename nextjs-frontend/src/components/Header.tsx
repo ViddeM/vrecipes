@@ -31,13 +31,13 @@ const Header = () => {
           className={`${styles.headerActionsContainer} ${styles.headerSection}`}
         >
           {isLoggedIn ? (
-            <Button size="normal" variant="primary" onClick={logout}>
+            <Button size="normal" variant="outlined" onClick={logout}>
               {t.header.logoutButton}
             </Button>
           ) : (
             <Link href={LOGIN_ENDPOINT}>
               <a>
-                <Button variant="primary" size="normal">
+                <Button variant="outlined" size="normal">
                   {t.header.loginButton}
                 </Button>
               </a>

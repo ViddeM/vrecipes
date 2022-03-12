@@ -18,11 +18,17 @@
     "minutesShort": "min",
     "createRecipe": "Skapa recept",
     "createRecipeTitle": "Skapa Recept",
-    "recipeName": "Receptnamn"
+    "recipeName": "Receptnamn",
+    "deleteModal": {
+      "title": "Ta bort receptet?",
+      "content": "Är du säker på att du vill ta bort detta receptet?",
+      "confirm": "Ta bort"
+    }
   },
   "common": {
     "loading": "Laddar...",
-    "createdBy": "Skapad av"
+    "createdBy": "Skapad av",
+    "cancel": "Avbryt"
   },
   "errors": {
     "default": "Ett okänt fel har inträffat",
