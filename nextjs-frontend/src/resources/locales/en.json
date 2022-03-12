@@ -21,14 +21,15 @@
     "recipeName": "Recipe name",
     "deleteModal": {
       "title": "Delete recipe?",
-      "content": "Are you sure that you want to delete this recipe?",
-      "confirm": "Delete"
+      "content": "Are you sure that you want to delete this recipe?"
     }
   },
   "common": {
     "loading": "Loading...",
     "createdBy": "Created by",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No"
   },
   "errors": {
     "default": "An unknown error has occured",

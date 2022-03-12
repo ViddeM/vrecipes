@@ -42,8 +42,8 @@ const Modal = ({
     >
       <div className={`card ${styles.modalCard}`}>
         <h3>{title}</h3>
-        <p className={"marginTop"}>{content}</p>
-        <div className={`marginTop ${styles.modalActions}`}>
+        <p className={"marginTopBig"}>{content}</p>
+        <div className={`marginTopBig ${styles.modalActions}`}>
           {declineButton && (
             <Button
               variant="secondary"
@@ -68,6 +68,7 @@ const Modal = ({
   );
 };
 
+// Ensure that the user can't interact with elements behind it.
 export function trapTabKey(e: KeyboardEvent) {
   const modalRoot = document.querySelector(`#${MODAL_BACKGROUND_ID}`);
   if (!modalRoot) {

@@ -5,3 +5,4 @@ export const IMAGE_BASE_ENDPOINT = "/api/images";
 export const RECIPES_BASE_ENDPOINT = "/recipes";
 export const CREATE_RECIPE_ENDPOINT = "/recipes/create";
 export const LOGIN_ENDPOINT = "/login";
+export const ROOT_ENDPOINT = "/";

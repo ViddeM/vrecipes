@@ -1,6 +1,7 @@
 import { Me } from "../api/Me";
 import React, { useContext } from "react";
 import { Api } from "../api/Api";
+import { ROOT_ENDPOINT } from "../api/Endpoints";
 
 export interface AuthContext {
   me: Me | undefined;
@@ -28,6 +29,6 @@ export const useMe = (): Auth => {
 
 function logout() {
   Api.user.logout().finally(() => {
-    window.location.assign("/");
+    window.location.assign(ROOT_ENDPOINT);
   });
 }

@@ -16,6 +16,7 @@ import { Button, IconButton } from "../../components/Buttons";
 import Link from "next/link";
 import { useMe } from "../../hooks/useMe";
 import { useModal } from "../../hooks/useModal";
+import { ROOT_ENDPOINT } from "../../api/Endpoints";
 
 type RecipeProps = {
   recipe?: Recipe;
@@ -137,12 +138,27 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
                     title: t.recipe.deleteModal.title,
                     content: t.recipe.deleteModal.content,
                     declineButton: {
-                      text: t.common.cancel,
-                      onClick: () => {},
+                      text: t.common.no,
+                      onClick: () => {
+                        /* Don't do anything */
+                      },
                     },
                     confirmButton: {
-                      text: t.recipe.deleteModal.confirm,
-                      onClick: () => {},
+                      text: t.common.yes,
+                      onClick: () => {
+                        Api.recipes.remove(recipe.id).then((val) => {
+                          // TODO: Probably want another way to inform the user...
+
+                          if (val.error) {
+                            alert(
+                              `TODO TMP TEXT, FAILED TO DELETE RECIPE ${val.errorTranslationString}`
+                            );
+                          }
+
+                          alert(val.data);
+                          window.location.assign(ROOT_ENDPOINT);
+                        });
+                      },
                     },
                     onClose: () => {},
                   })
