@@ -10,7 +10,8 @@ $recipe-img-height: 200px;
   width: $recipe-card-width;
   height: $recipe-card-height;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     border: 1px solid $primary-color;
 
     p {
