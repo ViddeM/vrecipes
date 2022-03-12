@@ -2,7 +2,7 @@ import styles from "./CardLayout.module.scss";
 
 const DefaultLayout: React.FC = ({ children }) => {
   return (
-    <div className={styles.fillWindow}>
+    <div>
       <main className={styles.main}>{children}</main>
     </div>
   );

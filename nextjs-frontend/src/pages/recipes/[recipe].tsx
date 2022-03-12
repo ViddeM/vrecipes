@@ -15,6 +15,7 @@ import Tag from "../../components/Tag";
 import { Button, IconButton } from "../../components/Buttons";
 import Link from "next/link";
 import { useMe } from "../../hooks/useMe";
+import { useModal } from "../../hooks/useModal";
 
 type RecipeProps = {
   recipe?: Recipe;
@@ -24,6 +25,7 @@ type RecipeProps = {
 const Recipe = ({ recipe, error }: RecipeProps) => {
   let { t } = useTranslations();
   let { me, isLoggedIn } = useMe();
+  let { openModal } = useModal();
 
   if (error) {
     return <ErrorCard error={error} />;
@@ -130,6 +132,21 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
                 variant="secondary"
                 size="normal"
                 disabled={me?.id !== recipe.author.id}
+                onClick={() =>
+                  openModal({
+                    title: t.recipe.deleteModal.title,
+                    content: t.recipe.deleteModal.content,
+                    declineButton: {
+                      text: t.common.cancel,
+                      onClick: () => {},
+                    },
+                    confirmButton: {
+                      text: t.recipe.deleteModal.confirm,
+                      onClick: () => {},
+                    },
+                    onClose: () => {},
+                  })
+                }
               >
                 Delete
               </Button>
