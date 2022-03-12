@@ -21,14 +21,15 @@
     "recipeName": "Receptnamn",
     "deleteModal": {
       "title": "Ta bort receptet?",
-      "content": "Är du säker på att du vill ta bort detta receptet?",
-      "confirm": "Ta bort"
+      "content": "Är du säker på att du vill ta bort detta receptet?"
     }
   },
   "common": {
     "loading": "Laddar...",
     "createdBy": "Skapad av",
-    "cancel": "Avbryt"
+    "cancel": "Avbryt",
+    "yes": "Ja",
+    "no": "Nej"
   },
   "errors": {
     "default": "Ett okänt fel har inträffat",

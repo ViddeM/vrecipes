@@ -18,12 +18,14 @@ export const Api = {
   recipes: {
     getAll: () => {
       return handleResponse(
-        axios.get<RawApiResponse<{ recipes: ShortRecipe[] }>>("/recipes")
+        axios.get<RawApiResponse<{ recipes: ShortRecipe[] }>>("/recipes"),
+        false
       );
     },
     getOne: (unique_name: string) => {
       return handleResponse(
-        axios.get<RawApiResponse<Recipe>>(`/recipes/${unique_name}`)
+        axios.get<RawApiResponse<Recipe>>(`/recipes/${unique_name}`),
+        false
       );
     },
     create: (name: string) => {
@@ -31,6 +33,12 @@ export const Api = {
         axios.post<RawApiResponse<UniqueName>>("/recipes", {
           name: name,
         }),
+        true
+      );
+    },
+    remove: (id: string) => {
+      return handleResponse(
+        axios.delete<RawApiResponse<string>>(`/recipes/${id}`),
         true
       );
     },
@@ -43,7 +51,7 @@ export const Api = {
       return handleResponse(axios.post("/auth/logout"), false);
     },
     getMe: () => {
-      return handleResponse(axios.get<RawApiResponse<Me>>("/me"));
+      return handleResponse(axios.get<RawApiResponse<Me>>("/me"), false);
     },
   },
   images: {
@@ -62,7 +70,7 @@ export interface ApiResponse<T> {
 
 function handleResponse<T>(
   response: Promise<AxiosResponse<RawApiResponse<T>, any>>,
-  handleAuth?: boolean
+  handleAuth: boolean
 ): Promise<ApiResponse<T>> {
   return response
     .then((responseData) => {
