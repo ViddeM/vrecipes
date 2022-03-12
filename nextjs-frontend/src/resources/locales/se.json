@@ -33,8 +33,70 @@
   },
   "errors": {
     "default": "Ett okänt fel har inträffat",
-    "invalid_json": "Ett internt fel har inträffat, var god kontakta systemadministratören",
+
+    "recipe_name_exists": "Ett recept med det namnet finns redan",
     "failed_to_create_recipe": "Misslyckades med att skapa recept",
-    "recipe_name_exists": "Ett recept med det namnet finns redan"
+    "failed_to_edit_recipe": "Misslyckades med att ändra recept",
+    "recipe_not_found": "Kunde inte hitta receptet",
+    "invalid_json": "Ett internt fel har inträffat, var god kontakta systemadministratören",
+    "missing_file": "Fil saknas",
+    "bad_image": "Dålig bild",
+    "filetype_not_supported": "Filformatet stöds ej",
+    "failed_to_save_image": "Misslyckades med att spara bild",
+    "failed_to_retrieve_recipes": "Kunde inte hämta recepten",
+    "failed_to_retrieve_recipe": "Kunde inte hämta recept",
+    "malformed_recipe_id": "Felformatterad recept id",
+    "failed_to_delete_recipe": "Kunde inte ta bort receptet",
+    "failed_to_delete_recipe_book": "Kunde inte ta bort receptboken",
+    "failed_to_authenticate": "Kunde inte autentisera användaren",
+    "invalid_user_id": "Felaktigt användarid",
+    "not_authorized": "Inte behörig",
+    "incorrect_user": "Felaktig användare",
+    "recipe_book_name_exists": "En receptbok med detta namn finns redan",
+    "failed_to_create_recipe_book": "Kunde inte skapa receptboken",
+    "failed_to_retrieve_recipe_books": "Kunde inte hämta receptböcker",
+    "recipe_book_not_found": "Ingen receptbok med det namnet hittades",
+    "failed_to_retrieve_recipe_book": "Kunde inte hämta receptbok",
+    "malformed_recipe_book_id": "Felformatterad receptboksid",
+    "failed_to_edit_recipe_book": "Kunde inte ändra receptboken",
+    "tag_name_taken": "En tagg med detta namn finns redan",
+    "failed_to_create_tag": "Kunde inte skapa tagg",
+    "failed_to_retrieve_tags": "Kunde inte hämta tagg",
+    "malformed_tag_id": "Felformatterad taggid",
+    "tag_not_found": "Kunde inte hitta en sådan tagg",
+    "failed_to_delete_tag": "Kunde inte ta bort taggen",
+    "failed_to_edit_tag": "Kunde inte ändra taggen"
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
