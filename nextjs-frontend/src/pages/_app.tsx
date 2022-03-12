@@ -18,7 +18,7 @@ import { AuthContext } from "../hooks/useMe";
 import { Me } from "../api/Me";
 import { Api } from "../api/Api";
 import { useEffect, useState } from "react";
-import Modal, { ModalProps } from "../components/Modal";
+import Modal, { ModalProps, trapTabKey } from "../components/Modal";
 import { ModalContext } from "../hooks/useModal";
 
 // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
@@ -80,11 +80,8 @@ function handleOpenModalProps(
 ): ModalProps {
   document.body.style.overflow = "hidden";
 
-  const closeOnEsc = (event: KeyboardEvent) => {
-    console.log("KEY EVVENT ", event);
-
-    if (event.code === "Escape") {
-      event.stopPropagation();
+  const closeOnEsc = ({ key }: KeyboardEvent) => {
+    if (key === "Escape") {
       closeModal(() => {});
     }
   };
@@ -92,14 +89,16 @@ function handleOpenModalProps(
   const closeModal = (onClose: (() => void) | undefined) => {
     document.body.style.overflow = "auto";
     setModalProps(undefined);
-    document.removeEventListener("keypress", closeOnEsc);
+    window.removeEventListener("keydown", closeOnEsc);
+    window.removeEventListener("keydown", trapTabKey);
 
     if (onClose) {
       onClose();
     }
   };
 
-  document.addEventListener("keypress", closeOnEsc);
+  window.addEventListener("keydown", closeOnEsc);
+  window.addEventListener("keydown", trapTabKey);
 
   return {
     ...props,
