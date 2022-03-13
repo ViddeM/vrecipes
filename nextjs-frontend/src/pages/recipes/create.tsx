@@ -5,7 +5,7 @@ import { useTranslations } from "../../hooks/useTranslations";
 import styles from "./create.module.scss";
 import { FormEvent, useState } from "react";
 import { Api } from "../../api/Api";
-import { RECIPES_BASE_ENDPOINT } from "../../api/Endpoints";
+import { EDIT_RECIPE_BASE_ENDPOINT } from "../../api/Endpoints";
 
 const CreateRecipe = () => {
   const { t, translate } = useTranslations();
@@ -20,7 +20,7 @@ const CreateRecipe = () => {
         setError(translate(data.errorTranslationString));
       } else {
         let uniqueName = data.data?.uniqueName;
-        window.location.assign(`${RECIPES_BASE_ENDPOINT}/${uniqueName}`);
+        window.location.assign(`${EDIT_RECIPE_BASE_ENDPOINT}/${uniqueName}`);
       }
     });
   };

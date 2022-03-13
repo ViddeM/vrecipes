@@ -49,15 +49,17 @@ const Home = ({ recipes, error }: HomeProps) => {
           {isLoggedIn && (
             /* Show create recipe button only when user is logged in */
             <Link href={CREATE_RECIPE_ENDPOINT}>
-              {isLargeWindow ? (
-                <Button variant="primary" size="normal">
-                  {t.recipe.createRecipe}
-                </Button>
-              ) : (
-                <div className={styles.addIconButtonContainer}>
-                  <IconButton variant="primary" size="normal" icon={faAdd} />
-                </div>
-              )}
+              <a>
+                {isLargeWindow ? (
+                  <Button variant="primary" size="normal">
+                    {t.recipe.createRecipe}
+                  </Button>
+                ) : (
+                  <div className={styles.addIconButtonContainer}>
+                    <IconButton variant="primary" size="normal" icon={faAdd} />
+                  </div>
+                )}
+              </a>
             </Link>
           )}
         </div>

@@ -42,6 +42,12 @@ export const Api = {
         true
       );
     },
+    edit: (recipe: Recipe) => {
+      return handleResponse(
+        axios.put<RawApiResponse<Recipe>>(`/recipes/${recipe.id}`, recipe),
+        true
+      );
+    },
   },
   user: {
     githubLogin: () => {

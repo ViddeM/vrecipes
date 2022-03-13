@@ -64,7 +64,7 @@ func loadFromDefaults() {
 			Name:            initialRecipe.Name,
 			Description:     recipeJson.Description,
 			OvenTemperature: recipeJson.OvenTemp,
-			CookingTime:     recipeJson.EstimatedTime,
+			EstimatedTime:   recipeJson.EstimatedTime,
 		}
 
 		_, err = process.EditRecipe(initialRecipe, &fullRecipe)

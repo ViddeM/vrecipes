@@ -8,7 +8,6 @@ export type IngredientTableProps = {
 
 export const IngredientTable = ({ ingredients }: IngredientTableProps) => {
   let { t } = useTranslations();
-
   return (
     <div className={styles.ingredientsContainer}>
       <table className={styles.ingredientTable}>
@@ -25,10 +24,10 @@ export const IngredientTable = ({ ingredients }: IngredientTableProps) => {
               <td
                 className={`${styles.ingredientNameContainer} ${styles.ingredientRowElement}`}
               >
-                <p className="align-left">{ingredient.name}</p>
+                <p className="alignLeft">{ingredient.name}</p>
               </td>
               <td className={styles.ingredientRowElement}>
-                <p className="align-right">
+                <p className="alignRight">
                   {getIngredientAmountUnit(ingredient)}
                 </p>
               </td>
