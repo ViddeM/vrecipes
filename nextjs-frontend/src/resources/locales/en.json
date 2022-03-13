@@ -10,15 +10,22 @@
   },
   "recipe": {
     "searchRecipes": "Search recipes",
+    "editRecipe": "Edit recipe",
     "imageAltText": "Image of the recipe",
     "ingredients": "Ingredients",
     "description": "Description",
     "steps": "Steps",
     "oven": "Oven",
     "minutesShort": "min",
+    "minutes": "minutes",
     "createRecipe": "Create recipe",
     "createRecipeTitle": "Create Recipe",
     "recipeName": "Recipe name",
+    "ovenTemperature": "Oven temperature",
+    "degrees": "degrees",
+    "cookingTime": "Cooking time",
+    "cookingSteps": "Cooking steps",
+    "saveRecipe": "Save recipe",
     "deleteModal": {
       "title": "Delete recipe?",
       "content": "Are you sure that you want to delete this recipe?"

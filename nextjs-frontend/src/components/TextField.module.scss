@@ -2,20 +2,44 @@
 
 .textFieldBase {
   height: 2rem;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  padding: 0 6px;
-  border-radius: $border-radius;
+  border: none;
+  flex: 1;
 
-  &:active {
-    border: 1px solid green;
+  &:focus-visible,
+  :target,
+  :active {
+    outline: none;
+    border: none !important;
   }
 
   &::selection {
     background-color: $primary-color;
     color: white;
   }
+}
 
-  &:focus-visible {
-    border: 1px solid green;
+.textFieldContainer {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: $border-radius;
+  padding: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  color: rgba(0, 0, 0, 0.5);
+
+  &:hover,
+  &:focus-within {
+    border: 1px solid $primary-color;
+    color: black;
+    outline: none;
   }
+}
+
+.textAreaBase {
+  @extend .textFieldBase;
+  resize: vertical;
+}
+
+.textAreaContainer {
+  @extend .textFieldContainer;
 }

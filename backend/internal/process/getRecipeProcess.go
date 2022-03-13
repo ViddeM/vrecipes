@@ -57,6 +57,7 @@ func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 	return &models.DetailedRecipeJson{
 		ID:              recipe.ID,
 		Name:            recipe.Name,
+		UniqueName:      recipe.UniqueName,
 		Description:     recipe.Description,
 		OvenTemperature: recipe.OvenTemp,
 		EstimatedTime:   recipe.EstimatedTime,
