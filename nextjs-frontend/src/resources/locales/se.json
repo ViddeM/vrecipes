@@ -10,15 +10,22 @@
   },
   "recipe": {
     "searchRecipes": "Sök recept",
+    "editRecipe": "Ändra recept",
     "imageAltText": "Bild på receptet",
     "ingredients": "Ingredienser",
     "description": "Beskrivning",
     "steps": "Gör såhär",
     "oven": "Ugn",
+    "minutes": "minuter",
     "minutesShort": "min",
     "createRecipe": "Skapa recept",
     "createRecipeTitle": "Skapa Recept",
     "recipeName": "Receptnamn",
+    "ovenTemperature": "Ugnstemperatur",
+    "degrees": "grader",
+    "cookingTime": "Tillagningstid",
+    "cookingSteps": "Tillagningssteg",
+    "saveRecipe": "Spara recept",
     "deleteModal": {
       "title": "Ta bort receptet?",
       "content": "Är du säker på att du vill ta bort detta receptet?"

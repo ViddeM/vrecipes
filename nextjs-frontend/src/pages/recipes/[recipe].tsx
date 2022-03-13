@@ -16,12 +16,12 @@ import { Button, IconButton } from "../../components/Buttons";
 import Link from "next/link";
 import { useMe } from "../../hooks/useMe";
 import { useModal } from "../../hooks/useModal";
-import { ROOT_ENDPOINT } from "../../api/Endpoints";
+import { EDIT_RECIPE_BASE_ENDPOINT, ROOT_ENDPOINT } from "../../api/Endpoints";
 
-type RecipeProps = {
+interface RecipeProps {
   recipe?: Recipe;
   error?: string;
-};
+}
 
 const Recipe = ({ recipe, error }: RecipeProps) => {
   let { t } = useTranslations();
@@ -44,7 +44,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
         <div className={`${styles.row}`}>
           <Link href={"/"}>
             <a>
-              <IconButton variant="opaque" icon={faArrowLeft} />
+              <IconButton variant="opaque" icon={faArrowLeft} size="normal" />
             </a>
           </Link>
 
@@ -166,13 +166,17 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
               >
                 Delete
               </Button>
-              <Button
-                variant="primary"
-                size="normal"
-                disabled={me?.id !== recipe.author.id}
-              >
-                Edit
-              </Button>
+              <Link href={`${EDIT_RECIPE_BASE_ENDPOINT}/${recipe.uniqueName}`}>
+                <a>
+                  <Button
+                    variant="primary"
+                    size="normal"
+                    disabled={me?.id !== recipe.author.id}
+                  >
+                    Edit
+                  </Button>
+                </a>
+              </Link>
             </div>
           </>
         )}

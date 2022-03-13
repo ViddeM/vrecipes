@@ -55,11 +55,7 @@ const Home = ({ recipes, error }: HomeProps) => {
                 </Button>
               ) : (
                 <div className={styles.addIconButtonContainer}>
-                  <IconButton
-                    variant="primary"
-                    icon={faAdd}
-                    onClick={() => console.log("CLICK")}
-                  />
+                  <IconButton variant="primary" size="normal" icon={faAdd} />
                 </div>
               )}
             </Link>

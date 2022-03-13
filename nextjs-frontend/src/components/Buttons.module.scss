@@ -6,7 +6,6 @@
   color: white;
   //border: 1px solid white;
   border: none;
-  margin: 0.3rem;
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
@@ -90,13 +89,38 @@
 .iconButton {
   border-radius: 100%;
   box-sizing: content-box;
+  box-shadow: none;
+}
+
+.iconButtonSize-normal {
   width: 24px;
   height: 24px;
   padding: 12px;
-  box-shadow: none;
-  background-color: unset;
+
+  .iconButtonIcon {
+    font-size: 1.5rem;
+  }
+}
+
+.iconButtonSize-small {
+  width: 16px;
+  height: 16px;
+  padding: 8px;
+
+  .iconButtonIcon {
+    font-size: 1rem;
+  }
+}
+
+.iconButtonSize-large {
+  width: 32px;
+  height: 32px;
+  padding: 16px;
+
+  .iconButtonIcon {
+    font-size: 2rem;
+  }
 }
 
 .iconButtonIcon {
-  font-size: 1.5rem;
 }

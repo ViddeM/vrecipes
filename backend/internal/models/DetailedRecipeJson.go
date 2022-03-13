@@ -7,6 +7,7 @@ import (
 
 type DetailedRecipeJson struct {
 	ID              uuid.UUID              `json:"id"`
+	UniqueName      string                 `json:"uniqueName"`
 	Name            string                 `json:"name"`
 	Description     string                 `json:"description"`
 	OvenTemperature int                    `json:"ovenTemperature"`
