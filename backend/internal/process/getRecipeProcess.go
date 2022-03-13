@@ -90,6 +90,7 @@ func RecipeIngredientsToJson(ingredients []*tables.RecipeIngredient) []models.Re
 				Name:   ingredient.IngredientName,
 				Unit:   ingredient.UnitName,
 				Amount: ingredient.Amount,
+				Number: ingredient.Number,
 			},
 		)
 	}

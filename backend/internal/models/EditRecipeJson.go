@@ -10,7 +10,7 @@ type EditRecipeJson struct {
 	Name            string                     `json:"name" binding:"required"`
 	Description     string                     `json:"description"`
 	OvenTemperature int                        `json:"ovenTemperature" binding:"required,lte=9999"`
-	CookingTime     int                        `json:"cookingTime" binding:"required"`
+	EstimatedTime   int                        `json:"estimatedTime" binding:"required"`
 	Steps           []EditRecipeStepJson       `json:"steps" binding:"required,dive,required"`
 	Ingredients     []EditRecipeIngredientJson `json:"ingredients" binding:"required,dive,required"`
 	Images          []EditRecipeImageJson      `json:"images" binding:"required,dive,required"`

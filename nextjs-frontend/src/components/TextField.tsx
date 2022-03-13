@@ -10,6 +10,7 @@ const TextField: FC<TextFieldProps> = ({
   postfixText,
   className,
   inputClassName,
+  required,
   ...props
 }) => {
   return (
@@ -17,8 +18,10 @@ const TextField: FC<TextFieldProps> = ({
       <input
         className={`${styles.textFieldBase} ${inputClassName}`}
         {...props}
+        required={required}
       />
       {postfixText && <span>{postfixText}</span>}
+      {required && <span className={styles.requiredTextField}>*</span>}
     </div>
   );
 };

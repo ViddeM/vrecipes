@@ -13,9 +13,12 @@
     "editRecipe": "Edit recipe",
     "imageAltText": "Image of the recipe",
     "ingredients": "Ingredients",
+    "ingredient": "Ingredient",
     "description": "Description",
     "steps": "Steps",
     "oven": "Oven",
+    "ingredientAmount": "Amount",
+    "ingredientUnit": "Unit",
     "minutesShort": "min",
     "minutes": "minutes",
     "createRecipe": "Create recipe",
@@ -36,7 +39,8 @@
     "createdBy": "Created by",
     "cancel": "Cancel",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "unsavedChanges": "You have unsaved changes"
   },
   "errors": {
     "default": "An unknown error has occured",

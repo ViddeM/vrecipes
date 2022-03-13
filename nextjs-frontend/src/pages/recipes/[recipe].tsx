@@ -89,11 +89,9 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
 
         {(image || recipe.ingredients.length > 0) && (
           <div className={styles.imageIngredientsContainer}>
-            {image && (
-              <div className={styles.growContainer}>
-                <RecipeImage url={image} />
-              </div>
-            )}
+            <div className={styles.growContainer}>
+              <RecipeImage url={image} />
+            </div>
             <div className="marginRight marginTop" />
 
             {recipe.ingredients.length > 0 && (

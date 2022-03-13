@@ -13,7 +13,10 @@
     "editRecipe": "Ändra recept",
     "imageAltText": "Bild på receptet",
     "ingredients": "Ingredienser",
+    "ingredient": "Ingrediens",
     "description": "Beskrivning",
+    "ingredientAmount": "Mängd",
+    "ingredientUnit": "Enhet",
     "steps": "Gör såhär",
     "oven": "Ugn",
     "minutes": "minuter",
@@ -36,7 +39,8 @@
     "createdBy": "Skapad av",
     "cancel": "Avbryt",
     "yes": "Ja",
-    "no": "Nej"
+    "no": "Nej",
+    "unsavedChanges": "Du har osparade ändringar"
   },
   "errors": {
     "default": "Ett okänt fel har inträffat",

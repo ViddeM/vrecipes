@@ -7,13 +7,15 @@ import ErrorCard from "../../../components/ErrorCard";
 import Loading from "../../../components/Loading";
 import styles from "./[recipe].module.scss";
 import TextField, { TextArea } from "../../../components/TextField";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Button } from "../../../components/Buttons";
 import CreateIngredientsTable from "../../../components/CreateIngredientsTable";
+import { Ingredient } from "../../../api/Ingredient";
+import { RECIPES_BASE_ENDPOINT } from "../../../api/Endpoints";
 
 interface EditRecipeProps {
   recipe?: Recipe;
-  error?: string;
+  dataLoadError?: string;
 }
 
 const RECIPE_NAME = "recipe_name";
@@ -21,10 +23,12 @@ const RECIPE_OVEN_TEMPERATURE = "recipe_oven_temperature";
 const RECIPE_COOKING_TIME = "recipe_cooking_time";
 const RECIPE_DESCRIPTION = "recipe_description";
 
-const EditRecipe = ({ recipe, error }: EditRecipeProps) => {
-  let { t } = useTranslations();
+const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
+  let { t, translate } = useTranslations();
 
-  const [name, setName] = useState(recipe?.name);
+  /* Keep track of the different parts of the state */
+  const [error, setError] = useState<string | undefined>(undefined);
+  const [name, setName] = useState(recipe ? recipe.name : "");
   const [cookingTime, setCookingTime] = useState(
     recipe?.estimatedTime && recipe?.estimatedTime > 0
       ? recipe?.estimatedTime
@@ -35,19 +39,69 @@ const EditRecipe = ({ recipe, error }: EditRecipeProps) => {
       ? recipe?.ovenTemperature
       : undefined
   );
-  const [description, setDesription] = useState(recipe?.description);
+  const [description, setDescription] = useState(
+    recipe ? recipe.description : ""
+  );
+  const [ingredients, setIngredients] = useState<Ingredient[]>(
+    recipe ? recipe.ingredients : []
+  );
+  /* End state declaration */
 
-  if (error) {
-    return <ErrorCard error={error} />;
+  if (dataLoadError) {
+    return <ErrorCard error={dataLoadError} />;
   }
 
   if (!recipe) {
     return <Loading />;
   }
 
+  /* Check if we have unsaved changes */
+  const cookingTimeSame =
+    (cookingTime !== undefined ? cookingTime : 0) === recipe?.estimatedTime;
+  const tempSame =
+    (ovenTemp !== undefined ? ovenTemp : 0) === recipe?.ovenTemperature;
+
+  const unsavedChanges =
+    name !== recipe?.name ||
+    cookingTime ||
+    !cookingTimeSame ||
+    !tempSame ||
+    description !== recipe?.description ||
+    !ingredientsSame(ingredients, recipe?.ingredients);
+  /* End check if we have unsaved changes */
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    let newRecipe: Recipe = {
+      id: recipe.id,
+      name: name,
+      uniqueName: recipe.uniqueName,
+      description: description,
+      ovenTemperature: ovenTemp ? ovenTemp : 0,
+      estimatedTime: cookingTime ? cookingTime : 0,
+      ingredients: ingredients,
+      steps: recipe.steps,
+      images: recipe.images,
+      author: recipe.author,
+      tags: recipe.tags,
+    };
+
+    Api.recipes.edit(newRecipe).then((response) => {
+      if (response.error && response.errorTranslationString) {
+        setError(translate(response.errorTranslationString));
+      } else {
+        window.location.assign(`${RECIPES_BASE_ENDPOINT}/${recipe.uniqueName}`);
+      }
+    });
+  };
+
   return (
     <CardLayout>
-      <form className={`card ${styles.editRecipeCardColumn}`}>
+      <form
+        className={`card ${styles.editRecipeCardColumn}`}
+        onSubmit={onSubmit}
+      >
         <h3>{t.recipe.editRecipe}</h3>
 
         {/* Recipe name */}
@@ -85,7 +139,6 @@ const EditRecipe = ({ recipe, error }: EditRecipeProps) => {
                 setCookingTime(number);
               }}
               type="number"
-              step={5}
               min={0}
               max={999}
               className={styles.formInputElement}
@@ -115,6 +168,7 @@ const EditRecipe = ({ recipe, error }: EditRecipeProps) => {
               type="number"
               min={0}
               max={999}
+              step={5}
               className={styles.formInputElement}
               inputClassName={styles.splitRowInput}
               postfixText={t.recipe.degrees}
@@ -133,7 +187,7 @@ const EditRecipe = ({ recipe, error }: EditRecipeProps) => {
             placeholder={t.recipe.description}
             value={description}
             onChange={(e) => {
-              setDesription(e.target.value);
+              setDescription(e.target.value);
             }}
             maxLength={1000}
             className={styles.formInputElement}
@@ -142,17 +196,28 @@ const EditRecipe = ({ recipe, error }: EditRecipeProps) => {
         </div>
 
         <div className={`marginTopBig ${styles.ingredientsTableContainer}`}>
-          <CreateIngredientsTable />
+          <CreateIngredientsTable
+            ingredients={ingredients}
+            setIngredients={setIngredients}
+          />
         </div>
+
+        {error && <p className="errorText marginTop">{error}</p>}
 
         <Button
           variant="primary"
           size="normal"
           type="submit"
-          className="marginTopBig"
+          className="marginTop"
         >
           {t.recipe.saveRecipe}
         </Button>
+
+        {unsavedChanges && (
+          <p className={`marginTop ${styles.unsavedChangesText}`}>
+            {t.common.unsavedChanges}
+          </p>
+        )}
       </form>
     </CardLayout>
   );
@@ -176,5 +241,29 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
 };
+
+function ingredientsSame(
+  ingredients: Ingredient[],
+  other: Ingredient[]
+): boolean {
+  if (ingredients.length != other.length) {
+    return false;
+  }
+
+  for (let i = 0; i < ingredients.length; i++) {
+    let a = ingredients[i];
+    let b = other[i];
+    if (
+      a.name !== b.name ||
+      a.amount !== b.amount ||
+      a.unit !== b.unit ||
+      a.number !== b.number
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 export default EditRecipe;
