@@ -32,6 +32,10 @@
     "deleteModal": {
       "title": "Delete recipe?",
       "content": "Are you sure that you want to delete this recipe?"
+    },
+    "ingredientValidationErrors": {
+      "amountMustBeFilledIn":  "Must have a value of unit does.",
+      "unitMustBeFilledIn": "Must have a value if amount does."
     }
   },
   "common": {

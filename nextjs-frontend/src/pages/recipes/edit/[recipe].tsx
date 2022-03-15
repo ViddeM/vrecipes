@@ -9,8 +9,15 @@ import styles from "./[recipe].module.scss";
 import TextField, { TextArea } from "../../../components/TextField";
 import { FormEvent, useState } from "react";
 import { Button } from "../../../components/Buttons";
-import CreateIngredientsTable from "../../../components/CreateIngredientsTable";
-import { Ingredient } from "../../../api/Ingredient";
+import CreateIngredientsTable, {
+  generateAmountId,
+  generateUnitId,
+} from "../../../components/CreateIngredientsTable";
+import {
+  EditableIngredient,
+  ingredientsFromEditable,
+  ingredientsToEditable,
+} from "../../../api/Ingredient";
 import { RECIPES_BASE_ENDPOINT } from "../../../api/Endpoints";
 
 interface EditRecipeProps {
@@ -42,8 +49,8 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
   const [description, setDescription] = useState(
     recipe ? recipe.description : ""
   );
-  const [ingredients, setIngredients] = useState<Ingredient[]>(
-    recipe ? recipe.ingredients : []
+  const [ingredients, setIngredients] = useState<EditableIngredient[]>(
+    recipe ? ingredientsToEditable(recipe.ingredients) : []
   );
   /* End state declaration */
 
@@ -63,11 +70,10 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
 
   const unsavedChanges =
     name !== recipe?.name ||
-    cookingTime ||
     !cookingTimeSame ||
     !tempSame ||
     description !== recipe?.description ||
-    !ingredientsSame(ingredients, recipe?.ingredients);
+    !ingredientsSame(ingredients, ingredientsToEditable(recipe?.ingredients));
   /* End check if we have unsaved changes */
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -80,7 +86,7 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
       description: description,
       ovenTemperature: ovenTemp ? ovenTemp : 0,
       estimatedTime: cookingTime ? cookingTime : 0,
-      ingredients: ingredients,
+      ingredients: ingredientsFromEditable(ingredients),
       steps: recipe.steps,
       images: recipe.images,
       author: recipe.author,
@@ -243,8 +249,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 function ingredientsSame(
-  ingredients: Ingredient[],
-  other: Ingredient[]
+  ingredients: EditableIngredient[],
+  other: EditableIngredient[]
 ): boolean {
   if (ingredients.length != other.length) {
     return false;

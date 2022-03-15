@@ -32,6 +32,10 @@
     "deleteModal": {
       "title": "Ta bort receptet?",
       "content": "Är du säker på att du vill ta bort detta receptet?"
+    },
+    "ingredientValidationErrors": {
+      "amountMustBeFilledIn":  "Måste vara ha ett värde om enhet har det.",
+      "unitMustBeFilledIn": "Måste ha ett värde om mängd har det."
     }
   },
   "common": {
