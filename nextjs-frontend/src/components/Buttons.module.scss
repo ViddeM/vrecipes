@@ -90,6 +90,10 @@
   border-radius: 100%;
   box-sizing: content-box;
   box-shadow: none;
+
+  &:disabled {
+    background-color: unset;
+  }
 }
 
 .iconButtonSize-normal {
