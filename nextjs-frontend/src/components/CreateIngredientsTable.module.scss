@@ -11,23 +11,45 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 
   @media (min-width: $breakpoint-mobile) {
     flex-direction: row;
 
     & > :nth-child(1) {
-      flex: 0.5;
-      margin-right: $space;
+      flex: 0.1;
     }
+
     & > :nth-child(2) {
       flex: 0.5;
       margin-right: $space;
     }
     & > :nth-child(3) {
-      flex: 1;
+      flex: 0.5;
       margin-right: $space;
     }
+    & > :nth-child(4) {
+      flex: 1;
+    }
+  }
+}
+
+.ingredientRows {
+  margin-top: $space;
+  border: 1px solid black;
+  border-radius: $border-radius;
+
+  & > :nth-child(n + 2) {
+    border-top: 1px solid black;
+  }
+
+  & > :nth-child(even) {
+    background-color: rgba(0, 0, 100, 0.1);
+  }
+
+  & > :nth-child(odd) {
+    background-color: rgba(0, 100, 0, 0.1);
   }
 }
 
@@ -36,10 +58,12 @@
 }
 
 .deleteIngredientButton {
-  margin: $space auto auto auto;
+  margin: auto 0.5rem;
+}
 
+.upDownButtonGroup {
   @media (min-width: $breakpoint-mobile) {
-    margin-top: auto;
-    margin-bottom: 6px;
+    display: flex;
+    flex-direction: column;
   }
 }
