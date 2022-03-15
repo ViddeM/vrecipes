@@ -8,16 +8,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslations } from "../hooks/useTranslations";
 import TextField from "./TextField";
-import { Ingredient } from "../api/Ingredient";
 import { useEffect, useState } from "react";
+import { EditableIngredient } from "../api/Ingredient";
 
 const INGREDIENT_BASE_ID = "ingredient";
 const AMOUNT_BASE_ID = "amount";
 const UNIT_BASE_ID = "unit";
 
 interface CreateIngredientsTableProps {
-  ingredients: Ingredient[];
-  setIngredients: (newIngredients: Ingredient[]) => void;
+  ingredients: EditableIngredient[];
+  setIngredients: (newIngredients: EditableIngredient[]) => void;
 }
 
 const CreateIngredientsTable = ({
@@ -97,7 +97,7 @@ const CreateIngredientsTable = ({
               key={index}
               index={index}
               ingredient={ingredient}
-              updateIngredient={(updatedIngredient: Ingredient) => {
+              updateIngredient={(updatedIngredient: EditableIngredient) => {
                 setIngredients(
                   ingredients.map((i) => {
                     if (i.number == ingredient.number) {
@@ -129,7 +129,12 @@ const CreateIngredientsTable = ({
           onClick={() => {
             setIngredients([
               ...ingredients,
-              { name: "", number: ingredients.length, unit: "", amount: 0 },
+              {
+                name: "",
+                number: ingredients.length,
+                unit: "",
+                amount: undefined,
+              },
             ]);
           }}
         />
@@ -140,8 +145,8 @@ const CreateIngredientsTable = ({
 
 interface CreateIngredientProps {
   index: number;
-  ingredient: Ingredient;
-  updateIngredient: (ingredient: Ingredient) => void;
+  ingredient: EditableIngredient;
+  updateIngredient: (ingredient: EditableIngredient) => void;
   deleteIngredient: () => void;
   changeIngredientPosition: (up: boolean) => void;
   totalIngredients: number;
@@ -157,19 +162,20 @@ const CreateIngredient = ({
 }: CreateIngredientProps) => {
   let { t } = useTranslations();
 
-  const ingredientId = `${INGREDIENT_BASE_ID}-${index}`;
-  const amountId = `${AMOUNT_BASE_ID}-${index}`;
-  const unitId = `${UNIT_BASE_ID}-${index}`;
+  const ingredientId = generateIngredientId(ingredient.number);
+  const amountId = generateAmountId(ingredient.number);
+  const unitId = generateUnitId(ingredient.number);
+
+  let amountElement;
+  let unitElement;
+  if (typeof document !== "undefined") {
+    amountElement = document.getElementById(amountId);
+    unitElement = document.getElementById(unitId);
+  }
 
   const [isFirstRow, setIsFirstRow] = useState(false);
   const [isLastRow, setIsLastRow] = useState(false);
-  const [displayAmount, setDisplayAmount] = useState<number | undefined>(
-    ingredient.amount
-  );
 
-  useEffect(() => {
-    setDisplayAmount(ingredient.amount);
-  }, [ingredient.amount]);
   useEffect(() => {
     setIsFirstRow(ingredient.number === 0);
     setIsLastRow(ingredient.number === totalIngredients - 1);
@@ -203,18 +209,30 @@ const CreateIngredient = ({
           id={amountId}
           name={amountId}
           placeholder={t.recipe.ingredientAmount}
-          value={displayAmount}
+          value={ingredient.amount ? ingredient.amount : ""}
           onChange={(e) => {
             let val = parseInt(e.target.value);
-            setDisplayAmount(!isNaN(val) ? val : undefined);
+
+            let newAmount = undefined;
             if (!isNaN(val)) {
-              updateIngredient({
-                ...ingredient,
-                amount: val,
-              });
+              newAmount = val;
             }
+
+            // @ts-ignore
+            amountElement.setCustomValidity("");
+            if (newAmount === undefined && ingredient.unit !== "") {
+              // @ts-ignore
+              amountElement.setCustomValidity(
+                t.recipe.ingredientValidationErrors.amountMustBeFilledIn
+              );
+            }
+
+            updateIngredient({
+              ...ingredient,
+              amount: newAmount,
+            });
           }}
-          min={0}
+          min={1}
           type="number"
           step={0.05}
           max={999}
@@ -227,9 +245,21 @@ const CreateIngredient = ({
           name={unitId}
           value={ingredient.unit}
           onChange={(e) => {
+            let val = e.target.value;
+
+            // @ts-ignore
+            unitElement.setCustomValidity("");
+
+            if (ingredient.amount !== undefined && val === "") {
+              // @ts-ignore
+              unitElement.setCustomValidity(
+                t.recipe.ingredientValidationErrors.unitMustBeFilledIn
+              );
+            }
+
             updateIngredient({
               ...ingredient,
-              unit: e.target.value,
+              unit: val,
             });
           }}
           placeholder={t.recipe.ingredientUnit}
@@ -265,3 +295,15 @@ const CreateIngredient = ({
 };
 
 export default CreateIngredientsTable;
+
+function generateIngredientId(number: number): string {
+  return `${INGREDIENT_BASE_ID}-${number}`;
+}
+
+function generateAmountId(number: number): string {
+  return `${AMOUNT_BASE_ID}-${number}`;
+}
+
+function generateUnitId(number: number): string {
+  return `${UNIT_BASE_ID}-${number}`;
+}
