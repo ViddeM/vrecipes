@@ -9,10 +9,7 @@ import styles from "./[recipe].module.scss";
 import TextField, { TextArea } from "../../../components/TextField";
 import { FormEvent, useState } from "react";
 import { Button } from "../../../components/Buttons";
-import CreateIngredientsTable, {
-  generateAmountId,
-  generateUnitId,
-} from "../../../components/CreateIngredientsTable";
+import CreateIngredientsTable from "../../../components/CreateIngredientsTable";
 import {
   EditableIngredient,
   ingredientsFromEditable,
