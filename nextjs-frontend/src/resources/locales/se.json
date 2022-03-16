@@ -81,6 +81,10 @@
     "tag_not_found": "Kunde inte hitta en sådan tagg",
     "failed_to_delete_tag": "Kunde inte ta bort taggen",
     "failed_to_edit_tag": "Kunde inte ändra taggen"
+  },
+  "footer": {
+    "developedBy": "VRecipes utvecklades med ❤ av Vidde",
+    "sourceCode": "Källkod"
   }
 }
 

@@ -1,8 +1,13 @@
 import seTranslations from "../resources/locales/se.json";
 import enTranslations from "../resources/locales/en.json";
+import commonTranslations from "../resources/locales/common.json";
 import React, { useContext } from "react";
 
-export type LocaleData = typeof seTranslations;
+export type LocaleSpecificData = typeof seTranslations;
+export type LocaleCommonData = typeof commonTranslations;
+
+export type LocaleData = LocaleSpecificData & LocaleCommonData;
+
 export type Locale = "se" | "en";
 export const defaultLocale: Locale = "se";
 
@@ -10,16 +15,26 @@ export function isLocale(text: string): text is Locale {
   return (text as Locale) !== undefined;
 }
 
-export const TranslationContext =
-  React.createContext<LocaleData>(seTranslations);
+export const TranslationContext = React.createContext<LocaleData>({
+  ...seTranslations,
+  ...commonTranslations,
+});
 
-export const loadLocale = (locale: Locale): LocaleData => {
+const loadLocaleSpecificData = (locale: Locale): LocaleSpecificData => {
   switch (locale) {
     case "se":
       return seTranslations;
     case "en":
       return enTranslations;
   }
+};
+
+export const loadLocale = (locale: Locale): LocaleData => {
+  let localeSpecificData = loadLocaleSpecificData(locale);
+  return {
+    ...localeSpecificData,
+    ...commonTranslations,
+  };
 };
 
 export interface Translations {
