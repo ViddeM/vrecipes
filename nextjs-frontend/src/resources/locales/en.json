@@ -81,5 +81,9 @@
     "tag_not_found": "No such tag could be found",
     "failed_to_delete_tag": "Failed to delete tag",
     "failed_to_edit_tag": "Failed to edit tag"
+  },
+  "footer": {
+    "developedBy": "VRecipes was developed with ❤ by Vidde",
+    "sourceCode": "Source Code"
   }
 }

@@ -20,6 +20,7 @@ import { Api } from "../api/Api";
 import { useEffect, useState } from "react";
 import Modal, { ModalProps, trapTabKey } from "../components/Modal";
 import { ModalContext } from "../hooks/useModal";
+import Footer from "../components/Footer";
 
 // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 config.autoAddCss = false;
@@ -61,9 +62,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 
           {modalProps && <Modal {...modalProps} />}
 
-          <div aria-hidden={modalProps ? "true" : undefined}>
+          <div
+            aria-hidden={modalProps ? "true" : undefined}
+            className="fullHeight"
+          >
             <Header />
-            <Component {...pageProps} />
+            <div className="fill">
+              <Component {...pageProps} />
+            </div>
+            <Footer />
           </div>
         </ModalContext.Provider>
       </AuthContext.Provider>

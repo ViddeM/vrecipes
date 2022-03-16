@@ -1,0 +1,44 @@
+@import "../resources/styles/vars";
+
+.footerContainer {
+  background-color: black;
+  width: 100%;
+  margin-top: 2rem;
+  padding-top: 24px;
+  padding-bottom: 24px;
+
+  * {
+    color: #ededf0;
+  }
+
+  select {
+    color: black;
+  }
+}
+
+.footerContentContainer {
+  padding: 24px 80px;
+  margin: 0 auto;
+
+  max-width: 1440px;
+  min-width: 256px;
+  position: relative;
+  justify-content: space-between;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.footerLogoDevelopedByContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.developedByText {
+  margin-left: 1rem;
+}
+
+.changeLocaleDropdown {
+  width: 200px;
+}
