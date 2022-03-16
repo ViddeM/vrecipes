@@ -90,34 +90,36 @@ const CreateIngredientsTable = ({
         }}
       />
 
-      <div className={styles.ingredientRows}>
-        {ingredients.map((ingredient, index) => {
-          return (
-            <CreateIngredient
-              key={index}
-              index={index}
-              ingredient={ingredient}
-              updateIngredient={(updatedIngredient: EditableIngredient) => {
-                setIngredients(
-                  ingredients.map((i) => {
-                    if (i.number == ingredient.number) {
-                      return updatedIngredient;
-                    }
-                    return i;
-                  })
-                );
-              }}
-              totalIngredients={ingredients.length}
-              deleteIngredient={() => {
-                deleteIngredient(ingredient.number);
-              }}
-              changeIngredientPosition={(up: boolean) =>
-                changeIngredientPosition(ingredient.number, up)
-              }
-            />
-          );
-        })}
-      </div>
+      {ingredients.length > 0 && (
+        <div className={styles.ingredientRows}>
+          {ingredients.map((ingredient, index) => {
+            return (
+              <CreateIngredient
+                key={index}
+                index={index}
+                ingredient={ingredient}
+                updateIngredient={(updatedIngredient: EditableIngredient) => {
+                  setIngredients(
+                    ingredients.map((i) => {
+                      if (i.number == ingredient.number) {
+                        return updatedIngredient;
+                      }
+                      return i;
+                    })
+                  );
+                }}
+                totalIngredients={ingredients.length}
+                deleteIngredient={() => {
+                  deleteIngredient(ingredient.number);
+                }}
+                changeIngredientPosition={(up: boolean) =>
+                  changeIngredientPosition(ingredient.number, up)
+                }
+              />
+            );
+          })}
+        </div>
+      )}
 
       {ingredients.length > 0 && (
         <IconButton
