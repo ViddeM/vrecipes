@@ -1,0 +1,23 @@
+@import "../resources/styles/vars";
+
+.dropdownBase {
+  width: 180px;
+  height: 3rem;
+  border-radius: $border-radius;
+  border: 1px solid black;
+  cursor: pointer;
+  font-weight: 600;
+  color: black;
+  background-color: white;
+  transition: background-color 500ms, color 250ms, border 250ms;
+
+  &:hover {
+    filter: brightness(0.8);
+    background-color: black;
+    border-color: white;
+    color: white;
+  }
+}
+
+.dropdownOptionBase {
+}
