@@ -23,14 +23,10 @@ const Dropdown: FC<SelectProps> = ({
       {...props}
       onChange={(e) => onUpdate(e.target.value)}
       className={styles.dropdownBase}
+      defaultValue={defaultValue}
     >
       {options.map(({ display, value }) => (
-        <option
-          key={value}
-          value={value}
-          className={styles.dropdownOptionBase}
-          selected={defaultValue === value}
-        >
+        <option key={value} value={value} className={styles.dropdownOptionBase}>
           {display}
         </option>
       ))}
