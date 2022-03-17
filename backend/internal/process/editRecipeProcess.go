@@ -89,7 +89,7 @@ func updateRecipeSteps(id uuid.UUID, steps []models.EditRecipeStepJson) error {
 		oldStep := getStepWithNumber(step.Number, oldSteps)
 		if oldStep == nil {
 			// There is no oldStep with the same number, add it
-			_, err = CreateRecipeStep(step.Step, step.Number, id)
+			_, err = CreateRecipeStep(step.Description, step.Number, id)
 
 			if err != nil {
 				return err
@@ -97,7 +97,7 @@ func updateRecipeSteps(id uuid.UUID, steps []models.EditRecipeStepJson) error {
 		} else if step.SameAs(oldStep) == false {
 			// The step is updated
 			err = commands.UpdateRecipeStep(
-				step.Step,
+				step.Description,
 				oldStep.RecipeID,
 				oldStep.Number,
 			)

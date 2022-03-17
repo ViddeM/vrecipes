@@ -16,6 +16,8 @@ import {
   ingredientsToEditable,
 } from "../../../api/Ingredient";
 import { RECIPES_BASE_ENDPOINT } from "../../../api/Endpoints";
+import CreateStepsList from "../../../components/CreateStepsList";
+import { Step } from "../../../api/Step";
 
 interface EditRecipeProps {
   recipe?: Recipe;
@@ -49,6 +51,7 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
   const [ingredients, setIngredients] = useState<EditableIngredient[]>(
     recipe ? ingredientsToEditable(recipe.ingredients) : []
   );
+  const [steps, setSteps] = useState<Step[]>(recipe ? recipe.steps : []);
   /* End state declaration */
 
   if (dataLoadError) {
@@ -70,7 +73,8 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
     !cookingTimeSame ||
     !tempSame ||
     description !== recipe?.description ||
-    !ingredientsSame(ingredients, ingredientsToEditable(recipe?.ingredients));
+    !ingredientsSame(ingredients, ingredientsToEditable(recipe?.ingredients)) ||
+    !stepsSame(steps, recipe?.steps);
   /* End check if we have unsaved changes */
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -84,7 +88,7 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
       ovenTemperature: ovenTemp ? ovenTemp : 0,
       estimatedTime: cookingTime ? cookingTime : 0,
       ingredients: ingredientsFromEditable(ingredients),
-      steps: recipe.steps,
+      steps: steps,
       images: recipe.images,
       author: recipe.author,
       tags: recipe.tags,
@@ -205,6 +209,10 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
           />
         </div>
 
+        <div className={`marginTopBig ${styles.ingredientsTableContainer}`}>
+          <CreateStepsList steps={steps} setSteps={setSteps} />
+        </div>
+
         {error && <p className="errorText marginTop">{error}</p>}
 
         <Button
@@ -262,6 +270,23 @@ function ingredientsSame(
       a.unit !== b.unit ||
       a.number !== b.number
     ) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function stepsSame(steps: Step[], other: Step[]): boolean {
+  if (steps.length !== other.length) {
+    return false;
+  }
+
+  for (let i = 0; i < steps.length; i++) {
+    let a = steps[i];
+    let b = other[i];
+
+    if (a.number !== b.number || a.description !== b.description) {
       return false;
     }
   }

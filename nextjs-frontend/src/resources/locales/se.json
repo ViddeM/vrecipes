@@ -29,6 +29,7 @@
     "cookingTime": "Tillagningstid",
     "cookingSteps": "Tillagningssteg",
     "saveRecipe": "Spara recept",
+    "createSteps": "Tillvägagångssätt",
     "deleteModal": {
       "title": "Ta bort receptet?",
       "content": "Är du säker på att du vill ta bort detta receptet?"
