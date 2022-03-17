@@ -76,7 +76,7 @@ const CreateIngredientsTable = ({
     setIngredients([
       { name: "", number: 0, unit: "", amount: 0 },
       ...ingredients.map((i) => {
-        return { ...i, number: i.number - 1 };
+        return { ...i, number: i.number + 1 };
       }),
     ]);
   };
@@ -190,7 +190,7 @@ const CreateIngredient = ({
   useEffect(() => {
     setIsFirstRow(ingredient.number === 0);
     setIsLastRow(ingredient.number === totalIngredients - 1);
-  }, [ingredient.number]);
+  }, [ingredient.number, totalIngredients]);
 
   return (
     <div className={styles.createIngredientContainer} key={index}>
