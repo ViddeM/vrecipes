@@ -4,7 +4,6 @@ import {
   faArrowDown,
   faArrowUp,
   faMinus,
-  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslations } from "../hooks/useTranslations";
 import TextField from "./TextField";
@@ -73,74 +72,84 @@ const CreateIngredientsTable = ({
     setIngredients(newIngredients);
   };
 
+  const addIngredientToBegining = () => {
+    setIngredients([
+      { name: "", number: 0, unit: "", amount: 0 },
+      ...ingredients.map((i) => {
+        return { ...i, number: i.number - 1 };
+      }),
+    ]);
+  };
+
+  const addIngredientToEnd = () => {
+    setIngredients([
+      ...ingredients,
+      { name: "", number: ingredients.length, unit: "", amount: 0 },
+    ]);
+  };
+
   return (
     <div className={styles.createIngredientsContainer}>
       <h3>{t.recipe.ingredients}</h3>
 
-      <IconButton
-        icon={faPlus}
-        variant="primary"
-        type="button"
-        size="small"
-        onClick={() => {
-          setIngredients([
-            ...ingredients,
-            { name: "", number: ingredients.length, unit: "", amount: 0 },
-          ]);
-        }}
-      />
+      {/*<IconButton*/}
+      {/*  icon={faPlus}*/}
+      {/*  variant="primary"*/}
+      {/*  type="button"*/}
+      {/*  size="small"*/}
+      {/*  onClick={addIngredient}*/}
+      {/*/>*/}
 
-      {ingredients.length > 0 && (
-        <div className={styles.ingredientRows}>
-          {ingredients.map((ingredient, index) => {
-            return (
-              <CreateIngredient
-                key={index}
-                index={index}
-                ingredient={ingredient}
-                updateIngredient={(updatedIngredient: EditableIngredient) => {
-                  setIngredients(
-                    ingredients.map((i) => {
-                      if (i.number == ingredient.number) {
-                        return updatedIngredient;
-                      }
-                      return i;
-                    })
-                  );
-                }}
-                totalIngredients={ingredients.length}
-                deleteIngredient={() => {
-                  deleteIngredient(ingredient.number);
-                }}
-                changeIngredientPosition={(up: boolean) =>
-                  changeIngredientPosition(ingredient.number, up)
-                }
-              />
-            );
-          })}
-        </div>
-      )}
-
-      {ingredients.length > 0 && (
-        <IconButton
-          icon={faPlus}
-          variant="primary"
+      <div className={styles.ingredientRowsContainer}>
+        {ingredients.length > 0 && (
+          <>
+            <button
+              className={`${styles.addNewIngredientRow} ${styles.firstRow}`}
+              onClick={addIngredientToBegining}
+              type="button"
+            >
+              Add new ingredient
+            </button>
+            <div className={styles.ingredientRows}>
+              {ingredients.map((ingredient, index) => {
+                return (
+                  <CreateIngredient
+                    key={index}
+                    index={index}
+                    ingredient={ingredient}
+                    updateIngredient={(
+                      updatedIngredient: EditableIngredient
+                    ) => {
+                      setIngredients(
+                        ingredients.map((i) => {
+                          if (i.number === ingredient.number) {
+                            return updatedIngredient;
+                          }
+                          return i;
+                        })
+                      );
+                    }}
+                    totalIngredients={ingredients.length}
+                    deleteIngredient={() => {
+                      deleteIngredient(ingredient.number);
+                    }}
+                    changeIngredientPosition={(up: boolean) =>
+                      changeIngredientPosition(ingredient.number, up)
+                    }
+                  />
+                );
+              })}
+            </div>
+          </>
+        )}
+        <button
+          className={`${styles.addNewIngredientRow} ${styles.lastRow}`}
+          onClick={addIngredientToEnd}
           type="button"
-          size="small"
-          className={styles.lowerAddIngredientButton}
-          onClick={() => {
-            setIngredients([
-              ...ingredients,
-              {
-                name: "",
-                number: ingredients.length,
-                unit: "",
-                amount: undefined,
-              },
-            ]);
-          }}
-        />
-      )}
+        >
+          Add new ingredient
+        </button>
+      </div>
     </div>
   );
 };
@@ -168,8 +177,8 @@ const CreateIngredient = ({
   const amountId = generateAmountId(ingredient.number);
   const unitId = generateUnitId(ingredient.number);
 
-  let amountElement;
-  let unitElement;
+  let amountElement: HTMLElement | null;
+  let unitElement: HTMLElement | null;
   if (typeof document !== "undefined") {
     amountElement = document.getElementById(amountId);
     unitElement = document.getElementById(unitId);
