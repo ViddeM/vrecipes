@@ -249,7 +249,7 @@ function ingredientsSame(
   ingredients: EditableIngredient[],
   other: EditableIngredient[]
 ): boolean {
-  if (ingredients.length != other.length) {
+  if (ingredients.length !== other.length) {
     return false;
   }
 
