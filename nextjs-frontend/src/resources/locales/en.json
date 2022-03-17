@@ -29,6 +29,7 @@
     "cookingTime": "Cooking time",
     "cookingSteps": "Cooking steps",
     "saveRecipe": "Save recipe",
+    "createSteps": "Steps",
     "deleteModal": {
       "title": "Delete recipe?",
       "content": "Are you sure that you want to delete this recipe?"

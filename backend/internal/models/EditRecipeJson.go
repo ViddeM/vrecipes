@@ -9,8 +9,8 @@ import (
 type EditRecipeJson struct {
 	Name            string                     `json:"name" binding:"required"`
 	Description     string                     `json:"description"`
-	OvenTemperature int                        `json:"ovenTemperature" binding:"required,lte=9999"`
-	EstimatedTime   int                        `json:"estimatedTime" binding:"required"`
+	OvenTemperature int                        `json:"ovenTemperature" binding:"lte=9999"`
+	EstimatedTime   int                        `json:"estimatedTime"`
 	Steps           []EditRecipeStepJson       `json:"steps" binding:"required,dive,required"`
 	Ingredients     []EditRecipeIngredientJson `json:"ingredients" binding:"required,dive,required"`
 	Images          []EditRecipeImageJson      `json:"images" binding:"required,dive,required"`
@@ -18,12 +18,12 @@ type EditRecipeJson struct {
 }
 
 type EditRecipeStepJson struct {
-	Number uint16 `json:"number" validate:"required"`
-	Step   string `json:"step" validate:"required"`
+	Number      uint16 `json:"number" validate:"required"`
+	Description string `json:"description" validate:"required"`
 }
 
 func (step *EditRecipeStepJson) SameAs(other *tables.RecipeStep) bool {
-	return step.Number == other.Number && step.Step == other.Step
+	return step.Number == other.Number && step.Description == other.Step
 }
 
 type EditRecipeIngredientJson struct {
