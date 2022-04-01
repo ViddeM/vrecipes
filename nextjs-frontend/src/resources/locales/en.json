@@ -30,6 +30,7 @@
     "cookingSteps": "Cooking steps",
     "saveRecipe": "Save recipe",
     "createSteps": "Steps",
+    "noAccess": "You do not have access to modify this recipe",
     "deleteModal": {
       "title": "Delete recipe?",
       "content": "Are you sure that you want to delete this recipe?"
@@ -40,6 +41,7 @@
     }
   },
   "common": {
+    "takeMeBack": "Take me back",
     "loading": "Loading...",
     "createdBy": "Created by",
     "cancel": "Cancel",
@@ -49,6 +51,8 @@
   },
   "errors": {
     "default": "An unknown error has occured",
+
+    "unauthorized": "You need to be logged in to perform this action",
 
     "recipe_name_exists": "A recipe with that name already exists",
     "failed_to_create_recipe": "Failed to create recipe",

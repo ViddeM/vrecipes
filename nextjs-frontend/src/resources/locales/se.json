@@ -29,6 +29,7 @@
     "cookingTime": "Tillagningstid",
     "cookingSteps": "Tillagningssteg",
     "saveRecipe": "Spara recept",
+    "noAccess": "Du har inte tillåtelse att ändra detta recept",
     "createSteps": "Tillvägagångssätt",
     "deleteModal": {
       "title": "Ta bort receptet?",
@@ -40,6 +41,7 @@
     }
   },
   "common": {
+    "takeMeBack": "Ta mig tillbaka",
     "loading": "Laddar...",
     "createdBy": "Skapad av",
     "cancel": "Avbryt",
@@ -49,6 +51,8 @@
   },
   "errors": {
     "default": "Ett okänt fel har inträffat",
+
+    "unauthorized": "Du behöver vara inloggad för att göra detta",
 
     "recipe_name_exists": "Ett recept med det namnet finns redan",
     "failed_to_create_recipe": "Misslyckades med att skapa recept",

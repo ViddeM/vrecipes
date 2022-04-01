@@ -9,6 +9,7 @@ import { useTranslations } from "../hooks/useTranslations";
 import TextField from "./TextField";
 import { useEffect, useState } from "react";
 import { EditableIngredient } from "../api/Ingredient";
+import { isClientSide } from "../api/Api";
 
 const INGREDIENT_BASE_ID = "ingredient";
 const AMOUNT_BASE_ID = "amount";
@@ -179,7 +180,7 @@ const CreateIngredient = ({
 
   let amountElement: HTMLElement | null;
   let unitElement: HTMLElement | null;
-  if (typeof document !== "undefined") {
+  if (isClientSide()) {
     amountElement = document.getElementById(amountId);
     unitElement = document.getElementById(unitId);
   }
