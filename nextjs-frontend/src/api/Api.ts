@@ -96,20 +96,20 @@ function handleResponse<T>(
     })
     .catch((err) => {
       console.log("Err ", err);
-      if (handleAuth) {
-        if (
-          err.response &&
-          err.response.status === 401 &&
-          err.response.headers &&
-          err.response.headers.location
-        ) {
-          window.location.assign(err.response.headers.location);
-          return { rawResponse: err.response };
-        }
-      }
-
       let error = "errors.default";
-      if (err.response && err.response.data) {
+
+      if (handleAuth) {
+        if (err.response && err.response.status === 401) {
+          // We need to get authorized.
+          if (err.response.headers && err.response.headers.location) {
+            // The server provided us with an authorization URL.
+            window.location.assign(err.response.headers.location);
+            return { rawResponse: err.response };
+          } else {
+            error = "errors.unauthorized";
+          }
+        }
+      } else if (err.response && err.response.data) {
         error = handleError(err.response.data);
       }
 
@@ -128,4 +128,8 @@ function handleError<T>(data: RawApiResponse<T>): string {
   }
 
   return `errors.${error}`;
+}
+
+export function isClientSide(): boolean {
+  return typeof document !== "undefined";
 }

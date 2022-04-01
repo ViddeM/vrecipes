@@ -1,6 +1,6 @@
 import CardLayout from "../../../layouts/CardLayout";
 import { GetServerSideProps } from "next";
-import { Api } from "../../../api/Api";
+import { Api, isClientSide } from "../../../api/Api";
 import { Recipe } from "../../../api/Recipe";
 import { useTranslations } from "../../../hooks/useTranslations";
 import ErrorCard from "../../../components/ErrorCard";
@@ -15,9 +15,12 @@ import {
   ingredientsFromEditable,
   ingredientsToEditable,
 } from "../../../api/Ingredient";
-import { RECIPES_BASE_ENDPOINT } from "../../../api/Endpoints";
+import { LOGIN_ENDPOINT, RECIPES_BASE_ENDPOINT } from "../../../api/Endpoints";
 import CreateStepsList from "../../../components/CreateStepsList";
 import { Step } from "../../../api/Step";
+import { useMe } from "../../../hooks/useMe";
+import NoAccess from "../../../components/NoAccess";
+import { useRouter } from "next/router";
 
 interface EditRecipeProps {
   recipe?: Recipe;
@@ -31,6 +34,8 @@ const RECIPE_DESCRIPTION = "recipe_description";
 
 const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
   let { t, translate } = useTranslations();
+  let { me } = useMe();
+  let router = useRouter();
 
   /* Keep track of the different parts of the state */
   const [error, setError] = useState<string | undefined>(undefined);
@@ -58,8 +63,16 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
     return <ErrorCard error={dataLoadError} />;
   }
 
+  if (!me && isClientSide()) {
+    router.push(LOGIN_ENDPOINT);
+  }
+
   if (!recipe) {
     return <Loading />;
+  }
+
+  if (recipe.author.id !== me?.id) {
+    return <NoAccess text={t.recipe.noAccess} />;
   }
 
   /* Check if we have unsaved changes */
@@ -234,25 +247,6 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  // @ts-ignore
-  const { recipe } = context.params;
-  let res = await Api.recipes.getOne(recipe);
-
-  if (res.rawResponse?.status === 404) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      error: res.errorTranslationString ?? null,
-      recipe: res.data ?? null,
-    },
-  };
-};
-
 function ingredientsSame(
   ingredients: EditableIngredient[],
   other: EditableIngredient[]
@@ -293,5 +287,24 @@ function stepsSame(steps: Step[], other: Step[]): boolean {
 
   return true;
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  // @ts-ignore
+  const { recipe } = context.params;
+  let res = await Api.recipes.getOne(recipe);
+
+  if (res.rawResponse?.status === 404) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      error: res.errorTranslationString ?? null,
+      recipe: res.data ?? null,
+    },
+  };
+};
 
 export default EditRecipe;
