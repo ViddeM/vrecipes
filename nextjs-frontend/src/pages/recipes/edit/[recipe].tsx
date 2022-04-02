@@ -34,7 +34,7 @@ const RECIPE_DESCRIPTION = "recipe_description";
 
 const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
   let { t, translate } = useTranslations();
-  let { me } = useMe();
+  let { isLoggedIn, me, initialized } = useMe();
   let router = useRouter();
 
   /* Keep track of the different parts of the state */
@@ -63,15 +63,15 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
     return <ErrorCard error={dataLoadError} />;
   }
 
-  if (!me && isClientSide()) {
-    router.push(LOGIN_ENDPOINT);
-  }
-
   if (!recipe) {
     return <Loading />;
   }
 
-  if (recipe.author.id !== me?.id) {
+  if (!isLoggedIn && isClientSide() && initialized) {
+    router.push(LOGIN_ENDPOINT);
+  }
+
+  if (me && recipe.author.id !== me?.id) {
     return <NoAccess text={t.recipe.noAccess} />;
   }
 

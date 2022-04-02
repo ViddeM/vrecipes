@@ -33,13 +33,19 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   const [me, setMe] = useState<Me | undefined>(undefined);
+  const [initializedMe, setInitializedMe] = useState<boolean>(false);
 
   useEffect(() => {
-    Api.user.getMe().then((response) => {
-      if (response.data) {
-        setMe(response.data);
-      }
-    });
+    Api.user
+      .getMe()
+      .then((response) => {
+        if (response.data) {
+          setMe(response.data);
+        }
+      })
+      .finally(() => {
+        setInitializedMe(true);
+      });
   }, []);
 
   const [modalProps, setModalProps] = useState<ModalProps | undefined>(
@@ -48,7 +54,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <TranslationContext.Provider value={loadLocale(translationLocale)}>
-      <AuthContext.Provider value={{ me: me }}>
+      <AuthContext.Provider value={{ me: me, initialized: initializedMe }}>
         <ModalContext.Provider
           value={{
             openModal: (props) =>
