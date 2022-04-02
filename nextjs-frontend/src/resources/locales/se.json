@@ -30,13 +30,13 @@
     "cookingSteps": "Tillagningssteg",
     "saveRecipe": "Spara recept",
     "noAccess": "Du har inte tillåtelse att ändra detta recept",
-    "createSteps": "Tillvägagångssätt",
+    "createSteps": "Instruktioner",
     "deleteModal": {
       "title": "Ta bort receptet?",
       "content": "Är du säker på att du vill ta bort detta receptet?"
     },
     "ingredientValidationErrors": {
-      "amountMustBeFilledIn":  "Måste vara ha ett värde om enhet har det.",
+      "amountMustBeFilledIn": "Måste vara ha ett värde om enhet har det.",
       "unitMustBeFilledIn": "Måste ha ett värde om mängd har det."
     }
   },
@@ -51,9 +51,7 @@
   },
   "errors": {
     "default": "Ett okänt fel har inträffat",
-
     "unauthorized": "Du behöver vara inloggad för att göra detta",
-
     "recipe_name_exists": "Ett recept med det namnet finns redan",
     "failed_to_create_recipe": "Misslyckades med att skapa recept",
     "failed_to_edit_recipe": "Misslyckades med att ändra recept",
@@ -92,35 +90,3 @@
     "sourceCode": "Källkod"
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
