@@ -1,3 +1,5 @@
+@import "../resources/styles/vars";
+
 .imageUploadContainer {
   width: 100%;
   display: flex;
@@ -6,6 +8,19 @@
 }
 
 .imageContainer {
+  position: relative;
   width: 100%;
   max-width: 300px;
+  border: 1px solid black;
+  border-radius: $border-radius;
+}
+
+.removeImageButton {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+
+  &:active {
+    padding: 1px;
+  }
 }

@@ -4,6 +4,7 @@ import { Recipe } from "./Recipe";
 import { IMAGE_BASE_ENDPOINT } from "./Endpoints";
 import { Me } from "./Me";
 import { UniqueName } from "./UniqueName";
+import { Image } from "./Image";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = "http://localhost:3000/api";
@@ -63,6 +64,14 @@ export const Api = {
   images: {
     formatImageUrl: (imageUrl: string): string => {
       return `${IMAGE_BASE_ENDPOINT}/${imageUrl}`;
+    },
+    upload: (file: File) => {
+      const data = new FormData();
+      data.append("file", file);
+      return handleResponse(
+        axios.put<RawApiResponse<Image>>("/images", data),
+        true
+      );
     },
   },
 };

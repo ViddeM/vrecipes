@@ -22,6 +22,7 @@ import { useMe } from "../../../hooks/useMe";
 import NoAccess from "../../../components/NoAccess";
 import { useRouter } from "next/router";
 import ImageUpload from "../../../components/ImageUpload";
+import { Image } from "../../../api/Image";
 
 interface EditRecipeProps {
   recipe?: Recipe;
@@ -58,6 +59,9 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
     recipe ? ingredientsToEditable(recipe.ingredients) : []
   );
   const [steps, setSteps] = useState<Step[]>(recipe ? recipe.steps : []);
+  const [images, setImages] = useState<Image[]>(recipe ? recipe.images : []);
+  const [imageUploadInProgress, setImageUploadInProgress] =
+    useState<boolean>(false);
   /* End state declaration */
 
   if (dataLoadError) {
@@ -227,8 +231,15 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
           <CreateStepsList steps={steps} setSteps={setSteps} />
         </div>
 
-        <div className={`marginTopBig ${styles.ingredientsTableContainer}`}>
-          <ImageUpload />
+        <div
+          className={`marginTopBig marginBottomBig ${styles.ingredientsTableContainer}`}
+        >
+          <ImageUpload
+            imageUploadInProgress={imageUploadInProgress}
+            setImageUploadInProgress={setImageUploadInProgress}
+            images={images}
+            setImages={setImages}
+          />
         </div>
 
         {error && <p className="errorText marginTop">{error}</p>}
@@ -238,6 +249,7 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
           size="normal"
           type="submit"
           className="marginTop"
+          disabled={imageUploadInProgress}
         >
           {t.recipe.saveRecipe}
         </Button>
