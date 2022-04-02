@@ -53,6 +53,7 @@ const Modal = ({
               {declineButton.text}
             </Button>
           )}
+          {declineButton && confirmButton && <div className="space" />}
           {confirmButton && (
             <Button
               variant="primary"

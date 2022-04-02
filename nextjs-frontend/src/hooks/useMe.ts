@@ -5,24 +5,28 @@ import { ROOT_ENDPOINT } from "../api/Endpoints";
 
 export interface AuthContext {
   me: Me | undefined;
+  initialized: boolean;
 }
 
 export const AuthContext = React.createContext<AuthContext>({
   me: undefined,
+  initialized: false,
 });
 
 export interface Auth {
   me?: Me;
   isLoggedIn: boolean;
+  initialized: boolean;
   logout: () => void;
 }
 
 export const useMe = (): Auth => {
-  let { me } = useContext(AuthContext);
+  let { me, initialized } = useContext(AuthContext);
 
   return {
     isLoggedIn: me !== undefined,
     me: me,
+    initialized: initialized,
     logout: logout,
   };
 };
