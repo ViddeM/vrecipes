@@ -21,6 +21,7 @@ import { Step } from "../../../api/Step";
 import { useMe } from "../../../hooks/useMe";
 import NoAccess from "../../../components/NoAccess";
 import { useRouter } from "next/router";
+import ImageUpload from "../../../components/ImageUpload";
 
 interface EditRecipeProps {
   recipe?: Recipe;
@@ -224,6 +225,10 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
 
         <div className={`marginTopBig ${styles.ingredientsTableContainer}`}>
           <CreateStepsList steps={steps} setSteps={setSteps} />
+        </div>
+
+        <div className={`marginTopBig ${styles.ingredientsTableContainer}`}>
+          <ImageUpload />
         </div>
 
         {error && <p className="errorText marginTop">{error}</p>}
