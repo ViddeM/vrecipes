@@ -145,12 +145,8 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
                       text: t.common.yes,
                       onClick: () => {
                         Api.recipes.remove(recipe.id).then((val) => {
-                          // TODO: Probably want another way to inform the user...
-
                           if (val.error) {
-                            alert(
-                              `TODO TMP TEXT, FAILED TO DELETE RECIPE ${val.errorTranslationString}`
-                            );
+                            alert(`${val.errorTranslationString}`);
                           }
 
                           alert(val.data);

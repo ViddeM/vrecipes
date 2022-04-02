@@ -23,7 +23,7 @@ const ButtonBase: FC<ButtonBaseProps> = ({ variant, className, ...props }) => {
 };
 
 export type ButtonSize = {
-  size: "small" | "normal" | "large";
+  size: "tiny" | "small" | "normal" | "large";
 };
 
 export type ButtonProps = ButtonBaseProps & ButtonSize;
@@ -36,6 +36,7 @@ export const Button: FC<ButtonProps> = ({ size, className, ...props }) => {
 
 export type IconButtonProps = ButtonBaseProps &
   ButtonSize & {
+    iconColor?: string;
     icon: IconDefinition;
   };
 
@@ -43,16 +44,22 @@ export const IconButton: FC<IconButtonProps> = ({
   icon,
   size,
   className,
+  iconColor,
   ...props
 }) => {
   let sizeStyle = styles[`iconButtonSize-${size}`];
+  let color = iconColor ? iconColor : "black";
 
   return (
     <ButtonBase
       {...props}
       className={`${styles.iconButton} ${className} ${sizeStyle}`}
     >
-      <FontAwesomeIcon icon={icon} className={styles.iconButtonIcon} />
+      <FontAwesomeIcon
+        icon={icon}
+        className={styles.iconButtonIcon}
+        style={{ color: color }}
+      />
     </ButtonBase>
   );
 };

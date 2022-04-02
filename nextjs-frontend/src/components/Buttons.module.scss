@@ -106,6 +106,16 @@
   }
 }
 
+.iconButtonSize-tiny {
+  width: 18px;
+  height: 18px;
+  padding: 2px;
+
+  .iconButtonIcon {
+    font-size: 14px;
+  }
+}
+
 .iconButtonSize-small {
   width: 16px;
   height: 16px;
