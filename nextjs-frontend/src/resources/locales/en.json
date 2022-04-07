@@ -42,7 +42,9 @@
     "ingredientValidationErrors": {
       "amountMustBeFilledIn":  "Must have a value of unit does.",
       "unitMustBeFilledIn": "Must have a value if amount does."
-    }
+    },
+    "image": "Image",
+    "uploadImage": "Upload an image..."
   },
   "common": {
     "takeMeBack": "Take me back",
@@ -92,7 +94,7 @@
     "failed_to_edit_tag": "Failed to edit tag"
   },
   "footer": {
-    "developedBy": "VRecipes was developed with ❤ by Vidde",
+    "developedBy": "VRecipes was developed with ❤ by Vidde & LP",
     "sourceCode": "Source Code"
   }
 }

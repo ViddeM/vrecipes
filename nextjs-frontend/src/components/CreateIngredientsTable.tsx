@@ -92,15 +92,6 @@ const CreateIngredientsTable = ({
   return (
     <div className={styles.createIngredientsContainer}>
       <h3>{t.recipe.ingredients}</h3>
-
-      {/*<IconButton*/}
-      {/*  icon={faPlus}*/}
-      {/*  variant="primary"*/}
-      {/*  type="button"*/}
-      {/*  size="small"*/}
-      {/*  onClick={addIngredient}*/}
-      {/*/>*/}
-
       <div className={styles.ingredientRowsContainer}>
         {ingredients.length > 0 && (
           <>

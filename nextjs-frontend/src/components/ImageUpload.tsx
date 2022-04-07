@@ -8,6 +8,8 @@ import { IconButton } from "./Buttons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import Loading from "./Loading";
 import { useModal } from "../hooks/useModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 export type ImageUploadProps = {
   images: Image[];
@@ -50,7 +52,7 @@ const ImageUpload = ({
       ) : (
         <>
           {images.length > 0 && (
-            <div className={styles.imageContainer}>
+            <div className={`marginTop ${styles.imageContainer}`}>
               <RecipeImage url={images[0].url} />
               <IconButton
                 className={styles.removeImageButton}
@@ -83,18 +85,31 @@ const ImageUpload = ({
           )}
         </>
       )}
+      {images.length === 0 && (
+        <>
+          <input
+            id="image-upload"
+            type="file"
+            accept="application/pdf,image/*"
+            className={styles.fileUploadInput}
+            disabled={images.length > 0}
+            onChange={(e) => {
+              let files = e.target.files;
+              if (files && files.length > 0) {
+                uploadFile(files[0]);
+              }
+            }}
+          />
+          <label
+            htmlFor="image-upload"
+            className={`marginTop ${styles.fileUploadInputLabel}`}
+          >
+            <FontAwesomeIcon icon={faUpload} />
+            {t.recipe.uploadImage}
+          </label>
+        </>
+      )}
       {error && <p className="errorText">{translate(error)}</p>}
-      <input
-        type="file"
-        accept="application/pdf,image/*"
-        disabled={images.length > 0}
-        onChange={(e) => {
-          let files = e.target.files;
-          if (files && files.length > 0) {
-            uploadFile(files[0]);
-          }
-        }}
-      />
     </div>
   );
 };

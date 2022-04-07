@@ -42,8 +42,9 @@ const Home = ({ recipes, error }: HomeProps) => {
       <div>
         <div className={`${styles.searchContainer} card marginBottomBig`}>
           <TextField
-            className={`marginRight ${styles.searchButton}`}
+            type="search"
             placeholder={`${t.recipe.searchRecipes}`}
+            className={`marginRight ${styles.searchButton}`}
           />
 
           {isLoggedIn && (
