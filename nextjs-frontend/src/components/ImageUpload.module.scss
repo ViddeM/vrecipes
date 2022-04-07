@@ -24,3 +24,26 @@
     padding: 1px;
   }
 }
+
+.fileUploadInput {
+  display: none;
+}
+
+.fileUploadInputLabel {
+  background-color: rgba(0, 150, 0, 0.2);
+  border: 1px dashed black;
+  width: 100%;
+  max-width: 300px;
+  border-radius: $border-radius;
+  padding: 1rem 0;
+  text-align: center;
+  cursor: pointer;
+  transition: border 300ms, filter 300ms;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    border: 1px solid black;
+    filter: brightness(1.4);
+  }
+}

@@ -107,7 +107,7 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
       estimatedTime: cookingTime ? cookingTime : 0,
       ingredients: ingredientsFromEditable(ingredients),
       steps: steps,
-      images: recipe.images,
+      images: images,
       author: recipe.author,
       tags: recipe.tags,
     };
@@ -231,16 +231,13 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
           <CreateStepsList steps={steps} setSteps={setSteps} />
         </div>
 
-        <div
-          className={`marginTopBig marginBottomBig ${styles.ingredientsTableContainer}`}
-        >
-          <ImageUpload
-            imageUploadInProgress={imageUploadInProgress}
-            setImageUploadInProgress={setImageUploadInProgress}
-            images={images}
-            setImages={setImages}
-          />
-        </div>
+        <h3 className="marginTopBig">{t.recipe.image}</h3>
+        <ImageUpload
+          imageUploadInProgress={imageUploadInProgress}
+          setImageUploadInProgress={setImageUploadInProgress}
+          images={images}
+          setImages={setImages}
+        />
 
         {error && <p className="errorText marginTop">{error}</p>}
 
@@ -248,8 +245,8 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
           variant="primary"
           size="normal"
           type="submit"
-          className="marginTop"
           disabled={imageUploadInProgress}
+          className="marginTopBig"
         >
           {t.recipe.saveRecipe}
         </Button>

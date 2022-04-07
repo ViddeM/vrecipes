@@ -72,8 +72,10 @@
   text-align: center;
   padding: 1rem 0;
   cursor: pointer;
+  transition: border 300ms, filter 300ms;
 
   &:hover {
+    border: 1px solid black;
     filter: brightness(1.4);
   }
 }

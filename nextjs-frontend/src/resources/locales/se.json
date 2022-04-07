@@ -42,7 +42,9 @@
     "ingredientValidationErrors": {
       "amountMustBeFilledIn": "Måste vara ha ett värde om enhet har det.",
       "unitMustBeFilledIn": "Måste ha ett värde om mängd har det."
-    }
+    },
+    "image": "Bild",
+    "uploadImage": "Ladda upp bild..."
   },
   "common": {
     "takeMeBack": "Ta mig tillbaka",
@@ -90,7 +92,7 @@
     "failed_to_edit_tag": "Kunde inte ändra taggen"
   },
   "footer": {
-    "developedBy": "VRecipes utvecklades med ❤ av Vidde",
+    "developedBy": "VRecipes utvecklades med ❤ av Vidde & LP",
     "sourceCode": "Källkod"
   }
 }
