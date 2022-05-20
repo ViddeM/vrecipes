@@ -17,16 +17,22 @@
 }
 
 .footerContentContainer {
-  padding: 24px 80px;
+  padding: 24px 20px;
   margin: 0 auto;
 
   max-width: 1440px;
   min-width: 256px;
   position: relative;
   justify-content: space-between;
+  align-items: center;
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+  @media (min-width: $breakpoint-tablet) {
+    flex-direction: row;
+    padding: 80px;
+  }
 }
 
 .footerLogoDevelopedByContainer {
