@@ -2,7 +2,10 @@
   "header": {
     "pageTitle": "VRecipes",
     "loginButton": "Sign in",
-    "logoutButton": "Sign out"
+    "logoutButton": "Sign out",
+    "recipes": "Recipes",
+    "recipebooks": "Recipebooks",
+    "tags": "Tags"
   },
   "login": {
     "loginTitle": "Sign in",
