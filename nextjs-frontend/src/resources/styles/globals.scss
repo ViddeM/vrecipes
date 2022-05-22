@@ -84,6 +84,12 @@ p {
   margin: 0;
 }
 
+a {
+  color: $link-color;
+  text-decoration: none;
+  font-weight: bold;
+}
+
 .noStyleLink {
   color: unset;
   text-decoration: unset;

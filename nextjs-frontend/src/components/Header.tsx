@@ -5,10 +5,16 @@ import { Button } from "./Buttons";
 import { useTranslations } from "../hooks/useTranslations";
 import { useMe } from "../hooks/useMe";
 import { LOGIN_ENDPOINT } from "../api/Endpoints";
+import { useRouter } from "next/router";
+
+const RECIPES_PATH = "/";
+const RECIPEBOOKS_PATH = "/recipebooks";
+const TAGS_PATH = "/tags";
 
 const Header = () => {
   const { t } = useTranslations();
   const { isLoggedIn, logout } = useMe();
+  const { asPath } = useRouter();
 
   return (
     <header className={styles.headerContainer}>
@@ -45,6 +51,34 @@ const Header = () => {
           )}
         </div>
       </div>
+
+      <ul className={styles.subHeader}>
+        <li
+          className={
+            asPath === RECIPES_PATH ? styles.selectedSubHeaderItem : ""
+          }
+        >
+          <Link href={RECIPES_PATH}>
+            <a>{t.header.recipes}</a>
+          </Link>
+        </li>
+        <li
+          className={
+            asPath === RECIPEBOOKS_PATH ? styles.selectedSubHeaderItem : ""
+          }
+        >
+          <Link href={RECIPEBOOKS_PATH}>
+            <a>{t.header.recipebooks}</a>
+          </Link>
+        </li>
+        <li
+          className={asPath === TAGS_PATH ? styles.selectedSubHeaderItem : ""}
+        >
+          <Link href={TAGS_PATH}>
+            <a>{t.header.tags}</a>
+          </Link>
+        </li>
+      </ul>
     </header>
   );
 };
