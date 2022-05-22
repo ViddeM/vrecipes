@@ -59,7 +59,8 @@ INSERT INTO image   (id, name)
 VALUES              ('0d9828df-f640-4e2e-8c4d-c826321ff7eb', 'Sachertorte.jpg'),
                     ('0fd8e893-6f17-4aa6-99e6-5c35bc1988a0', 'bbq_sauce.jpg'),
                     ('1eadf68b-4e03-4197-8e13-83673acaae6d', 'ballgren.png'),
-                    ('5d321c96-61c6-45a0-8c1f-129fd221e817', 'hentie.jpg');
+                    ('5d321c96-61c6-45a0-8c1f-129fd221e817', 'hentie.jpg'),
+                    ('60019da2-4da9-470d-8aa0-df55d94d2e8b', 'book.jpg');
 
 -- Connect images to recipes
 INSERT INTO recipe_image    (recipe_id, image_id)
@@ -67,3 +68,27 @@ VALUES                      ('133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b', '0d9828df-f
                             ('1e538581-9e9a-4da7-80f6-3127f246c17f', '0fd8e893-6f17-4aa6-99e6-5c35bc1988a0'),
                             ('4213b5e5-0c63-4d31-ba96-f54a574bb040', '1eadf68b-4e03-4197-8e13-83673acaae6d'),
                             ('dfed936b-8e2a-458c-a2d7-1c13c14079d6', '5d321c96-61c6-45a0-8c1f-129fd221e817');
+
+-- Create recipebooks
+INSERT INTO recipe_book     (name, unique_name, author, deleted, id, created_by)
+VALUES                      ('A book', 'a_book', 'Vidde', false, '828adce0-a887-41ce-afdf-5c0bc7124252', '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+                            ('Another book', 'another_book', 'PEDRO', false, '14f6d4de-c2c3-4a9f-8f8d-1c1550fd198f', '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+                            ('A third book', 'a_third_book', 'That other guy', false, '63fb8fd4-cf5b-4384-8c57-aae06d57cd6e', '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+                            ('Spices of the ancient lands of the north', 'spices', 'Lost to history', false, '59c3885a-4cc7-4f9c-99fb-df1290d704cc', '7cc2fc04-7379-4361-9f4e-079054933d2f');
+
+-- Connect recipebooks to images
+INSERT INTO recipe_book_image   (recipe_book_id, image_id)
+VALUES                          ('828adce0-a887-41ce-afdf-5c0bc7124252', '60019da2-4da9-470d-8aa0-df55d94d2e8b');
+
+-- Connect recipes to recipebooks
+INSERT INTO recipe_book_recipe  (recipe_id, recipe_book_id)
+VALUES                          ('133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b', '828adce0-a887-41ce-afdf-5c0bc7124252'),
+                                ('1e538581-9e9a-4da7-80f6-3127f246c17f', '828adce0-a887-41ce-afdf-5c0bc7124252'),
+                                ('bddb104d-a28e-4bec-97bf-14ad93fc4b20', '828adce0-a887-41ce-afdf-5c0bc7124252'),
+                                ('bddb104d-a28e-4bec-97bf-14ad93fc4b20', '14f6d4de-c2c3-4a9f-8f8d-1c1550fd198f'),
+                                ('4213b5e5-0c63-4d31-ba96-f54a574bb040', '63fb8fd4-cf5b-4384-8c57-aae06d57cd6e'),
+                                ('dca1bc12-0cf0-49e9-b0f9-714f9e0c2975', '63fb8fd4-cf5b-4384-8c57-aae06d57cd6e'),
+                                ('1281fa39-3209-4cbf-b359-7554e232f323', '63fb8fd4-cf5b-4384-8c57-aae06d57cd6e'),
+                                ('ff9373ea-c5d1-4d05-a299-e0856833131d', '63fb8fd4-cf5b-4384-8c57-aae06d57cd6e'),
+                                ('dfed936b-8e2a-458c-a2d7-1c13c14079d6', '63fb8fd4-cf5b-4384-8c57-aae06d57cd6e');
+
