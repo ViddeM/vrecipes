@@ -8,6 +8,7 @@ import { Image } from "./Image";
 import { Tag } from "./Tag";
 import { NewTag } from "./NewTag";
 import { NewRecipe } from "./NewRecipe";
+import { ShortRecipeBook } from "./ShortRecipeBook";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = "http://localhost:3000/api";
@@ -50,6 +51,14 @@ export const Api = {
       return handleResponse(
         axios.put<RawApiResponse<Recipe>>(`/recipes/${recipe.id}`, recipe),
         true
+      );
+    },
+  },
+  recipebooks: {
+    getAll: () => {
+      return handleResponse(
+        axios.get<RawApiResponse<{ books: ShortRecipeBook[] }>>("/books"),
+        false
       );
     },
   },
