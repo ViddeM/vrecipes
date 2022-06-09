@@ -1,0 +1,113 @@
+@import "src/resources/styles/vars.scss";
+
+.VTextField {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 4px;
+  margin-bottom: 10px !important;
+
+
+  @media (min-width: 1024px) {
+    width: 300px;
+    margin-right: 10px !important;
+  }
+}
+
+.NewTagButton {
+  height: 40px;
+  width: 100%;
+
+
+  @media (min-width: 1024px) {
+    width: auto;
+  }
+}
+
+.TagsPageTable {
+  max-width: 1216px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 24px;
+}
+
+
+.TagsPageToolbar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px !important;
+
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
+}
+
+.TableHeader {
+  height: 21px;
+  background-color: #E0E0E0;
+  text-align: left;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  padding: 16px;
+  border: 1px solid #707070;
+}
+
+
+.TableRow {
+  border: 1px solid #707070;
+  border-top: none;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  background-color: white;
+
+  &:last-child {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+
+  box-sizing: border-box;
+}
+
+.TagsActionButton {
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  margin-left: 20px;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+  -webkit-appearance: button;
+  text-transform: none;
+  box-sizing: border-box;
+  list-style-type: none;
+  background-color: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:disabled {
+    text-decoration: none;
+    color: gray;
+    cursor: default;
+  }
+}
+
+.TagTableElement {
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+.TagsTableText {
+  vertical-align: top !important;
+  line-height: 1.5;
+}

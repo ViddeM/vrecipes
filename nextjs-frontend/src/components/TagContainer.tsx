@@ -1,6 +1,6 @@
 import styles from "./TagContainer.module.scss";
 import { Tag as TagType } from "../api/Tag";
-import Tag from "./Tag";
+import TagComponent from "./Tag";
 
 export interface TagContainerProps {
   tags: TagType[];
@@ -11,7 +11,12 @@ const TagContainer = ({ tags, noLink }: TagContainerProps) => (
   <div className={styles.tagContainer}>
     <div className={styles.transparency} />
     {tags.map((tag) => (
-      <Tag key={tag.id} text={tag.name} color={tag.color} noLink={noLink} />
+      <TagComponent
+        key={tag.id}
+        text={tag.name}
+        color={tag.color}
+        noLink={noLink}
+      />
     ))}
   </div>
 );
