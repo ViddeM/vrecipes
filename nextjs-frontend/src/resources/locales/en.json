@@ -43,11 +43,18 @@
       "content": "Are you sure that you want to delete this image?"
     },
     "ingredientValidationErrors": {
-      "amountMustBeFilledIn":  "Must have a value of unit does.",
+      "amountMustBeFilledIn": "Must have a value of unit does.",
       "unitMustBeFilledIn": "Must have a value if amount does."
     },
     "image": "Image",
     "uploadImage": "Upload an image..."
+  },
+  "tag": {
+    "newTag": "New tag",
+    "deleteModal": {
+      "title": "Delete tag?",
+      "content": "Are you sure that you want to delete this tag?"
+    }
   },
   "common": {
     "takeMeBack": "Take me back",
@@ -56,13 +63,13 @@
     "cancel": "Cancel",
     "yes": "Yes",
     "no": "No",
+    "edit": "Edit",
+    "remove": "Remove",
     "unsavedChanges": "You have unsaved changes"
   },
   "errors": {
     "default": "An unknown error has occured",
-
     "unauthorized": "You need to be logged in to perform this action",
-
     "recipe_name_exists": "A recipe with that name already exists",
     "failed_to_create_recipe": "Failed to create recipe",
     "failed_to_edit_recipe": "Failed to edit recipe",

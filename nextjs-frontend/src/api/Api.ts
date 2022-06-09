@@ -5,6 +5,8 @@ import { IMAGE_BASE_ENDPOINT } from "./Endpoints";
 import { Me } from "./Me";
 import { UniqueName } from "./UniqueName";
 import { Image } from "./Image";
+import { Tag } from "./Tag";
+import { NewTag } from "./NewTag";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = "http://localhost:3000/api";
@@ -59,6 +61,32 @@ export const Api = {
     },
     getMe: () => {
       return handleResponse(axios.get<RawApiResponse<Me>>("/me"), false);
+    },
+  },
+  tags: {
+    getAll: () => {
+      return handleResponse(
+        axios.get<RawApiResponse<{ tags: Tag[] }>>("/tags"),
+        false
+      );
+    },
+    create: (tag: NewTag) => {
+      return handleResponse(
+        axios.put<RawApiResponse<NewTag>>("/tag/", tag),
+        true
+      );
+    },
+    remove: (id: string) => {
+      return handleResponse(
+        axios.delete<RawApiResponse<string>>(`/tags/${id}`),
+        true
+      );
+    },
+    edit: (tag: Tag) => {
+      return handleResponse(
+        axios.put<RawApiResponse<Tag>>(`/tag/${tag.id}`, tag),
+        true
+      );
     },
   },
   images: {
