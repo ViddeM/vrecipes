@@ -1,6 +1,6 @@
 import { Api } from "../api/Api";
 import { useTranslations } from "../hooks/useTranslations";
-import defaultRecipePicture from "../../public/default_recipe_image.png";
+import defaultRecipePicture from "../../public/default_recipe_image.webp";
 import Image from "next/image";
 import styles from "./RecipeImage.module.scss";
 import { useState } from "react";
