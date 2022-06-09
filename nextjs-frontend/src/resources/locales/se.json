@@ -49,6 +49,13 @@
     "image": "Bild",
     "uploadImage": "Ladda upp bild..."
   },
+  "tag": {
+    "newTag": "Ny tagg",
+    "deleteModal": {
+      "title": "Ta bort taggen?",
+      "content": "Är du säker på att du vill ta bort taggen?"
+    }
+  },
   "common": {
     "takeMeBack": "Ta mig tillbaka",
     "loading": "Laddar...",
@@ -56,6 +63,8 @@
     "cancel": "Avbryt",
     "yes": "Ja",
     "no": "Nej",
+    "edit": "Ändra",
+    "remove": "Ta bort",
     "unsavedChanges": "Du har osparade ändringar"
   },
   "errors": {
@@ -92,7 +101,8 @@
     "malformed_tag_id": "Felformatterad taggid",
     "tag_not_found": "Kunde inte hitta en sådan tagg",
     "failed_to_delete_tag": "Kunde inte ta bort taggen",
-    "failed_to_edit_tag": "Kunde inte ändra taggen"
+    "failed_to_edit_tag": "Kunde inte ändra taggen",
+    "no_tags": "Det finns inga taggar"
   },
   "footer": {
     "developedBy": "VRecipes utvecklades med ❤ av Vidde & LP",

@@ -11,7 +11,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useTranslations } from "../../hooks/useTranslations";
 import { RecipeImage } from "../../components/RecipeImage";
 import { IngredientTable } from "../../components/IngredientTable";
-import Tag from "../../components/Tag";
+import TagComponent from "../../components/Tag";
 import { Button, IconButton } from "../../components/Buttons";
 import Link from "next/link";
 import { useMe } from "../../hooks/useMe";
@@ -77,7 +77,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
         {recipe.tags.length > 0 && (
           <div className={styles.tagsContainer}>
             {recipe.tags.map((tag) => (
-              <Tag
+              <TagComponent
                 key={tag.id}
                 noLink={false}
                 color={tag.color}

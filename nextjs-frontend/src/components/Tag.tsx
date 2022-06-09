@@ -2,7 +2,6 @@ import styles from "./Tag.module.scss";
 import { RGBToHSL } from "../util/color";
 import { tagNameToUnique } from "../util/tagNameToUnique";
 import { RGBandHSLColor, RGBColor } from "../api/Color";
-import { CSSProperties } from "react";
 import Link from "next/link";
 
 export interface TagProps {
@@ -11,7 +10,7 @@ export interface TagProps {
   text: string;
 }
 
-const Tag = ({ noLink, color, text }: TagProps) => {
+const TagComponent = ({ noLink, color, text }: TagProps) => {
   if (noLink) {
     return <TagWithoutLink color={color} text={text} />;
   } else {
@@ -79,4 +78,4 @@ function parseColor(rgb: RGBColor): RGBandHSLColor {
   };
 }
 
-export default Tag;
+export default TagComponent;
