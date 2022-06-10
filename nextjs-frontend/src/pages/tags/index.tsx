@@ -68,7 +68,7 @@ const Tags = ({ tags, error }: TagsProps) => {
       <div className={styles.TagsPageTable}>
         <div className={styles.TagsPageToolbar}>
           <TextField
-            placeholder={"SEARCH HERE"}
+            placeholder={t.tag.searchTags}
             onChange={(e) => {
               setFilterText(e.target.value);
             }}
@@ -158,7 +158,7 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
                     tag.name
                   )}`}
                 >
-                  <a>{tag.recipeCount + " recept"}</a>
+                  <a>{tag.recipeCount + " " + t.header.recipes}</a>
                 </Link>
               </p>
             )}
