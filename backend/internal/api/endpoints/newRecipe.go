@@ -39,7 +39,7 @@ func NewRecipe(c *gin.Context) {
 	if err != nil {
 		if errors.Is(err, common.ErrNameTaken) {
 			log.Printf("Tried to create duplicate recipe")
-			c.JSON(http.StatusOK, common.Error(common.ResponseRecipeNameExist))
+			c.JSON(http.StatusBadRequest, common.Error(common.ResponseRecipeNameExist))
 			return
 		}
 
