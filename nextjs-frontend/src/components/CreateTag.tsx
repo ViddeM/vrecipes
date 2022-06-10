@@ -1,16 +1,22 @@
 import { GetServerSideProps } from "next";
 import { ChromePicker } from "react-color";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import styles from "./CreateTag.module.scss";
 import TagComponent from "./Tag";
 import TextField from "./TextField";
 import { RGBColor } from "../api/Color";
 import { Tag } from "../api/Tag";
-import { Api } from "../api/Api";
+import { Api, ApiResponse } from "../api/Api";
 import { Button, IconButton } from "./Buttons";
 import { faRepeat } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslations } from "../hooks/useTranslations";
+import {
+  EDIT_RECIPE_BASE_ENDPOINT,
+  TAGS_BASE_ENDPOINT,
+} from "../api/Endpoints";
+import { UniqueName } from "../api/UniqueName";
+import useRefreshProps from "../hooks/useRefreshProps";
 
 export interface CreateTagProps {
   tag?: Tag;
@@ -18,7 +24,9 @@ export interface CreateTagProps {
 }
 
 export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
-  const { t } = useTranslations();
+  const { t, translate } = useTranslations();
+  const refreshProps = useRefreshProps();
+  const [error, setError] = useState<string | undefined>(undefined);
 
   const [isEditing, setIsEditing] = useState<boolean>(tag !== undefined);
   const [colorPickerOpen, toggleColorPicker] = useState(false);
@@ -44,20 +52,56 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
     }
   }, [tag]);
 
+  const handleError = (data: ApiResponse<Tag>) => {
+    if (data.error && data.errorTranslationString) {
+      setError(translate(data.errorTranslationString));
+    } else {
+      cancelEditTag();
+      refreshProps();
+    }
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isEditing && tag) {
+      Api.tags
+        .edit({
+          ...tag,
+          name: newTagName,
+          description: newTagDescription,
+          color: newTagColor,
+        })
+        .then((data) => handleError(data));
+    } else {
+      Api.tags
+        .create({
+          name: newTagName,
+          description: newTagDescription,
+          color: newTagColor,
+        })
+        .then((data) => handleError(data));
+    }
+  };
+
   // TODO Handle possible errors when creating tags
 
   return (
-    <div className={styles.NewTagContainerForm}>
+    <form
+      className={styles.NewTagContainerForm}
+      onSubmit={(e) => handleSubmit(e)}
+    >
       <div className={styles.NewTagRow}>
         <TagComponent
           noLink={true}
           color={newTagColor}
           text={newTagName === "" ? t.common.preview : newTagName}
         />
+        {error && <p className="errorText">{error}</p>}
       </div>
       <div className={styles.NewTagRow}>
         <TextField
           placeholder={t.tag.tagName}
+          required
           value={newTagName}
           onChange={(e) => {
             let val = e.target.value;
@@ -78,6 +122,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
         />
         <div className={styles.NewTagColorSelectContainer}>
           <button
+            type={"button"}
             className={styles.NewTagColorButton}
             style={{
               color: `rgb(${newTagColor.r}, ${newTagColor.g}, ${newTagColor.b})`,
@@ -109,6 +154,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
             size={"large"}
             className={styles.NewTagActionButton}
             onClick={() => setNewTagColor(randomColor())}
+            type={"button"}
           >
             <FontAwesomeIcon
               style={{
@@ -127,6 +173,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
             size={"normal"}
             className={styles.NewTagActionButton}
             onClick={() => cancelEditTag()}
+            type={"button"}
           >
             {t.common.cancel}
           </Button>
@@ -136,29 +183,13 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
             className={styles.NewTagActionButton}
             color="primary"
             disabled={newTagName === ""}
-            onClick={() => {
-              if (isEditing && tag) {
-                Api.tags.edit({
-                  ...tag,
-                  name: newTagName,
-                  description: newTagDescription,
-                  color: newTagColor,
-                });
-              } else {
-                Api.tags.create({
-                  name: newTagName,
-                  description: newTagDescription,
-                  color: newTagColor,
-                });
-              }
-              cancelEditTag();
-            }}
+            type={"submit"}
           >
             {isEditing ? t.common.saveChanges : t.tag.createTag}
           </Button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
