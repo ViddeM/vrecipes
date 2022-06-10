@@ -132,7 +132,6 @@ function handleResponse<T>(
       };
     })
     .catch((err) => {
-      console.log("Err ", err);
       let error = "errors.default";
 
       if (handleAuth && err.response.status === 401) {
