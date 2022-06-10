@@ -51,12 +51,19 @@
   },
   "tag": {
     "newTag": "New tag",
+    "createTag": "Create tag",
+    "tagName": "Tag name",
+    "randomiseColor": "Randomise color",
+    "tagDescription": "Tag description (optional)",
+    "searchTags": "Search for tags",
     "deleteModal": {
       "title": "Delete tag?",
       "content": "Are you sure that you want to delete this tag?"
     }
   },
   "common": {
+    "saveChanges": "Save changes",
+    "preview": "Preview",
     "takeMeBack": "Take me back",
     "loading": "Loading...",
     "createdBy": "Created by",

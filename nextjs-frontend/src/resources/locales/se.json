@@ -51,12 +51,19 @@
   },
   "tag": {
     "newTag": "Ny tagg",
+    "createTag": "Skapa tagg",
+    "tagName": "Taggnamm",
+    "randomiseColor": "Slumpa färg",
+    "tagDescription": "Taggbeskrivning (valfritt)",
+    "searchTags": "Sök efter taggar",
     "deleteModal": {
       "title": "Ta bort taggen?",
       "content": "Är du säker på att du vill ta bort taggen?"
     }
   },
   "common": {
+    "saveChanges": "Spara ändringar",
+    "preview": "Förhandsvisning",
     "takeMeBack": "Ta mig tillbaka",
     "loading": "Laddar...",
     "createdBy": "Skapad av",
