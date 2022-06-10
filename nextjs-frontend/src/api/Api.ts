@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { ShortRecipe } from "./ShortRecipe";
 import { Recipe } from "./Recipe";
-import { IMAGE_BASE_ENDPOINT } from "./Endpoints";
+import { IMAGE_BASE_ENDPOINT, TAGS_BASE_ENDPOINT } from "./Endpoints";
 import { Me } from "./Me";
 import { UniqueName } from "./UniqueName";
 import { Image } from "./Image";
@@ -66,25 +66,25 @@ export const Api = {
   tags: {
     getAll: () => {
       return handleResponse(
-        axios.get<RawApiResponse<{ tags: Tag[] }>>("/tags"),
+        axios.get<RawApiResponse<{ tags: Tag[] }>>(TAGS_BASE_ENDPOINT),
         false
       );
     },
     create: (tag: NewTag) => {
       return handleResponse(
-        axios.post<RawApiResponse<NewTag>>("/tags", tag),
+        axios.post<RawApiResponse<Tag>>(TAGS_BASE_ENDPOINT, tag),
         true
       );
     },
     remove: (id: string) => {
       return handleResponse(
-        axios.delete<RawApiResponse<string>>(`/tags/${id}`),
+        axios.delete<RawApiResponse<string>>(`${TAGS_BASE_ENDPOINT}/${id}`),
         true
       );
     },
     edit: (tag: Tag) => {
       return handleResponse(
-        axios.put<RawApiResponse<Tag>>(`/tags/${tag.id}`, tag),
+        axios.put<RawApiResponse<Tag>>(`${TAGS_BASE_ENDPOINT}/${tag.id}`, tag),
         true
       );
     },
