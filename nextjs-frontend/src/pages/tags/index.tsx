@@ -31,7 +31,6 @@ const Tags = ({ tags, error }: TagsProps) => {
 
   const [editTag, setEditTag] = useState<Tag | undefined>(undefined);
   const [creatingTag, setCreatingTag] = useState(false);
-  console.log(editTag);
   const [filterText, setFilterText] = useState("");
   const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
 
@@ -223,7 +222,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       error: res.errorTranslationString ?? null,
-      tags: res.data ? res.data.tags ?? null : null,
+      tags: res.data?.tags ?? [],
     },
   };
 };
