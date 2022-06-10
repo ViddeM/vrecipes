@@ -10,6 +10,7 @@ import { Api } from "../api/Api";
 import { Button, IconButton } from "./Buttons";
 import { faRepeat } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useTranslations } from "../hooks/useTranslations";
 
 export interface CreateTagProps {
   tag?: Tag;
@@ -17,9 +18,11 @@ export interface CreateTagProps {
 }
 
 export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
-  const [isEditing, setIsEditing] = useState<boolean>(tag !== undefined);
+  const { t } = useTranslations();
 
+  const [isEditing, setIsEditing] = useState<boolean>(tag !== undefined);
   const [colorPickerOpen, toggleColorPicker] = useState(false);
+
   const [newTagColor, setNewTagColor] = useState<RGBColor>(
     tag?.color ? tag.color : randomColor()
   );
@@ -49,12 +52,12 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
         <TagComponent
           noLink={true}
           color={newTagColor}
-          text={newTagName === "" ? "Förhandsvisning" : newTagName}
+          text={newTagName === "" ? t.common.preview : newTagName}
         />
       </div>
       <div className={styles.NewTagRow}>
         <TextField
-          placeholder="Taggnamn"
+          placeholder={t.tag.tagName}
           value={newTagName}
           onChange={(e) => {
             let val = e.target.value;
@@ -64,7 +67,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
           }}
         />
         <TextField
-          placeholder="Beskrivning (valfritt)"
+          placeholder={t.tag.tagDescription}
           value={newTagDescription}
           onChange={(e) => {
             let val = e.target.value;
@@ -102,8 +105,8 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
             </div>
           )}
           <Button
-            variant="opaque"
-            size="large"
+            variant={"opaque"}
+            size={"large"}
             className={styles.NewTagActionButton}
             onClick={() => setNewTagColor(randomColor())}
           >
@@ -115,17 +118,17 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
               }}
               icon={faRepeat}
             />
-            Slumpa Färg
+            {t.tag.randomiseColor}
           </Button>
         </div>
         <div className={styles.NewTagActionButtonGroup}>
           <Button
-            variant="opaque"
-            size="normal"
+            variant={"opaque"}
+            size={"normal"}
             className={styles.NewTagActionButton}
             onClick={() => cancelEditTag()}
           >
-            Avbryt
+            {t.common.cancel}
           </Button>
           <Button
             size="normal"
@@ -151,7 +154,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
               cancelEditTag();
             }}
           >
-            {isEditing ? "Spara ändringar" : "Skapa Tagg"}
+            {isEditing ? t.common.saveChanges : t.tag.createTag}
           </Button>
         </div>
       </div>
