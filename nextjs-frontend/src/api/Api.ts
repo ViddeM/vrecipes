@@ -72,7 +72,7 @@ export const Api = {
     },
     create: (tag: NewTag) => {
       return handleResponse(
-        axios.put<RawApiResponse<NewTag>>("/tag/", tag),
+        axios.post<RawApiResponse<NewTag>>("/tags", tag),
         true
       );
     },
@@ -84,7 +84,7 @@ export const Api = {
     },
     edit: (tag: Tag) => {
       return handleResponse(
-        axios.put<RawApiResponse<Tag>>(`/tag/${tag.id}`, tag),
+        axios.put<RawApiResponse<Tag>>(`/tags/${tag.id}`, tag),
         true
       );
     },

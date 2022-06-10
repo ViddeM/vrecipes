@@ -9,13 +9,14 @@ import { Tag } from "../api/Tag";
 import { Api } from "../api/Api";
 import { Button, IconButton } from "./Buttons";
 import { faRepeat } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export interface CreateTagProps {
   tag?: Tag;
-  setCreatingTag: (a: boolean) => void;
+  cancelEditTag: () => void;
 }
 
-export const CreateTag = ({ tag, setCreatingTag }: CreateTagProps) => {
+export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
   const [isEditing, setIsEditing] = useState<boolean>(tag !== undefined);
 
   const [colorPickerOpen, toggleColorPicker] = useState(false);
@@ -29,10 +30,21 @@ export const CreateTag = ({ tag, setCreatingTag }: CreateTagProps) => {
     tag?.name ? tag.name : ""
   );
 
+  useEffect(() => {
+    if (tag) {
+      setNewTagColor(tag.color);
+      setNewTagName(tag.name);
+      setNewTagDescription(tag.description);
+      setIsEditing(true);
+    } else {
+      setIsEditing(false);
+    }
+  }, [tag]);
+
   // TODO Handle possible errors when creating tags
 
   return (
-    <form className={styles.NewTagContainerForm}>
+    <div className={styles.NewTagContainerForm}>
       <div className={styles.NewTagRow}>
         <TagComponent
           noLink={true}
@@ -90,32 +102,34 @@ export const CreateTag = ({ tag, setCreatingTag }: CreateTagProps) => {
             </div>
           )}
           <Button
-            variant="outlined"
+            variant="opaque"
             size="large"
             className={styles.NewTagActionButton}
             onClick={() => setNewTagColor(randomColor())}
           >
-            <IconButton
-              style={{ marginLeft: "0px", paddingLeft: "0px" }}
+            <FontAwesomeIcon
+              style={{
+                color: "black",
+                backgroundColor: "inherit",
+                marginRight: "8px",
+              }}
               icon={faRepeat}
-              variant="opaque"
-              size="small"
             />
             Slumpa Färg
           </Button>
         </div>
         <div className={styles.NewTagActionButtonGroup}>
           <Button
-            variant="outlined"
+            variant="opaque"
             size="normal"
             className={styles.NewTagActionButton}
-            onClick={() => setCreatingTag(false)}
+            onClick={() => cancelEditTag()}
           >
             Avbryt
           </Button>
           <Button
             size="normal"
-            variant="outlined"
+            variant="opaque"
             className={styles.NewTagActionButton}
             color="primary"
             disabled={newTagName === ""}
@@ -134,14 +148,14 @@ export const CreateTag = ({ tag, setCreatingTag }: CreateTagProps) => {
                   color: newTagColor,
                 });
               }
-              setCreatingTag(false);
+              cancelEditTag();
             }}
           >
             {isEditing ? "Spara ändringar" : "Skapa Tagg"}
           </Button>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 

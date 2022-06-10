@@ -15,6 +15,9 @@ import Link from "next/link";
 import { useModal } from "../../hooks/useModal";
 import { GetServerSideProps } from "next";
 import CreateTag from "../../components/CreateTag";
+import fuzzysort from "fuzzysort";
+import { useRouter } from "next/router";
+import { Button } from "../../components/Buttons";
 
 type TagsProps = {
   tags?: Tag[];
@@ -23,15 +26,30 @@ type TagsProps = {
 };
 
 const Tags = ({ tags, error }: TagsProps) => {
-  const { t } = useTranslations();
-  const [creatingTag, setCreatingTag] = useState(false);
-  const [editTag, setEditTag] = useState<Tag | undefined>(undefined);
   const { me } = useMe();
+  const { t } = useTranslations();
+
+  const [editTag, setEditTag] = useState<Tag | undefined>(undefined);
+  const [creatingTag, setCreatingTag] = useState(false);
+  console.log(editTag);
+  const [filterText, setFilterText] = useState("");
+  const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
+
+  useEffect(() => {
+    if (tags) {
+      const res = fuzzysort.go(filterText, tags, {
+        keys: ["name", "description"],
+        all: true,
+      });
+      setFilteredTags(res.map((r) => r.obj));
+    }
+  }, [filterText]);
+
   if (error) {
     return <ErrorCard error={error} />;
   }
 
-  if (!tags) {
+  if (!filteredTags) {
     return <Loading />;
   }
 
@@ -40,29 +58,41 @@ const Tags = ({ tags, error }: TagsProps) => {
     setEditTag(clickedTag);
   };
 
+  const cancelEditTag = () => {
+    setCreatingTag(false);
+    setEditTag(undefined);
+  };
+
   return (
     <CardLayout>
       <div className={styles.TagsPageTable}>
         <div className={styles.TagsPageToolbar}>
-          <TextField />
-          <button
+          <TextField
+            placeholder={"SEARCH HERE"}
+            onChange={(e) => {
+              setFilterText(e.target.value);
+            }}
+          />
+          <Button
+            size={"normal"}
+            variant={"primary"}
             className={styles.NewTagButton}
             onClick={() => {
               setCreatingTag(true);
             }}
           >
             {t.tag.newTag}
-          </button>
+          </Button>
         </div>
         {creatingTag && (
-          <CreateTag tag={editTag} setCreatingTag={setCreatingTag} />
+          <CreateTag tag={editTag} cancelEditTag={cancelEditTag} />
         )}
         <div>
           <div className={styles.TableHeader}>
-            <p>{tags.length + t.header.tags}</p>
+            <p>{filteredTags.length + t.header.tags}</p>
           </div>
-          {tags.length > 0 ? (
-            tags.map((tag) => (
+          {filteredTags.length > 0 ? (
+            filteredTags.map((tag) => (
               <TagRow
                 key={tag.id}
                 tag={tag}
@@ -141,18 +171,22 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
           </div>
         </>
       )}
-      {loggedInUser && loggedInUser.id !== tag.author.id && (
+      {loggedInUser?.id === tag.author.id && (
         <div
           style={{ width: minWidth, textAlign: "right" }}
           className={styles.TagTableElement}
         >
-          <button
+          <Button
             className={styles.TagsActionButton}
             onClick={() => setupEditTag(tag)}
+            size="normal"
+            variant="opaque"
           >
             {t.common.edit}
-          </button>
-          <button
+          </Button>
+          <Button
+            size="normal"
+            variant="opaque"
             className={styles.TagsActionButton}
             disabled={loggedInUser.id !== tag.author.id}
             onClick={() => {
@@ -176,7 +210,7 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
             }}
           >
             {t.common.remove}
-          </button>
+          </Button>
         </div>
       )}
     </div>
