@@ -36,7 +36,7 @@ func NewTag(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, common.Success(nil))
+	c.JSON(http.StatusCreated, common.Success(tagJson))
 }
 
 func validateTag(c *gin.Context) (*models.NewTagJson, error) {

@@ -37,7 +37,7 @@ func EditTag(c *gin.Context) {
 	if err != nil {
 		log.Printf("Failed to edit tag: %v\n", err)
 		if errors.Is(err, common.ErrNameTaken) {
-			c.JSON(http.StatusOK, common.Error(common.ResponseTagNameTaken))
+			c.JSON(http.StatusBadRequest, common.Error(common.ResponseTagNameTaken))
 			return
 		}
 
