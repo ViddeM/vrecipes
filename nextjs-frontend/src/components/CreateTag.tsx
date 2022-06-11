@@ -11,11 +11,6 @@ import { Button, IconButton } from "./Buttons";
 import { faRepeat } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslations } from "../hooks/useTranslations";
-import {
-  EDIT_RECIPE_BASE_ENDPOINT,
-  TAGS_BASE_ENDPOINT,
-} from "../api/Endpoints";
-import { UniqueName } from "../api/UniqueName";
 import useRefreshProps from "../hooks/useRefreshProps";
 import { NewTag } from "../api/NewTag";
 
@@ -27,6 +22,7 @@ export interface CreateTagProps {
 export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
   const { t, translate } = useTranslations();
   const refreshProps = useRefreshProps();
+
   const [error, setError] = useState<string | undefined>(undefined);
 
   const [isEditing, setIsEditing] = useState<boolean>(tag !== undefined);

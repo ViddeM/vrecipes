@@ -215,7 +215,6 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   let res = await Api.tags.getAll();
-  console.log("GETSERVERSIDEPROPS");
 
   return {
     props: {
