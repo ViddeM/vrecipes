@@ -1,21 +1,7 @@
 @import "src/resources/styles/vars.scss";
 
-.VTextField {
-  width: 100%;
-  box-sizing: border-box;
-  background-color: white;
-  border-radius: 4px;
-  margin-bottom: 10px !important;
-
-
-  @media (min-width: 1024px) {
-    width: 300px;
-    margin-right: 10px !important;
-  }
-}
 
 .NewTagButton {
-  height: 40px;
   width: 100%;
 
 
@@ -25,11 +11,15 @@
 }
 
 .TagsPageTable {
+  display: flex;
+  flex-direction: column;
+  gap: $space-small;
+
   max-width: 1216px;
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 24px;
+  padding: 0 $space;
 }
 
 
@@ -39,7 +29,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px !important;
+  gap: $space-small;
 
 
   @media (min-width: 1024px) {
@@ -48,12 +38,11 @@
 }
 
 .TableHeader {
-  height: 21px;
   background-color: #E0E0E0;
   text-align: left;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  padding: 16px;
+  border-top-left-radius: $space-tiny;
+  border-top-right-radius: $space-tiny;
+  padding: $space-small;
   border: 1px solid #707070;
 }
 
@@ -61,7 +50,7 @@
 .TableRow {
   border: 1px solid #707070;
   border-top: none;
-  padding: 16px;
+  padding: $space-small;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -69,8 +58,8 @@
   background-color: white;
 
   &:last-child {
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: $space-tiny;
+    border-bottom-right-radius: $space-tiny;
   }
 
   box-sizing: border-box;
@@ -81,7 +70,7 @@
   cursor: pointer;
   display: inline-block;
   padding: 0;
-  margin-left: 20px;
+  margin-left: $space;
   text-decoration: none;
   user-select: none;
   white-space: nowrap;
@@ -92,6 +81,7 @@
   background-color: inherit;
 
   &:hover {
+    color: $primary-color;
     text-decoration: underline;
   }
 
