@@ -17,6 +17,7 @@ import {
 } from "../api/Endpoints";
 import { UniqueName } from "../api/UniqueName";
 import useRefreshProps from "../hooks/useRefreshProps";
+import { NewTag } from "../api/NewTag";
 
 export interface CreateTagProps {
   tag?: Tag;
@@ -52,7 +53,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
     }
   }, [tag]);
 
-  const handleError = (data: ApiResponse<Tag>) => {
+  const handleError = (data: ApiResponse<NewTag>) => {
     if (data.error && data.errorTranslationString) {
       setError(translate(data.errorTranslationString));
     } else {
@@ -87,22 +88,25 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
 
   return (
     <form
-      className={styles.NewTagContainerForm}
+      className={styles.newTagContainerForm}
       onSubmit={(e) => handleSubmit(e)}
     >
-      <div className={styles.NewTagRow}>
-        <TagComponent
-          noLink={true}
-          color={newTagColor}
-          text={newTagName === "" ? t.common.preview : newTagName}
-        />
-        {error && <p className="errorText">{error}</p>}
+      <div className={styles.newTagRow}>
+        <div className={"centerRow"}>
+          <TagComponent
+            noLink={true}
+            color={newTagColor}
+            text={newTagName === "" ? t.common.preview : newTagName}
+          />
+          {error && <p className="errorText">{error}</p>}
+        </div>
       </div>
-      <div className={styles.NewTagRow}>
+      <div className={styles.newTagRow}>
         <TextField
           placeholder={t.tag.tagName}
           required
           value={newTagName}
+          className={"ResponsiveTextfield"}
           onChange={(e) => {
             let val = e.target.value;
             if (val.length <= 30) {
@@ -113,6 +117,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
         <TextField
           placeholder={t.tag.tagDescription}
           value={newTagDescription}
+          className={"ResponsiveTextfield"}
           onChange={(e) => {
             let val = e.target.value;
             if (val.length <= 120) {
@@ -120,73 +125,71 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
             }
           }}
         />
-        <div className={styles.NewTagColorSelectContainer}>
-          <button
-            type={"button"}
-            className={styles.NewTagColorButton}
-            style={{
-              color: `rgb(${newTagColor.r}, ${newTagColor.g}, ${newTagColor.b})`,
-              backgroundColor: `rgb(${newTagColor.r}, ${newTagColor.g}, ${newTagColor.b})`,
-            }}
-            onClick={(e) => {
-              e.preventDefault();
-              toggleColorPicker(!colorPickerOpen);
-            }}
-          />
-          {colorPickerOpen && (
-            <div style={{ position: "relative" }}>
-              <div className={styles.ColorPickerBase}>
-                <div
-                  className={styles.ColorPickerCover}
-                  onClick={() => toggleColorPicker(!colorPickerOpen)}
-                />
-                <ChromePicker
-                  className={styles.TagsColorPicker}
-                  disableAlpha={true}
-                  onChange={(val) => setNewTagColor(val.rgb)}
-                  color={newTagColor}
-                />
-              </div>
-            </div>
-          )}
-          <Button
-            variant={"opaque"}
-            size={"large"}
-            className={styles.NewTagActionButton}
-            onClick={() => setNewTagColor(randomColor())}
-            type={"button"}
-          >
-            <FontAwesomeIcon
+
+        <div className={styles.newTagActionButtonGroup}>
+          <div className={"centerRow"}>
+            <button
+              type={"button"}
+              className={styles.newTagColorButton}
               style={{
-                color: "black",
-                backgroundColor: "inherit",
-                marginRight: "8px",
+                color: `rgb(${newTagColor.r}, ${newTagColor.g}, ${newTagColor.b})`,
+                backgroundColor: `rgb(${newTagColor.r}, ${newTagColor.g}, ${newTagColor.b})`,
               }}
-              icon={faRepeat}
+              onClick={(e) => {
+                e.preventDefault();
+                toggleColorPicker(!colorPickerOpen);
+              }}
             />
-            {t.tag.randomiseColor}
-          </Button>
-        </div>
-        <div className={styles.NewTagActionButtonGroup}>
-          <Button
-            variant={"opaque"}
-            size={"normal"}
-            className={styles.NewTagActionButton}
-            onClick={() => cancelEditTag()}
-            type={"button"}
-          >
-            {t.common.cancel}
-          </Button>
-          <Button
-            size="normal"
-            variant="opaque"
-            className={styles.NewTagActionButton}
-            color="primary"
-            disabled={newTagName === ""}
-            type={"submit"}
-          >
-            {isEditing ? t.common.saveChanges : t.tag.createTag}
-          </Button>
+            {colorPickerOpen && (
+              <div style={{ position: "relative" }}>
+                <div className={styles.colorPickerBase}>
+                  <div
+                    className={styles.colorPickerCover}
+                    onClick={() => toggleColorPicker(!colorPickerOpen)}
+                  />
+                  <ChromePicker
+                    className={styles.tagsColorPicker}
+                    disableAlpha={true}
+                    onChange={(val) => setNewTagColor(val.rgb)}
+                    color={newTagColor}
+                  />
+                </div>
+              </div>
+            )}
+            <Button
+              variant={"opaque"}
+              size={"normal"}
+              className={styles.newTagActionButton}
+              onClick={() => setNewTagColor(randomColor())}
+              type={"button"}
+            >
+              <FontAwesomeIcon
+                className={styles.randomiseIcon}
+                icon={faRepeat}
+              />
+              {t.tag.randomiseColor}
+            </Button>
+          </div>
+          <div className={"centerRow"}>
+            <Button
+              size={"normal"}
+              variant={"opaque"}
+              className={styles.NewTagActionButton}
+              onClick={() => cancelEditTag()}
+              type={"button"}
+            >
+              {t.common.cancel}
+            </Button>
+            <Button
+              size={"normal"}
+              variant={"primary"}
+              className={styles.NewTagActionButton}
+              disabled={newTagName === ""}
+              type={"submit"}
+            >
+              {isEditing ? t.common.saveChanges : t.tag.createTag}
+            </Button>
+          </div>
         </div>
       </div>
     </form>

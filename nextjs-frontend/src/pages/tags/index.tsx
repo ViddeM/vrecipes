@@ -68,6 +68,7 @@ const Tags = ({ tags, error }: TagsProps) => {
         <div className={styles.TagsPageToolbar}>
           <TextField
             placeholder={t.tag.searchTags}
+            className={"ResponsiveTextfield"}
             onChange={(e) => {
               setFilterText(e.target.value);
             }}
@@ -88,7 +89,7 @@ const Tags = ({ tags, error }: TagsProps) => {
         )}
         <div>
           <div className={styles.TableHeader}>
-            <p>{filteredTags.length + t.header.tags}</p>
+            <p>{`${filteredTags.length} ${t.header.tags}`}</p>
           </div>
           {filteredTags.length > 0 ? (
             filteredTags.map((tag) => (
@@ -175,17 +176,13 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
           style={{ width: minWidth, textAlign: "right" }}
           className={styles.TagTableElement}
         >
-          <Button
+          <button
             className={styles.TagsActionButton}
             onClick={() => setupEditTag(tag)}
-            size="normal"
-            variant="opaque"
           >
             {t.common.edit}
-          </Button>
-          <Button
-            size="normal"
-            variant="opaque"
+          </button>
+          <button
             className={styles.TagsActionButton}
             disabled={loggedInUser.id !== tag.author.id}
             onClick={() => {
@@ -209,7 +206,7 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
             }}
           >
             {t.common.remove}
-          </Button>
+          </button>
         </div>
       )}
     </div>
@@ -218,6 +215,7 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   let res = await Api.tags.getAll();
+  console.log("GETSERVERSIDEPROPS");
 
   return {
     props: {
