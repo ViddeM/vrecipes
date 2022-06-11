@@ -1,33 +1,39 @@
 @import "src/resources/styles/vars.scss";
 
 
-.NewTagContainerForm {
+.newTagContainerForm {
   background-color: white;
-  border-radius: 6px;
-  margin-bottom: 10px;
-  padding: 16px;
+  border-radius: $space-tiny;
+  padding: $space-small;
   border: 1px solid #707070;
+
+  display: flex;
+  flex-direction: column;
+  gap: $space-tiny;
 }
 
-.NewTagRow {
-  margin-bottom: 16px;
+.newTagRow {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  gap: $space-small;
 
   @media (min-width: 1024px) {
     flex-direction: row;
   }
 }
 
-.NewTagColorButton {
-  height: 46px;
-  width: 46px;
-  border-radius: 10px;
+.newTagActionButtonGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.newTagColorButton {
+  height: 40px;
+  width: 40px;
+  border-radius: $space-tiny;
   border: none;
   padding: 0;
   box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
@@ -42,12 +48,13 @@
   }
 }
 
-.ColorPickerBase {
+
+.colorPickerBase {
   position: absolute;
   z-index: 2;
 }
 
-.ColorPickerCover {
+.colorPickerCover {
   position: fixed;
   top: 0;
   right: 0;
@@ -55,24 +62,19 @@
   bottom: 0;
 }
 
-.NewTagColorSelectContainer {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 10px;
-}
-
-.TagsColorPicker {
+.tagsColorPicker {
   margin-left: -10px;
   margin-top: 30px;
 }
 
-.NewTagActionButtonGroup {
-  margin-left: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+
+.newTagActionButton {
+  display: inherit;
+  align-items: center;
+  width: auto;
 }
 
-.NewTagActionButton {
-  margin-left: 10px !important;
+.randomiseIcon {
+  color: inherit;
+  margin: auto $space-tiny;
 }
