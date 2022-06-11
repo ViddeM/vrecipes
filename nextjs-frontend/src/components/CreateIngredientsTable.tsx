@@ -214,13 +214,12 @@ const CreateIngredient = ({
           placeholder={t.recipe.ingredientAmount}
           value={ingredient.amount ? ingredient.amount : ""}
           onChange={(e) => {
-            let val = parseInt(e.target.value);
+            let val = parseFloat(e.target.value);
 
             let newAmount = undefined;
             if (!isNaN(val)) {
               newAmount = val;
             }
-
             // @ts-ignore
             amountElement.setCustomValidity("");
             if (newAmount === undefined && ingredient.unit !== "") {
