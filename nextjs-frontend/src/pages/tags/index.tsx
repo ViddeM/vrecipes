@@ -18,6 +18,7 @@ import CreateTag from "../../components/CreateTag";
 import fuzzysort from "fuzzysort";
 import { useRouter } from "next/router";
 import { Button } from "../../components/Buttons";
+import useRefreshProps from "../../hooks/useRefreshProps";
 
 type TagsProps = {
   tags?: Tag[];
@@ -42,7 +43,7 @@ const Tags = ({ tags, error }: TagsProps) => {
       });
       setFilteredTags(res.map((r) => r.obj));
     }
-  }, [filterText]);
+  }, [filterText, tags]);
 
   if (error) {
     return <ErrorCard error={error} />;
@@ -118,6 +119,7 @@ type TagRow = {
 const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
   const { t } = useTranslations();
   const [windowWidth, setWindowWidth] = useState({});
+  const refreshProps = useRefreshProps();
 
   const { openModal } = useModal();
 
@@ -199,6 +201,7 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
                   text: t.common.yes,
                   onClick: () => {
                     Api.tags.remove(tag.id);
+                    refreshProps();
                   },
                 },
                 onClose: () => {},
