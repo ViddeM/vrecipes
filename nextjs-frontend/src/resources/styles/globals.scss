@@ -106,6 +106,13 @@ a {
   align-items: center;
 }
 
+.centerRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: $space-small;
+}
+
 .alignLeft {
   text-align: left;
 }
@@ -122,4 +129,16 @@ a {
 
 .fill {
   flex: 1;
+}
+
+.ResponsiveTextfield {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: $space-tiny;
+
+  @media (min-width: 1024px) {
+    width: 300px;
+    margin-right: $space-small !important;
+  }
 }
