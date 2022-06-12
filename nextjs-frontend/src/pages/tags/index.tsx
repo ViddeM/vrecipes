@@ -68,6 +68,7 @@ const Tags = ({ tags, error }: TagsProps) => {
       <div className={styles.TagsPageTable}>
         <div className={styles.TagsPageToolbar}>
           <TextField
+            type={"search"}
             placeholder={t.tag.searchTags}
             className={"ResponsiveTextfield"}
             onChange={(e) => {

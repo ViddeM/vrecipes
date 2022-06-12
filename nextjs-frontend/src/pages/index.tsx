@@ -15,6 +15,8 @@ import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { CREATE_RECIPE_ENDPOINT } from "../api/Endpoints";
 import { useMe } from "../hooks/useMe";
+import { useEffect, useState } from "react";
+import fuzzysort from "fuzzysort";
 
 type HomeProps = {
   recipes?: ShortRecipe[];
@@ -29,6 +31,19 @@ const Home = ({ recipes, error }: HomeProps) => {
   const isLargeWindow = useMediaQuery(LARGER_THAN_MOBILE_BREAKPOINT);
   const { isLoggedIn } = useMe();
 
+  const [filterText, setFilterText] = useState("");
+  const [filteredRecipes, setFilteredRecipes] = useState<ShortRecipe[]>([]);
+
+  useEffect(() => {
+    if (recipes) {
+      const res = fuzzysort.go(filterText, recipes, {
+        keys: ["name", "author.name"],
+        all: true,
+      });
+      setFilteredRecipes(res.map((r) => r.obj));
+    }
+  }, [filterText, recipes]);
+
   if (error) {
     return <ErrorCard error={error} />;
   }
@@ -39,36 +54,37 @@ const Home = ({ recipes, error }: HomeProps) => {
 
   return (
     <DefaultLayout>
-      <div>
-        <div className={`${styles.searchContainer} card marginBottomBig`}>
-          <TextField
-            type="search"
-            placeholder={`${t.recipe.searchRecipes}`}
-            className={`marginRight ${styles.searchButton}`}
-          />
+      <div className={`${styles.searchContainer} card marginBottomBig`}>
+        <TextField
+          type="search"
+          placeholder={`${t.recipe.searchRecipes}`}
+          className={`marginRight ${styles.searchButton}`}
+          onChange={(e) => {
+            setFilterText(e.target.value);
+          }}
+        />
 
-          {isLoggedIn && (
-            /* Show create recipe button only when user is logged in */
-            <Link href={CREATE_RECIPE_ENDPOINT}>
-              <a>
-                {isLargeWindow ? (
-                  <Button variant="primary" size="normal">
-                    {t.recipe.createRecipe}
-                  </Button>
-                ) : (
-                  <div className={styles.addIconButtonContainer}>
-                    <IconButton variant="primary" size="normal" icon={faAdd} />
-                  </div>
-                )}
-              </a>
-            </Link>
-          )}
-        </div>
-        <div className={styles.recipeCardsList}>
-          {recipes.map((recipe) => (
-            <RecipeCard key={recipe.uniqueName} recipe={recipe} />
-          ))}
-        </div>
+        {isLoggedIn && (
+          /* Show create recipe button only when user is logged in */
+          <Link href={CREATE_RECIPE_ENDPOINT}>
+            <a>
+              {isLargeWindow ? (
+                <Button variant="primary" size="normal">
+                  {t.recipe.createRecipe}
+                </Button>
+              ) : (
+                <div className={styles.addIconButtonContainer}>
+                  <IconButton variant="primary" size="normal" icon={faAdd} />
+                </div>
+              )}
+            </a>
+          </Link>
+        )}
+      </div>
+      <div className={styles.recipeCardsList}>
+        {filteredRecipes.map((recipe) => (
+          <RecipeCard key={recipe.uniqueName} recipe={recipe} />
+        ))}
       </div>
     </DefaultLayout>
   );
