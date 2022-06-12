@@ -149,7 +149,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
                             alert(`${val.errorTranslationString}`);
                           }
 
-                          alert(val.data);
+                          alert(t.recipe.recipeDeleted);
                           window.location.assign(ROOT_ENDPOINT);
                         });
                       },

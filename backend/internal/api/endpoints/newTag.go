@@ -21,18 +21,27 @@ func NewTag(c *gin.Context) {
 	user, err := getSessionUser(c)
 	if err != nil {
 		log.Printf("Failed to retrieve user from context %s\n", err)
-		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseInvalidUserId))
+		c.JSON(
+			http.StatusInternalServerError,
+			common.Error(common.ResponseInvalidUserId),
+		)
 		return
 	}
 
 	_, err = process.CreateNewTag(tagJson, user)
 	if err != nil {
 		if errors.Is(err, common.ErrNameTaken) {
-			c.JSON(http.StatusUnprocessableEntity, common.Error(common.ResponseTagNameTaken))
+			c.JSON(
+				http.StatusUnprocessableEntity,
+				common.Error(common.ResponseTagNameTaken),
+			)
 			return
 		}
 		log.Printf("Failed creating tag %v\n", err)
-		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseFailedToCreateTag))
+		c.JSON(
+			http.StatusInternalServerError,
+			common.Error(common.ResponseFailedToCreateTag),
+		)
 		return
 	}
 

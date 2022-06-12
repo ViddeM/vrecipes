@@ -43,17 +43,27 @@ func EditRecipe(c *gin.Context) {
 	if err != nil {
 		log.Printf("Failed to edit recipe: %v\n", err)
 		if errors.Is(err, common.ErrNameTaken) {
-			c.JSON(http.StatusOK, common.Error(common.ResponseRecipeNameExist))
+			c.JSON(
+				http.StatusUnprocessableEntity,
+				common.Error(common.ResponseRecipeNameExist),
+			)
 			return
 		}
 
-		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseFailedToEditRecipe))
+		c.JSON(
+			http.StatusInternalServerError,
+			common.Error(common.ResponseFailedToEditRecipe),
+		)
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(EditRecipeJson{
-		UniqueName: uniqueName,
-	}))
+	c.JSON(
+		http.StatusOK, common.Success(
+			EditRecipeJson{
+				UniqueName: uniqueName,
+			},
+		),
+	)
 }
 
 func validateEditRecipe(c *gin.Context) (*models.EditRecipeJson, error) {
@@ -71,7 +81,10 @@ func validateRecipeId(c *gin.Context) (*tables.Recipe, error) {
 	idStr := c.Param("id")
 	id, err := uuid.Parse(idStr)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, common.Error(common.ResponseMalformedRecipeId))
+		c.JSON(
+			http.StatusBadRequest,
+			common.Error(common.ResponseMalformedRecipeId),
+		)
 		return nil, err
 	}
 

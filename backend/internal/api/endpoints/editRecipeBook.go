@@ -37,11 +37,17 @@ func EditRecipeBook(c *gin.Context) {
 	if err != nil {
 		log.Printf("Failed to edit recipebook: %v\n", err)
 		if errors.Is(err, common.ErrNameTaken) {
-			c.JSON(http.StatusOK, common.Error(common.ResponseRecipeBookNameExists))
+			c.JSON(
+				http.StatusUnprocessableEntity,
+				common.Error(common.ResponseRecipeBookNameExists),
+			)
 			return
 		}
 
-		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseFailedToEditRecipeBook))
+		c.JSON(
+			http.StatusInternalServerError,
+			common.Error(common.ResponseFailedToEditRecipeBook),
+		)
 		return
 	}
 
@@ -52,13 +58,19 @@ func validateRecipeBookId(c *gin.Context) (*tables.RecipeBook, error) {
 	idStr := c.Param("id")
 	id, err := uuid.Parse(idStr)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, common.Error(common.ResponseMalformedRecipeBookId))
+		c.JSON(
+			http.StatusBadRequest,
+			common.Error(common.ResponseMalformedRecipeBookId),
+		)
 		return nil, err
 	}
 
 	recipeBook, err := queries.GetRecipeBookById(id)
 	if err != nil {
-		c.JSON(http.StatusNotFound, common.Error(common.ResponseRecipeBookNotFound))
+		c.JSON(
+			http.StatusNotFound,
+			common.Error(common.ResponseRecipeBookNotFound),
+		)
 		return nil, err
 	}
 
