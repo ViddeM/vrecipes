@@ -25,7 +25,10 @@ func RemoveTag(c *gin.Context) {
 	err = process.DeleteTag(tag)
 	if err != nil {
 		log.Printf("Failed to delete tag: %v\n", err)
-		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseFailedToDeleteTag))
+		c.JSON(
+			http.StatusInternalServerError,
+			common.Error(common.ResponseFailedToDeleteTag),
+		)
 		return
 	}
 

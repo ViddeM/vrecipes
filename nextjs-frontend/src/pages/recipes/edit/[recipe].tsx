@@ -1,6 +1,6 @@
 import CardLayout from "../../../layouts/CardLayout";
 import { GetServerSideProps } from "next";
-import { Api, isClientSide } from "../../../api/Api";
+import { Api, ApiResponse, isClientSide } from "../../../api/Api";
 import { Recipe } from "../../../api/Recipe";
 import { useTranslations } from "../../../hooks/useTranslations";
 import ErrorCard from "../../../components/ErrorCard";
@@ -118,11 +118,13 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
       tags: selectedTags.map((t) => t.id),
     };
 
-    Api.recipes.edit(newRecipe).then((response) => {
+    Api.recipes.edit(newRecipe).then((response: ApiResponse<Recipe>) => {
       if (response.error && response.errorTranslationString) {
         setError(translate(response.errorTranslationString));
       } else {
-        window.location.assign(`${RECIPES_BASE_ENDPOINT}/${recipe.uniqueName}`);
+        window.location.assign(
+          `${RECIPES_BASE_ENDPOINT}/${response.data?.uniqueName}`
+        );
       }
     });
   };

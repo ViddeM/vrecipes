@@ -26,7 +26,10 @@ func NewRecipeBook(c *gin.Context) {
 	user, err := getSessionUser(c)
 	if err != nil {
 		log.Printf("Failed to retrieve user from context: %v\n", err)
-		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseInvalidUserId))
+		c.JSON(
+			http.StatusInternalServerError,
+			common.Error(common.ResponseInvalidUserId),
+		)
 		return
 	}
 
@@ -34,18 +37,28 @@ func NewRecipeBook(c *gin.Context) {
 	if err != nil {
 		if errors.Is(err, common.ErrNameTaken) {
 			log.Printf("Tried to create duplicate recipebook")
-			c.JSON(http.StatusOK, common.Error(common.ResponseRecipeBookNameExists))
+			c.JSON(
+				http.StatusUnprocessableEntity,
+				common.Error(common.ResponseRecipeBookNameExists),
+			)
 			return
 		}
 
 		log.Printf("Failed to create new recipebook: %v\n", err)
-		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseFailedToCreateRecipeBook))
+		c.JSON(
+			http.StatusInternalServerError,
+			common.Error(common.ResponseFailedToCreateRecipeBook),
+		)
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(NewRecipeBookResponse{
-		RecipeBookUniqueName: uniqueName,
-	}))
+	c.JSON(
+		http.StatusOK, common.Success(
+			NewRecipeBookResponse{
+				RecipeBookUniqueName: uniqueName,
+			},
+		),
+	)
 }
 
 func validateRecipeBook(c *gin.Context) (*models.NewRecipeBookJson, error) {

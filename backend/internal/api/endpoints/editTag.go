@@ -37,11 +37,17 @@ func EditTag(c *gin.Context) {
 	if err != nil {
 		log.Printf("Failed to edit tag: %v\n", err)
 		if errors.Is(err, common.ErrNameTaken) {
-			c.JSON(http.StatusBadRequest, common.Error(common.ResponseTagNameTaken))
+			c.JSON(
+				http.StatusUnprocessableEntity,
+				common.Error(common.ResponseTagNameTaken),
+			)
 			return
 		}
 
-		c.JSON(http.StatusInternalServerError, common.Error(common.ResponseFailedToEditTag))
+		c.JSON(
+			http.StatusInternalServerError,
+			common.Error(common.ResponseFailedToEditTag),
+		)
 		return
 	}
 
@@ -52,7 +58,10 @@ func validateTagId(c *gin.Context) (*tables.Tag, error) {
 	idStr := c.Param("id")
 	id, err := uuid.Parse(idStr)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, common.Error(common.ResponseMalformedTagId))
+		c.JSON(
+			http.StatusBadRequest,
+			common.Error(common.ResponseMalformedTagId),
+		)
 		return nil, err
 	}
 

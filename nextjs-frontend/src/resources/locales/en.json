@@ -47,7 +47,8 @@
       "unitMustBeFilledIn": "Must have a value if amount does."
     },
     "image": "Image",
-    "uploadImage": "Upload an image..."
+    "uploadImage": "Upload an image...",
+    "recipeDeleted": "Recipe deleted"
   },
   "tag": {
     "newTag": "New tag",

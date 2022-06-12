@@ -135,16 +135,16 @@ function handleResponse<T>(
     .catch((err) => {
       let error = "errors.default";
 
-      if (handleAuth && err.response.status === 401) {
+      if (handleAuth && err.response?.status === 401) {
         // We need to get authorized.
-        if (err.response.headers.location) {
+        if (err.response?.headers.location) {
           // The server provided us with an authorization URL.
           window.location.assign(err.response.headers.location);
           return { rawResponse: err.response };
         } else {
           error = "errors.unauthorized";
         }
-      } else if (err.response && err.response.data) {
+      } else if (err.response?.data) {
         error = handleError(err.response.data);
       }
 

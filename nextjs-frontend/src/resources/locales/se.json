@@ -47,7 +47,8 @@
       "unitMustBeFilledIn": "Måste ha ett värde om mängd har det."
     },
     "image": "Bild",
-    "uploadImage": "Ladda upp bild..."
+    "uploadImage": "Ladda upp bild...",
+    "recipeDeleted": "Receptet har tagits bort"
   },
   "tag": {
     "newTag": "Ny tagg",
