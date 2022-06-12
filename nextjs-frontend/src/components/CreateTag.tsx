@@ -170,7 +170,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
             <Button
               size={"normal"}
               variant={"opaque"}
-              className={styles.NewTagActionButton}
+              className={styles.newTagActionButton}
               onClick={() => cancelEditTag()}
               type={"button"}
             >
@@ -179,7 +179,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
             <Button
               size={"normal"}
               variant={"primary"}
-              className={styles.NewTagActionButton}
+              className={styles.newTagActionButton}
               disabled={newTagName === ""}
               type={"submit"}
             >
