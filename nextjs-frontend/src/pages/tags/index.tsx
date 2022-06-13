@@ -16,7 +16,6 @@ import { useModal } from "../../hooks/useModal";
 import { GetServerSideProps } from "next";
 import CreateTag from "../../components/CreateTag";
 import fuzzysort from "fuzzysort";
-import { useRouter } from "next/router";
 import { Button } from "../../components/Buttons";
 import useRefreshProps from "../../hooks/useRefreshProps";
 
