@@ -52,6 +52,12 @@
     "uploadImage": "Ladda upp bild...",
     "recipeDeleted": "Receptet har tagits bort"
   },
+  "recipeBooks": {
+    "searchRecipeBooks": "Sök receptböcker",
+    "createRecipeBook": "Skapa receptbok",
+    "createRecipeBookTitle": "Skapa receptbok",
+    "recipeBookName": "Receptboksnamn"
+  },
   "tag": {
     "newTag": "Ny tagg",
     "createTag": "Skapa tagg",
