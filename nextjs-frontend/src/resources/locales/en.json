@@ -52,6 +52,12 @@
     "uploadImage": "Upload an image...",
     "recipeDeleted": "Recipe deleted"
   },
+  "recipeBooks": {
+    "searchRecipeBooks": "Search recipe books",
+    "createRecipeBook": "Create recipe book",
+    "createRecipeBookTitle": "Create recipe book",
+    "recipeBookName": "Recipe book name"
+  },
   "tag": {
     "newTag": "New tag",
     "createTag": "Create tag",

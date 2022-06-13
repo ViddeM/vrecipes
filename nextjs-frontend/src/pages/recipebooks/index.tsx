@@ -3,6 +3,20 @@ import { GetServerSideProps } from "next";
 import { Api } from "../../api/Api";
 import { ShortRecipeBook } from "../../api/ShortRecipeBook";
 import { Me } from "../../api/Me";
+import styles from "./index.module.scss";
+import TextField from "../../components/TextField";
+import Link from "next/link";
+import { CREATE_RECIPE_BOOK_ENDPOINT } from "../../api/Endpoints";
+import { Button, IconButton } from "../../components/Buttons";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import { useTranslations } from "../../hooks/useTranslations";
+import { useEffect, useState } from "react";
+import fuzzysort from "fuzzysort";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import { LARGER_THAN_MOBILE_BREAKPOINT } from "../../util/constants";
+import { useMe } from "../../hooks/useMe";
+import ErrorCard from "../../components/ErrorCard";
+import Loading from "../../components/Loading";
 
 type RecipeBooksProps = {
   recipeBooks?: ShortRecipeBook[];
@@ -10,10 +24,70 @@ type RecipeBooksProps = {
   me?: Me;
 };
 
-const RecipeBooks = () => {
+const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
+  const { t } = useTranslations();
+  const isLargeWindow = useMediaQuery(LARGER_THAN_MOBILE_BREAKPOINT);
+  const { isLoggedIn } = useMe();
+
+  const [filterText, setFilterText] = useState("");
+  const [filteredBooks, setFilteredBooks] = useState<ShortRecipeBook[]>([]);
+
+  useEffect(() => {
+    if (recipeBooks) {
+      const res = fuzzysort.go(filterText, recipeBooks, {
+        keys: ["name", "uploadedBy.name", "author"],
+        all: true,
+      });
+      setFilteredBooks(res.map((r) => r.obj));
+    }
+  }, [filterText, recipeBooks]);
+
+  if (error) {
+    return <ErrorCard error={error} />;
+  }
+
+  if (!recipeBooks) {
+    return <Loading />;
+  }
+
   return (
     <DefaultLayout>
-      <h1>Recipebooks</h1>
+      <div className={`${styles.searchContainer} card marginBottomBig`}>
+        <TextField
+          type="search"
+          placeholder={`${t.recipeBooks.searchRecipeBooks}`}
+          className={`marginRight ${styles.searchField}`}
+          onChange={(e) => {
+            setFilterText(e.target.value);
+          }}
+        />
+
+        {isLoggedIn && (
+          /* Show create recipe button only when user is logged in */
+          <Link href={CREATE_RECIPE_BOOK_ENDPOINT}>
+            <a>
+              {isLargeWindow ? (
+                <Button
+                  variant="primary"
+                  size="normal"
+                  className={styles.searchButton}
+                >
+                  {t.recipeBooks.createRecipeBook}
+                </Button>
+              ) : (
+                <div className={styles.addIconButtonContainer}>
+                  <IconButton variant="primary" size="normal" icon={faAdd} />
+                </div>
+              )}
+            </a>
+          </Link>
+        )}
+      </div>
+      <div className={styles.recipeCardsList}>
+        {filteredBooks.map((book) => (
+          <h2>{`Book: ${book.name}`}</h2>
+        ))}
+      </div>
     </DefaultLayout>
   );
 };
@@ -24,7 +98,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       error: res.errorTranslationString ?? null,
-      recipeBooks: res.data ? res.data.books ?? null : null,
+      recipeBooks: res?.data?.recipeBooks ?? null,
     },
   };
 };

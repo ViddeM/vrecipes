@@ -21,14 +21,14 @@ import TagFilter from "../components/TagFilter";
 import { Tag } from "../api/Tag";
 import TagList from "../components/TagList";
 
+import { LARGER_THAN_MOBILE_BREAKPOINT } from "../util/constants";
+
 type HomeProps = {
   recipes?: ShortRecipe[];
   tags: Tag[];
   error?: string;
   me?: Me;
 };
-
-const LARGER_THAN_MOBILE_BREAKPOINT = 600;
 
 const Home = ({ recipes, error, tags }: HomeProps) => {
   const { t } = useTranslations();

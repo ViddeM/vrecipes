@@ -4,12 +4,13 @@ import Image from "next/image";
 import { Button } from "./Buttons";
 import { useTranslations } from "../hooks/useTranslations";
 import { useMe } from "../hooks/useMe";
-import { LOGIN_ENDPOINT } from "../api/Endpoints";
+import {
+  LOGIN_ENDPOINT,
+  RECIPE_BOOKS_BASE_ENDPOINT,
+  ROOT_ENDPOINT,
+  TAGS_BASE_ENDPOINT,
+} from "../api/Endpoints";
 import { useRouter } from "next/router";
-
-const RECIPES_PATH = "/";
-const RECIPEBOOKS_PATH = "/recipebooks";
-const TAGS_PATH = "/tags";
 
 const Header = () => {
   const { t } = useTranslations();
@@ -55,26 +56,30 @@ const Header = () => {
       <ul className={styles.subHeader}>
         <li
           className={
-            asPath === RECIPES_PATH ? styles.selectedSubHeaderItem : ""
+            asPath === ROOT_ENDPOINT ? styles.selectedSubHeaderItem : ""
           }
         >
-          <Link href={RECIPES_PATH}>
+          <Link href={ROOT_ENDPOINT}>
             <a>{t.header.recipes}</a>
           </Link>
         </li>
         <li
           className={
-            asPath === RECIPEBOOKS_PATH ? styles.selectedSubHeaderItem : ""
+            asPath === RECIPE_BOOKS_BASE_ENDPOINT
+              ? styles.selectedSubHeaderItem
+              : ""
           }
         >
-          <Link href={RECIPEBOOKS_PATH}>
+          <Link href={RECIPE_BOOKS_BASE_ENDPOINT}>
             <a>{t.header.recipebooks}</a>
           </Link>
         </li>
         <li
-          className={asPath === TAGS_PATH ? styles.selectedSubHeaderItem : ""}
+          className={
+            asPath === TAGS_BASE_ENDPOINT ? styles.selectedSubHeaderItem : ""
+          }
         >
-          <Link href={TAGS_PATH}>
+          <Link href={TAGS_BASE_ENDPOINT}>
             <a>{t.header.tags}</a>
           </Link>
         </li>
