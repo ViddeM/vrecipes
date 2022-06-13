@@ -7,8 +7,10 @@ import fuzzysort from "fuzzysort";
 import { useTranslations } from "../hooks/useTranslations";
 import TagComponent from "./Tag";
 import Link from "next/link";
-import { LOGIN_ENDPOINT, TAGS_BASE_ENDPOINT } from "../api/Endpoints";
-import { Button } from "./Buttons";
+import { TAGS_BASE_ENDPOINT } from "../api/Endpoints";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import HLine from "./HLine";
 
 export type TagFilterProps = {
   detailsLabel: string;
@@ -24,7 +26,7 @@ const TagFilter: FC<TagFilterProps> = ({
   initialSelectedTags,
 }) => {
   const { t } = useTranslations();
-
+  const searchRef = createRef<HTMLInputElement>();
   const detailsRef = createRef<HTMLDetailsElement>();
   const closeDetails = (e: Event) => {
     assertIsNode(e.target);
@@ -67,53 +69,43 @@ const TagFilter: FC<TagFilterProps> = ({
   }, [filterText, tags]);
 
   return (
-    <details ref={detailsRef}>
-      <summary className={styles.summaryBase}>
-        <p>{detailsLabel}</p>
-        <div>
-          {selectedTags.map((t) => (
-            <TagComponent
-              key={t.id}
-              noLink={true}
-              color={t.color}
-              text={t.name}
-            />
-          ))}
-        </div>
-      </summary>
-      <div className={styles.filterViewBase}>
-        <div className={styles.filterViewMenu}>
-          <div>
-            <h4>{"LAGG TILL TAGGAR"}</h4>
-          </div>
-          <div>
-            <TextField
-              type={"text"}
-              placeholder={t.tag.searchTags}
-              className={"ResponsiveTextfield"}
-              onChange={(e) => {
-                setFilterText(e.target.value);
-              }}
-            />
-          </div>
-          <div className={`column ${styles.filterItemList}`}>
-            {filteredTags.map((tag) => (
-              <TagFilterItem
-                key={tag.id}
-                tag={tag}
-                selected={selectedTags.some((t) => t.id === tag.id)}
-                onSelected={updatedSelectedTags}
+    <div className={styles.detailsBase}>
+      <details ref={detailsRef}>
+        <summary className={`verticalCenterRow ${styles.summaryButton}`}>
+          {detailsLabel}
+          <FontAwesomeIcon icon={faCaretDown} />
+        </summary>
+        <div className={styles.filterViewBase}>
+          <div className={styles.filterViewMenu}>
+            <div className={styles.grayBorderBottom}>
+              <h3 className={"margin"}>{"LAGG TILL TAGGAR"}</h3>
+            </div>
+            <div className={styles.grayBorderBottom}>
+              <TextField
+                type={"text"}
+                placeholder={t.tag.searchTags}
+                className={`margin ${styles.grayBorderBottom}`}
+                onChange={(e) => {
+                  setFilterText(e.target.value);
+                }}
               />
-            ))}
-          </div>
-          <div>
-            <Link href={TAGS_BASE_ENDPOINT}>
-              <a style={{ color: "black" }}> {"HANTERA TAGGAR"}</a>
-            </Link>
+            </div>
+            <div className={styles.filterItemList}>
+              <div>
+                {filteredTags.map((tag) => (
+                  <TagFilterItem
+                    key={tag.id}
+                    tag={tag}
+                    selected={selectedTags.some((t) => t.id === tag.id)}
+                    onSelected={updatedSelectedTags}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </details>
+      </details>
+    </div>
   );
 };
 
@@ -136,7 +128,7 @@ const TagFilterItem: FC<TagFilterItemProps> = ({
       }`}
       onClick={(e) => onSelected(tag)}
     >
-      <div className={"centerRow"}>
+      <div className={"verticalCenterRow"}>
         <div
           className={styles.colorDot}
           style={{
@@ -146,8 +138,6 @@ const TagFilterItem: FC<TagFilterItemProps> = ({
         />
         <p> {tag.name} </p>
       </div>
-
-      <p>{tag.description}</p>
     </button>
   );
 };

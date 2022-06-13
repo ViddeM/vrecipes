@@ -69,7 +69,7 @@ const Tags = ({ tags, error }: TagsProps) => {
           <TextField
             type={"search"}
             placeholder={t.tag.searchTags}
-            className={"ResponsiveTextfield"}
+            responsive
             onChange={(e) => {
               setFilterText(e.target.value);
             }}

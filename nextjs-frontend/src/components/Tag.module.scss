@@ -37,6 +37,7 @@
   );
   text-decoration: none;
   margin: 0 $space-tiny $space-tiny 0;
+  overflow: clip;
 
   z-index: 1;
 }

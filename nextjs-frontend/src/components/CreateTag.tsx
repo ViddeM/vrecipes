@@ -88,7 +88,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
       onSubmit={(e) => handleSubmit(e)}
     >
       <div className={styles.newTagRow}>
-        <div className={"centerRow"}>
+        <div className={"verticalCenterRow"}>
           <TagComponent
             noLink={true}
             color={newTagColor}
@@ -102,7 +102,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
           placeholder={t.tag.tagName}
           required
           value={newTagName}
-          className={"ResponsiveTextfield"}
+          responsive
           onChange={(e) => {
             let val = e.target.value;
             if (val.length <= 30) {
@@ -113,7 +113,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
         <TextField
           placeholder={t.tag.tagDescription}
           value={newTagDescription}
-          className={"ResponsiveTextfield"}
+          responsive
           onChange={(e) => {
             let val = e.target.value;
             if (val.length <= 120) {
@@ -123,7 +123,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
         />
 
         <div className={styles.newTagActionButtonGroup}>
-          <div className={"centerRow"}>
+          <div className={"verticalCenterRow"}>
             <button
               type={"button"}
               className={styles.newTagColorButton}
@@ -152,24 +152,19 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
                 </div>
               </div>
             )}
-            <Button
+            <IconButton
               variant={"opaque"}
-              size={"normal"}
+              size={"small"}
+              type={"button"}
               className={styles.newTagActionButton}
               onClick={() => setNewTagColor(randomColor())}
-              type={"button"}
-            >
-              <FontAwesomeIcon
-                className={styles.randomiseIcon}
-                icon={faRepeat}
-              />
-              {t.tag.randomiseColor}
-            </Button>
+              icon={faRepeat}
+            />
           </div>
-          <div className={"centerRow"}>
+          <div className={"verticalCenterRow"}>
             <Button
               size={"normal"}
-              variant={"opaque"}
+              variant={"secondary"}
               className={styles.newTagActionButton}
               onClick={() => cancelEditTag()}
               type={"button"}
