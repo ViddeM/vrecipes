@@ -28,7 +28,7 @@ func NewTag(c *gin.Context) {
 		return
 	}
 
-	_, err = process.CreateNewTag(tagJson, user)
+	tag, err := process.CreateNewTag(tagJson, user)
 	if err != nil {
 		if errors.Is(err, common.ErrNameTaken) {
 			c.JSON(
@@ -45,7 +45,7 @@ func NewTag(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, common.Success(tagJson))
+	c.JSON(http.StatusCreated, common.Success(tag.ID))
 }
 
 func validateTag(c *gin.Context) (*models.NewTagJson, error) {
