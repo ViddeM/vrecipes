@@ -6,19 +6,18 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/models"
 	"github.com/viddem/vrecipes/backend/internal/process"
-	"github.com/viddem/vrecipes/backend/internal/validation"
 	"log"
 	"net/http"
 )
 
 type NewRecipeBookResponse struct {
-	RecipeBookUniqueName string `json:"recipeBookUniqueName"`
+	UniqueName string `json:"uniqueName"`
 }
 
 func NewRecipeBook(c *gin.Context) {
-	recipeBook, err := validateRecipeBook(c)
+	recipeBook, err := validateNewRecipeBook(c)
 	if err != nil {
-		log.Printf("Failed to validate new recipebook json: %v\n", err)
+		log.Printf("Failed to validate new recipe book json: %v\n", err)
 		c.JSON(http.StatusBadRequest, common.Error(common.ResponseInvalidJson))
 		return
 	}
@@ -55,19 +54,14 @@ func NewRecipeBook(c *gin.Context) {
 	c.JSON(
 		http.StatusCreated, common.Success(
 			NewRecipeBookResponse{
-				RecipeBookUniqueName: uniqueName,
+				UniqueName: uniqueName,
 			},
 		),
 	)
 }
 
-func validateRecipeBook(c *gin.Context) (*models.NewRecipeBookJson, error) {
+func validateNewRecipeBook(c *gin.Context) (*models.NewRecipeBookJson, error) {
 	var recipeBook models.NewRecipeBookJson
-	err := c.BindJSON(&recipeBook)
-	if err != nil {
-		return nil, err
-	}
-
-	err = validation.ValidateRecipeBook(&recipeBook)
+	err := c.ShouldBindJSON(&recipeBook)
 	return &recipeBook, err
 }

@@ -13,7 +13,7 @@ var (
 	ErrFailedToRetrieveRecipe = errors.New("failed to retrieve the provided recipe id from the database")
 )
 
-func ValidateRecipeBook(recipeBook *models.NewRecipeBookJson) error {
+func ValidateRecipeBook(recipeBook *models.EditRecipeBookJson) error {
 	err := validateRecipeBookImages(recipeBook.Images)
 	if err != nil {
 		return err
