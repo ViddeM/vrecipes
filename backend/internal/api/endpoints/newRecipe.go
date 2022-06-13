@@ -57,7 +57,10 @@ func NewRecipe(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(NewRecipeJson{UniqueName: uniqueName}))
+	c.JSON(
+		http.StatusCreated,
+		common.Success(NewRecipeJson{UniqueName: uniqueName}),
+	)
 }
 
 func validateNewRecipe(c *gin.Context) (*models.NewRecipeJson, error) {

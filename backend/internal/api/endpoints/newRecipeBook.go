@@ -53,7 +53,7 @@ func NewRecipeBook(c *gin.Context) {
 	}
 
 	c.JSON(
-		http.StatusOK, common.Success(
+		http.StatusCreated, common.Success(
 			NewRecipeBookResponse{
 				RecipeBookUniqueName: uniqueName,
 			},
