@@ -25,6 +25,7 @@ import ImageUpload from "../../../components/ImageUpload";
 import { Image } from "../../../api/Image";
 import TagFilter from "../../../components/TagFilter";
 import { Tag } from "../../../api/Tag";
+import { NewRecipe } from "../../../api/NewRecipe";
 
 interface EditRecipeProps {
   recipe?: Recipe;
@@ -58,7 +59,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   const [description, setDescription] = useState(
     recipe ? recipe.description : ""
   );
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>(recipe?.tags ?? []);
   const [ingredients, setIngredients] = useState<EditableIngredient[]>(
     recipe ? ingredientsToEditable(recipe.ingredients) : []
   );
@@ -66,7 +67,6 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   const [images, setImages] = useState<Image[]>(recipe ? recipe.images : []);
   const [imageUploadInProgress, setImageUploadInProgress] =
     useState<boolean>(false);
-
   /* End state declaration */
 
   if (dataLoadError) {
@@ -104,7 +104,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    let newRecipe: Recipe = {
+    let newRecipe: NewRecipe = {
       id: recipe.id,
       name: name,
       uniqueName: recipe.uniqueName,
@@ -115,7 +115,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
       steps: steps,
       images: images,
       author: recipe.author,
-      tags: selectedTags,
+      tags: selectedTags.map((t) => t.id),
     };
 
     Api.recipes.edit(newRecipe).then((response) => {
@@ -226,10 +226,10 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
           />
         </div>
 
-        {console.log("BEFORE <TagFilter</", tags)}
         <TagFilter
           detailsLabel={"LÄGG TILL TAGGAR"}
           tags={tags}
+          initialSelectedTags={selectedTags}
           onUpdate={setSelectedTags}
         />
 
@@ -331,7 +331,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       error: res.errorTranslationString ?? null,
       recipe: res.data ?? null,
-      resTags: resTags.data?.tags ?? [],
+      tags: resTags.data?.tags ?? [],
     },
   };
 };
