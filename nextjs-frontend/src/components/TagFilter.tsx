@@ -6,16 +6,24 @@ import TextField from "./TextField";
 import fuzzysort from "fuzzysort";
 import { useTranslations } from "../hooks/useTranslations";
 import TagComponent from "./Tag";
+import Link from "next/link";
+import { LOGIN_ENDPOINT, TAGS_BASE_ENDPOINT } from "../api/Endpoints";
+import { Button } from "./Buttons";
 
 export type TagFilterProps = {
   detailsLabel: string;
   tags: Tag[];
+  initialSelectedTags: Tag[];
   onUpdate: (ts: Tag[]) => void;
 };
 
-const TagFilter: FC<TagFilterProps> = ({ detailsLabel, tags, onUpdate }) => {
+const TagFilter: FC<TagFilterProps> = ({
+  detailsLabel,
+  tags,
+  onUpdate,
+  initialSelectedTags,
+}) => {
   const { t } = useTranslations();
-  console.log("Inside TagFilter", tags);
 
   const detailsRef = createRef<HTMLDetailsElement>();
   const closeDetails = (e: Event) => {
@@ -28,16 +36,20 @@ const TagFilter: FC<TagFilterProps> = ({ detailsLabel, tags, onUpdate }) => {
     return () => document.removeEventListener("click", closeDetails);
   }, [detailsRef]);
 
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>(initialSelectedTags);
   const [filterText, setFilterText] = useState("");
-  const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
+  const [filteredTags, setFilteredTags] = useState<Tag[]>(tags);
 
-  const toggleSelectedTag = (tag: Tag) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((t) => t.id !== tag.id));
+  const toggleSelectedTags = (tag: Tag) => {
+    let updatedTags;
+    if (selectedTags.find((t) => t.id === tag.id)) {
+      updatedTags = selectedTags.filter((t) => t.id !== tag.id);
+      setSelectedTags(updatedTags);
     } else {
-      setSelectedTags(selectedTags.concat([tag]));
+      updatedTags = selectedTags.concat([tag]);
+      setSelectedTags(updatedTags);
     }
+    onUpdate(updatedTags);
   };
 
   useEffect(() => {
@@ -67,7 +79,9 @@ const TagFilter: FC<TagFilterProps> = ({ detailsLabel, tags, onUpdate }) => {
       </summary>
       <div className={styles.filterViewBase}>
         <div className={styles.filterViewMenu}>
-          <div>Filter view title</div>
+          <div>
+            <h4>{"LAGG TILL TAGGAR"}</h4>
+          </div>
           <div>
             <TextField
               type={"search"}
@@ -78,17 +92,22 @@ const TagFilter: FC<TagFilterProps> = ({ detailsLabel, tags, onUpdate }) => {
               }}
             />
           </div>
-          <div>Filter view item area</div>
-          {filteredTags.map((t) => (
-            <TagFilterItem
-              key={t.id}
-              tag={t}
-              selected={selectedTags.includes(t)}
-              onSelected={toggleSelectedTag}
-            />
-          ))}
+          <div className={"column"}>
+            {filteredTags.map((tag) => (
+              <TagFilterItem
+                key={tag.id}
+                tag={tag}
+                selected={selectedTags.some((t) => t.id === tag.id)}
+                onSelected={toggleSelectedTags}
+              />
+            ))}
+          </div>
+          <div>
+            <Link href={TAGS_BASE_ENDPOINT}>
+              <a style={{ color: "black" }}> {"HANTERA TAGGAR"}</a>
+            </Link>
+          </div>
         </div>
-        <div> Manage tags</div>
       </div>
     </details>
   );
@@ -107,10 +126,13 @@ const TagFilterItem: FC<TagFilterItemProps> = ({
 }) => {
   return (
     <button
-      className={selected ? styles.filterItemSelected : ""}
+      type={"button"}
+      className={`${selected ? styles.filterItemSelected : ""} ${
+        styles.filterItem
+      }`}
       onClick={(e) => onSelected(tag)}
     >
-      <div>
+      <div className={"centerRow"}>
         <div
           className={styles.colorDot}
           style={{

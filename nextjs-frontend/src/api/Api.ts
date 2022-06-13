@@ -7,6 +7,7 @@ import { UniqueName } from "./UniqueName";
 import { Image } from "./Image";
 import { Tag } from "./Tag";
 import { NewTag } from "./NewTag";
+import { NewRecipe } from "./NewRecipe";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = "http://localhost:3000/api";
@@ -45,7 +46,7 @@ export const Api = {
         true
       );
     },
-    edit: (recipe: Recipe) => {
+    edit: (recipe: NewRecipe) => {
       return handleResponse(
         axios.put<RawApiResponse<Recipe>>(`/recipes/${recipe.id}`, recipe),
         true

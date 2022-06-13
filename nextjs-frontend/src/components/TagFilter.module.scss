@@ -25,26 +25,23 @@
 }
 
 .filterItem {
+  width: 100%;
   border: none;
-  cursor: pointer;
   display: inline-block;
-  padding: 0;
-  margin-left: $space;
   text-decoration: none;
   user-select: none;
   white-space: nowrap;
-  -webkit-appearance: button;
   text-transform: none;
   box-sizing: border-box;
   list-style-type: none;
   background-color: inherit;
 
   &:hover {
-    background-color: #707070;
+    background-color: #f1f1f1;
   }
 
   &:active {
-    background-color: #505050;
+    background-color: #b0b0b0;
   }
 }
 
