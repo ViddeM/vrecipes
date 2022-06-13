@@ -4,6 +4,7 @@ import styles from "./TextField.module.scss";
 export type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   postfixText?: string;
   inputClassName?: string;
+  responsive?: boolean;
 };
 
 const TextField: FC<TextFieldProps> = ({
@@ -11,12 +12,16 @@ const TextField: FC<TextFieldProps> = ({
   className,
   inputClassName,
   required,
+  responsive,
   ...props
 }) => {
+  const responsiveClass = responsive ? styles.responsive : "";
   return (
-    <div className={`${className} ${styles.textFieldContainer}`}>
+    <div
+      className={`${className} ${styles.textFieldContainer} ${responsiveClass}`}
+    >
       <input
-        className={`${styles.textFieldBase} ${inputClassName}`}
+        className={`${styles.textFieldBase} ${inputClassName} `}
         {...props}
         required={required}
       />

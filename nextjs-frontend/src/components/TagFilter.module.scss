@@ -1,57 +1,107 @@
 @import "../resources/styles/vars";
 
-.filterViewBase {
-  position: relative;
-
+.detailsBase {
+  width: 100%;
+  margin: $space;
+  display: flex;
+  justify-content: center;
 }
 
 .summaryBase {
-  background-color: teal
+}
+
+.summaryButton {
+  justify-content: space-between;
+
+  width: 300px;
+  padding: $space-small;
+  font-weight: 600;
+  border-radius: $space-tiny;
+  border: 1px solid grey;
+  box-shadow: none;
+  color: black;
+  background-color: unset;
+  transition: background-color 400ms, color 250ms;
+  cursor: pointer;
+
+  &:hover {
+    background-color: white;
+    color: $primary-color;
+    border-color: $primary-color;
+    filter: none;
+  }
+
+}
+
+
+.filterViewBase {
+  position: relative;
 }
 
 .filterViewMenu {
   width: 300px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
   top: 2px;
+  z-index: 99;
   border-radius: $space-tiny;
   border: 1px solid #707070;
-  position: absolute;
-  z-index: 99;
   background-color: white;
+}
+
+.grayBorderBottom {
+  border-bottom: 1px solid $gray-color;
 }
 
 .filterItemList {
   max-height: 435px;
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .colorDot {
   height: $space;
   width: $space;
   border-radius: $space;
+  margin: $space-tiny;
 }
 
 .filterItem {
-  width: 100%;
+  z-index: 100;
+  padding: $space-small $space-tiny;
   border: none;
+  border-bottom: 1px solid $gray-color;
+  width: 100%;
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  user-select: none;
-  white-space: nowrap;
-  text-transform: none;
-  box-sizing: border-box;
-  list-style-type: none;
   background-color: inherit;
 
   &:hover {
-    background-color: #f1f1f1;
+    background-color: $gray-color-hover;
   }
 
   &:active {
-    background-color: #b0b0b0;
+    background-color: $gray-color-active;
+  }
+
+  &:last-child {
+    border-bottom: none;
   }
 }
 
-.filterItemSelected {
-  background-color: $primary-color;
+.filterItemSelected {;
+  background-color: $primary-color-selected;
+
+  &:hover {
+    background-color: $primary-color-selected-hover;
+  }
+
+  &:active {
+    background-color: $primary-color-selected-active;
+  }
+}
+
+.manageTags {
+  color: dimgrey;
 }

@@ -23,7 +23,23 @@ body {
   border-radius: $border-radius;
   padding: 10px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.paddingSides {
+  padding: 0 $space-small;
+}
+
+.padding {
+  padding: $space-small;
+}
+
+.margin {
+  margin: $space-small;
+}
+
+.marginSides {
+  margin: 0 $space-small;
 }
 
 .marginLeft {
@@ -110,11 +126,19 @@ a {
   align-items: center;
 }
 
-.centerRow {
+.verticalCenterRow {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: $space-small;
+}
+
+.centeredRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .alignLeft {
@@ -133,16 +157,4 @@ a {
 
 .fill {
   flex: 1;
-}
-
-.ResponsiveTextfield {
-  width: 100%;
-  box-sizing: border-box;
-  background-color: white;
-  border-radius: $space-tiny;
-
-  @media (min-width: 1024px) {
-    width: 300px;
-    margin-right: $space-small !important;
-  }
 }

@@ -51,3 +51,10 @@
   font-weight: 900;
   margin-right: 6px;
 }
+
+.responsive {
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 300px;
+  }
+}
