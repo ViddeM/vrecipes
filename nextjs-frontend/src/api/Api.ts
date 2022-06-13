@@ -7,8 +7,10 @@ import { UniqueName } from "./UniqueName";
 import { Image } from "./Image";
 import { Tag } from "./Tag";
 import { NewTag } from "./NewTag";
-import { NewRecipe } from "./NewRecipe";
+import { EditRecipe } from "./EditRecipe";
 import { ShortRecipeBook } from "./ShortRecipeBook";
+import { RecipeBook } from "./RecipeBook";
+import { EditRecipeBook } from "./EditRecipeBook";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "/api";
@@ -27,9 +29,9 @@ export const Api = {
         false
       );
     },
-    getOne: (unique_name: string) => {
+    getOne: (uniqueName: string) => {
       return handleResponse(
-        axios.get<RawApiResponse<Recipe>>(`/recipes/${unique_name}`),
+        axios.get<RawApiResponse<Recipe>>(`/recipes/${uniqueName}`),
         false
       );
     },
@@ -47,17 +49,23 @@ export const Api = {
         true
       );
     },
-    edit: (recipe: NewRecipe) => {
+    edit: (recipe: EditRecipe) => {
       return handleResponse(
-        axios.put<RawApiResponse<Recipe>>(`/recipes/${recipe.id}`, recipe),
+        axios.put<RawApiResponse<UniqueName>>(`/recipes/${recipe.id}`, recipe),
         true
       );
     },
   },
-  recipebooks: {
+  recipeBooks: {
     getAll: () => {
       return handleResponse(
         axios.get<RawApiResponse<{ recipeBooks: ShortRecipeBook[] }>>("/books"),
+        false
+      );
+    },
+    getOne: (uniqueName: string) => {
+      return handleResponse(
+        axios.get<RawApiResponse<RecipeBook>>(`/books/${uniqueName}`),
         false
       );
     },
@@ -66,6 +74,12 @@ export const Api = {
         axios.post<RawApiResponse<UniqueName>>("/books", {
           name: name,
         }),
+        true
+      );
+    },
+    edit: (id: string, recipeBook: EditRecipeBook) => {
+      return handleResponse(
+        axios.put<RawApiResponse<UniqueName>>(`/books/${id}`, recipeBook),
         true
       );
     },

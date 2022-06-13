@@ -18,7 +18,7 @@ const CreateRecipe = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    Api.recipebooks.create(name).then((data) => {
+    Api.recipeBooks.create(name).then((data) => {
       if (data.error && data.errorTranslationString) {
         setError(translate(data.errorTranslationString));
       } else {
@@ -36,15 +36,15 @@ const CreateRecipe = () => {
         className={`card ${styles.createCardColumn}`}
         onSubmit={(e) => handleSubmit(e)}
       >
-        <h3 className="marginBottom">{t.recipeBooks.createRecipeBookTitle}</h3>
+        <h3 className="marginBottom">{t.recipeBook.createRecipeBookTitle}</h3>
         <div className={`marginBottom ${styles.createElement}`}>
           <label htmlFor="recipe_book_name" className="marginRight">
-            {t.recipeBooks.recipeBookName}
+            {t.recipeBook.recipeBookName}
           </label>
           <TextField
             name="recipe_book_name"
             id="recipe_book_name"
-            placeholder={t.recipeBooks.recipeBookName}
+            placeholder={t.recipeBook.recipeBookName}
             value={name}
             onChange={(e) => {
               setName(e.target.value);
@@ -60,7 +60,7 @@ const CreateRecipe = () => {
           className={styles.createRecipeBookButton}
           type="submit"
         >
-          {t.recipeBooks.createRecipeBook}
+          {t.recipeBook.createRecipeBook}
         </Button>
       </form>
     </CardLayout>
