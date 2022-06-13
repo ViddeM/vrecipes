@@ -52,6 +52,7 @@ func GetRecipeBook(uniqueName string) (*models.DetailedRecipeBookJson, error) {
 	return &models.DetailedRecipeBookJson{
 		ID:         recipeBook.ID,
 		Name:       recipeBook.Name,
+		UniqueName: recipeBook.UniqueName,
 		UploadedBy: *user,
 		Author:     recipeBook.Author,
 		Recipes:    recipeJsons,
@@ -59,7 +60,10 @@ func GetRecipeBook(uniqueName string) (*models.DetailedRecipeBookJson, error) {
 	}, nil
 }
 
-func RecipesToJson(recipes []*tables.Recipe) ([]models.RecipeBookRecipeJson, error) {
+func RecipesToJson(recipes []*tables.Recipe) (
+	[]models.RecipeBookRecipeJson,
+	error,
+) {
 	recipeJsons := make([]models.RecipeBookRecipeJson, 0)
 	for _, recipe := range recipes {
 		author, err := queries.GetUser(recipe.CreatedBy)
@@ -67,12 +71,14 @@ func RecipesToJson(recipes []*tables.Recipe) ([]models.RecipeBookRecipeJson, err
 			return nil, err
 		}
 
-		recipeJsons = append(recipeJsons, models.RecipeBookRecipeJson{
-			Name:       recipe.Name,
-			UniqueName: recipe.UniqueName,
-			Author:     author.Name,
-			ID:         recipe.ID,
-		})
+		recipeJsons = append(
+			recipeJsons, models.RecipeBookRecipeJson{
+				Name:       recipe.Name,
+				UniqueName: recipe.UniqueName,
+				Author:     author.Name,
+				ID:         recipe.ID,
+			},
+		)
 	}
 
 	return recipeJsons, nil

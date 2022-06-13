@@ -55,7 +55,7 @@ const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
       <div className={`${styles.searchContainer} card marginBottomBig`}>
         <TextField
           type="search"
-          placeholder={`${t.recipeBooks.searchRecipeBooks}`}
+          placeholder={`${t.recipeBook.searchRecipeBooks}`}
           className={`marginRight ${styles.searchField}`}
           onChange={(e) => {
             setFilterText(e.target.value);
@@ -72,7 +72,7 @@ const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
                   size="normal"
                   className={styles.searchButton}
                 >
-                  {t.recipeBooks.createRecipeBook}
+                  {t.recipeBook.createRecipeBook}
                 </Button>
               ) : (
                 <div className={styles.addIconButtonContainer}>
@@ -93,7 +93,7 @@ const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  let res = await Api.recipebooks.getAll();
+  let res = await Api.recipeBooks.getAll();
 
   return {
     props: {

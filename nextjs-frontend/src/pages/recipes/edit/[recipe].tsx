@@ -25,8 +25,9 @@ import ImageUpload from "../../../components/ImageUpload";
 import { Image } from "../../../api/Image";
 import TagFilter from "../../../components/TagFilter";
 import { Tag } from "../../../api/Tag";
-import { NewRecipe } from "../../../api/NewRecipe";
 import TagList from "../../../components/TagList";
+import { EditRecipe } from "../../../api/EditRecipe";
+import { UniqueName } from "../../../api/UniqueName";
 
 interface EditRecipeProps {
   recipe?: Recipe;
@@ -108,7 +109,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    let newRecipe: NewRecipe = {
+    let newRecipe: EditRecipe = {
       id: recipe.id,
       name: name,
       uniqueName: recipe.uniqueName,
@@ -122,7 +123,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
       tags: selectedTags.map((t) => t.id),
     };
 
-    Api.recipes.edit(newRecipe).then((response: ApiResponse<Recipe>) => {
+    Api.recipes.edit(newRecipe).then((response: ApiResponse<UniqueName>) => {
       if (response.error && response.errorTranslationString) {
         setError(translate(response.errorTranslationString));
       } else {
@@ -344,7 +345,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      error: res.errorTranslationString ?? null,
+      dataLoadError: res.errorTranslationString ?? null,
       recipe: res.data ?? null,
       tags: resTags.data?.tags ?? [],
     },
