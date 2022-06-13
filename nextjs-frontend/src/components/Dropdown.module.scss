@@ -12,10 +12,8 @@
   transition: background-color 500ms, color 250ms, border 250ms;
 
   &:hover {
-    filter: brightness(0.8);
-    background-color: black;
-    border-color: white;
-    color: white;
+    filter: brightness(0.9);
+    border-color: $primary-color;
   }
 }
 
