@@ -1,0 +1,15 @@
+@import "../resources/styles/vars";
+
+.detailsBase {
+  position: relative;
+}
+
+.summaryBase {
+  background-color: teal
+}
+
+.filterViewBase {
+  position: absolute;
+  z-index: 99;
+  background-color: magenta;
+}
