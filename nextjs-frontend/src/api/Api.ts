@@ -73,7 +73,7 @@ export const Api = {
     },
     create: (tag: NewTag) => {
       return handleResponse(
-        axios.post<RawApiResponse<NewTag>>(TAGS_BASE_ENDPOINT, tag),
+        axios.post<RawApiResponse<string>>(TAGS_BASE_ENDPOINT, tag),
         true
       );
     },
