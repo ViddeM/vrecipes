@@ -1,15 +1,53 @@
 @import "../resources/styles/vars";
 
-.detailsBase {
+.filterViewBase {
   position: relative;
+
 }
 
 .summaryBase {
   background-color: teal
 }
 
-.filterViewBase {
+.filterViewMenu {
+  top: 2px;
+  border-radius: $space-tiny;
+  border: 1px solid #707070;
   position: absolute;
   z-index: 99;
-  background-color: magenta;
+  background-color: white;
+}
+
+.colorDot {
+  height: $space;
+  width: $space;
+  border-radius: $space;
+}
+
+.filterItem {
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  margin-left: $space;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+  -webkit-appearance: button;
+  text-transform: none;
+  box-sizing: border-box;
+  list-style-type: none;
+  background-color: inherit;
+
+  &:hover {
+    background-color: #707070;
+  }
+
+  &:active {
+    background-color: #505050;
+  }
+}
+
+.filterItemSelected {
+  background-color: $primary-color;
 }

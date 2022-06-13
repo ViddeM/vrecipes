@@ -24,9 +24,11 @@ import { useRouter } from "next/router";
 import ImageUpload from "../../../components/ImageUpload";
 import { Image } from "../../../api/Image";
 import TagFilter from "../../../components/TagFilter";
+import { Tag } from "../../../api/Tag";
 
 interface EditRecipeProps {
   recipe?: Recipe;
+  tags: Tag[];
   dataLoadError?: string;
 }
 
@@ -35,7 +37,7 @@ const RECIPE_OVEN_TEMPERATURE = "recipe_oven_temperature";
 const RECIPE_COOKING_TIME = "recipe_cooking_time";
 const RECIPE_DESCRIPTION = "recipe_description";
 
-const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
+const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   const { t, translate } = useTranslations();
   const { isLoggedIn, me, initialized } = useMe();
   const router = useRouter();
@@ -56,6 +58,7 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
   const [description, setDescription] = useState(
     recipe ? recipe.description : ""
   );
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [ingredients, setIngredients] = useState<EditableIngredient[]>(
     recipe ? ingredientsToEditable(recipe.ingredients) : []
   );
@@ -63,6 +66,7 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
   const [images, setImages] = useState<Image[]>(recipe ? recipe.images : []);
   const [imageUploadInProgress, setImageUploadInProgress] =
     useState<boolean>(false);
+
   /* End state declaration */
 
   if (dataLoadError) {
@@ -93,6 +97,7 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
     !tempSame ||
     description !== recipe?.description ||
     !ingredientsSame(ingredients, ingredientsToEditable(recipe?.ingredients)) ||
+    selectedTags.length !== recipe.tags.length ||
     !stepsSame(steps, recipe?.steps);
   /* End check if we have unsaved changes */
 
@@ -110,7 +115,7 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
       steps: steps,
       images: images,
       author: recipe.author,
-      tags: recipe.tags,
+      tags: selectedTags,
     };
 
     Api.recipes.edit(newRecipe).then((response) => {
@@ -220,7 +225,14 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
             textAreaClassName={styles.textAreaElement}
           />
         </div>
-        <TagFilter></TagFilter>
+
+        {console.log("BEFORE <TagFilter</", tags)}
+        <TagFilter
+          detailsLabel={"LÄGG TILL TAGGAR"}
+          tags={tags}
+          onUpdate={setSelectedTags}
+        />
+
         <div className={`marginTopBig ${styles.ingredientsTableContainer}`}>
           <CreateIngredientsTable
             ingredients={ingredients}
@@ -307,6 +319,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // @ts-ignore
   const { recipe } = context.params;
   let res = await Api.recipes.getOne(recipe);
+  let resTags = await Api.tags.getAll();
 
   if (res.rawResponse?.status === 404) {
     return {
@@ -318,6 +331,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       error: res.errorTranslationString ?? null,
       recipe: res.data ?? null,
+      resTags: resTags.data?.tags ?? [],
     },
   };
 };
