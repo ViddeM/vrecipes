@@ -23,6 +23,7 @@ import NoAccess from "../../../components/NoAccess";
 import { useRouter } from "next/router";
 import ImageUpload from "../../../components/ImageUpload";
 import { Image } from "../../../api/Image";
+import TagFilter from "../../../components/TagFilter";
 
 interface EditRecipeProps {
   recipe?: Recipe;
@@ -35,9 +36,9 @@ const RECIPE_COOKING_TIME = "recipe_cooking_time";
 const RECIPE_DESCRIPTION = "recipe_description";
 
 const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
-  let { t, translate } = useTranslations();
-  let { isLoggedIn, me, initialized } = useMe();
-  let router = useRouter();
+  const { t, translate } = useTranslations();
+  const { isLoggedIn, me, initialized } = useMe();
+  const router = useRouter();
 
   /* Keep track of the different parts of the state */
   const [error, setError] = useState<string | undefined>(undefined);
@@ -219,7 +220,7 @@ const EditRecipe = ({ recipe, dataLoadError }: EditRecipeProps) => {
             textAreaClassName={styles.textAreaElement}
           />
         </div>
-
+        <TagFilter></TagFilter>
         <div className={`marginTopBig ${styles.ingredientsTableContainer}`}>
           <CreateIngredientsTable
             ingredients={ingredients}
