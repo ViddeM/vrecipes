@@ -11,23 +11,20 @@ import (
 	"strings"
 )
 
-func CreateNewRecipeBook(recipeBookJson *models.NewRecipeBookJson, user *tables.User) (string, error) {
+func CreateNewRecipeBook(
+	recipeBookJson *models.NewRecipeBookJson,
+	user *tables.User,
+) (string, error) {
 	uniqueName, err := generateUniqueBookName(recipeBookJson.Name)
 	if err != nil {
 		return "", err
 	}
 
-	recipeBook, err := commands.CreateRecipeBook(recipeBookJson.Name, uniqueName, recipeBookJson.Author, user.ID)
-	if err != nil {
-		return "", err
-	}
-
-	err = createRecipeBookRecipes(recipeBook.ID, recipeBookJson.Recipes)
-	if err != nil {
-		return "", err
-	}
-
-	err = connectImagesToRecipeBook(recipeBook.ID, recipeBookJson.Images)
+	recipeBook, err := commands.CreateRecipeBook(
+		recipeBookJson.Name,
+		uniqueName,
+		user.ID,
+	)
 	if err != nil {
 		return "", err
 	}
@@ -50,7 +47,10 @@ func generateUniqueBookName(name string) (string, error) {
 	return uniqueName, common.ErrNameTaken
 }
 
-func createRecipeBookRecipes(recipeBookId uuid.UUID, recipes []uuid.UUID) error {
+func createRecipeBookRecipes(
+	recipeBookId uuid.UUID,
+	recipes []uuid.UUID,
+) error {
 	for _, recipe := range recipes {
 		_, err := commands.CreateRecipeBookRecipe(recipeBookId, recipe)
 		if err != nil {
@@ -60,7 +60,10 @@ func createRecipeBookRecipes(recipeBookId uuid.UUID, recipes []uuid.UUID) error 
 	return nil
 }
 
-func connectImagesToRecipeBook(recipeBookId uuid.UUID, imageIds []uuid.UUID) error {
+func connectImagesToRecipeBook(
+	recipeBookId uuid.UUID,
+	imageIds []uuid.UUID,
+) error {
 	for _, imageId := range imageIds {
 		_, err := commands.CreateRecipeBookImage(recipeBookId, imageId)
 		if err != nil {
