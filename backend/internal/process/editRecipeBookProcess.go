@@ -8,23 +8,29 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/models"
 )
 
-func EditRecipeBook(oldRecipeBook *tables.RecipeBook, newRecipeBook *models.NewRecipeBookJson) (string, error) {
-	uniqueName, err := updateRecipeBookGeneral(oldRecipeBook, newRecipeBook)
+func EditRecipeBook(
+	oldRecipeBook *tables.RecipeBook,
+	updatedRecipeBook *models.EditRecipeBookJson,
+) (string, error) {
+	uniqueName, err := updateRecipeBookGeneral(oldRecipeBook, updatedRecipeBook)
 	if err != nil {
 		return "", err
 	}
 
-	err = updateRecipeBookRecipes(oldRecipeBook.ID, newRecipeBook.Recipes)
+	err = updateRecipeBookRecipes(oldRecipeBook.ID, updatedRecipeBook.Recipes)
 	if err != nil {
 		return "", err
 	}
 
-	err = updateRecipeBookImages(oldRecipeBook.ID, newRecipeBook.Images)
+	err = updateRecipeBookImages(oldRecipeBook.ID, updatedRecipeBook.Images)
 
 	return uniqueName, nil
 }
 
-func updateRecipeBookGeneral(oldRecipeBook *tables.RecipeBook, newRecipeBook *models.NewRecipeBookJson) (string, error) {
+func updateRecipeBookGeneral(
+	oldRecipeBook *tables.RecipeBook,
+	newRecipeBook *models.EditRecipeBookJson,
+) (string, error) {
 	uniqueName := oldRecipeBook.UniqueName
 	changed := false
 	if oldRecipeBook.Name != newRecipeBook.Name {
@@ -42,7 +48,12 @@ func updateRecipeBookGeneral(oldRecipeBook *tables.RecipeBook, newRecipeBook *mo
 	}
 
 	if changed {
-		err := commands.UpdateRecipeBook(newRecipeBook.Name, uniqueName, newRecipeBook.Author, oldRecipeBook.ID)
+		err := commands.UpdateRecipeBook(
+			newRecipeBook.Name,
+			uniqueName,
+			newRecipeBook.Author,
+			oldRecipeBook.ID,
+		)
 		if err != nil {
 			return "", err
 		}

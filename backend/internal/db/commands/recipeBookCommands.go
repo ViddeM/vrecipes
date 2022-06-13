@@ -8,15 +8,26 @@ import (
 
 var createRecipeBookCommand = `
 INSERT INTO recipe_book(name, unique_name, author, deleted, created_by)
-				VALUES ($1,   $2, 	       $3,     false,   $4)
+				VALUES ($1,   $2, 	       '',     false,   $3)
 RETURNING id, name, unique_name, author
 `
 
-func CreateRecipeBook(name, uniqueName, author string, createdBy uuid.UUID) (*tables.RecipeBook, error) {
+func CreateRecipeBook(name, uniqueName string, createdBy uuid.UUID) (
+	*tables.RecipeBook,
+	error,
+) {
 	db := getDb()
 
 	var recipeBook tables.RecipeBook
-	err := pgxscan.Get(ctx, db, &recipeBook, createRecipeBookCommand, name, uniqueName, author, createdBy)
+	err := pgxscan.Get(
+		ctx,
+		db,
+		&recipeBook,
+		createRecipeBookCommand,
+		name,
+		uniqueName,
+		createdBy,
+	)
 	return &recipeBook, err
 }
 
@@ -31,7 +42,14 @@ WHERE id=$4
 func UpdateRecipeBook(name, uniqueName, author string, bookId uuid.UUID) error {
 	db := getDb()
 
-	_, err := db.Exec(ctx, updateRecipeBookCommand, name, uniqueName, author, bookId)
+	_, err := db.Exec(
+		ctx,
+		updateRecipeBookCommand,
+		name,
+		uniqueName,
+		author,
+		bookId,
+	)
 	return err
 }
 
