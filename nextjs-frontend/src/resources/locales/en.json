@@ -52,11 +52,15 @@
     "uploadImage": "Upload an image...",
     "recipeDeleted": "Recipe deleted"
   },
-  "recipeBooks": {
+  "recipeBook": {
     "searchRecipeBooks": "Search recipe books",
     "createRecipeBook": "Create recipe book",
     "createRecipeBookTitle": "Create recipe book",
-    "recipeBookName": "Recipe book name"
+    "recipeBookName": "Recipe book name",
+    "editRecipeBook": "Edit recipe book",
+    "noAccess": "You do not have access to modify this recipe book",
+    "author": "Author",
+    "saveRecipeBook": "Save recipe book"
   },
   "tag": {
     "newTag": "New tag",
