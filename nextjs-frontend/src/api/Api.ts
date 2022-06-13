@@ -11,7 +11,7 @@ import { NewRecipe } from "./NewRecipe";
 import { ShortRecipeBook } from "./ShortRecipeBook";
 
 // FIXME: should be changed before prod...
-axios.defaults.baseURL = "http://localhost:3000/api";
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "/api";
 
 interface RawApiResponse<ResponseData> {
   success: boolean;
@@ -57,8 +57,16 @@ export const Api = {
   recipebooks: {
     getAll: () => {
       return handleResponse(
-        axios.get<RawApiResponse<{ books: ShortRecipeBook[] }>>("/books"),
+        axios.get<RawApiResponse<{ recipeBooks: ShortRecipeBook[] }>>("/books"),
         false
+      );
+    },
+    create: (name: string) => {
+      return handleResponse(
+        axios.post<RawApiResponse<UniqueName>>("/books", {
+          name: name,
+        }),
+        true
       );
     },
   },

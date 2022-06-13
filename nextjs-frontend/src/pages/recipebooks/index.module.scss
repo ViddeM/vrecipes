@@ -1,0 +1,61 @@
+@import "../../resources/styles/vars";
+
+.recipeCardsList {
+  display: grid;
+  gap: $space;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 800px) {
+    grid-template-columns: repeat(2, minmax(0px, 1fr));
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, minmax(0px, 1fr));
+  }
+
+  @media (min-width: 1600px) {
+    grid-template-columns: repeat(4, minmax(0px, 1fr));
+  }
+
+  @media (min-width: 1920px) {
+    grid-template-columns: repeat(5, minmax(0px, 1fr));
+  }
+
+  @media (min-width: 2200px) {
+    grid-template-columns: repeat(6, minmax(0px, 1fr));
+  }
+
+  @media (min-width: 2600px) {
+    grid-template-columns: repeat(7, minmax(0px, 1fr));
+  }
+
+  @media (min-width: 3000px) {
+    grid-template-columns: repeat(8, minmax(0px, 1fr));
+  }
+}
+
+.searchContainer {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  margin-bottom: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.searchField {
+  flex-grow: 1;
+}
+
+.searchButton {
+  width: 140px;
+}
+
+.addIconButtonContainer {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 4;
+}
