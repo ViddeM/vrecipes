@@ -44,11 +44,15 @@ const TagFilter: FC<TagFilterProps> = ({
     let updatedTags;
     if (selectedTags.find((t) => t.id === tag.id)) {
       updatedTags = selectedTags.filter((t) => t.id !== tag.id);
-      setSelectedTags(updatedTags);
     } else {
       updatedTags = selectedTags.concat([tag]);
-      setSelectedTags(updatedTags);
     }
+    return updatedTags;
+  };
+
+  const updatedSelectedTags = (tag: Tag) => {
+    const updatedTags = toggleSelectedTags(tag);
+    setSelectedTags(updatedTags);
     onUpdate(updatedTags);
   };
 
@@ -84,7 +88,7 @@ const TagFilter: FC<TagFilterProps> = ({
           </div>
           <div>
             <TextField
-              type={"search"}
+              type={"text"}
               placeholder={t.tag.searchTags}
               className={"ResponsiveTextfield"}
               onChange={(e) => {
@@ -92,13 +96,13 @@ const TagFilter: FC<TagFilterProps> = ({
               }}
             />
           </div>
-          <div className={"column"}>
+          <div className={`column ${styles.filterItemList}`}>
             {filteredTags.map((tag) => (
               <TagFilterItem
                 key={tag.id}
                 tag={tag}
                 selected={selectedTags.some((t) => t.id === tag.id)}
-                onSelected={toggleSelectedTags}
+                onSelected={updatedSelectedTags}
               />
             ))}
           </div>

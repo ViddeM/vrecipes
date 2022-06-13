@@ -10,12 +10,18 @@
 }
 
 .filterViewMenu {
+  width: 300px;
   top: 2px;
   border-radius: $space-tiny;
   border: 1px solid #707070;
   position: absolute;
   z-index: 99;
   background-color: white;
+}
+
+.filterItemList {
+  max-height: 435px;
+  overflow-y: scroll;
 }
 
 .colorDot {
@@ -27,7 +33,8 @@
 .filterItem {
   width: 100%;
   border: none;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   user-select: none;
   white-space: nowrap;
