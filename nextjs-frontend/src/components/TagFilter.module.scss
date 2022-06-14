@@ -59,6 +59,10 @@
   overflow: auto;
 }
 
+.leftShiftItem {
+  margin-left: -$space-small;
+}
+
 .colorDot {
   height: $space;
   width: $space;
@@ -68,7 +72,7 @@
 
 .filterItem {
   z-index: 100;
-  padding: $space-small $space-tiny;
+  padding: $space-small $space-tiny $space-small $space;
   border: none;
   border-bottom: 1px solid $gray-color;
   width: 100%;

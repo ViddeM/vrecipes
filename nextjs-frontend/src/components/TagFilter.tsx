@@ -9,7 +9,7 @@ import TagComponent from "./Tag";
 import Link from "next/link";
 import { TAGS_BASE_ENDPOINT } from "../api/Endpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faCheck } from "@fortawesome/free-solid-svg-icons";
 import HLine from "./HLine";
 
 export type TagFilterProps = {
@@ -73,6 +73,7 @@ const TagFilter: FC<TagFilterProps> = ({
       <details ref={detailsRef}>
         <summary className={`verticalCenterRow ${styles.summaryButton}`}>
           {detailsLabel}
+
           <FontAwesomeIcon icon={faCaretDown} />
         </summary>
         <div className={styles.filterViewBase}>
@@ -129,6 +130,11 @@ const TagFilterItem: FC<TagFilterItemProps> = ({
       onClick={(e) => onSelected(tag)}
     >
       <div className={"verticalCenterRow"}>
+        <FontAwesomeIcon
+          visibility={selected ? "" : "hidden"}
+          className={styles.leftShiftItem}
+          icon={faCheck}
+        />
         <div
           className={styles.colorDot}
           style={{
