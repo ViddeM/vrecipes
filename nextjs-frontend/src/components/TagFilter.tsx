@@ -73,14 +73,10 @@ const TagFilter: FC<TagFilterProps> = ({
       <details ref={detailsRef}>
         <summary className={`verticalCenterRow ${styles.summaryButton}`}>
           {detailsLabel}
-
           <FontAwesomeIcon icon={faCaretDown} />
         </summary>
         <div className={styles.filterViewBase}>
           <div className={styles.filterViewMenu}>
-            <div className={styles.grayBorderBottom}>
-              <h3 className={"margin"}>{"LAGG TILL TAGGAR"}</h3>
-            </div>
             <div className={styles.grayBorderBottom}>
               <TextField
                 type={"text"}

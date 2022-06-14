@@ -231,13 +231,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
           />
         </div>
 
-        <TagFilter
-          detailsLabel={"Lägg till taggar"}
-          tags={tags}
-          initialSelectedTags={selectedTags}
-          onUpdate={setSelectedTags}
-        />
-        <div className={"centeredRow"}>
+        <div className={"centeredRow marginTop"}>
           {selectedTags.map((t) => (
             <TagComponent
               key={t.id}
@@ -247,6 +241,12 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
             />
           ))}
         </div>
+        <TagFilter
+          detailsLabel={t.recipe.addTags}
+          tags={tags}
+          initialSelectedTags={selectedTags}
+          onUpdate={setSelectedTags}
+        />
 
         <div className={`marginTopBig ${styles.ingredientsTableContainer}`}>
           <CreateIngredientsTable
