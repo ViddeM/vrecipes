@@ -98,7 +98,9 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
     !tempSame ||
     description !== recipe?.description ||
     !ingredientsSame(ingredients, ingredientsToEditable(recipe?.ingredients)) ||
-    selectedTags.length !== recipe.tags.length ||
+    recipe.tags.length !==
+      recipe.tags.filter((t) => selectedTags.some((st) => st.id === t.id))
+        .length ||
     !stepsSame(steps, recipe?.steps);
   /* End check if we have unsaved changes */
 
