@@ -1,6 +1,5 @@
 @import "src/resources/styles/vars.scss";
 
-
 .newTagContainerForm {
   background-color: white;
   border-radius: $space-tiny;
@@ -48,7 +47,6 @@
   }
 }
 
-
 .colorPickerBase {
   position: absolute;
   z-index: 2;
@@ -67,7 +65,6 @@
   margin-top: 30px;
 }
 
-
 .newTagActionButton {
   display: inherit;
   align-items: center;
@@ -77,4 +74,9 @@
 .randomiseIcon {
   color: inherit;
   margin: auto $space-tiny;
+}
+
+.colorPickerRoot {
+  margin-left: 8px;
+  position: absolute;
 }
