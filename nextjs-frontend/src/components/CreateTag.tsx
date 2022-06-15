@@ -9,7 +9,6 @@ import { Tag } from "../api/Tag";
 import { Api, ApiResponse } from "../api/Api";
 import { Button, IconButton } from "./Buttons";
 import { faRepeat } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslations } from "../hooks/useTranslations";
 import useRefreshProps from "../hooks/useRefreshProps";
 import { NewTag } from "../api/NewTag";
@@ -49,7 +48,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
     }
   }, [tag]);
 
-  const handleError = (data: ApiResponse<NewTag>) => {
+  const handleError = (data: ApiResponse<NewTag | string>) => {
     if (data.error && data.errorTranslationString) {
       setError(translate(data.errorTranslationString));
     } else {
@@ -99,6 +98,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
       </div>
       <div className={styles.newTagRow}>
         <TextField
+          focus
           placeholder={t.tag.tagName}
           required
           value={newTagName}
