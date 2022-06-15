@@ -79,7 +79,7 @@ const TagFilter: FC<TagFilterProps> = ({
           <div className={`${styles.filterViewMenu} ${responsiveClass}`}>
             <div className={styles.grayBorderBottom}>
               <TextField
-                type={"text"}
+                type={"search"}
                 placeholder={t.tag.searchTags}
                 className={`margin ${styles.grayBorderBottom}`}
                 onChange={(e) => {

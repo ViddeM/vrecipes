@@ -232,9 +232,8 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
           />
         </div>
 
-        <TagList tags={selectedTags} noLink={true} variant={"center"} />
-
         <div className={styles.detailsContainer}>
+          <TagList tags={selectedTags} noLink={true} variant={"center"} />
           <TagFilter
             detailsLabel={t.recipe.addTags}
             tags={tags}
