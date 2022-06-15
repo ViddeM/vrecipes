@@ -1,4 +1,3 @@
-import { GetServerSideProps } from "next";
 import { ChromePicker } from "react-color";
 import { FormEvent, useEffect, useState } from "react";
 import styles from "./CreateTag.module.scss";
@@ -137,7 +136,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
               }}
             />
             {colorPickerOpen && (
-              <div style={{ position: "relative" }}>
+              <div className={styles.colorPickerRoot}>
                 <div className={styles.colorPickerBase}>
                   <div
                     className={styles.colorPickerCover}
