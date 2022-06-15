@@ -1,6 +1,5 @@
 @import "../resources/styles/vars";
 
-
 .summaryButton {
   justify-content: space-between;
   padding: $space-small;
@@ -19,9 +18,16 @@
     border-color: $primary-color;
     filter: none;
   }
-
 }
 
+.tagFilterDetails {
+  &[open] {
+    > summary {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
 
 .filterViewBase {
   position: relative;
@@ -31,10 +37,11 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 2px;
   z-index: 99;
-  border-radius: $space-tiny;
+  border-bottom-left-radius: $space-tiny;
+  border-bottom-right-radius: $space-tiny;
   border: 1px solid #707070;
+  border-top: none;
   background-color: white;
 }
 
@@ -82,7 +89,7 @@
   }
 }
 
-.filterItemSelected {;
+.filterItemSelected {
   background-color: $primary-color-selected;
 
   &:hover {

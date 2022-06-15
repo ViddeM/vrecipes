@@ -68,10 +68,8 @@ const TagFilter: FC<TagFilterProps> = ({
   const responsiveClass = styles[`detail-size-${size}`];
   return (
     <div className={`${styles.detailsBase} ${responsiveClass}`}>
-      <details ref={detailsRef}>
-        <summary
-          className={`verticalCenterRow ${styles.summaryButton}  ${responsiveClass}`}
-        >
+      <details ref={detailsRef} className={styles.tagFilterDetails}>
+        <summary className={`verticalCenterRow ${styles.summaryButton}  `}>
           {detailsLabel}
           <FontAwesomeIcon icon={faCaretDown} />
         </summary>
