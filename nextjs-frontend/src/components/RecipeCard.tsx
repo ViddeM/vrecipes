@@ -1,7 +1,7 @@
 import styles from "./RecipeCard.module.scss";
 import { ShortRecipe } from "../api/ShortRecipe";
 import { useTranslations } from "../hooks/useTranslations";
-import TagContainer from "./TagContainer";
+import TagList from "./TagList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { RecipeImage } from "./RecipeImage";
@@ -41,7 +41,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
             </div>
           )}
 
-          <TagContainer tags={recipe.tags} noLink={true} />
+          <TagList variant={"fadeOverflow"} tags={recipe.tags} noLink={true} />
         </div>
       </a>
     </Link>

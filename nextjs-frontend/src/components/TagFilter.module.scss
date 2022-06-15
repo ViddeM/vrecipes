@@ -1,19 +1,8 @@
 @import "../resources/styles/vars";
 
-.detailsBase {
-  width: 100%;
-  margin: $space;
-  display: flex;
-  justify-content: center;
-}
-
-.summaryBase {
-}
 
 .summaryButton {
   justify-content: space-between;
-
-  width: 300px;
   padding: $space-small;
   font-weight: 600;
   border-radius: $space-tiny;
@@ -39,7 +28,6 @@
 }
 
 .filterViewMenu {
-  width: 300px;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -108,4 +96,20 @@
 
 .manageTags {
   color: dimgrey;
+}
+
+.detail-size-fixed {
+  width: 300px;
+}
+
+.detail-size-full {
+  width: 100%;
+}
+
+.detail-size-responsive {
+  width: 100%;
+  max-width: none;
+  @media (min-width: 1024px) {
+    width: 300px;
+  }
 }
