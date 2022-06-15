@@ -4,7 +4,7 @@
   justify-content: space-between;
   padding: $space-small;
   border-radius: $space-tiny;
-  border: 1px solid grey;
+  border: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: none;
   color: black;
   background-color: unset;
@@ -24,6 +24,7 @@
     > summary {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+      border: 1px solid grey;
     }
   }
 }
