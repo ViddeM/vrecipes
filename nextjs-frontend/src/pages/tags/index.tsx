@@ -26,7 +26,7 @@ type TagsProps = {
 };
 
 const Tags = ({ tags, error }: TagsProps) => {
-  const { me } = useMe();
+  const { me, isLoggedIn } = useMe();
   const { t } = useTranslations();
 
   const [editTag, setEditTag] = useState<Tag | undefined>(undefined);
@@ -75,16 +75,18 @@ const Tags = ({ tags, error }: TagsProps) => {
               setFilterText(e.target.value);
             }}
           />
-          <Button
-            size={"normal"}
-            variant={"primary"}
-            className={styles.NewTagButton}
-            onClick={() => {
-              setCreatingTag(true);
-            }}
-          >
-            {t.tag.newTag}
-          </Button>
+          {isLoggedIn && (
+            <Button
+              size={"normal"}
+              variant={"primary"}
+              className={styles.NewTagButton}
+              onClick={() => {
+                setCreatingTag(true);
+              }}
+            >
+              {t.tag.newTag}
+            </Button>
+          )}
         </div>
         {creatingTag && (
           <CreateTag tag={editTag} cancelEditTag={cancelEditTag} />
