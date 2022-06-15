@@ -65,3 +65,9 @@
 .unsavedChangesText {
   color: $secondary-color;
 }
+
+.detailsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

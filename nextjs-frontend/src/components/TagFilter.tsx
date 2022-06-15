@@ -5,18 +5,15 @@ import { Tag } from "../api/Tag";
 import TextField from "./TextField";
 import fuzzysort from "fuzzysort";
 import { useTranslations } from "../hooks/useTranslations";
-import TagComponent from "./Tag";
-import Link from "next/link";
-import { TAGS_BASE_ENDPOINT } from "../api/Endpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCheck } from "@fortawesome/free-solid-svg-icons";
-import HLine from "./HLine";
 
 export type TagFilterProps = {
   detailsLabel: string;
   tags: Tag[];
   initialSelectedTags: Tag[];
   onUpdate: (ts: Tag[]) => void;
+  size: "full" | "fixed" | "responsive";
 };
 
 const TagFilter: FC<TagFilterProps> = ({
@@ -24,9 +21,9 @@ const TagFilter: FC<TagFilterProps> = ({
   tags,
   onUpdate,
   initialSelectedTags,
+  size,
 }) => {
   const { t } = useTranslations();
-  const searchRef = createRef<HTMLInputElement>();
   const detailsRef = createRef<HTMLDetailsElement>();
   const closeDetails = (e: Event) => {
     assertIsNode(e.target);
@@ -68,15 +65,18 @@ const TagFilter: FC<TagFilterProps> = ({
     }
   }, [filterText, tags]);
 
+  const responsiveClass = styles[`detail-size-${size}`];
   return (
-    <div className={styles.detailsBase}>
+    <div className={`${styles.detailsBase} ${responsiveClass}`}>
       <details ref={detailsRef}>
-        <summary className={`verticalCenterRow ${styles.summaryButton}`}>
+        <summary
+          className={`verticalCenterRow ${styles.summaryButton}  ${responsiveClass}`}
+        >
           {detailsLabel}
           <FontAwesomeIcon icon={faCaretDown} />
         </summary>
-        <div className={styles.filterViewBase}>
-          <div className={styles.filterViewMenu}>
+        <div className={`${styles.filterViewBase} `}>
+          <div className={`${styles.filterViewMenu} ${responsiveClass}`}>
             <div className={styles.grayBorderBottom}>
               <TextField
                 type={"text"}
@@ -89,14 +89,18 @@ const TagFilter: FC<TagFilterProps> = ({
             </div>
             <div className={styles.filterItemList}>
               <div>
-                {filteredTags.map((tag) => (
-                  <TagFilterItem
-                    key={tag.id}
-                    tag={tag}
-                    selected={selectedTags.some((t) => t.id === tag.id)}
-                    onSelected={updatedSelectedTags}
-                  />
-                ))}
+                {filteredTags.length !== 0 &&
+                  filteredTags.map((tag) => (
+                    <TagFilterItem
+                      key={tag.id}
+                      tag={tag}
+                      selected={selectedTags.some((t) => t.id === tag.id)}
+                      onSelected={updatedSelectedTags}
+                    />
+                  ))}
+                {!filteredTags.length && (
+                  <p className={"margin marginLeftBig "}>{t.errors.no_tags}</p>
+                )}
               </div>
             </div>
           </div>

@@ -13,6 +13,7 @@
   },
   "recipe": {
     "searchRecipes": "Sök recept",
+    "filterTags": "Filtrera med taggar",
     "editRecipe": "Ändra recept",
     "imageAltText": "Bild på receptet",
     "ingredients": "Ingredienser",

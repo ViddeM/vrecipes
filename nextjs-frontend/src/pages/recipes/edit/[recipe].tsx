@@ -27,6 +27,7 @@ import TagFilter from "../../../components/TagFilter";
 import { Tag } from "../../../api/Tag";
 import { NewRecipe } from "../../../api/NewRecipe";
 import TagComponent from "../../../components/Tag";
+import TagList from "../../../components/TagList";
 
 interface EditRecipeProps {
   recipe?: Recipe;
@@ -231,22 +232,17 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
           />
         </div>
 
-        <div className={"centeredRow marginTop"}>
-          {selectedTags.map((t) => (
-            <TagComponent
-              key={t.id}
-              noLink={true}
-              color={t.color}
-              text={t.name}
-            />
-          ))}
+        <TagList tags={selectedTags} noLink={true} variant={"center"} />
+
+        <div className={styles.detailsContainer}>
+          <TagFilter
+            detailsLabel={t.recipe.addTags}
+            tags={tags}
+            initialSelectedTags={selectedTags}
+            onUpdate={setSelectedTags}
+            size={"fixed"}
+          />
         </div>
-        <TagFilter
-          detailsLabel={t.recipe.addTags}
-          tags={tags}
-          initialSelectedTags={selectedTags}
-          onUpdate={setSelectedTags}
-        />
 
         <div className={`marginTopBig ${styles.ingredientsTableContainer}`}>
           <CreateIngredientsTable
