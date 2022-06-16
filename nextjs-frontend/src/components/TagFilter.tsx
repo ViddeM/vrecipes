@@ -1,4 +1,4 @@
-import { createRef, FC, useEffect, useState } from "react";
+import { createRef, FC, useEffect, useRef, useState } from "react";
 import styles from "./TagFilter.module.scss";
 import { assertIsNode } from "../util/assertIsNode";
 import { Tag } from "../api/Tag";
@@ -26,6 +26,8 @@ const TagFilter: FC<TagFilterProps> = ({
   size,
 }) => {
   const { t } = useTranslations();
+  const textFieldRef = useRef<HTMLInputElement | null>(null);
+
   const detailsRef = createRef<HTMLDetailsElement>();
   const closeDetails = (e: Event) => {
     assertIsNode(e.target);
@@ -76,6 +78,12 @@ const TagFilter: FC<TagFilterProps> = ({
         onToggle={(e) => {
           if (detailsRef?.current?.open === false && onClose) {
             onClose();
+          } else if (
+            detailsRef?.current?.open === true &&
+            textFieldRef !== null
+          ) {
+            console.log("AS");
+            textFieldRef.current?.focus();
           }
         }}
       >
@@ -87,7 +95,10 @@ const TagFilter: FC<TagFilterProps> = ({
           <div className={`${styles.filterViewMenu} ${responsiveClass}`}>
             <div className={styles.grayBorderBottom}>
               <TextField
+                externalRef={textFieldRef}
+                id={"tagFilter"}
                 type={"search"}
+                focus={true}
                 placeholder={t.tag.searchTags}
                 className={`margin ${styles.grayBorderBottom}`}
                 onChange={(e) => {
