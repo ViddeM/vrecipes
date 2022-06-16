@@ -1,12 +1,10 @@
 @import "src/resources/styles/vars.scss";
 
-
 .NewTagButton {
   width: 100%;
 
-
   @media (min-width: 1024px) {
-    width: auto;
+    width: 100px;
   }
 }
 
@@ -22,7 +20,6 @@
   padding: 0 $space;
 }
 
-
 .TagsPageToolbar {
   width: 100%;
   display: flex;
@@ -31,21 +28,19 @@
   align-items: center;
   gap: $space-small;
 
-
   @media (min-width: 1024px) {
     flex-direction: row;
   }
 }
 
 .TableHeader {
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
   text-align: left;
   border-top-left-radius: $space-tiny;
   border-top-right-radius: $space-tiny;
   padding: $space-small;
   border: 1px solid #707070;
 }
-
 
 .TableRow {
   border: 1px solid #707070;
