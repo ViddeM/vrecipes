@@ -70,7 +70,7 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
           focus={true}
           type="search"
           placeholder={`${t.recipe.searchRecipes}`}
-          className={`marginRight ${styles.searchButton}`}
+          className={styles.searchField}
           onChange={(e) => {
             setFilterText(e.target.value);
           }}
