@@ -134,7 +134,6 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   };
 
   const updateVisibleTags = () => {
-    console.log("selectedTags", selectedTags, "Visible", visibleTags);
     setVisibleTags(selectedTags);
   };
 
