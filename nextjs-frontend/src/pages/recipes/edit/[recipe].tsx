@@ -26,7 +26,6 @@ import { Image } from "../../../api/Image";
 import TagFilter from "../../../components/TagFilter";
 import { Tag } from "../../../api/Tag";
 import { NewRecipe } from "../../../api/NewRecipe";
-import TagComponent from "../../../components/Tag";
 import TagList from "../../../components/TagList";
 
 interface EditRecipeProps {
@@ -62,6 +61,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
     recipe ? recipe.description : ""
   );
   const [selectedTags, setSelectedTags] = useState<Tag[]>(recipe?.tags ?? []);
+  const [visibleTags, setVisibleTags] = useState<Tag[]>(selectedTags);
   const [ingredients, setIngredients] = useState<EditableIngredient[]>(
     recipe ? ingredientsToEditable(recipe.ingredients) : []
   );
@@ -131,6 +131,11 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
         );
       }
     });
+  };
+
+  const updateVisibleTags = () => {
+    console.log("selectedTags", selectedTags, "Visible", visibleTags);
+    setVisibleTags(selectedTags);
   };
 
   return (
@@ -233,14 +238,15 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
         </div>
 
         <div className={styles.detailsContainer}>
-          <TagList tags={selectedTags} noLink={true} variant={"center"} />
           <TagFilter
             detailsLabel={t.recipe.addTags}
             tags={tags}
             initialSelectedTags={selectedTags}
             onUpdate={setSelectedTags}
+            onClose={updateVisibleTags}
             size={"fixed"}
           />
+          <TagList tags={visibleTags} noLink={true} variant={"center"} />
         </div>
 
         <div className={`marginTopBig ${styles.ingredientsTableContainer}`}>
