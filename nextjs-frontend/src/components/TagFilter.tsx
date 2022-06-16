@@ -13,6 +13,7 @@ export type TagFilterProps = {
   tags: Tag[];
   initialSelectedTags: Tag[];
   onUpdate: (ts: Tag[]) => void;
+  onClose?: () => void;
   size: "full" | "fixed" | "responsive";
 };
 
@@ -20,6 +21,7 @@ const TagFilter: FC<TagFilterProps> = ({
   detailsLabel,
   tags,
   onUpdate,
+  onClose,
   initialSelectedTags,
   size,
 }) => {
@@ -68,7 +70,15 @@ const TagFilter: FC<TagFilterProps> = ({
   const responsiveClass = styles[`detail-size-${size}`];
   return (
     <div className={`${styles.detailsBase} ${responsiveClass}`}>
-      <details ref={detailsRef} className={styles.tagFilterDetails}>
+      <details
+        ref={detailsRef}
+        className={styles.tagFilterDetails}
+        onToggle={(e) => {
+          if (detailsRef?.current?.open === false && onClose) {
+            onClose();
+          }
+        }}
+      >
         <summary className={`verticalCenterRow ${styles.summaryButton}  `}>
           {detailsLabel}
           <FontAwesomeIcon icon={faCaretDown} />
