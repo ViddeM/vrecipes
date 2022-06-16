@@ -1,4 +1,10 @@
-import { FC, InputHTMLAttributes, useCallback } from "react";
+import {
+  FC,
+  InputHTMLAttributes,
+  MutableRefObject,
+  useEffect,
+  useRef,
+} from "react";
 import styles from "./TextField.module.scss";
 
 export type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -6,6 +12,7 @@ export type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   inputClassName?: string;
   responsive?: boolean;
   focus?: boolean;
+  externalRef?: MutableRefObject<HTMLInputElement | null>;
 };
 
 const TextField: FC<TextFieldProps> = ({
@@ -15,14 +22,17 @@ const TextField: FC<TextFieldProps> = ({
   required,
   responsive,
   focus,
+  externalRef,
   ...props
 }) => {
   const responsiveClass = responsive ? styles.responsive : "";
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const refFn = useCallback(
-    (element: HTMLInputElement) => (element && focus ? element.focus() : null),
-    [focus]
-  );
+  useEffect(() => {
+    if (focus) {
+      inputRef.current?.focus();
+    }
+  });
 
   return (
     <div
@@ -32,7 +42,12 @@ const TextField: FC<TextFieldProps> = ({
         className={`${styles.textFieldBase} ${inputClassName} `}
         {...props}
         required={required}
-        ref={refFn}
+        ref={(node) => {
+          inputRef.current = node;
+          if (externalRef) {
+            externalRef.current = node;
+          }
+        }}
       />
       {postfixText && <span>{postfixText}</span>}
       {required && <span className={styles.requiredTextField}>*</span>}
