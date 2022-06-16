@@ -40,7 +40,6 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 
   useEffect(() => {
-    console.log("jhsdj", recipes);
     if (recipes) {
       let rec = recipes;
       if (selectedTags.length) {
@@ -48,7 +47,6 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
           recipe.tags.some((t) => selectedTags.some((st) => st.id === t.id))
         );
       }
-      console.log(rec);
       const res = fuzzysort.go(filterText, rec, {
         keys: ["name", "author.name"],
         all: true,
