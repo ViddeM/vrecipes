@@ -176,45 +176,47 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
           </div>
         </>
       )}
-      {loggedInUser?.id === tag.author.id && (
-        <div
-          style={{ width: minWidth, textAlign: "right" }}
-          className={styles.TagTableElement}
-        >
-          <button
-            className={styles.TagsActionButton}
-            onClick={() => setupEditTag(tag)}
-          >
-            {t.common.edit}
-          </button>
-          <button
-            className={styles.TagsActionButton}
-            disabled={loggedInUser.id !== tag.author.id}
-            onClick={() => {
-              openModal({
-                title: t.tag.deleteModal.title,
-                content: t.tag.deleteModal.content,
-                declineButton: {
-                  text: t.common.no,
-                  onClick: () => {
-                    /* Don't do anything */
+      <div
+        style={{ width: minWidth, textAlign: "right" }}
+        className={styles.TagTableElement}
+      >
+        {loggedInUser?.id === tag.author.id && (
+          <>
+            <button
+              className={styles.TagsActionButton}
+              onClick={() => setupEditTag(tag)}
+            >
+              {t.common.edit}
+            </button>
+            <button
+              className={styles.TagsActionButton}
+              disabled={loggedInUser.id !== tag.author.id}
+              onClick={() => {
+                openModal({
+                  title: t.tag.deleteModal.title,
+                  content: t.tag.deleteModal.content,
+                  declineButton: {
+                    text: t.common.no,
+                    onClick: () => {
+                      /* Don't do anything */
+                    },
                   },
-                },
-                confirmButton: {
-                  text: t.common.yes,
-                  onClick: () => {
-                    Api.tags.remove(tag.id);
-                    refreshProps();
+                  confirmButton: {
+                    text: t.common.yes,
+                    onClick: () => {
+                      Api.tags.remove(tag.id);
+                      refreshProps();
+                    },
                   },
-                },
-                onClose: () => {},
-              });
-            }}
-          >
-            {t.common.remove}
-          </button>
-        </div>
-      )}
+                  onClose: () => {},
+                });
+              }}
+            >
+              {t.common.remove}
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };
