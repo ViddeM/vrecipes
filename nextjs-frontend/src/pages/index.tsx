@@ -67,7 +67,7 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
     <DefaultLayout>
       <div className={`${styles.searchContainer} card marginBottomBig`}>
         <TextField
-          focus
+          focus={true}
           type="search"
           placeholder={`${t.recipe.searchRecipes}`}
           className={`marginRight ${styles.searchButton}`}
