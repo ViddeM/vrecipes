@@ -163,7 +163,11 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
                     tag.name
                   )}`}
                 >
-                  <a>{tag.recipeCount + " " + t.header.recipes}</a>
+                  <a className={styles.RecipeCountLink}>
+                    {`${tag.recipeCount} ${
+                      tag.recipeCount === 1 ? t.tag.recipe : t.tag.recipes
+                    }`}
+                  </a>
                 </Link>
               </p>
             )}

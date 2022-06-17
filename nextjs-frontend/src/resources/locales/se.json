@@ -62,7 +62,9 @@
     "deleteModal": {
       "title": "Ta bort taggen?",
       "content": "Är du säker på att du vill ta bort taggen?"
-    }
+    },
+    "recipe": "recept",
+    "recipes": "recept"
   },
   "common": {
     "saveChanges": "Spara ändringar",
