@@ -184,10 +184,11 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
         style={{ width: minWidth, textAlign: "right" }}
         className={styles.TagTableElement}
       >
-        {loggedInUser?.id === tag.author.id && (
+        {loggedInUser && (
           <>
             <button
               className={styles.TagsActionButton}
+              disabled={loggedInUser.id !== tag.author.id}
               onClick={() => setupEditTag(tag)}
             >
               {t.common.edit}
