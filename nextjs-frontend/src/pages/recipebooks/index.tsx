@@ -17,6 +17,7 @@ import { LARGER_THAN_MOBILE_BREAKPOINT } from "../../util/constants";
 import { useMe } from "../../hooks/useMe";
 import ErrorCard from "../../components/ErrorCard";
 import Loading from "../../components/Loading";
+import RecipeBookCard from "../../components/RecipeBookCard";
 
 type RecipeBooksProps = {
   recipeBooks?: ShortRecipeBook[];
@@ -85,7 +86,7 @@ const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
       </div>
       <div className={styles.recipeCardsList}>
         {filteredBooks.map((book) => (
-          <h2>{`Book: ${book.name}`}</h2>
+          <RecipeBookCard recipeBook={book} />
         ))}
       </div>
     </DefaultLayout>

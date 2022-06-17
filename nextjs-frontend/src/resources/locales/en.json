@@ -65,7 +65,9 @@
     "recipesChosen": "recipes chosen",
     "perPage": "per page",
     "page": "page",
-    "outOf": "out of"
+    "outOf": "out of",
+    "recipes": "recipes",
+    "uploadedBy": "Uploaded by"
   },
   "tag": {
     "newTag": "New tag",
