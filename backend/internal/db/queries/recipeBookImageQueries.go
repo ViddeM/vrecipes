@@ -27,7 +27,7 @@ func GetImageForRecipeBook(recipeBookId uuid.UUID) (*tables.Image, error) {
 }
 
 var getImagesForRecipeBookQuery = `
-SELECT image_id, recipe_id
+SELECT image_id, recipe_book_id
 FROM recipe_book_image
 WHERE recipe_book_id=$1
 `
@@ -35,7 +35,7 @@ WHERE recipe_book_id=$1
 func GetImagesForRecipeBook(recipeBookId uuid.UUID) ([]tables.Image, error) {
 	db := getDb()
 
-	var recipeBookImages []*tables.RecipeImage
+	var recipeBookImages []*tables.RecipeBookImage
 	err := pgxscan.Select(ctx, db, &recipeBookImages, getImagesForRecipeBookQuery, recipeBookId)
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func GetImagesForRecipeBook(recipeBookId uuid.UUID) ([]tables.Image, error) {
 	var images []tables.Image
 	if recipeBookImages != nil {
 		for _, bookImage := range recipeBookImages {
-			img, err := GetImageById(bookImage.ImageID)
+			img, err := GetImageById(bookImage.ImageId)
 			if err != nil {
 				return nil, err
 			}
