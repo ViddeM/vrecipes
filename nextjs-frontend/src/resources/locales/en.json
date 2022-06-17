@@ -59,8 +59,13 @@
     "recipeBookName": "Recipe book name",
     "editRecipeBook": "Edit recipe book",
     "noAccess": "You do not have access to modify this recipe book",
+    "recipe": "Recipe",
     "author": "Author",
-    "saveRecipeBook": "Save recipe book"
+    "saveRecipeBook": "Save recipe book",
+    "recipes": "recipes",
+    "perPage": "per page",
+    "page": "page",
+    "outOf": "out of"
   },
   "tag": {
     "newTag": "New tag",
