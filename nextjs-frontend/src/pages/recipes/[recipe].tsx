@@ -11,7 +11,6 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useTranslations } from "../../hooks/useTranslations";
 import { RecipeImage } from "../../components/RecipeImage";
 import { IngredientTable } from "../../components/IngredientTable";
-import TagComponent from "../../components/Tag";
 import { Button, IconButton } from "../../components/Buttons";
 import Link from "next/link";
 import { useMe } from "../../hooks/useMe";
@@ -43,7 +42,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
     <CardLayout>
       <div className={`card ${styles.recipeContainer}`}>
         <div className={`${styles.row}`}>
-          <Link href={"/"}>
+          <Link href={ROOT_ENDPOINT}>
             <a>
               <IconButton variant="opaque" icon={faArrowLeft} size="normal" />
             </a>
