@@ -1,7 +1,7 @@
 import { ShortRecipe } from "../api/ShortRecipe";
 import Checkbox from "./Checkbox";
 import styles from "./RecipesTable.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconButton } from "./Buttons";
 import {
   faChevronLeft,
@@ -9,6 +9,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "./Dropdown";
 import { useTranslations } from "../hooks/useTranslations";
+import TextField from "./TextField";
+import fuzzysort from "fuzzysort";
 
 interface RecipesTableProps {
   recipes: ShortRecipe[];
@@ -21,6 +23,11 @@ const RecipesTable = ({ recipes }: RecipesTableProps) => {
   const { t } = useTranslations();
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+  const [filterText, setFilterText] = useState("");
+  const [filteredRecipes, setFilteredRecipes] = useState(recipes);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currPageRecipes, setCurrPageRecipes] = useState<ShortRecipe[]>([]);
+
   const pageSizeOptions = PAGE_SIZE_OPTIONS.map((n) => {
     return {
       display: `${n} ${t.recipeBook.perPage}`,
@@ -28,15 +35,44 @@ const RecipesTable = ({ recipes }: RecipesTableProps) => {
     };
   });
 
-  const totalPages = Math.ceil(recipes.length / pageSize);
-  if (page >= totalPages) {
-    setPage(totalPages - 1);
-  }
+  useEffect(() => {
+    let rec = recipes;
+    const res = fuzzysort.go(filterText, rec, {
+      keys: ["name", "author.name"],
+      all: true,
+    });
+
+    setFilteredRecipes(res.map((r) => r.obj));
+  }, [filterText, recipes]);
+
+  useEffect(() => {
+    const newTotalPages = Math.ceil(filteredRecipes.length / pageSize);
+    setTotalPages(newTotalPages);
+    let newPage = page;
+    if (page >= newTotalPages) {
+      newPage = Math.max(totalPages - 1, 0);
+      setPage(newPage);
+    }
+
+    setCurrPageRecipes(getRecipePage(filteredRecipes, newPage, pageSize));
+  }, [filteredRecipes, pageSize, page]);
 
   return (
     <div className={styles.recipesTableContainer}>
       <table className={styles.recipesTable}>
         <thead>
+          <tr>
+            <th colSpan={3}>
+              <TextField
+                placeholder={t.recipe.searchRecipes}
+                type="search"
+                className={"marginRight marginLeft"}
+                onChange={(e) => {
+                  setFilterText(e.target.value);
+                }}
+              />
+            </th>
+          </tr>
           <tr>
             <th style={{ width: "10%" }} className={styles.alignCenter} />
             <th style={{ width: "60%" }} className={styles.alignLeft}>
@@ -48,30 +84,33 @@ const RecipesTable = ({ recipes }: RecipesTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {getRecipePage(recipes, page, pageSize).map((recipe) => (
-            <tr key={recipe.id}>
-              <td className={styles.alignCenter}>
-                <div className={styles.center}>
-                  <Checkbox />
-                </div>
-              </td>
-              <td className={styles.alignLeft}>{recipe.name}</td>
-              <td className={styles.alignLeft}>{recipe.author.name}</td>
-            </tr>
-          ))}
+          {currPageRecipes.map((recipe) => {
+            return (
+              <tr key={recipe.id}>
+                <td className={styles.alignCenter}>
+                  <div className={styles.center}>
+                    <Checkbox />
+                  </div>
+                </td>
+                <td className={styles.alignLeft}>{recipe.name}</td>
+                <td className={styles.alignLeft}>{recipe.author.name}</td>
+              </tr>
+            );
+          })}
         </tbody>
         <tfoot>
           <tr>
             <td colSpan={3}>
               <div className={styles.footerContainer}>
-                {`${recipes.length} ${t.recipeBook.recipes}`}
+                {`${filteredRecipes.length} ${t.recipeBook.recipes}`}
                 <Dropdown
                   options={pageSizeOptions}
                   onUpdate={(val) => {
                     const newPageSize = parseInt(val);
                     setPageSize(newPageSize);
                   }}
-                  size={"auto"}
+                  defaultValue={`${DEFAULT_PAGE_SIZE}`}
+                  visibleSize={"auto"}
                   variant={"opaque"}
                 />
                 <div>
@@ -85,7 +124,7 @@ const RecipesTable = ({ recipes }: RecipesTableProps) => {
                       setPage(page - 1);
                     }}
                   />
-                  {`${t.recipeBook.page} ${page + 1} ${
+                  {`${t.recipeBook.page} ${totalPages === 0 ? 0 : page + 1} ${
                     t.recipeBook.outOf
                   } ${totalPages}`}
                   <IconButton
@@ -93,7 +132,7 @@ const RecipesTable = ({ recipes }: RecipesTableProps) => {
                     size="small"
                     icon={faChevronRight}
                     type="button"
-                    disabled={page + 1 === totalPages}
+                    disabled={page + 1 >= totalPages}
                     onClick={() => {
                       setPage(page + 1);
                     }}
@@ -124,7 +163,7 @@ function getRecipePage(
   }
 
   let pageRecipes = [];
-  for (let i = startIndex; i < endIndex; i++) {
+  for (let i = startIndex; i <= endIndex; i++) {
     pageRecipes.push(recipes[i]);
   }
 
