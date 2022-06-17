@@ -15,7 +15,28 @@ VALUES  ('133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b', 'A recipe', 'a_recipe', 'A long
         ('dca1bc12-0cf0-49e9-b0f9-714f9e0c2975', 'A recipe 5', 'a_recipe_5', 'Desc', 100, 45, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
         ('1281fa39-3209-4cbf-b359-7554e232f323', 'A recipe 6', 'a_recipe_6', 'Desc', 150, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
         ('ff9373ea-c5d1-4d05-a299-e0856833131d', 'A recipe 7', 'a_recipe_7', 'Desc', 0, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
-        ('dfed936b-8e2a-458c-a2d7-1c13c14079d6', 'A recipe with a very long god damned name', 'a_recipe_with_a_very_long_god_damned_name', 'Desc', 0, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f');
+        ('dfed936b-8e2a-458c-a2d7-1c13c14079d6', 'A recipe with a very long god damned name', 'a_recipe_with_a_very_long_god_damned_name', 'Desc', 0, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        
+        ('4213b5e5-0c63-4d31-ba96-a54a574bb040', 'A recipe 9', 'a_recipe_9', 'Desc', 0, 30, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('dca1bc12-0cf0-49e9-b0f9-a14f9e0c2975', 'A recipe 11', 'a_recipe_11', 'Desc', 100, 45, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('1281fa39-3209-4cbf-b359-a554e232f323', 'A recipe 12', 'a_recipe_12', 'Desc', 150, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('ff9373ea-c5d1-4d05-a299-a0856833131d', 'A recipe 13', 'a_recipe_13', 'Desc', 0, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('4213b5e5-0c63-4d31-ba96-b54a574bb040', 'A recipe 14', 'a_recipe_14', 'Desc', 0, 30, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('dca1bc12-0cf0-49e9-b0f9-b14f9e0c2975', 'A recipe 15', 'a_recipe_15', 'Desc', 100, 45, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('1281fa39-3209-4cbf-b359-b554e232f323', 'A recipe 16', 'a_recipe_16', 'Desc', 150, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('ff9373ea-c5d1-4d05-a299-b0856833131d', 'A recipe 17', 'a_recipe_17', 'Desc', 0, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('4213b5e5-0c63-4d31-ba96-c54a574bb040', 'A recipe 18', 'a_recipe_18', 'Desc', 0, 30, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('dca1bc12-0cf0-49e9-b0f9-c14f9e0c2975', 'A recipe 19', 'a_recipe_19', 'Desc', 100, 45, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('1281fa39-3209-4cbf-b359-c554e232f323', 'A recipe 20', 'a_recipe_20', 'Desc', 150, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('ff9373ea-c5d1-4d05-a299-c0856833131d', 'A recipe 21', 'a_recipe_21', 'Desc', 0, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('4213b5e5-0c63-4d31-ba96-d54a574bb040', 'A recipe 31', 'a_recipe_31', 'Desc', 0, 30, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('dca1bc12-0cf0-49e9-b0f9-d14f9e0c2975', 'A recipe 32', 'a_recipe_32', 'Desc', 100, 45, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('1281fa39-3209-4cbf-b359-d554e232f323', 'A recipe 33', 'a_recipe_33', 'Desc', 150, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('ff9373ea-c5d1-4d05-a299-d0856833131d', 'A recipe 34', 'a_recipe_34', 'Desc', 0, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('a213b5e5-0c63-4d31-ba96-c54a574bb040', 'A recipe 35', 'a_recipe_35', 'Desc', 0, 30, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('dca1bc12-0cf0-49e9-b0f9-114f9e0c2975', 'A recipe 37', 'a_recipe_37', 'Desc', 100, 45, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('1281fa39-3209-4cbf-b359-1554e232f323', 'A recipe 39', 'a_recipe_39', 'Desc', 150, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f'),
+        ('ff9373ea-c5d1-4d05-a299-10856833131d', 'A recipe 40', 'a_recipe_40', 'Desc', 0, 0, false, '7cc2fc04-7379-4361-9f4e-079054933d2f');
 
 
 -- Create some tags
