@@ -18,16 +18,23 @@ import NoAccess from "../../../components/NoAccess";
 import { EditRecipeBook } from "../../../api/EditRecipeBook";
 import { UniqueName } from "../../../api/UniqueName";
 import { Button } from "../../../components/Buttons";
+import RecipesTable from "../../../components/RecipesTable";
+import { ShortRecipe } from "../../../api/ShortRecipe";
 
 interface EditRecipeBookProps {
   recipeBook?: RecipeBook;
   dataLoadError?: string;
+  recipes?: ShortRecipe[];
 }
 
 const RECIPE_BOOK_NAME = "recipe_book_name";
 const RECIPE_BOOK_AUTHOR = "recipe_book_author";
 
-const EditRecipeBook = ({ recipeBook, dataLoadError }: EditRecipeBookProps) => {
+const EditRecipeBook = ({
+  recipeBook,
+  dataLoadError,
+  recipes,
+}: EditRecipeBookProps) => {
   const { t, translate } = useTranslations();
   const { isLoggedIn, me, initialized } = useMe();
   const router = useRouter();
@@ -42,7 +49,7 @@ const EditRecipeBook = ({ recipeBook, dataLoadError }: EditRecipeBookProps) => {
     return <ErrorCard error={dataLoadError} />;
   }
 
-  if (!recipeBook) {
+  if (!recipeBook || !recipes) {
     return <Loading />;
   }
 
@@ -127,6 +134,8 @@ const EditRecipeBook = ({ recipeBook, dataLoadError }: EditRecipeBookProps) => {
           />
         </div>
 
+        <RecipesTable recipes={recipes} />
+
         {error && <p className="errorText marginTop">{error}</p>}
 
         <Button
@@ -147,6 +156,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // @ts-ignore
   const { recipeBook } = context.params;
   let res = await Api.recipeBooks.getOne(recipeBook);
+  let recipes = await Api.recipes.getAll();
 
   if (res.rawResponse?.status === 404) {
     return {
@@ -158,6 +168,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       dataLoadError: res.errorTranslationString ?? null,
       recipeBook: res.data ?? null,
+      recipes: recipes.data?.recipes ?? [],
     },
   };
 };
