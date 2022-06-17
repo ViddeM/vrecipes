@@ -10,7 +10,7 @@
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.1),
-  0px 4px 5px 0px rgba(0, 0, 0, 0.10), 0px 1px 10px 0px rgba(0, 0, 0, 0.1);
+    0px 4px 5px 0px rgba(0, 0, 0, 0.1), 0px 1px 10px 0px rgba(0, 0, 0, 0.1);
   transition: filter 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
@@ -94,6 +94,10 @@
 
   &:disabled {
     background-color: unset;
+
+    .iconButtonIcon {
+      filter: opacity(50%) !important;
+    }
   }
 }
 
