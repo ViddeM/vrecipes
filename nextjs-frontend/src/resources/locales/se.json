@@ -65,7 +65,9 @@
     "recipesChosen": "recept valda",
     "perPage": "per sida",
     "page": "sida",
-    "outOf": "av"
+    "outOf": "av",
+    "recipes": "recept",
+    "uploadedBy": "Upladdat av"
   },
   "tag": {
     "newTag": "Ny tagg",
