@@ -82,7 +82,6 @@ const TagFilter: FC<TagFilterProps> = ({
             detailsRef?.current?.open === true &&
             textFieldRef !== null
           ) {
-            console.log("AS");
             textFieldRef.current?.focus();
           }
         }}
