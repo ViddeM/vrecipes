@@ -1,0 +1,80 @@
+@import "src/resources/styles/vars";
+
+.recipeBookContainer {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.alignLeft {
+  justify-content: flex-start;
+}
+
+.infoBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightAligned {
+  justify-content: right;
+}
+
+.imageContainer {
+  width: 100%;
+  max-width: 400px;
+}
+
+.recipesList {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: $border-radius;
+
+  > div {
+    border-bottom: 1px solid $border-color;
+    padding: $space-small;
+
+    &:nth-child(odd) {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    &:first-child {
+      background-color: $border-color;
+    }
+  }
+}
+
+.recipeRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.recipeLink {
+  color: $primary-color;
+}
+
+.recipeBookDivider {
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  min-height: 1px;
+  background-color: $border-color;
+}

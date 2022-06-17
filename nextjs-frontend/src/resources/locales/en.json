@@ -67,7 +67,12 @@
     "page": "page",
     "outOf": "out of",
     "recipes": "recipes",
-    "uploadedBy": "Posted by"
+    "uploadedBy": "Posted by",
+    "deleteModal": {
+      "title": "Delete recipe book?",
+      "content": "Are you sure that you want to delete this recipe book?"
+    },
+    "recipeBookDeleted": "Recipe book deleted"
   },
   "tag": {
     "newTag": "New tag",
