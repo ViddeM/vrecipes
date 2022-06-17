@@ -20,6 +20,7 @@ import { UniqueName } from "../../../api/UniqueName";
 import { Button } from "../../../components/Buttons";
 import RecipesTable from "../../../components/RecipesTable";
 import { ShortRecipe } from "../../../api/ShortRecipe";
+import ImageUpload from "../../../components/ImageUpload";
 
 interface EditRecipeBookProps {
   recipeBook?: RecipeBook;
@@ -43,6 +44,8 @@ const EditRecipeBook = ({
   const [error, setError] = useState<string | undefined>(undefined);
   const [name, setName] = useState(recipeBook?.name ?? "");
   const [author, setAuthor] = useState(recipeBook?.author ?? "");
+  const [images, setImages] = useState(recipeBook?.images ?? []);
+  const [imageUploadInProgress, setImageUploadInProgress] = useState(false);
   /* End state declaration */
 
   if (dataLoadError) {
@@ -136,13 +139,21 @@ const EditRecipeBook = ({
 
         <RecipesTable recipes={recipes} />
 
+        {/* Image upload */}
+        <ImageUpload
+          images={images}
+          imageUploadInProgress={imageUploadInProgress}
+          setImages={setImages}
+          setImageUploadInProgress={setImageUploadInProgress}
+        />
+
         {error && <p className="errorText marginTop">{error}</p>}
 
         <Button
           variant="primary"
           size="normal"
           type="submit"
-          // disabled={imageUploadInProgress}
+          disabled={imageUploadInProgress}
           className={`marginTopBig ${styles.saveRecipeBookButton}`}
         >
           {t.recipeBook.saveRecipeBook}
