@@ -24,7 +24,7 @@ func EditRecipeBook(
 
 	err = updateRecipeBookImages(oldRecipeBook.ID, updatedRecipeBook.Images)
 
-	return uniqueName, nil
+	return uniqueName, err
 }
 
 func updateRecipeBookGeneral(
