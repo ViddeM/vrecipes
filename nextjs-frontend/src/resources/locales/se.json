@@ -59,8 +59,13 @@
     "recipeBookName": "Receptboksnamn",
     "editRecipeBook": "Ändra receptbok",
     "noAccess": "Du har inte tillåtelse att modifiera denna receptbok",
+    "recipe": "Recept",
     "author": "Författare",
-    "saveRecipeBook": "Spara receptbok"
+    "saveRecipeBook": "Spara receptbok",
+    "recipes": "recept",
+    "perPage": "per sida",
+    "page": "sida",
+    "outOf": "av"
   },
   "tag": {
     "newTag": "Ny tagg",
