@@ -64,7 +64,12 @@ const EditRecipeBook = ({
   }
 
   if (me && recipeBook.uploadedBy.id !== me?.id) {
-    return <NoAccess text={t.recipeBook.noAccess} />;
+    return (
+      <NoAccess
+        text={t.recipeBook.noAccess}
+        backUrl={RECIPE_BOOKS_BASE_ENDPOINT}
+      />
+    );
   }
 
   const unsavedChanges =
