@@ -2,19 +2,19 @@ import { Button } from "./Buttons";
 import { useTranslations } from "../hooks/useTranslations";
 import CardLayout from "../layouts/CardLayout";
 import Link from "next/link";
-import { ROOT_ENDPOINT } from "../api/Endpoints";
 
 interface NoAccessProps {
-  text: String;
+  text: string;
+  backUrl: string;
 }
 
-const NoAccess = ({ text }: NoAccessProps) => {
+const NoAccess = ({ text, backUrl }: NoAccessProps) => {
   const { t } = useTranslations();
   return (
     <CardLayout>
       <div className="card column">
         <p className="marginBottom">{text}</p>
-        <Link href={ROOT_ENDPOINT}>
+        <Link href={backUrl}>
           <a>
             <Button variant="primary" size="normal">
               {t.common.takeMeBack}

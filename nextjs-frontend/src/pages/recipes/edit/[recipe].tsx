@@ -15,7 +15,11 @@ import {
   ingredientsFromEditable,
   ingredientsToEditable,
 } from "../../../api/Ingredient";
-import { LOGIN_ENDPOINT, RECIPES_BASE_ENDPOINT } from "../../../api/Endpoints";
+import {
+  LOGIN_ENDPOINT,
+  RECIPES_BASE_ENDPOINT,
+  ROOT_ENDPOINT,
+} from "../../../api/Endpoints";
 import CreateStepsList from "../../../components/CreateStepsList";
 import { Step } from "../../../api/Step";
 import { useMe } from "../../../hooks/useMe";
@@ -85,7 +89,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   }
 
   if (me && recipe.author.id !== me?.id) {
-    return <NoAccess text={t.recipe.noAccess} />;
+    return <NoAccess text={t.recipe.noAccess} backUrl={ROOT_ENDPOINT} />;
   }
 
   /* Check if we have unsaved changes */
