@@ -147,7 +147,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
                   })
                 }
               >
-                Delete
+                {t.common.remove}
               </Button>
               <Link href={`${EDIT_RECIPE_BASE_ENDPOINT}/${recipe.uniqueName}`}>
                 <a>
@@ -156,7 +156,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
                     size="normal"
                     disabled={me?.id !== recipe.author.id}
                   >
-                    Edit
+                    {t.common.edit}
                   </Button>
                 </a>
               </Link>
