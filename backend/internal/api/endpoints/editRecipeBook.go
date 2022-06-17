@@ -14,7 +14,7 @@ import (
 	"net/http"
 )
 
-type EditRecipeBookJson struct {
+type EditRecipeBookResponseJson struct {
 	UniqueName string `json:"uniqueName"`
 }
 
@@ -57,7 +57,7 @@ func EditRecipeBook(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, common.Success(EditRecipeBookJson{uniqueName}))
+	c.JSON(http.StatusOK, common.Success(EditRecipeBookResponseJson{uniqueName}))
 }
 
 func validateRecipeBookId(c *gin.Context) (*tables.RecipeBook, error) {
