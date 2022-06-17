@@ -71,6 +71,10 @@ const Modal = ({
 
 // Ensure that the user can't interact with elements behind it.
 export function trapTabKey(e: KeyboardEvent) {
+  if (e.key !== "Tab") {
+    return;
+  }
+
   const modalRoot = document.querySelector(`#${MODAL_BACKGROUND_ID}`);
   if (!modalRoot) {
     console.log("Failed to find modal root!");
