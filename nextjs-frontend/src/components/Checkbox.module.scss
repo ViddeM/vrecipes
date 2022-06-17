@@ -1,0 +1,28 @@
+@import "src/resources/styles/vars";
+
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  background-color: #fafafa;
+  border-radius: $border-radius;
+  transform: translateY(-0.075em);
+
+  display: grid;
+  place-content: center;
+
+  &:checked:before {
+    content: "\2714";
+    color: $primary-color;
+    font-size: 20px;
+  }
+
+  &:checked {
+    border-color: $primary-color;
+  }
+}
