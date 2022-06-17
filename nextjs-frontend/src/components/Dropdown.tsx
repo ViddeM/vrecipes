@@ -11,7 +11,7 @@ export type DropdownVariant = {
 };
 
 export type DropdownSize = {
-  size: "normal" | "auto";
+  visibleSize: "normal" | "auto";
 };
 
 export type SelectProps = InputHTMLAttributes<HTMLSelectElement> &
@@ -26,12 +26,12 @@ const Dropdown: FC<SelectProps> = ({
   options,
   onUpdate,
   defaultValue,
-  size,
   variant,
+  visibleSize,
   ...props
 }) => {
   let variantStyle = styles[`dropdown-variant-${variant}`];
-  let sizeStyle = styles[`dropdown-size-${size}`];
+  let sizeStyle = styles[`dropdown-size-${visibleSize}`];
 
   return (
     <select
