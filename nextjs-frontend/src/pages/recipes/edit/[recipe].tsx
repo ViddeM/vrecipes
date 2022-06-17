@@ -103,7 +103,8 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
     recipe.tags.length !==
       recipe.tags.filter((t) => selectedTags.some((st) => st.id === t.id))
         .length ||
-    !stepsSame(steps, recipe?.steps);
+    !stepsSame(steps, recipe?.steps) ||
+    !imagesSame(images, recipe.images);
   /* End check if we have unsaved changes */
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -324,6 +325,23 @@ function stepsSame(steps: Step[], other: Step[]): boolean {
     let b = other[i];
 
     if (a.number !== b.number || a.description !== b.description) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function imagesSame(images: Image[], other: Image[]): boolean {
+  if (images.length !== other.length) {
+    return false;
+  }
+
+  for (let i = 0; i < images.length; i++) {
+    let a = images[i];
+    let b = other[i];
+
+    if (a.id !== b.id) {
       return false;
     }
   }

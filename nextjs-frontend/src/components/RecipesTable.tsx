@@ -1,5 +1,3 @@
-import { ShortRecipe } from "../api/ShortRecipe";
-import Checkbox from "./Checkbox";
 import styles from "./RecipesTable.module.scss";
 import { useEffect, useState } from "react";
 import { IconButton } from "./Buttons";
@@ -10,23 +8,33 @@ import {
 import Dropdown from "./Dropdown";
 import { useTranslations } from "../hooks/useTranslations";
 import TextField from "./TextField";
+import { RecipeBookRecipe } from "../api/RecipeBook";
+import Checkbox from "./Checkbox";
 import fuzzysort from "fuzzysort";
 
 interface RecipesTableProps {
-  recipes: ShortRecipe[];
+  recipes: RecipeBookRecipe[];
+  selectedRecipes: RecipeBookRecipe[];
+  setSelectedRecipes: (recipes: RecipeBookRecipe[]) => void;
 }
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZE_OPTIONS = [5, 10, 25, 50, 100];
 
-const RecipesTable = ({ recipes }: RecipesTableProps) => {
+const RecipesTable = ({
+  recipes,
+  selectedRecipes,
+  setSelectedRecipes,
+}: RecipesTableProps) => {
   const { t } = useTranslations();
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [filterText, setFilterText] = useState("");
   const [filteredRecipes, setFilteredRecipes] = useState(recipes);
   const [totalPages, setTotalPages] = useState(1);
-  const [currPageRecipes, setCurrPageRecipes] = useState<ShortRecipe[]>([]);
+  const [currPageRecipes, setCurrPageRecipes] = useState<RecipeBookRecipe[]>(
+    []
+  );
 
   const pageSizeOptions = PAGE_SIZE_OPTIONS.map((n) => {
     return {
@@ -38,7 +46,7 @@ const RecipesTable = ({ recipes }: RecipesTableProps) => {
   useEffect(() => {
     let rec = recipes;
     const res = fuzzysort.go(filterText, rec, {
-      keys: ["name", "author.name"],
+      keys: ["name", "author"],
       all: true,
     });
 
@@ -84,25 +92,37 @@ const RecipesTable = ({ recipes }: RecipesTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {currPageRecipes.map((recipe) => {
-            return (
-              <tr key={recipe.id}>
-                <td className={styles.alignCenter}>
-                  <div className={styles.center}>
-                    <Checkbox />
-                  </div>
-                </td>
-                <td className={styles.alignLeft}>{recipe.name}</td>
-                <td className={styles.alignLeft}>{recipe.author.name}</td>
-              </tr>
-            );
-          })}
+          {currPageRecipes.map((recipe) => (
+            <tr key={recipe.id}>
+              <td className={styles.alignCenter}>
+                <div className={styles.center}>
+                  <Checkbox
+                    checked={
+                      selectedRecipes.filter((r) => r.id === recipe.id).length >
+                      0
+                    }
+                    setChecked={(val) => {
+                      if (val) {
+                        setSelectedRecipes([...selectedRecipes, recipe]);
+                      } else {
+                        setSelectedRecipes(
+                          selectedRecipes.filter((r) => r !== recipe)
+                        );
+                      }
+                    }}
+                  />
+                </div>
+              </td>
+              <td className={styles.alignLeft}>{recipe.name}</td>
+              <td className={styles.alignLeft}>{recipe.author}</td>
+            </tr>
+          ))}
         </tbody>
         <tfoot>
           <tr>
             <td colSpan={3}>
               <div className={styles.footerContainer}>
-                {`${filteredRecipes.length} ${t.recipeBook.recipes}`}
+                {`${selectedRecipes.length}/${filteredRecipes.length} ${t.recipeBook.recipesChosen}`}
                 <Dropdown
                   options={pageSizeOptions}
                   onUpdate={(val) => {
@@ -148,10 +168,10 @@ const RecipesTable = ({ recipes }: RecipesTableProps) => {
 };
 
 function getRecipePage(
-  recipes: ShortRecipe[],
+  recipes: RecipeBookRecipe[],
   page: number,
   pageSize: number
-): ShortRecipe[] {
+): RecipeBookRecipe[] {
   const startIndex = page * pageSize;
   if (recipes.length === 0 || startIndex > recipes.length) {
     return [];
