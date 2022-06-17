@@ -10,7 +10,7 @@ import CardLayout from "../../../layouts/CardLayout";
 import styles from "./[recipeBook].module.scss";
 import TextField from "../../../components/TextField";
 import { FormEvent, useState } from "react";
-import { RecipeBook } from "../../../api/RecipeBook";
+import { RecipeBook, RecipeBookRecipe } from "../../../api/RecipeBook";
 import { GetServerSideProps } from "next";
 import ErrorCard from "../../../components/ErrorCard";
 import Loading from "../../../components/Loading";
@@ -19,13 +19,13 @@ import { EditRecipeBook } from "../../../api/EditRecipeBook";
 import { UniqueName } from "../../../api/UniqueName";
 import { Button } from "../../../components/Buttons";
 import RecipesTable from "../../../components/RecipesTable";
-import { ShortRecipe } from "../../../api/ShortRecipe";
 import ImageUpload from "../../../components/ImageUpload";
+import { Image } from "../../../api/Image";
 
 interface EditRecipeBookProps {
   recipeBook?: RecipeBook;
   dataLoadError?: string;
-  recipes?: ShortRecipe[];
+  recipes?: RecipeBookRecipe[];
 }
 
 const RECIPE_BOOK_NAME = "recipe_book_name";
@@ -44,8 +44,11 @@ const EditRecipeBook = ({
   const [error, setError] = useState<string | undefined>(undefined);
   const [name, setName] = useState(recipeBook?.name ?? "");
   const [author, setAuthor] = useState(recipeBook?.author ?? "");
-  const [images, setImages] = useState(recipeBook?.images ?? []);
+  const [image, setImage] = useState(recipeBook?.image ?? null);
   const [imageUploadInProgress, setImageUploadInProgress] = useState(false);
+  const [selectedRecipes, setSelectedRecipes] = useState<RecipeBookRecipe[]>(
+    recipeBook?.recipes ?? []
+  );
   /* End state declaration */
 
   if (dataLoadError) {
@@ -65,15 +68,23 @@ const EditRecipeBook = ({
   }
 
   const unsavedChanges =
-    name !== recipeBook?.name || author !== recipeBook.author;
+    name !== recipeBook.name ||
+    author !== recipeBook.author ||
+    !recipesSame(selectedRecipes, recipeBook.recipes) ||
+    !imageSame(image, recipeBook.image);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    let images: string[] = [];
+    if (image) {
+      images = [image.id];
+    }
+
     let newRecipeBook: EditRecipeBook = {
       name: name,
-      images: [],
-      recipes: [],
+      images: images,
+      recipes: selectedRecipes.map((r) => r.id),
       author: author,
     };
 
@@ -137,13 +148,28 @@ const EditRecipeBook = ({
           />
         </div>
 
-        <RecipesTable recipes={recipes} />
+        <div className="space" />
+
+        {/* Recipes table */}
+        <RecipesTable
+          recipes={recipes}
+          selectedRecipes={selectedRecipes}
+          setSelectedRecipes={setSelectedRecipes}
+        />
+
+        <div className="space" />
 
         {/* Image upload */}
         <ImageUpload
-          images={images}
+          images={image ? [image] : []}
           imageUploadInProgress={imageUploadInProgress}
-          setImages={setImages}
+          setImages={(images) => {
+            if (images.length > 0) {
+              setImage(images[0]);
+            } else {
+              setImage(null);
+            }
+          }}
           setImageUploadInProgress={setImageUploadInProgress}
         />
 
@@ -158,10 +184,41 @@ const EditRecipeBook = ({
         >
           {t.recipeBook.saveRecipeBook}
         </Button>
+
+        {unsavedChanges && (
+          <p className={`marginTop ${styles.unsavedChangesText}`}>
+            {t.common.unsavedChanges}
+          </p>
+        )}
       </form>
     </CardLayout>
   );
 };
+
+function recipesSame(
+  recipes: RecipeBookRecipe[],
+  other: RecipeBookRecipe[]
+): boolean {
+  if (recipes.length !== other.length) {
+    return false;
+  }
+
+  for (let i = 0; i < recipes.length; i++) {
+    if (recipes[i].id !== other[i].id) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function imageSame(image: Image | null, other: Image | null): boolean {
+  if (image === null) {
+    return other === null;
+  }
+
+  return image.id === other?.id;
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // @ts-ignore
@@ -175,11 +232,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
+  const allRecipes = recipes.data?.recipes ?? [];
+  const recs = allRecipes.map((r) => {
+    return {
+      id: r.id,
+      name: r.name,
+      uniqueName: r.uniqueName,
+      author: r.author.name,
+    };
+  });
+
   return {
     props: {
       dataLoadError: res.errorTranslationString ?? null,
       recipeBook: res.data ?? null,
-      recipes: recipes.data?.recipes ?? [],
+      recipes: recs,
     },
   };
 };

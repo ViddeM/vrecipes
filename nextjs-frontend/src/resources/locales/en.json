@@ -62,7 +62,7 @@
     "recipe": "Recipe",
     "author": "Author",
     "saveRecipeBook": "Save recipe book",
-    "recipes": "recipes",
+    "recipesChosen": "recipes chosen",
     "perPage": "per page",
     "page": "page",
     "outOf": "out of"

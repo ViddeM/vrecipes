@@ -5,7 +5,7 @@ export interface RecipeBook {
   id: string;
   name: string;
   uniqueName: string;
-  images: Image[];
+  image: Image;
   recipes: RecipeBookRecipe[];
   uploadedBy: Author;
   author: string;
