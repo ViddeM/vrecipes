@@ -33,7 +33,7 @@ const Footer = () => {
             options={localeOptions}
             defaultValue={locale}
             className={styles.changeLocaleDropdown}
-            size={"normal"}
+            visibleSize={"normal"}
             variant={"outlined"}
           />
         )}
