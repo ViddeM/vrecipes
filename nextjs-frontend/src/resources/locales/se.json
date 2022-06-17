@@ -67,7 +67,12 @@
     "page": "sida",
     "outOf": "av",
     "recipes": "recept",
-    "uploadedBy": "Upplagt av"
+    "uploadedBy": "Upplagt av",
+    "deleteModal": {
+      "title": "Ta bort receptboken?",
+      "content": "Är du säker på att du vill ta bort denna receptbok?"
+    },
+    "recipeBookDeleted": "Receptboken har tagits bort"
   },
   "tag": {
     "newTag": "Ny tagg",

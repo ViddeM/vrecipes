@@ -83,6 +83,12 @@ export const Api = {
         true
       );
     },
+    remove: (id: string) => {
+      return handleResponse(
+        axios.delete<RawApiResponse<string>>(`/books/${id}`),
+        true
+      );
+    },
   },
   user: {
     githubLogin: () => {
