@@ -12,6 +12,8 @@ $recipe-img-height: 200px;
 
   &:hover,
   &:focus-visible {
+    text-decoration: none;
+
     border: 1px solid $primary-color;
 
     p {
