@@ -19,7 +19,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
     <Link href={`${RECIPES_BASE_ENDPOINT}/${recipe.uniqueName}`}>
       <a className={`noStyleLink card ${styles.recipeCard}`}>
         <div className={styles.recipeCardImageContainer}>
-          <RecipeImage url={recipe.imageLink} border="top" />
+          <RecipeImage url={recipe.imageLink} border="none" />
         </div>
         <div className={styles.recipeCardContent}>
           <h3 className={styles.recipeCardTitle}>{recipe.name}</h3>
