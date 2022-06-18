@@ -22,6 +22,8 @@ import { Tag } from "../api/Tag";
 import TagList from "../components/TagList";
 
 import { LARGER_THAN_MOBILE_BREAKPOINT } from "../util/constants";
+import { useRouter } from "next/router";
+import { tagNameToUnique } from "../util/tagNameToUnique";
 
 type HomeProps = {
   recipes?: ShortRecipe[];
@@ -37,6 +39,7 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
   const { t } = useTranslations();
   const isLargeWindow = useMediaQuery(LARGER_THAN_MOBILE_BREAKPOINT);
   const { isLoggedIn } = useMe();
+  const { query } = useRouter();
 
   const [filterText, setFilterText] = useState("");
   const [filteredRecipes, setFilteredRecipes] = useState<ShortRecipe[]>([]);
@@ -60,6 +63,16 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
     }
     setVisibleRecipes(BASE_RECIPE_COUNT);
   }, [filterText, recipes, selectedTags]);
+
+  useEffect(() => {
+    if (query.tags && query.tags.length > 0) {
+      tags.find((t) => {
+        if (tagNameToUnique(t.name) === query.tags) {
+          setSelectedTags([t]);
+        }
+      });
+    }
+  }, [query]);
 
   if (error) {
     return <ErrorCard error={error} />;
@@ -85,8 +98,8 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
           <TagFilter
             detailsLabel={t.recipe.filterTags}
             tags={tags}
-            initialSelectedTags={selectedTags}
-            onUpdate={setSelectedTags}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
             size={"full"}
           />
           {isLoggedIn && (
