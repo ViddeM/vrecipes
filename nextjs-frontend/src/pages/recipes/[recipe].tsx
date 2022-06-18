@@ -63,9 +63,11 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
           )}
         </div>
 
-        <h1>{recipe.name}</h1>
+        <h1 className={"breakWord"}>{recipe.name}</h1>
 
-        <p>{`${t.common.createdBy} ${recipe.author.name}`}</p>
+        <p
+          className={"breakWord"}
+        >{`${t.common.createdBy} ${recipe.author.name}`}</p>
 
         <TagList tags={recipe.tags} noLink={false} variant={"center"} />
 

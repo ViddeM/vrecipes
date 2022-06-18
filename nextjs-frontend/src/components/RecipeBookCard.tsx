@@ -19,8 +19,8 @@ const RecipeBookCard = ({ recipeBook }: RecipeBookCardProps) => {
           <RecipeImage url={recipeBook.imageLink} border="top" />
         </div>
         <div className={styles.recipeBookCardContent}>
-          <h3>{recipeBook.name}</h3>
-          <p>{recipeBook.author}</p>
+          <h3 className={styles.recipeBookCardTitle}>{recipeBook.name}</h3>
+          <p className={styles.recipeBookCardTitle}>{recipeBook.author}</p>
 
           <div className={styles.fill} />
 
