@@ -27,7 +27,14 @@
 }
 
 .fileUploadInput {
-  display: none;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.fileUploadInput:focus + .fileUploadInputLabel {
+  border: 1px solid blue;
+  transition: border 0ms;
 }
 
 .fileUploadInputLabel {
