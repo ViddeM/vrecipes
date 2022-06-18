@@ -57,8 +57,8 @@ const RecipesTable = ({
     const newTotalPages = Math.ceil(filteredRecipes.length / pageSize);
     setTotalPages(newTotalPages);
     let newPage = page;
-    if (page >= newTotalPages) {
-      newPage = Math.max(totalPages - 1, 0);
+    if (newPage >= newTotalPages) {
+      newPage = Math.max(newTotalPages - 1, 0);
       setPage(newPage);
     }
 
