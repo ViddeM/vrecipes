@@ -50,8 +50,8 @@ const RecipeBook = ({ recipeBook, error }: RecipeBookProps) => {
             className={styles.rightAligned}
           >{`${t.recipeBook.uploadedBy} ${recipeBook.uploadedBy.name}`}</p>
         </div>
-        <h1>{recipeBook.name}</h1>
-        <p>{recipeBook.author}</p>
+        <h1 className={"breakWord"}>{recipeBook.name}</h1>
+        <p className={"breakWord"}>{recipeBook.author}</p>
         <div className={"space"} />
         {recipeBook.image && (
           <div className={styles.imageContainer}>

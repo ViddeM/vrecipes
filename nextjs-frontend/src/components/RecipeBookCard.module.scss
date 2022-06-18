@@ -29,6 +29,12 @@ $recipe-book-card-height: 424px;
   flex-direction: column;
 }
 
+.recipeBookCardTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .recipeBookCardContent {
   display: flex;
   flex-direction: column;
