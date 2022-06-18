@@ -31,17 +31,21 @@ export const RecipeImage = ({
     image = Api.images.formatImageUrl(url);
   }
 
+  let style = `${border !== "none" ? styles[`border-${border}`] : ""} ${
+    styles.image
+  }`;
+
   return (
-    <div className={styles.imageContainer}>
-      <Image
-        src={image}
-        alt={t.recipe.imageAltText}
-        className={border !== "none" ? styles[`border-${border}`] : ""}
-        layout="responsive"
-        width="100%"
-        height="100%"
-        onError={() => setErrored(true)}
-      />
-    </div>
+    // <div className={styles.imageContainer}>
+    <Image
+      src={image}
+      alt={t.recipe.imageAltText}
+      className={style}
+      layout="responsive"
+      width="100%"
+      height="100%"
+      onError={() => setErrored(true)}
+    />
+    // </div>
   );
 };

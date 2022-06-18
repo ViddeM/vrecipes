@@ -20,7 +20,7 @@ const RecipeBookCard = ({ recipeBook }: RecipeBookCardProps) => {
           <RecipeImage
             defaultImage={defaultRecipeBookImage}
             url={recipeBook.imageLink}
-            border="top"
+            border="none"
           />
         </div>
         <div className={styles.recipeBookCardContent}>

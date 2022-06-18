@@ -53,7 +53,7 @@ const ImageUpload = ({
         <>
           {images.length > 0 && (
             <div className={`marginTop ${styles.imageContainer}`}>
-              <RecipeImage url={images[0].url} />
+              <RecipeImage url={images[0].url} border={"none"} />
               <IconButton
                 className={styles.removeImageButton}
                 icon={faX}

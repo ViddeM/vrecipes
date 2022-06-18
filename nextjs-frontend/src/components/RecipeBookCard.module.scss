@@ -7,6 +7,7 @@ $recipe-book-card-height: 424px;
   padding: 0;
   width: $recipe-book-card-width;
   height: $recipe-book-card-height;
+  overflow: hidden;
 
   &:hover,
   &:focus-visible {
