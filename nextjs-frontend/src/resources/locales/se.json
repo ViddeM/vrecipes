@@ -72,7 +72,8 @@
       "title": "Ta bort receptboken?",
       "content": "Är du säker på att du vill ta bort denna receptbok?"
     },
-    "recipeBookDeleted": "Receptboken har tagits bort"
+    "recipeBookDeleted": "Receptboken har tagits bort",
+    "noRecipesForBook": "Inga recept vald för denna bok"
   },
   "tag": {
     "newTag": "Ny tagg",

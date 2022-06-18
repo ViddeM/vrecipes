@@ -59,20 +59,25 @@ const RecipeBook = ({ recipeBook, error }: RecipeBookProps) => {
           </div>
         )}
         <h2>Recipes</h2>
-        <div className={styles.recipesList}>
-          <div className={styles.recipeRow}>
-            <b>Name</b>
-            <b>Author</b>
-          </div>
-          {recipeBook.recipes.map((r) => (
+
+        {recipeBook.recipes.length > 0 ? (
+          <div className={styles.recipesList}>
             <div className={styles.recipeRow}>
-              <Link href={`${RECIPES_BASE_ENDPOINT}/${r.uniqueName}`}>
-                <a className={styles.recipeLink}>{r.name}</a>
-              </Link>
-              <p>{r.author}</p>
+              <b>Name</b>
+              <b>Author</b>
             </div>
-          ))}
-        </div>
+            {recipeBook.recipes.map((r) => (
+              <div className={styles.recipeRow}>
+                <Link href={`${RECIPES_BASE_ENDPOINT}/${r.uniqueName}`}>
+                  <a className={styles.recipeLink}>{r.name}</a>
+                </Link>
+                <p>{r.author}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>{t.recipeBook.noRecipesForBook}</p>
+        )}
 
         {isLoggedIn && (
           <>
