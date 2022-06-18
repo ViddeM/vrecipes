@@ -99,7 +99,12 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
                   </Button>
                 ) : (
                   <div className={styles.addIconButtonContainer}>
-                    <IconButton variant="primary" size="normal" icon={faAdd} />
+                    <IconButton
+                      iconColor={"white"}
+                      variant="primary"
+                      size="normal"
+                      icon={faAdd}
+                    />
                   </div>
                 )}
               </a>

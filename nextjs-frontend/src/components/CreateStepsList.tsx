@@ -102,6 +102,7 @@ const CreateStepsList = ({ steps, setSteps }: CreateStepsListProps) => {
         variant="primary"
         type="button"
         size="small"
+        iconColor={"white"}
         onClick={() => {
           setSteps([...steps, { number: steps.length, description: "" }]);
         }}
