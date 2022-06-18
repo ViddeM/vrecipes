@@ -11,14 +11,22 @@ export type ImageBorderProps = {
 
 export type ImageProps = ImageBorderProps & {
   url?: string;
+  defaultImage?: StaticImageData;
 };
 
-export const RecipeImage = ({ border = "all", url }: ImageProps) => {
+export const RecipeImage = ({
+  border = "all",
+  url,
+  defaultImage,
+}: ImageProps) => {
   const { t } = useTranslations();
 
   const [errored, setErrored] = useState(false);
 
   let image: StaticImageData | string = defaultRecipePicture;
+  if (defaultImage) {
+    image = defaultImage;
+  }
   if (url && !errored) {
     image = Api.images.formatImageUrl(url);
   }
