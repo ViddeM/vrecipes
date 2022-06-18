@@ -15,6 +15,7 @@
     "searchRecipes": "Search recipes",
     "filterTags": "Filter with tags",
     "editRecipe": "Edit recipe",
+    "loadMoreRecipes": "Load more recipes",
     "imageAltText": "Image of the recipe",
     "ingredients": "Ingredients",
     "ingredient": "Ingredient",
@@ -48,9 +49,11 @@
       "amountMustBeFilledIn": "Must have a value of unit does.",
       "unitMustBeFilledIn": "Must have a value if amount does."
     },
-    "image": "Image",
-    "uploadImage": "Upload an image...",
     "recipeDeleted": "Recipe deleted"
+  },
+  "image": {
+    "image": "Image",
+    "uploadImage": "Upload an image..."
   },
   "recipeBook": {
     "searchRecipeBooks": "Search recipe books",

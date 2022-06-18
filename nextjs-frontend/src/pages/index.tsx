@@ -30,6 +30,9 @@ type HomeProps = {
   me?: Me;
 };
 
+const BASE_RECIPE_COUNT = 30;
+const STEP_RECIPE_COUNT = 24;
+
 const Home = ({ recipes, error, tags }: HomeProps) => {
   const { t } = useTranslations();
   const isLargeWindow = useMediaQuery(LARGER_THAN_MOBILE_BREAKPOINT);
@@ -38,6 +41,10 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
   const [filterText, setFilterText] = useState("");
   const [filteredRecipes, setFilteredRecipes] = useState<ShortRecipe[]>([]);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+
+  const [visibleRecipes, setVisibleRecipes] = useState(BASE_RECIPE_COUNT);
+
+  console.log("count", visibleRecipes, filteredRecipes.length);
 
   useEffect(() => {
     if (recipes) {
@@ -53,6 +60,7 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
       });
       setFilteredRecipes(res.map((r) => r.obj));
     }
+    setVisibleRecipes(BASE_RECIPE_COUNT);
   }, [filterText, recipes, selectedTags]);
 
   if (error) {
@@ -105,10 +113,23 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
         )}{" "}
       </div>
       <div className={styles.recipeCardsList}>
-        {filteredRecipes.map((recipe) => (
+        {filteredRecipes.slice(0, visibleRecipes).map((recipe) => (
           <RecipeCard key={recipe.uniqueName} recipe={recipe} />
         ))}
       </div>
+      {visibleRecipes < filteredRecipes.length && (
+        <div className={"marginTop centeredRow"}>
+          <Button
+            variant={"primary"}
+            size={"large"}
+            onClick={() =>
+              setVisibleRecipes(visibleRecipes + STEP_RECIPE_COUNT)
+            }
+          >
+            {t.recipe.loadMoreRecipes}
+          </Button>
+        </div>
+      )}
     </DefaultLayout>
   );
 };
