@@ -72,7 +72,8 @@
       "title": "Delete recipe book?",
       "content": "Are you sure that you want to delete this recipe book?"
     },
-    "recipeBookDeleted": "Recipe book deleted"
+    "recipeBookDeleted": "Recipe book deleted",
+    "noRecipesForBook": "No recipes chosen for this book"
   },
   "tag": {
     "newTag": "New tag",
