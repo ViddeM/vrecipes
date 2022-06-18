@@ -247,8 +247,8 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
           <TagFilter
             detailsLabel={t.recipe.addTags}
             tags={tags}
-            initialSelectedTags={selectedTags}
-            onUpdate={setSelectedTags}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
             onClose={updateVisibleTags}
             size={"fixed"}
           />

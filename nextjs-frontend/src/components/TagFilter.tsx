@@ -11,8 +11,8 @@ import { faCaretDown, faCheck } from "@fortawesome/free-solid-svg-icons";
 export type TagFilterProps = {
   detailsLabel: string;
   tags: Tag[];
-  initialSelectedTags: Tag[];
-  onUpdate: (ts: Tag[]) => void;
+  selectedTags: Tag[];
+  setSelectedTags: (ts: Tag[]) => void;
   onClose?: () => void;
   size: "full" | "fixed" | "responsive";
 };
@@ -20,9 +20,9 @@ export type TagFilterProps = {
 const TagFilter: FC<TagFilterProps> = ({
   detailsLabel,
   tags,
-  onUpdate,
+  setSelectedTags,
   onClose,
-  initialSelectedTags,
+  selectedTags,
   size,
 }) => {
   const { t } = useTranslations();
@@ -39,7 +39,6 @@ const TagFilter: FC<TagFilterProps> = ({
     return () => document.removeEventListener("click", closeDetails);
   }, [detailsRef]);
 
-  const [selectedTags, setSelectedTags] = useState<Tag[]>(initialSelectedTags);
   const [filterText, setFilterText] = useState("");
   const [filteredTags, setFilteredTags] = useState<Tag[]>(tags);
 
@@ -56,7 +55,7 @@ const TagFilter: FC<TagFilterProps> = ({
   const updatedSelectedTags = (tag: Tag) => {
     const updatedTags = toggleSelectedTags(tag);
     setSelectedTags(updatedTags);
-    onUpdate(updatedTags);
+    setSelectedTags(updatedTags);
   };
 
   useEffect(() => {
