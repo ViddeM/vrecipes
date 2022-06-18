@@ -44,8 +44,6 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
 
   const [visibleRecipes, setVisibleRecipes] = useState(BASE_RECIPE_COUNT);
 
-  console.log("count", visibleRecipes, filteredRecipes.length);
-
   useEffect(() => {
     if (recipes) {
       let rec = recipes;
