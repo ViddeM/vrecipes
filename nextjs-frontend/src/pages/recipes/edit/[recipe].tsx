@@ -243,6 +243,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
         </div>
 
         <div className={styles.detailsContainer}>
+          <h3 className="margin">{t.header.tags}</h3>
           <TagFilter
             detailsLabel={t.recipe.addTags}
             tags={tags}
