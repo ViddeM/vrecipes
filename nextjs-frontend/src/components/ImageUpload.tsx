@@ -105,7 +105,7 @@ const ImageUpload = ({
             className={`marginTop ${styles.fileUploadInputLabel}`}
           >
             <FontAwesomeIcon icon={faUpload} />
-            {t.recipe.uploadImage}
+            {t.image.uploadImage}
           </label>
         </>
       )}

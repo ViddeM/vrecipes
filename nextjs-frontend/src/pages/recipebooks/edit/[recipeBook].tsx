@@ -165,6 +165,7 @@ const EditRecipeBook = ({
         <div className="space" />
 
         {/* Image upload */}
+        <h3 className="marginTopBig">{t.image.image}</h3>
         <ImageUpload
           images={image ? [image] : []}
           imageUploadInProgress={imageUploadInProgress}
