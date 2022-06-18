@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 const Header = () => {
   const { t } = useTranslations();
   const { isLoggedIn, logout } = useMe();
-  const { asPath } = useRouter();
+  const { pathname } = useRouter();
 
   return (
     <header className={styles.headerContainer}>
@@ -56,7 +56,7 @@ const Header = () => {
       <ul className={styles.subHeader}>
         <li
           className={
-            asPath === ROOT_ENDPOINT ? styles.selectedSubHeaderItem : ""
+            pathname === ROOT_ENDPOINT ? styles.selectedSubHeaderItem : ""
           }
         >
           <Link href={ROOT_ENDPOINT}>
@@ -65,7 +65,7 @@ const Header = () => {
         </li>
         <li
           className={
-            asPath === RECIPE_BOOKS_BASE_ENDPOINT
+            pathname === RECIPE_BOOKS_BASE_ENDPOINT
               ? styles.selectedSubHeaderItem
               : ""
           }
@@ -76,7 +76,7 @@ const Header = () => {
         </li>
         <li
           className={
-            asPath === TAGS_BASE_ENDPOINT ? styles.selectedSubHeaderItem : ""
+            pathname === TAGS_BASE_ENDPOINT ? styles.selectedSubHeaderItem : ""
           }
         >
           <Link href={TAGS_BASE_ENDPOINT}>
