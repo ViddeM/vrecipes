@@ -265,7 +265,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
           <CreateStepsList steps={steps} setSteps={setSteps} />
         </div>
 
-        <h3 className="marginTopBig">{t.recipe.image}</h3>
+        <h3 className="marginTopBig">{t.image.image}</h3>
         <ImageUpload
           imageUploadInProgress={imageUploadInProgress}
           setImageUploadInProgress={setImageUploadInProgress}

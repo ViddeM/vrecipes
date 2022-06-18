@@ -15,6 +15,7 @@
     "searchRecipes": "Sök recept",
     "filterTags": "Filtrera med taggar",
     "editRecipe": "Ändra recept",
+    "loadMoreRecipes": "Ladda fler recept",
     "imageAltText": "Bild på receptet",
     "ingredients": "Ingredienser",
     "ingredient": "Ingrediens",
@@ -48,9 +49,11 @@
       "amountMustBeFilledIn": "Måste vara ha ett värde om enhet har det.",
       "unitMustBeFilledIn": "Måste ha ett värde om mängd har det."
     },
-    "image": "Bild",
-    "uploadImage": "Ladda upp bild...",
     "recipeDeleted": "Receptet har tagits bort"
+  },
+  "image": {
+    "image": "Bild",
+    "uploadImage": "Ladda upp bild..."
   },
   "recipeBook": {
     "searchRecipeBooks": "Sök receptböcker",

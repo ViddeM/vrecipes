@@ -25,6 +25,9 @@ type RecipeBooksProps = {
   me?: Me;
 };
 
+const BASE_BOOK_COUNT = 30;
+const STEP_BOOK_COUNT = 24;
+
 const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
   const { t } = useTranslations();
   const isLargeWindow = useMediaQuery(LARGER_THAN_MOBILE_BREAKPOINT);
@@ -32,6 +35,8 @@ const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
 
   const [filterText, setFilterText] = useState("");
   const [filteredBooks, setFilteredBooks] = useState<ShortRecipeBook[]>([]);
+
+  const [visibleBooks, setVisibleBooks] = useState(BASE_BOOK_COUNT);
 
   useEffect(() => {
     if (recipeBooks) {
@@ -41,6 +46,7 @@ const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
       });
       setFilteredBooks(res.map((r) => r.obj));
     }
+    setVisibleBooks(BASE_BOOK_COUNT);
   }, [filterText, recipeBooks]);
 
   if (error) {
@@ -85,10 +91,21 @@ const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
         )}
       </div>
       <div className={styles.recipeCardsList}>
-        {filteredBooks.map((book) => (
-          <RecipeBookCard recipeBook={book} />
+        {filteredBooks.slice(0, visibleBooks).map((book) => (
+          <RecipeBookCard key={book.id} recipeBook={book} />
         ))}
       </div>
+      {visibleBooks < filteredBooks.length && (
+        <div className={"marginTop centeredRow"}>
+          <Button
+            variant={"primary"}
+            size={"large"}
+            onClick={() => setVisibleBooks(visibleBooks + STEP_BOOK_COUNT)}
+          >
+            {t.recipe.loadMoreRecipes}
+          </Button>
+        </div>
+      )}
     </DefaultLayout>
   );
 };
