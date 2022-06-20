@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { tagNameToUnique } from "../../util/tagNameToUnique";
+import { tagNameToUnique } from "../../../util/tagNameToUnique";
 
 import styles from "./AuthorLink.module.scss";
 

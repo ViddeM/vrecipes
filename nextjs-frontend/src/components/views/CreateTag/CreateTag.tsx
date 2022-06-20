@@ -3,15 +3,15 @@ import { FormEvent, useEffect, useState } from "react";
 import { faRepeat } from "@fortawesome/free-solid-svg-icons";
 import { ChromePicker } from "react-color";
 
-import { Api, ApiResponse } from "../../api/Api";
-import { RGBColor } from "../../api/Color";
-import { NewTag } from "../../api/NewTag";
-import { Tag } from "../../api/Tag";
-import useRefreshProps from "../../hooks/useRefreshProps";
-import { useTranslations } from "../../hooks/useTranslations";
-import { Button, IconButton } from "../elements/Buttons/Buttons";
-import TagComponent from "../elements/Tag/Tag";
-import TextField from "../elements/TextField/TextField";
+import { Api, ApiResponse } from "../../../api/Api";
+import { RGBColor } from "../../../api/Color";
+import { NewTag } from "../../../api/NewTag";
+import { Tag } from "../../../api/Tag";
+import useRefreshProps from "../../../hooks/useRefreshProps";
+import { useTranslations } from "../../../hooks/useTranslations";
+import { Button, IconButton } from "../../elements/Buttons/Buttons";
+import TagComponent from "../../elements/Tag/Tag";
+import TextField from "../../elements/TextField/TextField";
 
 import styles from "./CreateTag.module.scss";
 

@@ -13,7 +13,7 @@ import { Button, IconButton } from "../../components/elements/Buttons/Buttons";
 import ErrorCard from "../../components/elements/ErrorCard";
 import Loading from "../../components/elements/Loading";
 import TextField from "../../components/elements/TextField/TextField";
-import RecipeBookCard from "../../components/views/RecipeBookCard";
+import RecipeBookCard from "../../components/views/RecipeBookCard/RecipeBookCard";
 import { useMe } from "../../hooks/useMe";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import { useTranslations } from "../../hooks/useTranslations";
