@@ -9,10 +9,10 @@ import {
   RECIPES_BASE_ENDPOINT,
 } from "../../api/Endpoints";
 import { RecipeBook } from "../../api/RecipeBook";
-import { Button, IconButton } from "../../components/Buttons";
-import ErrorCard from "../../components/ErrorCard";
-import Loading from "../../components/Loading";
-import { RecipeImage } from "../../components/RecipeImage";
+import { Button, IconButton } from "../../components/elements/Buttons";
+import ErrorCard from "../../components/elements/ErrorCard";
+import { ImageComponent } from "../../components/elements/ImageComponent";
+import Loading from "../../components/elements/Loading";
 import { useMe } from "../../hooks/useMe";
 import { useModal } from "../../hooks/useModal";
 import { useTranslations } from "../../hooks/useTranslations";
@@ -56,7 +56,7 @@ const RecipeBook = ({ recipeBook, error }: RecipeBookProps) => {
         <div className={"space"} />
         {recipeBook.image && (
           <div className={styles.imageContainer}>
-            <RecipeImage url={recipeBook.image.url} />
+            <ImageComponent url={recipeBook.image.url} />
           </div>
         )}
         <h2>Recipes</h2>

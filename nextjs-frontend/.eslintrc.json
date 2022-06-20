@@ -17,11 +17,7 @@
   "parserOptions": {
     "jsx": true
   },
-  "plugins": [
-    "@typescript-eslint",
-    "simple-import-sort",
-    "react-hooks"
-  ],
+  "plugins": ["@typescript-eslint", "simple-import-sort", "react-hooks"],
   "root": true,
   "rules": {
     // supress errors for @ts-ignore
@@ -43,32 +39,19 @@
       {
         "groups": [
           // Side effect imports
-          [
-            "^\\u0000"
-          ],
+          ["^\\u0000"],
           // React imports
-          [
-            "^react$",
-            "^react-dom$"
-          ],
+          ["^react$", "^react-dom$"],
           // Packages
           // Imports starting with aletter, digit, underscore, or an @ followed by a letter
-          [
-            "^@?\\w"
-          ],
+          ["^@?\\w"],
           // Absolute imports and other imports
           // Imports not starting with a dot
-          [
-            "^[^.]"
-          ],
+          ["^[^.]"],
           // Relative parent imports
-          [
-            "^\\.\\."
-          ],
+          ["^\\.\\."],
           // Relative sibling imports
-          [
-            "^\\."
-          ]
+          ["^\\."]
         ]
       }
     ],

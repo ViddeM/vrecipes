@@ -1,0 +1,49 @@
+@import "../../resources/styles/vars";
+
+$recipe-card-width: 310px;
+$recipe-card-height: 424px;
+
+.recipeCard {
+  padding: 0;
+  width: $recipe-card-width;
+  height: $recipe-card-height;
+  overflow: hidden;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: none;
+
+    border: 1px solid $primary-color;
+
+    p {
+      color: black;
+    }
+  }
+
+  p {
+    transition: color 600ms;
+
+    color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.recipeCardContent {
+  padding: 5px;
+}
+
+.recipeCardTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flexRowBetween {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.recipeCardImageContainer {
+  border-bottom: 1px solid black;
+  background-color: rgba(0, 80, 0, 0.1);
+}

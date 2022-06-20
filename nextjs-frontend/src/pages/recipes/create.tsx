@@ -2,8 +2,8 @@ import { FormEvent, useState } from "react";
 
 import { Api } from "../../api/Api";
 import { EDIT_RECIPE_BASE_ENDPOINT } from "../../api/Endpoints";
-import { Button } from "../../components/Buttons";
-import TextField from "../../components/TextField";
+import { Button } from "../../components/elements/Buttons";
+import TextField from "../../components/elements/TextField";
 import { useTranslations } from "../../hooks/useTranslations";
 import CardLayout from "../../layouts/CardLayout";
 
