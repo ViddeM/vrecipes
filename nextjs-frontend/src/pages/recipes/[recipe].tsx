@@ -171,10 +171,14 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // @ts-ignore
-  const { recipe } = context.params;
-  const res = await Api.recipes.getOne(recipe);
+  const recipe = context.params?.recipe;
+  if (!recipe || !(typeof recipe === "string")) {
+    return {
+      notFound: true,
+    };
+  }
 
+  const res = await Api.recipes.getOne(recipe);
   if (res.rawResponse?.status === 404) {
     return {
       notFound: true,

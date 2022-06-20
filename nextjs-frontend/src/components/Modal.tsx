@@ -35,8 +35,8 @@ const Modal = ({
       id={MODAL_BACKGROUND_ID}
       className={styles.pageCover}
       onMouseDown={(event) => {
-        // @ts-ignore
-        if (onClose && event.target.id === MODAL_BACKGROUND_ID) {
+        const element = event.target as Element;
+        if (onClose && element.id === MODAL_BACKGROUND_ID) {
           onClose();
         }
       }}
