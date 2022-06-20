@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 
 import { useTranslations } from "../hooks/useTranslations";
 import DefaultLayout from "../layouts/DefaultLayout";
@@ -10,7 +10,7 @@ const ErrorCard: FC<ErrorProps> = ({ error }) => {
 
   return (
     <DefaultLayout>
-      <div className="card">
+      <div>
         <p>{translate(error)}</p>
       </div>
     </DefaultLayout>

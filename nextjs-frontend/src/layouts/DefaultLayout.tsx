@@ -1,6 +1,12 @@
+import React from "react";
+
 import styles from "./DefaultLayout.module.scss";
 
-const DefaultLayout: React.FC = ({ children }) => {
+type DefaultLayoutProps = {
+  children: React.ReactNode; // 👈️ define children prop
+};
+
+const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
   return (
     <div className={styles.fillWindow}>
       <main className={styles.main}>{children}</main>
