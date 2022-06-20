@@ -1,16 +1,17 @@
 import axios, { AxiosResponse } from "axios";
-import { ShortRecipe } from "./ShortRecipe";
-import { Recipe } from "./Recipe";
-import { IMAGE_BASE_ENDPOINT, TAGS_BASE_ENDPOINT } from "./Endpoints";
-import { Me } from "./Me";
-import { UniqueName } from "./UniqueName";
-import { Image } from "./Image";
-import { Tag } from "./Tag";
-import { NewTag } from "./NewTag";
+
 import { EditRecipe } from "./EditRecipe";
-import { ShortRecipeBook } from "./ShortRecipeBook";
-import { RecipeBook } from "./RecipeBook";
 import { EditRecipeBook } from "./EditRecipeBook";
+import { IMAGE_BASE_ENDPOINT, TAGS_BASE_ENDPOINT } from "./Endpoints";
+import { Image } from "./Image";
+import { Me } from "./Me";
+import { NewTag } from "./NewTag";
+import { Recipe } from "./Recipe";
+import { RecipeBook } from "./RecipeBook";
+import { ShortRecipe } from "./ShortRecipe";
+import { ShortRecipeBook } from "./ShortRecipeBook";
+import { Tag } from "./Tag";
+import { UniqueName } from "./UniqueName";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "/api";
@@ -155,7 +156,7 @@ function handleResponse<T>(
 ): Promise<ApiResponse<T>> {
   return response
     .then((responseData) => {
-      let data = responseData.data;
+      const data = responseData.data;
       if (!data.success || data.error || !data.data) {
         return {
           error: true,

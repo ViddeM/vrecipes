@@ -1,5 +1,5 @@
-import { RGBColor } from "./Color";
 import { Author } from "./Author";
+import { RGBColor } from "./Color";
 
 export interface Tag {
   id: string;

@@ -1,9 +1,11 @@
-import { useTranslations } from "../hooks/useTranslations";
+import Link from "next/link";
+
+import defaultRecipeBookImage from "../../public/default-recipe-book-image.webp";
 import { RECIPE_BOOKS_BASE_ENDPOINT } from "../api/Endpoints";
 import { ShortRecipeBook } from "../api/ShortRecipeBook";
-import defaultRecipeBookImage from "../../public/default-recipe-book-image.webp";
+import { useTranslations } from "../hooks/useTranslations";
+
 import styles from "./RecipeBookCard.module.scss";
-import Link from "next/link";
 import { RecipeImage } from "./RecipeImage";
 
 export interface RecipeBookCardProps {

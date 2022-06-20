@@ -1,14 +1,16 @@
-import CardLayout from "../../layouts/CardLayout";
-import TextField from "../../components/TextField";
-import { Button } from "../../components/Buttons";
-import { useTranslations } from "../../hooks/useTranslations";
-import styles from "./create.module.scss";
 import { FormEvent, useState } from "react";
+
 import { Api } from "../../api/Api";
 import {
   EDIT_RECIPE_BASE_ENDPOINT,
   EDIT_RECIPE_BOOK_BASE_ENDPOINT,
 } from "../../api/Endpoints";
+import { Button } from "../../components/Buttons";
+import TextField from "../../components/TextField";
+import { useTranslations } from "../../hooks/useTranslations";
+import CardLayout from "../../layouts/CardLayout";
+
+import styles from "./create.module.scss";
 
 const CreateRecipe = () => {
   const { t, translate } = useTranslations();
@@ -22,7 +24,7 @@ const CreateRecipe = () => {
       if (data.error && data.errorTranslationString) {
         setError(translate(data.errorTranslationString));
       } else {
-        let uniqueName = data.data?.uniqueName;
+        const uniqueName = data.data?.uniqueName;
         window.location.assign(
           `${EDIT_RECIPE_BOOK_BASE_ENDPOINT}/${uniqueName}`
         );

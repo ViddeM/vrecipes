@@ -1,7 +1,9 @@
 import { ButtonHTMLAttributes, FC } from "react";
-import styles from "./Buttons.module.scss";
+
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import styles from "./Buttons.module.scss";
 
 export type ButtonVariant = {
   variant: "primary" | "secondary" | "opaque" | "outlined";
@@ -12,7 +14,7 @@ export type ButtonBaseProps = ButtonHTMLAttributes<HTMLButtonElement> &
 
 // Not generally meant to be used directly.
 const ButtonBase: FC<ButtonBaseProps> = ({ variant, className, ...props }) => {
-  let variantStyle = styles[`button-${variant}`];
+  const variantStyle = styles[`button-${variant}`];
 
   return (
     <button
@@ -29,7 +31,7 @@ export type ButtonSize = {
 export type ButtonProps = ButtonBaseProps & ButtonSize;
 
 export const Button: FC<ButtonProps> = ({ size, className, ...props }) => {
-  let sizeStyle = styles[`button-size-${size}`];
+  const sizeStyle = styles[`button-size-${size}`];
 
   return <ButtonBase {...props} className={`${className} ${sizeStyle}`} />;
 };
@@ -47,8 +49,8 @@ export const IconButton: FC<IconButtonProps> = ({
   iconColor,
   ...props
 }) => {
-  let sizeStyle = styles[`iconButtonSize-${size}`];
-  let color = iconColor ? iconColor : "black";
+  const sizeStyle = styles[`iconButtonSize-${size}`];
+  const color = iconColor ? iconColor : "black";
 
   return (
     <ButtonBase

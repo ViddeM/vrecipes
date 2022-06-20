@@ -1,16 +1,19 @@
-import styles from "./RecipesTable.module.scss";
 import { useEffect, useState } from "react";
-import { IconButton } from "./Buttons";
+
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import Dropdown from "./Dropdown";
-import { useTranslations } from "../hooks/useTranslations";
-import TextField from "./TextField";
-import { RecipeBookRecipe } from "../api/RecipeBook";
-import Checkbox from "./Checkbox";
 import fuzzysort from "fuzzysort";
+
+import { RecipeBookRecipe } from "../api/RecipeBook";
+import { useTranslations } from "../hooks/useTranslations";
+
+import { IconButton } from "./Buttons";
+import Checkbox from "./Checkbox";
+import Dropdown from "./Dropdown";
+import styles from "./RecipesTable.module.scss";
+import TextField from "./TextField";
 
 interface RecipesTableProps {
   recipes: RecipeBookRecipe[];
@@ -44,7 +47,7 @@ const RecipesTable = ({
   });
 
   useEffect(() => {
-    let rec = recipes;
+    const rec = recipes;
     const res = fuzzysort.go(filterText, rec, {
       keys: ["name", "author"],
       all: true,
@@ -182,7 +185,7 @@ function getRecipePage(
     endIndex = recipes.length - 1;
   }
 
-  let pageRecipes = [];
+  const pageRecipes = [];
   for (let i = startIndex; i <= endIndex; i++) {
     pageRecipes.push(recipes[i]);
   }

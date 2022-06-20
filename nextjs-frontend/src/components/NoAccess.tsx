@@ -1,7 +1,9 @@
-import { Button } from "./Buttons";
+import Link from "next/link";
+
 import { useTranslations } from "../hooks/useTranslations";
 import CardLayout from "../layouts/CardLayout";
-import Link from "next/link";
+
+import { Button } from "./Buttons";
 
 interface NoAccessProps {
   text: string;

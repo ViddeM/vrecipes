@@ -1,37 +1,40 @@
-import CardLayout from "../../../layouts/CardLayout";
-import { GetServerSideProps } from "next";
-import { Api, ApiResponse, isClientSide } from "../../../api/Api";
-import { Recipe } from "../../../api/Recipe";
-import { useTranslations } from "../../../hooks/useTranslations";
-import ErrorCard from "../../../components/ErrorCard";
-import Loading from "../../../components/Loading";
-import styles from "./[recipe].module.scss";
-import TextField, { TextArea } from "../../../components/TextField";
 import { FormEvent, useState } from "react";
-import { Button } from "../../../components/Buttons";
-import CreateIngredientsTable from "../../../components/CreateIngredientsTable";
-import {
-  EditableIngredient,
-  ingredientsFromEditable,
-  ingredientsToEditable,
-} from "../../../api/Ingredient";
+
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+
+import { Api, ApiResponse, isClientSide } from "../../../api/Api";
+import { EditRecipe } from "../../../api/EditRecipe";
 import {
   LOGIN_ENDPOINT,
   RECIPES_BASE_ENDPOINT,
   ROOT_ENDPOINT,
 } from "../../../api/Endpoints";
-import CreateStepsList from "../../../components/CreateStepsList";
-import { Step } from "../../../api/Step";
-import { useMe } from "../../../hooks/useMe";
-import NoAccess from "../../../components/NoAccess";
-import { useRouter } from "next/router";
-import ImageUpload from "../../../components/ImageUpload";
 import { Image } from "../../../api/Image";
-import TagFilter from "../../../components/TagFilter";
+import {
+  EditableIngredient,
+  ingredientsFromEditable,
+  ingredientsToEditable,
+} from "../../../api/Ingredient";
+import { Recipe } from "../../../api/Recipe";
+import { Step } from "../../../api/Step";
 import { Tag } from "../../../api/Tag";
-import TagList from "../../../components/TagList";
-import { EditRecipe } from "../../../api/EditRecipe";
 import { UniqueName } from "../../../api/UniqueName";
+import { Button } from "../../../components/Buttons";
+import CreateIngredientsTable from "../../../components/CreateIngredientsTable";
+import CreateStepsList from "../../../components/CreateStepsList";
+import ErrorCard from "../../../components/ErrorCard";
+import ImageUpload from "../../../components/ImageUpload";
+import Loading from "../../../components/Loading";
+import NoAccess from "../../../components/NoAccess";
+import TagFilter from "../../../components/TagFilter";
+import TagList from "../../../components/TagList";
+import TextField, { TextArea } from "../../../components/TextField";
+import { useMe } from "../../../hooks/useMe";
+import { useTranslations } from "../../../hooks/useTranslations";
+import CardLayout from "../../../layouts/CardLayout";
+
+import styles from "./[recipe].module.scss";
 
 interface EditRecipeProps {
   recipe?: Recipe;
@@ -114,7 +117,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    let newRecipe: EditRecipe = {
+    const newRecipe: EditRecipe = {
       id: recipe.id,
       name: name,
       uniqueName: recipe.uniqueName,
@@ -182,7 +185,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
               placeholder={t.recipe.cookingTime}
               value={cookingTime}
               onChange={(e) => {
-                let number = parseInt(e.target.value);
+                const number = parseInt(e.target.value);
                 setCookingTime(number);
               }}
               type="number"
@@ -209,7 +212,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
               placeholder={t.recipe.ovenTemperature}
               value={ovenTemp}
               onChange={(e) => {
-                let number = parseInt(e.target.value);
+                const number = parseInt(e.target.value);
                 setOvenTemp(number);
               }}
               type="number"
@@ -305,8 +308,8 @@ function ingredientsSame(
   }
 
   for (let i = 0; i < ingredients.length; i++) {
-    let a = ingredients[i];
-    let b = other[i];
+    const a = ingredients[i];
+    const b = other[i];
     if (
       a.name !== b.name ||
       a.amount !== b.amount ||
@@ -326,8 +329,8 @@ function stepsSame(steps: Step[], other: Step[]): boolean {
   }
 
   for (let i = 0; i < steps.length; i++) {
-    let a = steps[i];
-    let b = other[i];
+    const a = steps[i];
+    const b = other[i];
 
     if (a.number !== b.number || a.description !== b.description) {
       return false;
@@ -343,8 +346,8 @@ function imagesSame(images: Image[], other: Image[]): boolean {
   }
 
   for (let i = 0; i < images.length; i++) {
-    let a = images[i];
-    let b = other[i];
+    const a = images[i];
+    const b = other[i];
 
     if (a.id !== b.id) {
       return false;
@@ -357,8 +360,8 @@ function imagesSame(images: Image[], other: Image[]): boolean {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // @ts-ignore
   const { recipe } = context.params;
-  let res = await Api.recipes.getOne(recipe);
-  let resTags = await Api.tags.getAll();
+  const res = await Api.recipes.getOne(recipe);
+  const resTags = await Api.tags.getAll();
 
   if (res.rawResponse?.status === 404) {
     return {

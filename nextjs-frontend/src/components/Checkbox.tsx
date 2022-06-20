@@ -1,5 +1,6 @@
-import styles from "./Checkbox.module.scss";
 import { InputHTMLAttributes } from "react";
+
+import styles from "./Checkbox.module.scss";
 
 export type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
   checked: boolean;

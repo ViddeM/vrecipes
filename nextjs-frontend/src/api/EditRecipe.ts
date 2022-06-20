@@ -1,7 +1,7 @@
-import { Step } from "./Step";
-import { Ingredient } from "./Ingredient";
-import { Image } from "./Image";
 import { Author } from "./Author";
+import { Image } from "./Image";
+import { Ingredient } from "./Ingredient";
+import { Step } from "./Step";
 
 export interface EditRecipe {
   id: string;
