@@ -10,12 +10,10 @@ export function RGBToHSL(rgb: RGBColor): HSLColor {
   b /= 255;
 
   // Find greatest and smallest channel values
-  let cmin = Math.min(r, g, b),
+  const cmin = Math.min(r, g, b),
     cmax = Math.max(r, g, b),
-    delta = cmax - cmin,
-    h = 0,
-    s = 0,
-    l = 0;
+    delta = cmax - cmin;
+  let h: number, s: number, l: number;
 
   // Calculate hue
   // No difference
