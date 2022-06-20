@@ -1,6 +1,12 @@
+import React from "react";
+
 import styles from "./CardLayout.module.scss";
 
-const DefaultLayout: React.FC = ({ children }) => {
+type CardLayoutProps = {
+  children: React.ReactNode; // 👈️ define children prop
+};
+
+const CardLayout: React.FC<CardLayoutProps> = ({ children }) => {
   return (
     <div>
       <main className={styles.main}>{children}</main>
@@ -8,4 +14,4 @@ const DefaultLayout: React.FC = ({ children }) => {
   );
 };
 
-export default DefaultLayout;
+export default CardLayout;
