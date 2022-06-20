@@ -1,0 +1,33 @@
+@import "../../resources/styles/vars";
+
+.createStepsListContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stepsContainer {
+  width: 100%;
+}
+
+.stepContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stepMovementContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+}
+.stepTextAreaContainer {
+  flex: 1;
+}
+
+.stepTextArea {
+  min-height: 6rem;
+}

@@ -7,13 +7,13 @@ import Link from "next/link";
 import { Api } from "../../api/Api";
 import { EDIT_RECIPE_BASE_ENDPOINT, ROOT_ENDPOINT } from "../../api/Endpoints";
 import { Recipe } from "../../api/Recipe";
-import AuthorLink from "../../components/AuthorLink";
-import { Button, IconButton } from "../../components/Buttons";
-import ErrorCard from "../../components/ErrorCard";
-import { IngredientTable } from "../../components/IngredientTable";
-import Loading from "../../components/Loading";
-import { RecipeImage } from "../../components/RecipeImage";
-import TagList from "../../components/TagList";
+import { Button, IconButton } from "../../components/elements/Buttons";
+import ErrorCard from "../../components/elements/ErrorCard";
+import { ImageComponent } from "../../components/elements/ImageComponent";
+import Loading from "../../components/elements/Loading";
+import TagList from "../../components/elements/TagList";
+import AuthorLink from "../../components/views/AuthorLink";
+import { IngredientTable } from "../../components/views/IngredientTable";
 import { useMe } from "../../hooks/useMe";
 import { useModal } from "../../hooks/useModal";
 import { useTranslations } from "../../hooks/useTranslations";
@@ -82,7 +82,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
         {(image || recipe.ingredients.length > 0) && (
           <div className={styles.imageIngredientsContainer}>
             <div className={styles.growContainer}>
-              <RecipeImage url={image} />
+              <ImageComponent url={image} />
             </div>
             <div className="marginRight marginTop" />
 
