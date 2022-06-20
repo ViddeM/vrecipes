@@ -37,7 +37,7 @@ const TagFilter: FC<TagFilterProps> = ({
   useEffect(() => {
     document.addEventListener("click", closeDetails);
     return () => document.removeEventListener("click", closeDetails);
-  }, [detailsRef]);
+  }, [detailsRef, closeDetails]);
 
   const [filterText, setFilterText] = useState("");
   const [filteredTags, setFilteredTags] = useState<Tag[]>(tags);

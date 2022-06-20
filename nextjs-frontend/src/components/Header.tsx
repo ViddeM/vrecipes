@@ -28,6 +28,7 @@ const Header = () => {
                   src="/transparent_vrecipes_logo.svg"
                   width="46"
                   height="46"
+                  alt={t.common.logoAltText}
                 />
               </div>
             </a>
