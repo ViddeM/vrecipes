@@ -58,6 +58,10 @@
     &:first-child {
       background-color: $border-color;
     }
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }
 
