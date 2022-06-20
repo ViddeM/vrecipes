@@ -17,7 +17,7 @@ import Loading from "../components/elements/Loading";
 import TagFilter from "../components/elements/TagFilter/TagFilter";
 import TagList from "../components/elements/TagList/TagList";
 import TextField from "../components/elements/TextField/TextField";
-import RecipeCard from "../components/views/RecipeCard";
+import RecipeCard from "../components/views/RecipeCard/RecipeCard";
 import { useMe } from "../hooks/useMe";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { useTranslations } from "../hooks/useTranslations";

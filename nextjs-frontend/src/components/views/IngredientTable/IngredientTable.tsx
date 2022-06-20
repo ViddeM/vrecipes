@@ -1,5 +1,5 @@
-import { Ingredient } from "../../api/Ingredient";
-import { useTranslations } from "../../hooks/useTranslations";
+import { Ingredient } from "../../../api/Ingredient";
+import { useTranslations } from "../../../hooks/useTranslations";
 
 import styles from "./IngredientTable.module.scss";
 

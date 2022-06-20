@@ -30,8 +30,8 @@ import TagList from "../../../components/elements/TagList/TagList";
 import TextField, {
   TextArea,
 } from "../../../components/elements/TextField/TextField";
-import CreateIngredientsTable from "../../../components/views/CreateIngredientsTable";
-import CreateStepsList from "../../../components/views/CreateStepsList";
+import CreateIngredientsTable from "../../../components/views/CreateIngredientsTable/CreateIngredientsTable";
+import CreateStepsList from "../../../components/views/CreateStepsList/CreateStepsList";
 import { useMe } from "../../../hooks/useMe";
 import { useTranslations } from "../../../hooks/useTranslations";
 import CardLayout from "../../../layouts/CardLayout";

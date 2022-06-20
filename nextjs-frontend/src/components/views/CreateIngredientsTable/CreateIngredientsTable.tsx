@@ -6,10 +6,10 @@ import {
   faMinus,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { EditableIngredient } from "../../api/Ingredient";
-import { useTranslations } from "../../hooks/useTranslations";
-import { IconButton } from "../elements/Buttons/Buttons";
-import TextField from "../elements/TextField/TextField";
+import { EditableIngredient } from "../../../api/Ingredient";
+import { useTranslations } from "../../../hooks/useTranslations";
+import { IconButton } from "../../elements/Buttons/Buttons";
+import TextField from "../../elements/TextField/TextField";
 
 import styles from "./CreateIngredientsTable.module.scss";
 

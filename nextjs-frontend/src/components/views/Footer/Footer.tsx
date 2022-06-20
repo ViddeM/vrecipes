@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { useTranslations } from "../../hooks/useTranslations";
-import Dropdown from "../elements/Dropdown/Dropdown";
+import { useTranslations } from "../../../hooks/useTranslations";
+import Dropdown from "../../elements/Dropdown/Dropdown";
 
 import styles from "./Footer.module.scss";
 

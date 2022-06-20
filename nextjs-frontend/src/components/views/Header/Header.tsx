@@ -7,10 +7,10 @@ import {
   RECIPE_BOOKS_BASE_ENDPOINT,
   ROOT_ENDPOINT,
   TAGS_BASE_ENDPOINT,
-} from "../../api/Endpoints";
-import { useMe } from "../../hooks/useMe";
-import { useTranslations } from "../../hooks/useTranslations";
-import { Button } from "../elements/Buttons/Buttons";
+} from "../../../api/Endpoints";
+import { useMe } from "../../../hooks/useMe";
+import { useTranslations } from "../../../hooks/useTranslations";
+import { Button } from "../../elements/Buttons/Buttons";
 
 import styles from "./Header.module.scss";
 

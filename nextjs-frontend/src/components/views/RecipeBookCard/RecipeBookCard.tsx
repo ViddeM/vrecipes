@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-import defaultRecipeBookImage from "../../../public/default-recipe-book-image.webp";
-import { RECIPE_BOOKS_BASE_ENDPOINT } from "../../api/Endpoints";
-import { ShortRecipeBook } from "../../api/ShortRecipeBook";
-import { useTranslations } from "../../hooks/useTranslations";
-import { ImageComponent } from "../elements/ImageComponent/ImageComponent";
+import defaultRecipeBookImage from "../../../../public/default-recipe-book-image.webp";
+import { RECIPE_BOOKS_BASE_ENDPOINT } from "../../../api/Endpoints";
+import { ShortRecipeBook } from "../../../api/ShortRecipeBook";
+import { useTranslations } from "../../../hooks/useTranslations";
+import { ImageComponent } from "../../elements/ImageComponent/ImageComponent";
 
 import styles from "./RecipeBookCard.module.scss";
 
