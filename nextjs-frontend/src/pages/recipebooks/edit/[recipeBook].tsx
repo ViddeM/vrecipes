@@ -230,11 +230,15 @@ function imageSame(image: Image | null, other: Image | null): boolean {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // @ts-ignore
-  const { recipeBook } = context.params;
+  const recipeBook = context.params?.recipeBook;
+  if (!recipeBook || !(typeof recipeBook === "string")) {
+    return {
+      notFound: true,
+    };
+  }
+
   const res = await Api.recipeBooks.getOne(recipeBook);
   const recipes = await Api.recipes.getAll();
-
   if (res.rawResponse?.status === 404) {
     return {
       notFound: true,
