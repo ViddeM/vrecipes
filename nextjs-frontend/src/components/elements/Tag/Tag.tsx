@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import { RGBandHSLColor, RGBColor } from "../../api/Color";
-import { RGBToHSL } from "../../util/color";
-import { tagNameToUnique } from "../../util/tagNameToUnique";
+import { RGBandHSLColor, RGBColor } from "../../../api/Color";
+import { RGBToHSL } from "../../../util/color";
+import { tagNameToUnique } from "../../../util/tagNameToUnique";
 
 import styles from "./Tag.module.scss";
 

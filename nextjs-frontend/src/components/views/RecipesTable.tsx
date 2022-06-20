@@ -8,10 +8,10 @@ import fuzzysort from "fuzzysort";
 
 import { RecipeBookRecipe } from "../../api/RecipeBook";
 import { useTranslations } from "../../hooks/useTranslations";
-import { IconButton } from "../elements/Buttons";
-import Checkbox from "../elements/Checkbox";
-import Dropdown from "../elements/Dropdown";
-import TextField from "../elements/TextField";
+import { IconButton } from "../elements/Buttons/Buttons";
+import Checkbox from "../elements/Checkbox/Checkbox";
+import Dropdown from "../elements/Dropdown/Dropdown";
+import TextField from "../elements/TextField/TextField";
 
 import styles from "./RecipesTable.module.scss";
 

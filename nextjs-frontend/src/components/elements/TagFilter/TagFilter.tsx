@@ -4,12 +4,12 @@ import { faCaretDown, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import fuzzysort from "fuzzysort";
 
-import { Tag } from "../../api/Tag";
-import { useTranslations } from "../../hooks/useTranslations";
-import { assertIsNode } from "../../util/assertIsNode";
+import { Tag } from "../../../api/Tag";
+import { useTranslations } from "../../../hooks/useTranslations";
+import { assertIsNode } from "../../../util/assertIsNode";
+import TextField from "../TextField/TextField";
 
 import styles from "./TagFilter.module.scss";
-import TextField from "./TextField";
 
 export type TagFilterProps = {
   detailsLabel: string;
