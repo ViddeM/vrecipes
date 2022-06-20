@@ -146,7 +146,6 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
                         });
                       },
                     },
-                    onClose: () => {},
                   })
                 }
               >

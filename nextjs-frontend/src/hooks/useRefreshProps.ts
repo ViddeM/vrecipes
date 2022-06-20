@@ -5,5 +5,5 @@ import { useRouter } from "next/router";
 export default function useRefreshProps() {
   const { asPath, replace } = useRouter();
 
-  return useCallback(() => replace(asPath), [asPath]);
+  return useCallback(() => replace(asPath), [asPath, replace]);
 }

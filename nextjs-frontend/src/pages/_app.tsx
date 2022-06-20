@@ -88,8 +88,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-const ESC_KEY = 27;
-
 // TODO: Move this to Modal.tsx
 function handleOpenModalProps(
   props: ModalProps,
@@ -99,7 +97,7 @@ function handleOpenModalProps(
 
   const closeOnEsc = ({ key }: KeyboardEvent) => {
     if (key === "Escape") {
-      closeModal(() => {});
+      closeModal(props.onClose);
     }
   };
 

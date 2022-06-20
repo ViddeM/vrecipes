@@ -79,7 +79,6 @@ const ImageUpload = ({
                         setImages([]);
                       },
                     },
-                    onClose: () => {},
                   });
                 }}
               />

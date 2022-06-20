@@ -78,7 +78,8 @@ export function trapTabKey(e: KeyboardEvent) {
 
   const modalRoot = document.querySelector(`#${MODAL_BACKGROUND_ID}`);
   if (!modalRoot) {
-    console.log("Failed to find modal root!");
+    // eslint-disable-next-line no-console
+    console.error("Failed to find modal root!");
     return;
   }
 

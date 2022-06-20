@@ -1,10 +1,7 @@
 import { FormEvent, useState } from "react";
 
 import { Api } from "../../api/Api";
-import {
-  EDIT_RECIPE_BASE_ENDPOINT,
-  EDIT_RECIPE_BOOK_BASE_ENDPOINT,
-} from "../../api/Endpoints";
+import { EDIT_RECIPE_BOOK_BASE_ENDPOINT } from "../../api/Endpoints";
 import { Button } from "../../components/Buttons";
 import TextField from "../../components/TextField";
 import { useTranslations } from "../../hooks/useTranslations";

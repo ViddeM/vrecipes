@@ -21,7 +21,7 @@ const useMediaQuery = (width: number) => {
     }
 
     return () => media.removeEventListener("change", (e) => updateTarget(e));
-  }, []);
+  }, [updateTarget, width]);
 
   return targetReached;
 };

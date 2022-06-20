@@ -216,7 +216,6 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
                       refreshProps();
                     },
                   },
-                  onClose: () => {},
                 });
               }}
             >
