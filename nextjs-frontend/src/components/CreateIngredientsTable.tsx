@@ -1,15 +1,18 @@
-import styles from "./CreateIngredientsTable.module.scss";
-import { IconButton } from "./Buttons";
+import { useEffect, useState } from "react";
+
 import {
   faArrowDown,
   faArrowUp,
   faMinus,
 } from "@fortawesome/free-solid-svg-icons";
-import { useTranslations } from "../hooks/useTranslations";
-import TextField from "./TextField";
-import { useEffect, useState } from "react";
-import { EditableIngredient } from "../api/Ingredient";
+
 import { isClientSide } from "../api/Api";
+import { EditableIngredient } from "../api/Ingredient";
+import { useTranslations } from "../hooks/useTranslations";
+
+import { IconButton } from "./Buttons";
+import styles from "./CreateIngredientsTable.module.scss";
+import TextField from "./TextField";
 
 const INGREDIENT_BASE_ID = "ingredient";
 const AMOUNT_BASE_ID = "amount";
@@ -24,10 +27,10 @@ const CreateIngredientsTable = ({
   ingredients,
   setIngredients,
 }: CreateIngredientsTableProps) => {
-  let { t } = useTranslations();
+  const { t } = useTranslations();
 
   const deleteIngredient = (ingredientNumber: number) => {
-    let newIngredients = ingredients
+    const newIngredients = ingredients
       .filter((i) => i.number !== ingredientNumber)
       .map((i) => {
         if (i.number > ingredientNumber) {
@@ -47,7 +50,7 @@ const CreateIngredientsTable = ({
       newNumber = Math.max(ingredientNumber - 1, 0);
     }
 
-    let newIngredients = ingredients
+    const newIngredients = ingredients
       .map((ing) => {
         if (ing.number === ingredientNumber) {
           return {
@@ -163,7 +166,7 @@ const CreateIngredient = ({
   changeIngredientPosition,
   totalIngredients,
 }: CreateIngredientProps) => {
-  let { t } = useTranslations();
+  const { t } = useTranslations();
 
   const ingredientId = generateIngredientId(ingredient.number);
   const amountId = generateAmountId(ingredient.number);
@@ -214,7 +217,7 @@ const CreateIngredient = ({
           placeholder={t.recipe.ingredientAmount}
           value={ingredient.amount ? ingredient.amount : ""}
           onChange={(e) => {
-            let val = parseFloat(e.target.value);
+            const val = parseFloat(e.target.value);
 
             let newAmount = undefined;
             if (!isNaN(val)) {
@@ -247,7 +250,7 @@ const CreateIngredient = ({
           name={unitId}
           value={ingredient.unit}
           onChange={(e) => {
-            let val = e.target.value;
+            const val = e.target.value;
 
             // @ts-ignore
             unitElement.setCustomValidity("");

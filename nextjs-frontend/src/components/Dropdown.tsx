@@ -1,4 +1,5 @@
 import { FC, InputHTMLAttributes } from "react";
+
 import styles from "./Dropdown.module.scss";
 
 export type SelectOption = {
@@ -30,8 +31,8 @@ const Dropdown: FC<SelectProps> = ({
   visibleSize,
   ...props
 }) => {
-  let variantStyle = styles[`dropdown-variant-${variant}`];
-  let sizeStyle = styles[`dropdown-size-${visibleSize}`];
+  const variantStyle = styles[`dropdown-variant-${variant}`];
+  const sizeStyle = styles[`dropdown-size-${visibleSize}`];
 
   return (
     <select

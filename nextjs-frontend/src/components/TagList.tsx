@@ -1,6 +1,7 @@
-import styles from "./TagList.module.scss";
 import { Tag as TagType } from "../api/Tag";
+
 import TagComponent from "./Tag";
+import styles from "./TagList.module.scss";
 
 export interface TagContainerProps {
   tags: TagType[];

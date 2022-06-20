@@ -1,6 +1,7 @@
-import DefaultLayout from "../layouts/DefaultLayout";
 import { FC } from "react";
+
 import { useTranslations } from "../hooks/useTranslations";
+import DefaultLayout from "../layouts/DefaultLayout";
 
 export type ErrorProps = { error: string };
 

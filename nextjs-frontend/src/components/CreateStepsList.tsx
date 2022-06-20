@@ -1,14 +1,16 @@
-import { useTranslations } from "../hooks/useTranslations";
-import { Step } from "../api/Step";
-import { TextArea } from "./TextField";
-import styles from "./CreateStepsList.module.scss";
-import { IconButton } from "./Buttons";
 import {
   faArrowDown,
   faArrowUp,
   faMinus,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { Step } from "../api/Step";
+import { useTranslations } from "../hooks/useTranslations";
+
+import { IconButton } from "./Buttons";
+import styles from "./CreateStepsList.module.scss";
+import { TextArea } from "./TextField";
 
 const STEP_BASE_ID = "step";
 
@@ -18,10 +20,10 @@ interface CreateStepsListProps {
 }
 
 const CreateStepsList = ({ steps, setSteps }: CreateStepsListProps) => {
-  let { t } = useTranslations();
+  const { t } = useTranslations();
 
   const deleteStep = (stepNumber: number) => {
-    let newSteps = steps
+    const newSteps = steps
       .filter((s) => s.number !== stepNumber)
       .map((s) => {
         if (s.number > stepNumber) {
@@ -41,7 +43,7 @@ const CreateStepsList = ({ steps, setSteps }: CreateStepsListProps) => {
       newNumber = Math.max(stepNumber - 1, 0);
     }
 
-    let newSteps = steps
+    const newSteps = steps
       .map((step) => {
         if (step.number === stepNumber) {
           return {
@@ -124,7 +126,7 @@ const CreateStep = ({
   deleteStep,
   changeStepPosition,
 }: CreateStepProps) => {
-  let { t } = useTranslations();
+  const { t } = useTranslations();
 
   const stepId = `${STEP_BASE_ID}-${step.number}`;
 

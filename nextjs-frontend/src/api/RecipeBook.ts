@@ -1,5 +1,5 @@
-import { Image } from "./Image";
 import { Author } from "./Author";
+import { Image } from "./Image";
 
 export interface RecipeBook {
   id: string;

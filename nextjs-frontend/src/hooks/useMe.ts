@@ -1,7 +1,8 @@
-import { Me } from "../api/Me";
 import React, { useContext } from "react";
+
 import { Api } from "../api/Api";
 import { ROOT_ENDPOINT } from "../api/Endpoints";
+import { Me } from "../api/Me";
 
 export interface AuthContext {
   me: Me | undefined;
@@ -21,7 +22,7 @@ export interface Auth {
 }
 
 export const useMe = (): Auth => {
-  let { me, initialized } = useContext(AuthContext);
+  const { me, initialized } = useContext(AuthContext);
 
   return {
     isLoggedIn: me !== undefined,

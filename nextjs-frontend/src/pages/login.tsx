@@ -1,15 +1,18 @@
-import styles from "./login.module.scss";
-import CardLayout from "../layouts/CardLayout";
-import { Button } from "../components/Buttons";
-import { useTranslations } from "../hooks/useTranslations";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { Api } from "../api/Api";
 import { useState } from "react";
 
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { Api } from "../api/Api";
+import { Button } from "../components/Buttons";
+import { useTranslations } from "../hooks/useTranslations";
+import CardLayout from "../layouts/CardLayout";
+
+import styles from "./login.module.scss";
+
 const Login = () => {
-  let { t, translate } = useTranslations();
-  let [error, setError] = useState<string | undefined>(undefined);
+  const { t, translate } = useTranslations();
+  const [error, setError] = useState<string | undefined>(undefined);
 
   return (
     <CardLayout>

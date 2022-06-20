@@ -1,16 +1,19 @@
-import { ChromePicker } from "react-color";
 import { FormEvent, useEffect, useState } from "react";
+
+import { faRepeat } from "@fortawesome/free-solid-svg-icons";
+import { ChromePicker } from "react-color";
+
+import { Api, ApiResponse } from "../api/Api";
+import { RGBColor } from "../api/Color";
+import { NewTag } from "../api/NewTag";
+import { Tag } from "../api/Tag";
+import useRefreshProps from "../hooks/useRefreshProps";
+import { useTranslations } from "../hooks/useTranslations";
+
+import { Button, IconButton } from "./Buttons";
 import styles from "./CreateTag.module.scss";
 import TagComponent from "./Tag";
 import TextField from "./TextField";
-import { RGBColor } from "../api/Color";
-import { Tag } from "../api/Tag";
-import { Api, ApiResponse } from "../api/Api";
-import { Button, IconButton } from "./Buttons";
-import { faRepeat } from "@fortawesome/free-solid-svg-icons";
-import { useTranslations } from "../hooks/useTranslations";
-import useRefreshProps from "../hooks/useRefreshProps";
-import { NewTag } from "../api/NewTag";
 
 export interface CreateTagProps {
   tag?: Tag;
@@ -103,7 +106,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
           value={newTagName}
           responsive
           onChange={(e) => {
-            let val = e.target.value;
+            const val = e.target.value;
             if (val.length <= 30) {
               setNewTagName(val);
             }
@@ -114,7 +117,7 @@ export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
           value={newTagDescription}
           responsive
           onChange={(e) => {
-            let val = e.target.value;
+            const val = e.target.value;
             if (val.length <= 120) {
               setNewTagDescription(val);
             }

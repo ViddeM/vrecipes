@@ -1,6 +1,7 @@
-import styles from "./Modal.module.scss";
-import { Button } from "./Buttons";
 import { useKeyPress } from "../hooks/useKeyPress";
+
+import { Button } from "./Buttons";
+import styles from "./Modal.module.scss";
 
 export interface ModalProps {
   title: string;
@@ -24,7 +25,7 @@ const Modal = ({
   declineButton,
   onClose,
 }: ModalProps) => {
-  let escapePress = useKeyPress("Escape");
+  const escapePress = useKeyPress("Escape");
   if (escapePress && onClose) {
     onClose();
   }

@@ -1,7 +1,8 @@
-import seTranslations from "../resources/locales/se.json";
-import enTranslations from "../resources/locales/en.json";
-import commonTranslations from "../resources/locales/common.json";
 import React, { useContext } from "react";
+
+import commonTranslations from "../resources/locales/common.json";
+import enTranslations from "../resources/locales/en.json";
+import seTranslations from "../resources/locales/se.json";
 
 export type LocaleSpecificData = typeof seTranslations;
 export type LocaleCommonData = typeof commonTranslations;
@@ -30,7 +31,7 @@ const loadLocaleSpecificData = (locale: Locale): LocaleSpecificData => {
 };
 
 export const loadLocale = (locale: Locale): LocaleData => {
-  let localeSpecificData = loadLocaleSpecificData(locale);
+  const localeSpecificData = loadLocaleSpecificData(locale);
   return {
     ...localeSpecificData,
     ...commonTranslations,
@@ -43,12 +44,12 @@ export interface Translations {
 }
 
 export const useTranslations = () => {
-  let localData = useContext(TranslationContext);
+  const localData = useContext(TranslationContext);
   return {
     t: localData,
     translate: (toTranslate: string) => {
       try {
-        let translation = recLookup(localData, toTranslate);
+        const translation = recLookup(localData, toTranslate);
         if (translation) {
           return translation;
         }
@@ -63,7 +64,7 @@ export const useTranslations = () => {
 
 // TODO: This is uggly...
 function recLookup(obj: object, path: string): string {
-  let parts = path.split(".");
+  const parts = path.split(".");
   if (parts.length == 1) {
     // @ts-ignore
     return obj[parts[0]];

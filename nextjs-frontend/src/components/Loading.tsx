@@ -1,9 +1,10 @@
 import { FC } from "react";
-import DefaultLayout from "../layouts/DefaultLayout";
+
 import { useTranslations } from "../hooks/useTranslations";
+import DefaultLayout from "../layouts/DefaultLayout";
 
 const Loading: FC = () => {
-  let { t } = useTranslations();
+  const { t } = useTranslations();
 
   return (
     <DefaultLayout>
