@@ -24,6 +24,8 @@
   ],
   "root": true,
   "rules": {
+    // supress errors for @ts-ignore
+    "@typescript-eslint/ban-ts-comment": "error",
     // suppress errors for missing 'import React' in files
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/explicit-function-return-type": "off",

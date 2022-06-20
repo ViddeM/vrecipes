@@ -1,4 +1,4 @@
-import { createRef, FC, useEffect, useRef, useState } from "react";
+import { createRef, FC, useCallback, useEffect, useRef, useState } from "react";
 
 import { faCaretDown, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,11 +32,14 @@ const TagFilter: FC<TagFilterProps> = ({
   const textFieldRef = useRef<HTMLInputElement | null>(null);
 
   const detailsRef = createRef<HTMLDetailsElement>();
-  const closeDetails = (e: Event) => {
-    assertIsNode(e.target);
-    if (detailsRef.current && !detailsRef.current?.contains(e.target))
-      detailsRef.current.open = false;
-  };
+  const closeDetails = useCallback(
+    (e: Event) => {
+      assertIsNode(e.target);
+      if (detailsRef.current && !detailsRef.current?.contains(e.target))
+        detailsRef.current.open = false;
+    },
+    [detailsRef]
+  );
   useEffect(() => {
     document.addEventListener("click", closeDetails);
     return () => document.removeEventListener("click", closeDetails);
@@ -77,7 +80,7 @@ const TagFilter: FC<TagFilterProps> = ({
       <details
         ref={detailsRef}
         className={styles.tagFilterDetails}
-        onToggle={(e) => {
+        onToggle={() => {
           if (detailsRef?.current?.open === false && onClose) {
             onClose();
           } else if (
@@ -147,7 +150,7 @@ const TagFilterItem: FC<TagFilterItemProps> = ({
       className={`${selected ? styles.filterItemSelected : ""} ${
         styles.filterItem
       }`}
-      onClick={(e) => onSelected(tag)}
+      onClick={() => onSelected(tag)}
     >
       <div className={"verticalCenterRow"}>
         <FontAwesomeIcon

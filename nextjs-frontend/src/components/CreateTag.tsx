@@ -20,7 +20,7 @@ export interface CreateTagProps {
   cancelEditTag: () => void;
 }
 
-export const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
+const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
   const { t, translate } = useTranslations();
   const refreshProps = useRefreshProps();
 
