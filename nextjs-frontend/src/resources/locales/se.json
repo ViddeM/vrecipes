@@ -103,7 +103,8 @@
     "no": "Nej",
     "edit": "Ändra",
     "remove": "Ta bort",
-    "unsavedChanges": "Du har osparade ändringar"
+    "unsavedChanges": "Du har osparade ändringar",
+    "logoAltText": "Vrecepts logotyp"
   },
   "errors": {
     "default": "Ett okänt fel har inträffat",

@@ -32,7 +32,7 @@ const TextField: FC<TextFieldProps> = ({
     if (focus) {
       inputRef.current?.focus();
     }
-  }, []);
+  }, [focus]);
 
   return (
     <div

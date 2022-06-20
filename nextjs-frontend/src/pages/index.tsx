@@ -74,7 +74,7 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
     } else if (query.author && typeof query.author === "string") {
       setFilterText(query.author);
     }
-  }, [query]);
+  }, [query, tags]);
 
   if (error) {
     return <ErrorCard error={error} />;
