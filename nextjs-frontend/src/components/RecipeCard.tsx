@@ -1,12 +1,14 @@
-import styles from "./RecipeCard.module.scss";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+
+import { RECIPES_BASE_ENDPOINT } from "../api/Endpoints";
 import { ShortRecipe } from "../api/ShortRecipe";
 import { useTranslations } from "../hooks/useTranslations";
-import TagList from "./TagList";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
+
+import styles from "./RecipeCard.module.scss";
 import { RecipeImage } from "./RecipeImage";
-import Link from "next/link";
-import { RECIPES_BASE_ENDPOINT } from "../api/Endpoints";
+import TagList from "./TagList";
 
 export interface RecipeCardProps {
   recipe: ShortRecipe;

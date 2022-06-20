@@ -1,29 +1,31 @@
+import { useEffect, useState } from "react";
+
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import fuzzysort from "fuzzysort";
 import type { GetServerSideProps } from "next";
-import styles from "./index.module.scss";
-import TextField from "../components/TextField";
-import DefaultLayout from "../layouts/DefaultLayout";
-import { Button, IconButton } from "../components/Buttons";
-import { ShortRecipe } from "../api/ShortRecipe";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
 import { Api } from "../api/Api";
+import { CREATE_RECIPE_ENDPOINT } from "../api/Endpoints";
+import { Me } from "../api/Me";
+import { ShortRecipe } from "../api/ShortRecipe";
+import { Tag } from "../api/Tag";
+import { Button, IconButton } from "../components/Buttons";
 import ErrorCard from "../components/ErrorCard";
 import Loading from "../components/Loading";
-import { useTranslations } from "../hooks/useTranslations";
 import RecipeCard from "../components/RecipeCard";
-import { Me } from "../api/Me";
-import useMediaQuery from "../hooks/useMediaQuery";
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-import { CREATE_RECIPE_ENDPOINT } from "../api/Endpoints";
-import { useMe } from "../hooks/useMe";
-import { useEffect, useState } from "react";
-import fuzzysort from "fuzzysort";
 import TagFilter from "../components/TagFilter";
-import { Tag } from "../api/Tag";
 import TagList from "../components/TagList";
-
+import TextField from "../components/TextField";
+import { useMe } from "../hooks/useMe";
+import useMediaQuery from "../hooks/useMediaQuery";
+import { useTranslations } from "../hooks/useTranslations";
+import DefaultLayout from "../layouts/DefaultLayout";
 import { LARGER_THAN_MOBILE_BREAKPOINT } from "../util/constants";
-import { useRouter } from "next/router";
 import { tagNameToUnique } from "../util/tagNameToUnique";
+
+import styles from "./index.module.scss";
 
 type HomeProps = {
   recipes?: ShortRecipe[];
@@ -153,8 +155,8 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  let res = await Api.recipes.getAll();
-  let resTags = await Api.tags.getAll();
+  const res = await Api.recipes.getAll();
+  const resTags = await Api.tags.getAll();
 
   return {
     props: {

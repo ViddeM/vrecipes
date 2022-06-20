@@ -1,23 +1,26 @@
+import { useEffect, useState } from "react";
+
+import fuzzysort from "fuzzysort";
+import { GetServerSideProps } from "next";
+import Link from "next/link";
+
+import { Api } from "../../api/Api";
 import { Me } from "../../api/Me";
 import { Tag } from "../../api/Tag";
-import { useTranslations } from "../../hooks/useTranslations";
+import { Button } from "../../components/Buttons";
+import CreateTag from "../../components/CreateTag";
 import ErrorCard from "../../components/ErrorCard";
 import Loading from "../../components/Loading";
-import { Api } from "../../api/Api";
-import styles from "./index.module.scss";
-import TextField from "../../components/TextField";
-import { useEffect, useState } from "react";
-import CardLayout from "../../layouts/CardLayout";
-import { useMe } from "../../hooks/useMe";
 import TagComponent from "../../components/Tag";
-import { tagNameToUnique } from "../../util/tagNameToUnique";
-import Link from "next/link";
+import TextField from "../../components/TextField";
+import { useMe } from "../../hooks/useMe";
 import { useModal } from "../../hooks/useModal";
-import { GetServerSideProps } from "next";
-import CreateTag from "../../components/CreateTag";
-import fuzzysort from "fuzzysort";
-import { Button } from "../../components/Buttons";
 import useRefreshProps from "../../hooks/useRefreshProps";
+import { useTranslations } from "../../hooks/useTranslations";
+import CardLayout from "../../layouts/CardLayout";
+import { tagNameToUnique } from "../../util/tagNameToUnique";
+
+import styles from "./index.module.scss";
 
 type TagsProps = {
   tags?: Tag[];
@@ -227,7 +230,7 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  let res = await Api.tags.getAll();
+  const res = await Api.tags.getAll();
 
   return {
     props: {

@@ -1,26 +1,29 @@
-import { useTranslations } from "../../../hooks/useTranslations";
-import { useMe } from "../../../hooks/useMe";
+import { FormEvent, useState } from "react";
+
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+
 import { Api, ApiResponse, isClientSide } from "../../../api/Api";
+import { EditRecipeBook } from "../../../api/EditRecipeBook";
 import {
   LOGIN_ENDPOINT,
   RECIPE_BOOKS_BASE_ENDPOINT,
 } from "../../../api/Endpoints";
-import CardLayout from "../../../layouts/CardLayout";
-import styles from "./[recipeBook].module.scss";
-import TextField from "../../../components/TextField";
-import { FormEvent, useState } from "react";
+import { Image } from "../../../api/Image";
 import { RecipeBook, RecipeBookRecipe } from "../../../api/RecipeBook";
-import { GetServerSideProps } from "next";
-import ErrorCard from "../../../components/ErrorCard";
-import Loading from "../../../components/Loading";
-import NoAccess from "../../../components/NoAccess";
-import { EditRecipeBook } from "../../../api/EditRecipeBook";
 import { UniqueName } from "../../../api/UniqueName";
 import { Button } from "../../../components/Buttons";
-import RecipesTable from "../../../components/RecipesTable";
+import ErrorCard from "../../../components/ErrorCard";
 import ImageUpload from "../../../components/ImageUpload";
-import { Image } from "../../../api/Image";
+import Loading from "../../../components/Loading";
+import NoAccess from "../../../components/NoAccess";
+import RecipesTable from "../../../components/RecipesTable";
+import TextField from "../../../components/TextField";
+import { useMe } from "../../../hooks/useMe";
+import { useTranslations } from "../../../hooks/useTranslations";
+import CardLayout from "../../../layouts/CardLayout";
+
+import styles from "./[recipeBook].module.scss";
 
 interface EditRecipeBookProps {
   recipeBook?: RecipeBook;
@@ -86,7 +89,7 @@ const EditRecipeBook = ({
       images = [image.id];
     }
 
-    let newRecipeBook: EditRecipeBook = {
+    const newRecipeBook: EditRecipeBook = {
       name: name,
       images: images,
       recipes: selectedRecipes.map((r) => r.id),
@@ -229,8 +232,8 @@ function imageSame(image: Image | null, other: Image | null): boolean {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // @ts-ignore
   const { recipeBook } = context.params;
-  let res = await Api.recipeBooks.getOne(recipeBook);
-  let recipes = await Api.recipes.getAll();
+  const res = await Api.recipeBooks.getOne(recipeBook);
+  const recipes = await Api.recipes.getAll();
 
   if (res.rawResponse?.status === 404) {
     return {

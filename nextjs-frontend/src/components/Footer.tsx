@@ -1,11 +1,13 @@
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./Footer.module.scss";
 import { useRouter } from "next/router";
-import Dropdown from "./Dropdown";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+
 import { useTranslations } from "../hooks/useTranslations";
+
+import Dropdown from "./Dropdown";
+import styles from "./Footer.module.scss";
 
 const Footer = () => {
   const { translate, t } = useTranslations();

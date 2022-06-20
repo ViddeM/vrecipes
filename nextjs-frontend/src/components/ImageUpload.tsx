@@ -1,15 +1,17 @@
-import { RecipeImage } from "./RecipeImage";
-import styles from "./ImageUpload.module.scss";
-import { Image } from "../api/Image";
-import { Api } from "../api/Api";
 import { useState } from "react";
-import { useTranslations } from "../hooks/useTranslations";
-import { IconButton } from "./Buttons";
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import Loading from "./Loading";
-import { useModal } from "../hooks/useModal";
+
+import { faUpload, faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload } from "@fortawesome/free-solid-svg-icons";
+
+import { Api } from "../api/Api";
+import { Image } from "../api/Image";
+import { useModal } from "../hooks/useModal";
+import { useTranslations } from "../hooks/useTranslations";
+
+import { IconButton } from "./Buttons";
+import styles from "./ImageUpload.module.scss";
+import Loading from "./Loading";
+import { RecipeImage } from "./RecipeImage";
 
 export type ImageUploadProps = {
   images: Image[];
@@ -94,7 +96,7 @@ const ImageUpload = ({
             className={styles.fileUploadInput}
             disabled={images.length > 0}
             onChange={(e) => {
-              let files = e.target.files;
+              const files = e.target.files;
               if (files && files.length > 0) {
                 uploadFile(files[0]);
               }

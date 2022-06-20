@@ -1,9 +1,12 @@
+import { useState } from "react";
+
+import Image from "next/image";
+
+import defaultRecipePicture from "../../public/default_recipe_image.webp";
 import { Api } from "../api/Api";
 import { useTranslations } from "../hooks/useTranslations";
-import defaultRecipePicture from "../../public/default_recipe_image.webp";
-import Image from "next/image";
+
 import styles from "./RecipeImage.module.scss";
-import { useState } from "react";
 
 export type ImageBorderProps = {
   border?: "all" | "bottom" | "top" | "none";
@@ -31,7 +34,7 @@ export const RecipeImage = ({
     image = Api.images.formatImageUrl(url);
   }
 
-  let style = `${border !== "none" ? styles[`border-${border}`] : ""} ${
+  const style = `${border !== "none" ? styles[`border-${border}`] : ""} ${
     styles.image
   }`;
 

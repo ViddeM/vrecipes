@@ -1,23 +1,26 @@
-import DefaultLayout from "../../layouts/DefaultLayout";
-import { GetServerSideProps } from "next";
-import { Api } from "../../api/Api";
-import { ShortRecipeBook } from "../../api/ShortRecipeBook";
-import { Me } from "../../api/Me";
-import styles from "./index.module.scss";
-import TextField from "../../components/TextField";
-import Link from "next/link";
-import { CREATE_RECIPE_BOOK_ENDPOINT } from "../../api/Endpoints";
-import { Button, IconButton } from "../../components/Buttons";
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
-import { useTranslations } from "../../hooks/useTranslations";
 import { useEffect, useState } from "react";
+
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import fuzzysort from "fuzzysort";
-import useMediaQuery from "../../hooks/useMediaQuery";
-import { LARGER_THAN_MOBILE_BREAKPOINT } from "../../util/constants";
-import { useMe } from "../../hooks/useMe";
+import { GetServerSideProps } from "next";
+import Link from "next/link";
+
+import { Api } from "../../api/Api";
+import { CREATE_RECIPE_BOOK_ENDPOINT } from "../../api/Endpoints";
+import { Me } from "../../api/Me";
+import { ShortRecipeBook } from "../../api/ShortRecipeBook";
+import { Button, IconButton } from "../../components/Buttons";
 import ErrorCard from "../../components/ErrorCard";
 import Loading from "../../components/Loading";
 import RecipeBookCard from "../../components/RecipeBookCard";
+import TextField from "../../components/TextField";
+import { useMe } from "../../hooks/useMe";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import { useTranslations } from "../../hooks/useTranslations";
+import DefaultLayout from "../../layouts/DefaultLayout";
+import { LARGER_THAN_MOBILE_BREAKPOINT } from "../../util/constants";
+
+import styles from "./index.module.scss";
 
 type RecipeBooksProps = {
   recipeBooks?: ShortRecipeBook[];
@@ -111,7 +114,7 @@ const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  let res = await Api.recipeBooks.getAll();
+  const res = await Api.recipeBooks.getAll();
 
   return {
     props: {

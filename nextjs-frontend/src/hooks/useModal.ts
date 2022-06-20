@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+
 import { ModalProps } from "../components/Modal";
 
 export interface ModalContext {

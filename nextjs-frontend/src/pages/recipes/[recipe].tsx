@@ -1,23 +1,25 @@
-import { Recipe } from "../../api/Recipe";
-import { GetServerSideProps } from "next";
-import { Api } from "../../api/Api";
-import Loading from "../../components/Loading";
-import ErrorCard from "../../components/ErrorCard";
-import styles from "./[recipe].module.scss";
-import CardLayout from "../../layouts/CardLayout";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { useTranslations } from "../../hooks/useTranslations";
-import { RecipeImage } from "../../components/RecipeImage";
-import { IngredientTable } from "../../components/IngredientTable";
-import { Button, IconButton } from "../../components/Buttons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
+
+import { Api } from "../../api/Api";
+import { EDIT_RECIPE_BASE_ENDPOINT, ROOT_ENDPOINT } from "../../api/Endpoints";
+import { Recipe } from "../../api/Recipe";
+import AuthorLink from "../../components/AuthorLink";
+import { Button, IconButton } from "../../components/Buttons";
+import ErrorCard from "../../components/ErrorCard";
+import { IngredientTable } from "../../components/IngredientTable";
+import Loading from "../../components/Loading";
+import { RecipeImage } from "../../components/RecipeImage";
+import TagList from "../../components/TagList";
 import { useMe } from "../../hooks/useMe";
 import { useModal } from "../../hooks/useModal";
-import { EDIT_RECIPE_BASE_ENDPOINT, ROOT_ENDPOINT } from "../../api/Endpoints";
-import TagList from "../../components/TagList";
-import AuthorLink from "../../components/AuthorLink";
+import { useTranslations } from "../../hooks/useTranslations";
+import CardLayout from "../../layouts/CardLayout";
+
+import styles from "./[recipe].module.scss";
 
 interface RecipeProps {
   recipe?: Recipe;
@@ -25,9 +27,9 @@ interface RecipeProps {
 }
 
 const Recipe = ({ recipe, error }: RecipeProps) => {
-  let { t } = useTranslations();
-  let { me, isLoggedIn } = useMe();
-  let { openModal } = useModal();
+  const { t } = useTranslations();
+  const { me, isLoggedIn } = useMe();
+  const { openModal } = useModal();
 
   if (error) {
     return <ErrorCard error={error} />;
@@ -172,7 +174,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // @ts-ignore
   const { recipe } = context.params;
-  let res = await Api.recipes.getOne(recipe);
+  const res = await Api.recipes.getOne(recipe);
 
   if (res.rawResponse?.status === 404) {
     return {

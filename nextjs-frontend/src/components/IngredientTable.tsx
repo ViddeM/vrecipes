@@ -1,13 +1,14 @@
-import styles from "./IngredientTable.module.scss";
 import { Ingredient } from "../api/Ingredient";
 import { useTranslations } from "../hooks/useTranslations";
+
+import styles from "./IngredientTable.module.scss";
 
 export type IngredientTableProps = {
   ingredients: Ingredient[];
 };
 
 export const IngredientTable = ({ ingredients }: IngredientTableProps) => {
-  let { t } = useTranslations();
+  const { t } = useTranslations();
   return (
     <div className={styles.ingredientsContainer}>
       <table className={styles.ingredientTable}>

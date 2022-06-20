@@ -1,8 +1,10 @@
-import styles from "./Tag.module.scss";
+import Link from "next/link";
+
+import { RGBandHSLColor, RGBColor } from "../api/Color";
 import { RGBToHSL } from "../util/color";
 import { tagNameToUnique } from "../util/tagNameToUnique";
-import { RGBandHSLColor, RGBColor } from "../api/Color";
-import Link from "next/link";
+
+import styles from "./Tag.module.scss";
 
 export interface TagProps {
   noLink: boolean;
@@ -57,7 +59,7 @@ const TagWithoutLink = ({ color, text }: TagWithoutLinkProps) => {
 
 function getTextColor(rgb: RGBColor): any {
   // let rgb = parseHexColor(bgColor)
-  let luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+  const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
 
   let textColor = "#000000";
   if (luminance <= 0.38) {
@@ -67,7 +69,7 @@ function getTextColor(rgb: RGBColor): any {
 }
 
 function parseColor(rgb: RGBColor): RGBandHSLColor {
-  let hsl = RGBToHSL(rgb);
+  const hsl = RGBToHSL(rgb);
   return {
     r: rgb.r,
     g: rgb.g,

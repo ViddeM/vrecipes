@@ -1,6 +1,8 @@
-import styles from "./AuthorLink.module.scss";
-import { tagNameToUnique } from "../util/tagNameToUnique";
 import Link from "next/link";
+
+import { tagNameToUnique } from "../util/tagNameToUnique";
+
+import styles from "./AuthorLink.module.scss";
 
 export interface AuthorLinkProps {
   author: string;
