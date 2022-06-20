@@ -5,10 +5,10 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { Step } from "../../api/Step";
-import { useTranslations } from "../../hooks/useTranslations";
-import { IconButton } from "../elements/Buttons/Buttons";
-import { TextArea } from "../elements/TextField/TextField";
+import { Step } from "../../../api/Step";
+import { useTranslations } from "../../../hooks/useTranslations";
+import { IconButton } from "../../elements/Buttons/Buttons";
+import { TextArea } from "../../elements/TextField/TextField";
 
 import styles from "./CreateStepsList.module.scss";
 

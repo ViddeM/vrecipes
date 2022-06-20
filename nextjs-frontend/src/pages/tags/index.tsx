@@ -12,7 +12,7 @@ import ErrorCard from "../../components/elements/ErrorCard";
 import Loading from "../../components/elements/Loading";
 import TagComponent from "../../components/elements/Tag/Tag";
 import TextField from "../../components/elements/TextField/TextField";
-import CreateTag from "../../components/views/CreateTag";
+import CreateTag from "../../components/views/CreateTag/CreateTag";
 import { useMe } from "../../hooks/useMe";
 import { useModal } from "../../hooks/useModal";
 import useRefreshProps from "../../hooks/useRefreshProps";

@@ -13,9 +13,9 @@ import { useRouter } from "next/router";
 
 import { Api } from "../api/Api";
 import { Me } from "../api/Me";
-import Footer from "../components/views/Footer";
-import Header from "../components/views/Header";
-import Modal, { ModalProps, trapTabKey } from "../components/views/Modal";
+import Footer from "../components/views/Footer/Footer";
+import Header from "../components/views/Header/Header";
+import Modal, { ModalProps, trapTabKey } from "../components/views/Modal/Modal";
 import { AuthContext } from "../hooks/useMe";
 import { ModalContext } from "../hooks/useModal";
 import {

@@ -18,7 +18,7 @@ import ImageUpload from "../../../components/elements/ImageUpload/ImageUpload";
 import Loading from "../../../components/elements/Loading";
 import NoAccess from "../../../components/elements/NoAccess";
 import TextField from "../../../components/elements/TextField/TextField";
-import RecipesTable from "../../../components/views/RecipesTable";
+import RecipesTable from "../../../components/views/RecipesTable/RecipesTable";
 import { useMe } from "../../../hooks/useMe";
 import { useTranslations } from "../../../hooks/useTranslations";
 import CardLayout from "../../../layouts/CardLayout";
