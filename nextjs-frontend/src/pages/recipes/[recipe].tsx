@@ -17,6 +17,7 @@ import { useMe } from "../../hooks/useMe";
 import { useModal } from "../../hooks/useModal";
 import { EDIT_RECIPE_BASE_ENDPOINT, ROOT_ENDPOINT } from "../../api/Endpoints";
 import TagList from "../../components/TagList";
+import AuthorLink from "../../components/AuthorLink";
 
 interface RecipeProps {
   recipe?: Recipe;
@@ -65,9 +66,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
 
         <h1 className={"breakWord"}>{recipe.name}</h1>
 
-        <p
-          className={"breakWord"}
-        >{`${t.common.createdBy} ${recipe.author.name}`}</p>
+        <AuthorLink author={recipe.author.name} prefix={t.common.createdBy} />
 
         <TagList tags={recipe.tags} noLink={false} variant={"center"} />
 

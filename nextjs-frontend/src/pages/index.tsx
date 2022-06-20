@@ -71,6 +71,8 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
           setSelectedTags([t]);
         }
       });
+    } else if (query.author && typeof query.author === "string") {
+      setFilterText(query.author);
     }
   }, [query]);
 
@@ -81,11 +83,11 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
   if (!recipes) {
     return <Loading />;
   }
-
   return (
     <DefaultLayout>
       <div className={`${styles.searchContainer} card marginBottomBig`}>
         <TextField
+          value={filterText}
           focus={true}
           type="search"
           placeholder={`${t.recipe.searchRecipes}`}
