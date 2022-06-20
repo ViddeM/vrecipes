@@ -7,8 +7,8 @@ import {
 
 import { Step } from "../../api/Step";
 import { useTranslations } from "../../hooks/useTranslations";
-import { IconButton } from "../elements/Buttons";
-import { TextArea } from "../elements/TextField";
+import { IconButton } from "../elements/Buttons/Buttons";
+import { TextArea } from "../elements/TextField/TextField";
 
 import styles from "./CreateStepsList.module.scss";
 

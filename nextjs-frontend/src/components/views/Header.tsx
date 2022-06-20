@@ -10,7 +10,7 @@ import {
 } from "../../api/Endpoints";
 import { useMe } from "../../hooks/useMe";
 import { useTranslations } from "../../hooks/useTranslations";
-import { Button } from "../elements/Buttons";
+import { Button } from "../elements/Buttons/Buttons";
 
 import styles from "./Header.module.scss";
 

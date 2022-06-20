@@ -9,9 +9,9 @@ import { NewTag } from "../../api/NewTag";
 import { Tag } from "../../api/Tag";
 import useRefreshProps from "../../hooks/useRefreshProps";
 import { useTranslations } from "../../hooks/useTranslations";
-import { Button, IconButton } from "../elements/Buttons";
-import TagComponent from "../elements/Tag";
-import TextField from "../elements/TextField";
+import { Button, IconButton } from "../elements/Buttons/Buttons";
+import TagComponent from "../elements/Tag/Tag";
+import TextField from "../elements/TextField/TextField";
 
 import styles from "./CreateTag.module.scss";
 

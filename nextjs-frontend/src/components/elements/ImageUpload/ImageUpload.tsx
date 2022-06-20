@@ -3,15 +3,15 @@ import { useState } from "react";
 import { faUpload, faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Api } from "../../api/Api";
-import { Image } from "../../api/Image";
-import { useModal } from "../../hooks/useModal";
-import { useTranslations } from "../../hooks/useTranslations";
+import { Api } from "../../../api/Api";
+import { Image } from "../../../api/Image";
+import { useModal } from "../../../hooks/useModal";
+import { useTranslations } from "../../../hooks/useTranslations";
+import { IconButton } from "../Buttons/Buttons";
+import { ImageComponent } from "../ImageComponent/ImageComponent";
+import Loading from "../Loading";
 
-import { IconButton } from "./Buttons";
-import { ImageComponent } from "./ImageComponent";
 import styles from "./ImageUpload.module.scss";
-import Loading from "./Loading";
 
 export type ImageUploadProps = {
   images: Image[];

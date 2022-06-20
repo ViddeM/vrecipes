@@ -5,8 +5,8 @@ import Link from "next/link";
 import { RECIPES_BASE_ENDPOINT } from "../../api/Endpoints";
 import { ShortRecipe } from "../../api/ShortRecipe";
 import { useTranslations } from "../../hooks/useTranslations";
-import { ImageComponent } from "../elements/ImageComponent";
-import TagList from "../elements/TagList";
+import { ImageComponent } from "../elements/ImageComponent/ImageComponent";
+import TagList from "../elements/TagList/TagList";
 
 import styles from "./RecipeCard.module.scss";
 

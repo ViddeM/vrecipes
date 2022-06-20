@@ -12,12 +12,12 @@ import {
 import { Image } from "../../../api/Image";
 import { RecipeBook, RecipeBookRecipe } from "../../../api/RecipeBook";
 import { UniqueName } from "../../../api/UniqueName";
-import { Button } from "../../../components/elements/Buttons";
+import { Button } from "../../../components/elements/Buttons/Buttons";
 import ErrorCard from "../../../components/elements/ErrorCard";
-import ImageUpload from "../../../components/elements/ImageUpload";
+import ImageUpload from "../../../components/elements/ImageUpload/ImageUpload";
 import Loading from "../../../components/elements/Loading";
 import NoAccess from "../../../components/elements/NoAccess";
-import TextField from "../../../components/elements/TextField";
+import TextField from "../../../components/elements/TextField/TextField";
 import RecipesTable from "../../../components/views/RecipesTable";
 import { useMe } from "../../../hooks/useMe";
 import { useTranslations } from "../../../hooks/useTranslations";

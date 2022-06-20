@@ -20,14 +20,16 @@ import { Recipe } from "../../../api/Recipe";
 import { Step } from "../../../api/Step";
 import { Tag } from "../../../api/Tag";
 import { UniqueName } from "../../../api/UniqueName";
-import { Button } from "../../../components/elements/Buttons";
+import { Button } from "../../../components/elements/Buttons/Buttons";
 import ErrorCard from "../../../components/elements/ErrorCard";
-import ImageUpload from "../../../components/elements/ImageUpload";
+import ImageUpload from "../../../components/elements/ImageUpload/ImageUpload";
 import Loading from "../../../components/elements/Loading";
 import NoAccess from "../../../components/elements/NoAccess";
-import TagFilter from "../../../components/elements/TagFilter";
-import TagList from "../../../components/elements/TagList";
-import TextField, { TextArea } from "../../../components/elements/TextField";
+import TagFilter from "../../../components/elements/TagFilter/TagFilter";
+import TagList from "../../../components/elements/TagList/TagList";
+import TextField, {
+  TextArea,
+} from "../../../components/elements/TextField/TextField";
 import CreateIngredientsTable from "../../../components/views/CreateIngredientsTable";
 import CreateStepsList from "../../../components/views/CreateStepsList";
 import { useMe } from "../../../hooks/useMe";
