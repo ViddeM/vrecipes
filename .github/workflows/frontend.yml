@@ -13,10 +13,10 @@ jobs:
           node-version: 12
       - name: Install dependencies
         run: yarn --frozen-lockfile
-        working-directory: frontend
+        working-directory: nextjs-frontend
       - name: Build
         run: yarn build
-        working-directory: frontend
+        working-directory: nextjs-frontend
 
   lint:
     name: Lint
@@ -28,7 +28,7 @@ jobs:
           node-version: 12
       - name: Install dependencies
         run: yarn --frozen-lockfile
-        working-directory: frontend
+        working-directory: nextjs-frontend
       - name: Build
         run: yarn lint:check
-        working-directory: frontend
+        working-directory: nextjs-frontend
