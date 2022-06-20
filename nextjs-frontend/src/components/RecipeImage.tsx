@@ -26,9 +26,9 @@ export const RecipeImage = ({
 
   const [errored, setErrored] = useState(false);
 
-  let image: StaticImageData | string = defaultRecipePicture;
+  let image: StaticImageData | string = defaultRecipePicture.src;
   if (defaultImage) {
-    image = defaultImage;
+    image = defaultImage.src;
   }
   if (url && !errored) {
     image = Api.images.formatImageUrl(url);
