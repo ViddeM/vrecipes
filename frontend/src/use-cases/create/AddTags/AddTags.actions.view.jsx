@@ -1,1 +1,0 @@
-export const ON_TAGS_SELECTED = "on_tags_selected";

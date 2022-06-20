@@ -1,5 +1,0 @@
-VRecipes hanterar följande data:
- - Email
- - Förnamn & Efternamn
-
- Denna datan hanteras från det att en användare loggar in och sparas tills användaren begär att få datan borttagen genom att kontakta Vidde.
