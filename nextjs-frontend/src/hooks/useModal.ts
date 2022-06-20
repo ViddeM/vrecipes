@@ -7,7 +7,10 @@ export interface ModalContext {
 }
 
 export const ModalContext = React.createContext<ModalContext>({
-  openModal: (_) => {},
+  openModal: () => {
+    // eslint-disable-next-line no-console
+    console.error("Modal has not been properly initialized");
+  },
 });
 
 export const useModal = (): ModalContext => {

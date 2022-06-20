@@ -54,7 +54,8 @@ export const useTranslations = () => {
           return translation;
         }
       } catch (error) {
-        console.log("Failed to lookup translation", error);
+        // eslint-disable-next-line no-console
+        console.error("Failed to lookup translation", error);
       }
 
       return toTranslate;

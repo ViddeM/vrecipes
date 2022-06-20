@@ -114,7 +114,6 @@ const RecipeBook = ({ recipeBook, error }: RecipeBookProps) => {
                         });
                       },
                     },
-                    onClose: () => {},
                   });
                 }}
               >
