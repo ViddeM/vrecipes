@@ -8,8 +8,8 @@ import {
 
 import { EditableIngredient } from "../../api/Ingredient";
 import { useTranslations } from "../../hooks/useTranslations";
-import { IconButton } from "../elements/Buttons";
-import TextField from "../elements/TextField";
+import { IconButton } from "../elements/Buttons/Buttons";
+import TextField from "../elements/TextField/TextField";
 
 import styles from "./CreateIngredientsTable.module.scss";
 

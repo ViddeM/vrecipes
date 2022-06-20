@@ -9,9 +9,9 @@ import {
   RECIPES_BASE_ENDPOINT,
 } from "../../api/Endpoints";
 import { RecipeBook } from "../../api/RecipeBook";
-import { Button, IconButton } from "../../components/elements/Buttons";
+import { Button, IconButton } from "../../components/elements/Buttons/Buttons";
 import ErrorCard from "../../components/elements/ErrorCard";
-import { ImageComponent } from "../../components/elements/ImageComponent";
+import { ImageComponent } from "../../components/elements/ImageComponent/ImageComponent";
 import Loading from "../../components/elements/Loading";
 import { useMe } from "../../hooks/useMe";
 import { useModal } from "../../hooks/useModal";

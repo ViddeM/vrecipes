@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useTranslations } from "../../hooks/useTranslations";
 import CardLayout from "../../layouts/CardLayout";
 
-import { Button } from "./Buttons";
+import { Button } from "./Buttons/Buttons";
 
 interface NoAccessProps {
   text: string;

@@ -2,9 +2,9 @@ import { useState } from "react";
 
 import Image from "next/image";
 
-import defaultRecipePicture from "../../../public/default_recipe_image.webp";
-import { Api } from "../../api/Api";
-import { useTranslations } from "../../hooks/useTranslations";
+import defaultRecipePicture from "../../../../public/default_recipe_image.webp";
+import { Api } from "../../../api/Api";
+import { useTranslations } from "../../../hooks/useTranslations";
 
 import styles from "./ImageComponent.module.scss";
 

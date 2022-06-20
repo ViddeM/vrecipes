@@ -1,5 +1,5 @@
 import { useKeyPress } from "../../hooks/useKeyPress";
-import { Button } from "../elements/Buttons";
+import { Button } from "../elements/Buttons/Buttons";
 
 import styles from "./Modal.module.scss";
 
