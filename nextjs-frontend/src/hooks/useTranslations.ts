@@ -65,10 +65,11 @@ export const useTranslations = () => {
 // TODO: This is uggly...
 function recLookup(obj: object, path: string): string {
   const parts = path.split(".");
-  if (parts.length == 1) {
-    // @ts-ignore
-    return obj[parts[0]];
-  }
+
   // @ts-ignore
-  return recLookup(obj[parts[0]], parts.slice(1).join("."));
+  const firstPart = obj[parts[0]];
+  if (parts.length == 1) {
+    return firstPart;
+  }
+  return recLookup(firstPart, parts.slice(1).join("."));
 }
