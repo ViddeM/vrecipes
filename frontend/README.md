@@ -1,68 +1,33 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# VRecipes nextjs frontend
 
-## Available Scripts
+This is a new frontend for the VRecipes recipe management service.
 
-In the project directory, you can run:
+## Aims & Goals of rewrite
 
-### `yarn start`
+The main goal of the rewrite is to clean up the code and make general improvements to the project. Whilst doing this,
+however, we would also like to simplify the process of porting VRecipes to TasteIT (the chalmers.it variant of the
+service). For this purpose a number of new features will be included in this version:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Localization: VRecipes users will most likely want the page to be in swedish whilst TasteIT users might want it in
+  english, thus localization should be built in by default.
+- Improve modularization of the styling so that the service can be easily restyled for TasteIT (e.g. using CSS
+  variables).
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Setup
 
-### `yarn test`
+Generally one would run the frontend through docker compose (i.e. run `docker compose up` in the root project folder).
+However, one can also run the frontend separately using `yarn dev`.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Libraries & dev notes
 
-### `yarn build`
+The main library/framework in use is NextJS: https://nextjs.org/ which will take care of most things necessary for the
+project.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Localization
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Localization of the project is handled by next-i18next: https://github.com/isaachinman/next-i18next/tree/master. The
+locations of the different locales can be found in `public/locales/[locale]/`. Preferably every context should have its
+own file and general things can be put in `common.json`. For a page to use translations it needs to include a call
+to `serverSideTranslations` from a **server-side** function. Note that this must be done from a file within the `/pages`
+folder and thus cannot be in `components`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

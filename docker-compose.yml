@@ -15,30 +15,16 @@ services:
         ports:
             - 8080:8080
 
-    frontend-new:
-        image: vrecipes_frontend_new_dev
+    frontend:
+        image: vrecipes_frontend_dev
         build:
-            context: nextjs-frontend
+            context: frontend
             dockerfile: dev.Dockerfile
         ports:
             - 3000:3000
         volumes:
-            - ./nextjs-frontend:/app
+            - ./frontend:/app
         environment:
             - DEBUG_MODE=true
         extra_hosts:
             host.docker.internal: host-gateway
-
-    # frontend:
-    #     image: vrecipes_frontend_dev
-    #     build:
-    #         context: ./frontend/
-    #         dockerfile: dev.Dockerfile
-    #     ports:
-    #         - 3000:3000
-    #     volumes:
-    #         - ./frontend:/usr/src/vrecipes/frontend
-    #     environment:
-    #         - DEBUG_MODE=true
-    #     extra_hosts:
-    #         host.docker.internal: host-gateway
