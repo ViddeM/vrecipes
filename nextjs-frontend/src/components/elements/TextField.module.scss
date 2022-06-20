@@ -1,0 +1,60 @@
+@import "../../resources/styles/vars";
+
+.textFieldBase {
+  height: 2rem;
+  border: none;
+  flex: 1;
+  width: 100%;
+
+  &:focus-visible,
+  :target,
+  :active {
+    outline: none;
+    border: none !important;
+  }
+
+  &::selection {
+    background-color: $primary-color;
+    color: white;
+  }
+}
+
+.textFieldContainer {
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: white;
+  padding: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  color: rgba(0, 0, 0, 0.5);
+
+  &:hover,
+  &:focus-within {
+    border: 1px solid $primary-color;
+    color: black;
+    outline: none;
+  }
+}
+
+.textAreaBase {
+  @extend .textFieldBase;
+  resize: vertical;
+}
+
+.textAreaContainer {
+  @extend .textFieldContainer;
+}
+
+.requiredTextField {
+  color: $secondary-color;
+  font-weight: 900;
+  margin-right: 6px;
+}
+
+.responsive {
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 300px;
+  }
+}

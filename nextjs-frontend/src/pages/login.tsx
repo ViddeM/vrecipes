@@ -4,7 +4,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Api } from "../api/Api";
-import { Button } from "../components/Buttons";
+import { Button } from "../components/elements/Buttons";
 import { useTranslations } from "../hooks/useTranslations";
 import CardLayout from "../layouts/CardLayout";
 
