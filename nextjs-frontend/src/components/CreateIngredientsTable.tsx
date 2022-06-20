@@ -6,7 +6,6 @@ import {
   faMinus,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { isClientSide } from "../api/Api";
 import { EditableIngredient } from "../api/Ingredient";
 import { useTranslations } from "../hooks/useTranslations";
 
