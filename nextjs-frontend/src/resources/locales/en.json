@@ -103,7 +103,8 @@
     "no": "No",
     "edit": "Edit",
     "remove": "Delete",
-    "unsavedChanges": "You have unsaved changes"
+    "unsavedChanges": "You have unsaved changes",
+    "logoAltText": "Vrecipe's logo"
   },
   "errors": {
     "default": "An unknown error has occured",

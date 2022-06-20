@@ -16,7 +16,7 @@ const TagComponent = ({ noLink, color, text }: TagProps) => {
   } else {
     const tagURL = `/?tags=${tagNameToUnique(text)}`;
     return (
-      <Link href={tagURL}>
+      <Link href={tagURL} passHref>
         <div className={styles.tagLink}>
           <TagWithoutLink color={color} text={text} />
         </div>

@@ -22,7 +22,12 @@ const Footer = () => {
     <footer className={styles.footerContainer}>
       <div className={styles.footerContentContainer}>
         <div className={styles.footerLogoDevelopedByContainer}>
-          <Image src="/transparent_vrecipes_logo.svg" width="46" height="46" />
+          <Image
+            src="/transparent_vrecipes_logo.svg"
+            width="46"
+            height="46"
+            alt={t.common.logoAltText}
+          />
           <h3 className={styles.developedByText}>{t.footer.developedBy}</h3>
         </div>
         {localeOptions && (
