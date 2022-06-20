@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   faArrowDown,
@@ -76,7 +76,7 @@ const CreateIngredientsTable = ({
     setIngredients(newIngredients);
   };
 
-  const addIngredientToBegining = () => {
+  const addIngredientToBeginning = () => {
     setIngredients([
       { name: "", number: 0, unit: "", amount: 0 },
       ...ingredients.map((i) => {
@@ -100,7 +100,7 @@ const CreateIngredientsTable = ({
           <>
             <button
               className={`${styles.addNewIngredientRow} ${styles.firstRow}`}
-              onClick={addIngredientToBegining}
+              onClick={addIngredientToBeginning}
               type="button"
             >
               Add new ingredient
@@ -172,12 +172,8 @@ const CreateIngredient = ({
   const amountId = generateAmountId(ingredient.number);
   const unitId = generateUnitId(ingredient.number);
 
-  let amountElement: HTMLElement | null;
-  let unitElement: HTMLElement | null;
-  if (isClientSide()) {
-    amountElement = document.getElementById(amountId);
-    unitElement = document.getElementById(unitId);
-  }
+  const amountElemRef = useRef<HTMLInputElement | null>(null);
+  const unitElemRef = useRef<HTMLInputElement | null>(null);
 
   const [isFirstRow, setIsFirstRow] = useState(false);
   const [isLastRow, setIsLastRow] = useState(false);
@@ -215,20 +211,24 @@ const CreateIngredient = ({
           id={amountId}
           name={amountId}
           placeholder={t.recipe.ingredientAmount}
+          externalRef={amountElemRef}
           value={ingredient.amount ? ingredient.amount : ""}
           onChange={(e) => {
             const val = parseFloat(e.target.value);
 
-            let newAmount = undefined;
-            if (!isNaN(val)) {
+            let newAmount = 0;
+            if (!isNaN(val) && val > 0) {
               newAmount = val;
             }
-            // @ts-ignore
-            amountElement.setCustomValidity("");
+
+            amountElemRef.current?.setCustomValidity("");
             if (newAmount === undefined && ingredient.unit !== "") {
-              // @ts-ignore
-              amountElement.setCustomValidity(
+              amountElemRef.current?.setCustomValidity(
                 t.recipe.ingredientValidationErrors.amountMustBeFilledIn
+              );
+            } else if (newAmount !== undefined && ingredient.unit === "") {
+              unitElemRef.current?.setCustomValidity(
+                t.recipe.ingredientValidationErrors.unitMustBeFilledIn
               );
             }
 
@@ -249,16 +249,18 @@ const CreateIngredient = ({
           id={unitId}
           name={unitId}
           value={ingredient.unit}
+          externalRef={unitElemRef}
           onChange={(e) => {
             const val = e.target.value;
 
-            // @ts-ignore
-            unitElement.setCustomValidity("");
-
-            if (ingredient.amount !== undefined && val === "") {
-              // @ts-ignore
-              unitElement.setCustomValidity(
+            unitElemRef.current?.setCustomValidity("");
+            if (val === "" && ingredient.amount !== 0) {
+              unitElemRef.current?.setCustomValidity(
                 t.recipe.ingredientValidationErrors.unitMustBeFilledIn
+              );
+            } else if (val !== "" && ingredient.amount === 0) {
+              amountElemRef.current?.setCustomValidity(
+                t.recipe.ingredientValidationErrors.amountMustBeFilledIn
               );
             }
 
