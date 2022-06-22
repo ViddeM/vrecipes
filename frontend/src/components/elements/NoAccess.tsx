@@ -17,7 +17,7 @@ const NoAccess = ({ text, backUrl }: NoAccessProps) => {
       <div className="card column">
         <p className="marginBottom">{text}</p>
         <Link href={backUrl}>
-          <a>
+          <a tabIndex={-1}>
             <Button variant="primary" size="normal">
               {t.common.takeMeBack}
             </Button>

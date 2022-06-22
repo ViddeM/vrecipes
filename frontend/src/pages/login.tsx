@@ -77,11 +77,15 @@ const Login = () => {
             handleLoginResponse(Api.user.googleLogin());
           }}
         >
-          <Image
-            alt="Google"
-            src={"/icon_google.svg"}
-            className={styles.signInButtonIcon}
-          />
+          <div className={styles.signInButtonIcon}>
+            <Image
+              alt="Google"
+              src={"/icon_google.svg"}
+              layout={"responsive"}
+              width={"16px"}
+              height={"16px"}
+            />
+          </div>
           {t.login.loginWithGoogle}
         </Button>
 
@@ -94,11 +98,15 @@ const Login = () => {
             handleLoginResponse(Api.user.microsoftLogin());
           }}
         >
-          <Image
-            alt="Microsoft"
-            src={"/icon_microsoft.svg"}
-            className={styles.signInButtonIcon}
-          />
+          <div className={styles.signInButtonIcon}>
+            <Image
+              alt="Microsoft"
+              src={"/icon_microsoft.svg"}
+              layout={"responsive"}
+              width={"16px"}
+              height={"16px"}
+            />
+          </div>
           {t.login.loginWithMicrosoft}
         </Button>
 
