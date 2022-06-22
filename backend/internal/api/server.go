@@ -40,6 +40,7 @@ func Init() {
 		api.GET("/books/:uniqueName", endpoints.RecipeBook)
 		api.GET("/books", endpoints.RecipeBooks)
 		api.GET("/tags", endpoints.Tags)
+		api.GET("/authors", endpoints.Authors)
 
 		authRequired := api.Group("")
 		{

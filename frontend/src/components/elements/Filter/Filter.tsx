@@ -9,25 +9,26 @@ import { useTranslations } from "../../../hooks/useTranslations";
 import { assertIsNode } from "../../../util/assertIsNode";
 import TextField from "../TextField/TextField";
 
-import styles from "./TagFilter.module.scss";
+import styles from "./Filter.module.scss";
+import { UniqueObject } from "../../../api/UniqueObject";
 
-export type TagFilterProps = {
-  detailsLabel: string;
-  tags: Tag[];
-  selectedTags: Tag[];
-  setSelectedTags: (ts: Tag[]) => void;
+export type FilterProps<T> = {
+  title: string;
+  items: T[];
+  selectedItems: T[];
+  setSelectedItems: (ts: T[]) => void;
   onClose?: () => void;
   size: "full" | "fixed" | "responsive";
 };
 
-const TagFilter: FC<TagFilterProps> = ({
-  detailsLabel,
-  tags,
-  setSelectedTags,
+const Filter = <T extends UniqueObject>({
+  title,
+  items,
+  setSelectedItems,
   onClose,
-  selectedTags,
+  selectedItems,
   size,
-}) => {
+}: FilterProps<T>) => {
   const { t } = useTranslations();
   const textFieldRef = useRef<HTMLInputElement | null>(null);
 
@@ -46,40 +47,40 @@ const TagFilter: FC<TagFilterProps> = ({
   }, [detailsRef, closeDetails]);
 
   const [filterText, setFilterText] = useState("");
-  const [filteredTags, setFilteredTags] = useState<Tag[]>(tags);
+  const [filteredItems, setFilteredItems] = useState<T[]>(items);
 
-  const toggleSelectedTags = (tag: Tag) => {
-    let updatedTags;
-    if (selectedTags.find((t) => t.id === tag.id)) {
-      updatedTags = selectedTags.filter((t) => t.id !== tag.id);
+  const toggleSelectedItems = (item: T) => {
+    let updatedItems;
+    if (selectedItems.find((i) => i.id === item.id)) {
+      updatedItems = selectedItems.filter((i) => i.id !== item.id);
     } else {
-      updatedTags = selectedTags.concat([tag]);
+      updatedItems = selectedItems.concat([item]);
     }
-    return updatedTags;
+    return updatedItems;
   };
 
-  const updatedSelectedTags = (tag: Tag) => {
-    const updatedTags = toggleSelectedTags(tag);
-    setSelectedTags(updatedTags);
-    setSelectedTags(updatedTags);
+  const updatedSelectedItems = (item: T) => {
+    const updatedItems = toggleSelectedItems(item);
+    setSelectedItems(updatedItems);
+    setSelectedItems(updatedItems);
   };
 
   useEffect(() => {
-    if (tags) {
-      const res = fuzzysort.go(filterText, tags, {
+    if (items) {
+      const res = fuzzysort.go(filterText, items, {
         keys: ["name", "description"],
         all: true,
       });
-      setFilteredTags(res.map((r) => r.obj));
+      setFilteredItems(res.map((r) => r.obj));
     }
-  }, [filterText, tags]);
+  }, [filterText, items]);
 
   const responsiveClass = styles[`detail-size-${size}`];
   return (
     <div className={`${styles.detailsBase} ${responsiveClass}`}>
       <details
         ref={detailsRef}
-        className={styles.tagFilterDetails}
+        className={styles.filterDetails}
         onToggle={() => {
           if (detailsRef?.current?.open === false && onClose) {
             onClose();
@@ -92,7 +93,7 @@ const TagFilter: FC<TagFilterProps> = ({
         }}
       >
         <summary className={`verticalCenterRow ${styles.summaryButton}  `}>
-          {detailsLabel}
+          {title}
           <FontAwesomeIcon icon={faCaretDown} />
         </summary>
         <div className={`${styles.filterViewBase} `}>
@@ -112,16 +113,16 @@ const TagFilter: FC<TagFilterProps> = ({
             </div>
             <div className={styles.filterItemList}>
               <div>
-                {filteredTags.length !== 0 &&
-                  filteredTags.map((tag) => (
+                {filteredItems.length !== 0 &&
+                  filteredItems.map((tag) => (
                     <TagFilterItem
                       key={tag.id}
                       tag={tag}
-                      selected={selectedTags.some((t) => t.id === tag.id)}
-                      onSelected={updatedSelectedTags}
+                      selected={selectedItems.some((t) => t.id === tag.id)}
+                      onSelected={updatedSelectedItems}
                     />
                   ))}
-                {!filteredTags.length && (
+                {!filteredItems.length && (
                   <p className={"margin marginLeftBig "}>{t.errors.no_tags}</p>
                 )}
               </div>
