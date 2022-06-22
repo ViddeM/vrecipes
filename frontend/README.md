@@ -13,10 +13,14 @@ service). For this purpose a number of new features will be included in this ver
 - Improve modularization of the styling so that the service can be easily restyled for TasteIT (e.g. using CSS
   variables).
 
-## Setup
+## Setup for development
 
-Generally one would run the frontend through docker compose (i.e. run `docker compose up` in the root project folder).
-However, one can also run the frontend separately using `yarn dev`.
+1. Copy `.env.example` to `.env`
+2. Start the frontend, db and adminer using `docker-compose up`
+3. Start the backend (e.g. using Goland)
+4. (optional) Insert mock data using `make mock`
+5. Access the website via `http://localhost:3000`
+
 
 ## Libraries & dev notes
 
