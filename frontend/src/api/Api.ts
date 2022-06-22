@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import encodeurl from "encodeurl";
 
 import { Author } from "./Author";
 import { EditRecipe } from "./EditRecipe";
@@ -16,6 +17,18 @@ import { UniqueName } from "./UniqueName";
 
 // FIXME: should be changed before prod...
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "/api";
+
+axios.interceptors.request.use(
+  function (config) {
+    // Do something before request is sent
+    config.url = encodeurl(config.url ?? "");
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
 
 interface RawApiResponse<ResponseData> {
   success: boolean;
