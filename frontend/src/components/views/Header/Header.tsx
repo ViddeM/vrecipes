@@ -46,7 +46,7 @@ const Header = () => {
             </Button>
           ) : (
             <Link href={LOGIN_ENDPOINT}>
-              <a>
+              <a tabIndex={-1}>
                 <Button variant="outlined" size="normal">
                   {t.header.loginButton}
                 </Button>

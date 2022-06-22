@@ -46,7 +46,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
       <div className={`card ${styles.recipeContainer}`}>
         <div className={`${styles.row}`}>
           <Link href={ROOT_ENDPOINT}>
-            <a>
+            <a tabIndex={-1}>
               <IconButton variant="opaque" icon={faArrowLeft} size="normal" />
             </a>
           </Link>
@@ -152,7 +152,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
                 {t.common.remove}
               </Button>
               <Link href={`${EDIT_RECIPE_BASE_ENDPOINT}/${recipe.uniqueName}`}>
-                <a>
+                <a tabIndex={-1}>
                   <Button
                     variant="primary"
                     size="normal"

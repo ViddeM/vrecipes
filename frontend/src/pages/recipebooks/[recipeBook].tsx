@@ -43,7 +43,7 @@ const RecipeBook = ({ recipeBook, error }: RecipeBookProps) => {
       <div className={`card ${styles.recipeBookContainer}`}>
         <div className={styles.row}>
           <Link href={RECIPE_BOOKS_BASE_ENDPOINT}>
-            <a>
+            <a tabIndex={-1}>
               <IconButton variant="opaque" size="normal" icon={faArrowLeft} />
             </a>
           </Link>
@@ -123,7 +123,7 @@ const RecipeBook = ({ recipeBook, error }: RecipeBookProps) => {
               <Link
                 href={`${EDIT_RECIPE_BOOK_BASE_ENDPOINT}/${recipeBook.uniqueName}`}
               >
-                <a>
+                <a tabIndex={-1}>
                   <Button
                     variant="primary"
                     size="normal"

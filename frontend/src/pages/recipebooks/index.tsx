@@ -75,7 +75,7 @@ const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
         {isLoggedIn && (
           /* Show create recipe button only when user is logged in */
           <Link href={CREATE_RECIPE_BOOK_ENDPOINT}>
-            <a>
+            <a tabIndex={-1}>
               {isLargeWindow ? (
                 <Button
                   variant="primary"
