@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
+import { Author } from "./Author";
 import { EditRecipe } from "./EditRecipe";
 import { EditRecipeBook } from "./EditRecipeBook";
 import { IMAGE_BASE_ENDPOINT, TAGS_BASE_ENDPOINT } from "./Endpoints";
@@ -23,6 +24,14 @@ interface RawApiResponse<ResponseData> {
 }
 
 export const Api = {
+  authors: {
+    getAll: () => {
+      return handleResponse(
+        axios.get<RawApiResponse<{ authors: Author[] }>>("/authors"),
+        false
+      );
+    },
+  },
   recipes: {
     getAll: () => {
       return handleResponse(

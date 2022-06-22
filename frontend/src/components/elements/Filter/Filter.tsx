@@ -1,4 +1,11 @@
-import { createRef, FC, useCallback, useEffect, useRef, useState } from "react";
+import {
+  createRef,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { faCaretDown, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,26 +14,38 @@ import fuzzysort from "fuzzysort";
 import { Tag } from "../../../api/Tag";
 import { useTranslations } from "../../../hooks/useTranslations";
 import { assertIsNode } from "../../../util/assertIsNode";
+import HLine from "../HLine/HLine";
+import TagList from "../TagList/TagList";
 import TextField from "../TextField/TextField";
 
 import styles from "./Filter.module.scss";
-import { UniqueObject } from "../../../api/UniqueObject";
 
-export type FilterProps<T> = {
+export type FilterProps<T extends FilterObject> = {
   title: string;
   items: T[];
+  filterPlaceholder: string;
   selectedItems: T[];
   setSelectedItems: (ts: T[]) => void;
   onClose?: () => void;
   size: "full" | "fixed" | "responsive";
+  renderFilterItem?: (i: T) => ReactNode;
+  renderItemList?: (i: T[]) => ReactNode;
 };
 
-const Filter = <T extends UniqueObject>({
+export interface FilterObject {
+  id: string;
+  name: string;
+}
+
+const Filter = <T extends FilterObject>({
   title,
   items,
   setSelectedItems,
   onClose,
   selectedItems,
+  filterPlaceholder,
+  renderFilterItem = renderDefaultFilterItem,
+  renderItemList = renderDefaultItemList,
   size,
 }: FilterProps<T>) => {
   const { t } = useTranslations();
@@ -92,7 +111,7 @@ const Filter = <T extends UniqueObject>({
           }
         }}
       >
-        <summary className={`verticalCenterRow ${styles.summaryButton}  `}>
+        <summary className={`verticalCenterRow ${styles.summaryButton}`}>
           {title}
           <FontAwesomeIcon icon={faCaretDown} />
         </summary>
@@ -101,11 +120,11 @@ const Filter = <T extends UniqueObject>({
             <div className={styles.grayBorderBottom}>
               <TextField
                 externalRef={textFieldRef}
-                id={"tagFilter"}
+                id={"filter"}
                 type={"search"}
                 focus={true}
-                placeholder={t.tag.searchTags}
-                className={`margin ${styles.grayBorderBottom}`}
+                placeholder={filterPlaceholder}
+                className={`margin`}
                 onChange={(e) => {
                   setFilterText(e.target.value);
                 }}
@@ -114,12 +133,13 @@ const Filter = <T extends UniqueObject>({
             <div className={styles.filterItemList}>
               <div>
                 {filteredItems.length !== 0 &&
-                  filteredItems.map((tag) => (
-                    <TagFilterItem
-                      key={tag.id}
-                      tag={tag}
-                      selected={selectedItems.some((t) => t.id === tag.id)}
+                  filteredItems.map((item) => (
+                    <FilterItem
+                      key={item.id}
+                      item={item}
+                      selected={selectedItems.some((t) => t.id === item.id)}
                       onSelected={updatedSelectedItems}
+                      renderItem={renderFilterItem}
                     />
                   ))}
                 {!filteredItems.length && (
@@ -130,28 +150,37 @@ const Filter = <T extends UniqueObject>({
           </div>
         </div>
       </details>
+
+      {selectedItems.length !== 0 && (
+        <div style={{ marginTop: "1px" }} className={"marginLeftSmall"}>
+          <HLine />
+          {renderItemList(selectedItems)}
+        </div>
+      )}
     </div>
   );
 };
 
-type TagFilterItemProps = {
-  tag: Tag;
+type FilterItemProps<T extends FilterObject> = {
+  item: T;
   selected: boolean;
-  onSelected: (ts: Tag) => void;
+  onSelected: (i: T) => void;
+  renderItem: (i: T) => ReactNode;
 };
 
-const TagFilterItem: FC<TagFilterItemProps> = ({
-  tag,
+const FilterItem = <T extends FilterObject>({
+  item,
   selected,
   onSelected,
-}) => {
+  renderItem,
+}: FilterItemProps<T>) => {
   return (
     <button
       type={"button"}
       className={`${selected ? styles.filterItemSelected : ""} ${
         styles.filterItem
       }`}
-      onClick={() => onSelected(tag)}
+      onClick={() => onSelected(item)}
     >
       <div className={"verticalCenterRow"}>
         <FontAwesomeIcon
@@ -159,17 +188,41 @@ const TagFilterItem: FC<TagFilterItemProps> = ({
           className={styles.leftShiftItem}
           icon={faCheck}
         />
-        <div
-          className={styles.colorDot}
-          style={{
-            color: `rgb(${tag.color.r}, ${tag.color.g}, ${tag.color.b})`,
-            backgroundColor: `rgb(${tag.color.r}, ${tag.color.g}, ${tag.color.b})`,
-          }}
-        />
-        <p> {tag.name} </p>
+        {renderItem(item)}
       </div>
     </button>
   );
 };
 
-export default TagFilter;
+export const renderTagFilterItem = (tag: Tag) => (
+  <>
+    <div
+      className={styles.colorDot}
+      style={{
+        color: `rgb(${tag.color.r}, ${tag.color.g}, ${tag.color.b})`,
+        backgroundColor: `rgb(${tag.color.r}, ${tag.color.g}, ${tag.color.b})`,
+      }}
+    />
+    <p> {tag.name} </p>
+  </>
+);
+
+export const renderTagFilterItemsList = (tags: Tag[]) => (
+  <TagList tags={tags} noLink={true} variant={"left"} />
+);
+
+const renderDefaultFilterItem = <T extends FilterObject>(item: T) => (
+  <p> {item.name} </p>
+);
+
+const renderDefaultItemList = <T extends FilterObject>(items: T[]) => (
+  <div>
+    {items.map((i) => (
+      <p className={styles.defaultFilterItem} key={i.id}>
+        {i.name}
+      </p>
+    ))}
+  </div>
+);
+
+export default Filter;

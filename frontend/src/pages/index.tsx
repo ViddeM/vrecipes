@@ -7,15 +7,18 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { Api } from "../api/Api";
+import { Author } from "../api/Author";
 import { CREATE_RECIPE_ENDPOINT } from "../api/Endpoints";
 import { Me } from "../api/Me";
 import { ShortRecipe } from "../api/ShortRecipe";
 import { Tag } from "../api/Tag";
 import { Button, IconButton } from "../components/elements/Buttons/Buttons";
 import ErrorCard from "../components/elements/ErrorCard";
+import Filter, {
+  renderTagFilterItem,
+  renderTagFilterItemsList,
+} from "../components/elements/Filter/Filter";
 import Loading from "../components/elements/Loading";
-import TagFilter from "../components/elements/TagFilter/TagFilter";
-import TagList from "../components/elements/TagList/TagList";
 import TextField from "../components/elements/TextField/TextField";
 import RecipeCard from "../components/views/RecipeCard/RecipeCard";
 import { useMe } from "../hooks/useMe";
@@ -30,6 +33,7 @@ import styles from "./index.module.scss";
 type HomeProps = {
   recipes?: ShortRecipe[];
   tags: Tag[];
+  authors: Author[];
   error?: string;
   me?: Me;
 };
@@ -37,7 +41,7 @@ type HomeProps = {
 const BASE_RECIPE_COUNT = 30;
 const STEP_RECIPE_COUNT = 24;
 
-const Home = ({ recipes, error, tags }: HomeProps) => {
+const Home = ({ recipes, error, tags, authors }: HomeProps) => {
   const { t } = useTranslations();
   const isLargeWindow = useMediaQuery(LARGER_THAN_MOBILE_BREAKPOINT);
   const { isLoggedIn } = useMe();
@@ -46,6 +50,7 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
   const [filterText, setFilterText] = useState("");
   const [filteredRecipes, setFilteredRecipes] = useState<ShortRecipe[]>([]);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedAuthors, setSelectedAuthors] = useState<Author[]>([]);
 
   const [visibleRecipes, setVisibleRecipes] = useState(BASE_RECIPE_COUNT);
 
@@ -53,8 +58,13 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
     if (recipes) {
       let rec = recipes;
       if (selectedTags.length) {
-        rec = recipes.filter((recipe) =>
+        rec = rec.filter((recipe) =>
           recipe.tags.some((t) => selectedTags.some((st) => st.id === t.id))
+        );
+      }
+      if (selectedAuthors.length) {
+        rec = rec.filter((recipe) =>
+          selectedAuthors.some((a) => recipe.author.id === a.id)
         );
       }
       const res = fuzzysort.go(filterText, rec, {
@@ -64,7 +74,7 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
       setFilteredRecipes(res.map((r) => r.obj));
     }
     setVisibleRecipes(BASE_RECIPE_COUNT);
-  }, [filterText, recipes, selectedTags]);
+  }, [filterText, recipes, selectedTags, selectedAuthors]);
 
   useEffect(() => {
     if (query.tags && query.tags.length > 0) {
@@ -74,9 +84,13 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
         }
       });
     } else if (query.author && typeof query.author === "string") {
-      setFilterText(query.author);
+      authors.find((a) => {
+        if (tagNameToUnique(a.name) === query.author) {
+          setSelectedAuthors([a]);
+        }
+      });
     }
-  }, [query, tags]);
+  }, [query, tags, authors]);
 
   if (error) {
     return <ErrorCard error={error} />;
@@ -98,13 +112,25 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
             setFilterText(e.target.value);
           }}
         />
-        <div className={"verticalCenterRow"}>
-          <TagFilter
-            detailsLabel={t.recipe.filterTags}
-            tags={tags}
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
+        <div className={styles.filterStartRow}>
+          <Filter
+            title={t.recipe.filterTags}
+            items={tags}
+            selectedItems={selectedTags}
+            setSelectedItems={setSelectedTags}
             size={"full"}
+            filterPlaceholder={t.tag.searchTags}
+            renderFilterItem={renderTagFilterItem}
+            renderItemList={renderTagFilterItemsList}
+          />
+
+          <Filter
+            title={t.recipe.filterAuthors}
+            items={authors}
+            selectedItems={selectedAuthors}
+            setSelectedItems={setSelectedAuthors}
+            size={"full"}
+            filterPlaceholder={t.recipe.searchAuthors}
           />
           {isLoggedIn && (
             /* Show create recipe button only when user is logged in */
@@ -128,9 +154,6 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
             </Link>
           )}
         </div>
-        {selectedTags.length !== 0 && (
-          <TagList tags={selectedTags} noLink={true} variant={"left"} />
-        )}{" "}
       </div>
       <div className={styles.recipeCardsList}>
         {filteredRecipes.slice(0, visibleRecipes).map((recipe) => (
@@ -157,12 +180,14 @@ const Home = ({ recipes, error, tags }: HomeProps) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   const res = await Api.recipes.getAll();
   const resTags = await Api.tags.getAll();
+  const resAuthors = await Api.authors.getAll();
 
   return {
     props: {
       error: res.errorTranslationString ?? null,
       recipes: res.data?.recipes ?? null,
       tags: resTags.data?.tags ?? [],
+      authors: resAuthors.data?.authors ?? [],
     },
   };
 };

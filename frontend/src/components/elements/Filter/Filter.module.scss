@@ -1,16 +1,21 @@
 @import "../../../resources/styles/vars";
 
-.summaryButton {
-  justify-content: space-between;
-  padding: $space-small;
-  border-radius: $space-tiny;
+.detailsBase {
+  border-radius: $border-radius;
   border: 1px solid $border-color;
-  box-shadow: none;
   color: rgba(0, 0, 0, 0.5);
-  background-color: unset;
+}
+
+.summaryButton {
+  padding: $space-small;
+  border-radius: $border-radius;
+  justify-content: space-between;
   transition: background-color 400ms, color 250ms;
   cursor: pointer;
   font-size: 0.833rem;
+  border: none;
+  box-shadow: none;
+  background-color: white;
 
   &:hover {
     background-color: white;
@@ -20,13 +25,14 @@
   }
 }
 
-.tagFilterDetails {
+.filterDetails[open] {
   &[open] {
     > summary {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       border: 1px solid grey;
     }
+    margin: -1px;
   }
 }
 
@@ -39,8 +45,8 @@
   flex-direction: column;
   position: absolute;
   z-index: 99;
-  border-bottom-left-radius: $space-tiny;
-  border-bottom-right-radius: $space-tiny;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
   border: 1px solid #707070;
   border-top: none;
   background-color: white;
@@ -67,7 +73,6 @@
 }
 
 .filterItem {
-  z-index: 100;
   padding: $space-small $space-tiny $space-small $space;
   border: none;
   border-bottom: 1px solid $gray-color;
@@ -76,34 +81,40 @@
   flex-direction: column;
   text-decoration: none;
   background-color: inherit;
+  outline: 0;
 
-  &:hover {
-    background-color: $gray-color-hover;
-  }
 
   &:active {
     background-color: $gray-color-active;
   }
 
+
+  &:hover, &:focus, &:focus-within {
+    background-color: $gray-color-hover;
+  }
+
   &:last-child {
     border-bottom: none;
+    border-bottom-left-radius: calc(#{$border-radius} - 1px);
+    border-bottom-right-radius: calc(#{$border-radius} - 1px);
   }
 }
 
 .filterItemSelected {
   background-color: $primary-color-selected;
 
-  &:hover {
-    background-color: $primary-color-selected-hover;
-  }
 
   &:active {
     background-color: $primary-color-selected-active;
   }
+
+  &:hover, &:focus, &:focus-within {
+    background-color: $primary-color-selected-hover;
+  }
 }
 
-.manageTags {
-  color: dimgrey;
+.defaultFilterItem {
+    color: black;
 }
 
 .detail-size-fixed {

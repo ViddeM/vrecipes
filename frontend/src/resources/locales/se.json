@@ -17,6 +17,8 @@
   "recipe": {
     "searchRecipes": "Sök recept",
     "filterTags": "Filtrera med taggar",
+    "filterAuthors": "Filtrera på författare",
+    "searchAuthors": "Sök efter författare",
     "editRecipe": "Ändra recept",
     "loadMoreRecipes": "Ladda fler recept",
     "imageAltText": "Bild på receptet",
