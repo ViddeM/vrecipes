@@ -9,7 +9,10 @@
   },
   "login": {
     "loginTitle": "Logga in",
-    "loginWithGithub": "Logga in med Github"
+    "loginWithGithub": "Logga in med Github",
+    "loginWithGoogle": "Logga in med Google",
+    "loginWithFacebook": "Logga in med Facebook",
+    "loginWithMicrosoft": "Logga in med Microsoft"
   },
   "recipe": {
     "searchRecipes": "Sök recept",
