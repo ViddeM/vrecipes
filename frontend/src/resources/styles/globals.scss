@@ -91,6 +91,10 @@ body {
   margin-bottom: $space-big;
 }
 
+.preserveWhitespace {
+  white-space: pre;
+}
+
 .space {
   width: $space;
   height: $space;

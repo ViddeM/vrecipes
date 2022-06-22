@@ -66,7 +66,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
           )}
         </div>
 
-        <h1 className={"breakWord"}>{recipe.name}</h1>
+        <h1 className={"breakWord preserveWhitespace"}>{recipe.name}</h1>
 
         <AuthorLink author={recipe.author.name} prefix={t.common.createdBy} />
 
@@ -104,7 +104,9 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
                   <div className={styles.stepSpace} />
                   <div className={styles.stepRow}>
                     <p className="marginRight">{`${step.number + 1}. `}</p>
-                    <p className={styles.longText}>{step.description}</p>
+                    <p className={`preserveWhitespace ${styles.longText}`}>
+                      {step.description}
+                    </p>
                   </div>
                 </div>
               ))}
