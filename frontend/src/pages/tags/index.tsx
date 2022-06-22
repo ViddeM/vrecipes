@@ -145,7 +145,7 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
   return (
     <div className={styles.TableRow}>
       <div style={{ width: minWidth }}>
-        <TagComponent noLink={false} color={tag.color} text={tag.name} />
+        <TagComponent noLink={true} color={tag.color} text={tag.name} />
       </div>
       {minimal === false && (
         <>
