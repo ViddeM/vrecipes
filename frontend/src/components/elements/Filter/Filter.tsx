@@ -10,7 +10,9 @@ import {
 import { faCaretDown, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import fuzzysort from "fuzzysort";
+import Image from "next/image";
 
+import { Author } from "../../../api/Author";
 import { Tag } from "../../../api/Tag";
 import { useTranslations } from "../../../hooks/useTranslations";
 import { assertIsNode } from "../../../util/assertIsNode";
@@ -44,8 +46,8 @@ const Filter = <T extends FilterObject>({
   onClose,
   selectedItems,
   filterPlaceholder,
-  renderFilterItem = renderDefaultFilterItem,
-  renderItemList = renderDefaultItemList,
+  renderFilterItem = RenderDefaultFilterItem,
+  renderItemList = RenderDefaultItemList,
   size,
 }: FilterProps<T>) => {
   const { t } = useTranslations();
@@ -194,7 +196,7 @@ const FilterItem = <T extends FilterObject>({
   );
 };
 
-export const renderTagFilterItem = (tag: Tag) => (
+export const RenderTagFilterItem = (tag: Tag) => (
   <>
     <div
       className={styles.colorDot}
@@ -207,15 +209,38 @@ export const renderTagFilterItem = (tag: Tag) => (
   </>
 );
 
-export const renderTagFilterItemsList = (tags: Tag[]) => (
+export const RenderTagFilterItemsList = (tags: Tag[]) => (
   <TagList tags={tags} noLink={true} variant={"left"} />
 );
 
-const renderDefaultFilterItem = <T extends FilterObject>(item: T) => (
+export const RenderAuthorFilterItemsList = (items: Author[]) => {
+  const { t } = useTranslations();
+
+  return (
+    <div>
+      {items.map((i) => (
+        <div key={i.id} className={"marginSides verticalCenterRow"}>
+          <div className={styles.chefIcon}>
+            <Image
+              width={"16px"}
+              layout={"responsive"}
+              height={"16px"}
+              src={"/chef-hat.svg"}
+              alt={t.recipe.chefImageAltText}
+            />
+          </div>
+          <p className={styles.defaultFilterItem}>{i.name}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const RenderDefaultFilterItem = <T extends FilterObject>(item: T) => (
   <p> {item.name} </p>
 );
 
-const renderDefaultItemList = <T extends FilterObject>(items: T[]) => (
+const RenderDefaultItemList = <T extends FilterObject>(items: T[]) => (
   <div>
     {items.map((i) => (
       <p className={styles.defaultFilterItem} key={i.id}>

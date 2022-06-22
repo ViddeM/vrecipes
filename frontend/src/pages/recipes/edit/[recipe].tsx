@@ -23,8 +23,8 @@ import { UniqueName } from "../../../api/UniqueName";
 import { Button } from "../../../components/elements/Buttons/Buttons";
 import ErrorCard from "../../../components/elements/ErrorCard";
 import Filter, {
-  renderTagFilterItem,
-  renderTagFilterItemsList,
+  RenderTagFilterItem,
+  RenderTagFilterItemsList,
 } from "../../../components/elements/Filter/Filter";
 import ImageUpload from "../../../components/elements/ImageUpload/ImageUpload";
 import Loading from "../../../components/elements/Loading";
@@ -253,8 +253,8 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
             setSelectedItems={setSelectedTags}
             size={"fixed"}
             filterPlaceholder={t.tag.searchTags}
-            renderFilterItem={renderTagFilterItem}
-            renderItemList={renderTagFilterItemsList}
+            renderFilterItem={RenderTagFilterItem}
+            renderItemList={RenderTagFilterItemsList}
           />
         </div>
 

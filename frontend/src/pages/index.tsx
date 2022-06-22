@@ -15,8 +15,9 @@ import { Tag } from "../api/Tag";
 import { Button, IconButton } from "../components/elements/Buttons/Buttons";
 import ErrorCard from "../components/elements/ErrorCard";
 import Filter, {
-  renderTagFilterItem,
-  renderTagFilterItemsList,
+  RenderAuthorFilterItemsList,
+  RenderTagFilterItem,
+  RenderTagFilterItemsList,
 } from "../components/elements/Filter/Filter";
 import Loading from "../components/elements/Loading";
 import TextField from "../components/elements/TextField/TextField";
@@ -120,8 +121,8 @@ const Home = ({ recipes, error, tags, authors }: HomeProps) => {
             setSelectedItems={setSelectedTags}
             size={"full"}
             filterPlaceholder={t.tag.searchTags}
-            renderFilterItem={renderTagFilterItem}
-            renderItemList={renderTagFilterItemsList}
+            renderFilterItem={RenderTagFilterItem}
+            renderItemList={RenderTagFilterItemsList}
           />
 
           <Filter
@@ -131,6 +132,7 @@ const Home = ({ recipes, error, tags, authors }: HomeProps) => {
             setSelectedItems={setSelectedAuthors}
             size={"full"}
             filterPlaceholder={t.recipe.searchAuthors}
+            renderItemList={RenderAuthorFilterItemsList}
           />
           {isLoggedIn && (
             /* Show create recipe button only when user is logged in */
