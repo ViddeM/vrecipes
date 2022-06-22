@@ -22,11 +22,13 @@ import { Tag } from "../../../api/Tag";
 import { UniqueName } from "../../../api/UniqueName";
 import { Button } from "../../../components/elements/Buttons/Buttons";
 import ErrorCard from "../../../components/elements/ErrorCard";
+import Filter, {
+  renderTagFilterItem,
+  renderTagFilterItemsList,
+} from "../../../components/elements/Filter/Filter";
 import ImageUpload from "../../../components/elements/ImageUpload/ImageUpload";
 import Loading from "../../../components/elements/Loading";
 import NoAccess from "../../../components/elements/NoAccess";
-import TagFilter from "../../../components/elements/TagFilter/TagFilter";
-import TagList from "../../../components/elements/TagList/TagList";
 import TextField, {
   TextArea,
 } from "../../../components/elements/TextField/TextField";
@@ -71,7 +73,6 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
     recipe ? recipe.description : ""
   );
   const [selectedTags, setSelectedTags] = useState<Tag[]>(recipe?.tags ?? []);
-  const [visibleTags, setVisibleTags] = useState<Tag[]>(selectedTags);
   const [ingredients, setIngredients] = useState<EditableIngredient[]>(
     recipe ? ingredientsToEditable(recipe.ingredients) : []
   );
@@ -142,10 +143,6 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
         );
       }
     });
-  };
-
-  const updateVisibleTags = () => {
-    setVisibleTags(selectedTags);
   };
 
   return (
@@ -249,15 +246,16 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
 
         <div className={styles.detailsContainer}>
           <h3 className="margin">{t.header.tags}</h3>
-          <TagFilter
-            detailsLabel={t.recipe.addTags}
-            tags={tags}
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
-            onClose={updateVisibleTags}
+          <Filter
+            title={t.recipe.addTags}
+            items={tags}
+            selectedItems={selectedTags}
+            setSelectedItems={setSelectedTags}
             size={"fixed"}
+            filterPlaceholder={t.tag.searchTags}
+            renderFilterItem={renderTagFilterItem}
+            renderItemList={renderTagFilterItemsList}
           />
-          <TagList tags={visibleTags} noLink={true} variant={"center"} />
         </div>
 
         <div className={`marginTopBig ${styles.ingredientsTableContainer}`}>

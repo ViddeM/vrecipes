@@ -17,6 +17,8 @@
   "recipe": {
     "searchRecipes": "Search recipes",
     "filterTags": "Filter with tags",
+    "filterAuthors": "Filter on authors",
+    "searchAuthors": "Search for authors",
     "editRecipe": "Edit recipe",
     "loadMoreRecipes": "Load more recipes",
     "imageAltText": "Image of the recipe",
