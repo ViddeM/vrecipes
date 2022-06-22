@@ -36,8 +36,8 @@
 .TableHeader {
   background-color: #e0e0e0;
   text-align: left;
-  border-top-left-radius: $space-tiny;
-  border-top-right-radius: $space-tiny;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
   padding: $space-small;
   border: 1px solid #707070;
 }
@@ -53,8 +53,8 @@
   background-color: white;
 
   &:last-child {
-    border-bottom-left-radius: $space-tiny;
-    border-bottom-right-radius: $space-tiny;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
   }
 
   box-sizing: border-box;
