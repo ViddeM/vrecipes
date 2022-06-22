@@ -217,9 +217,9 @@ export const RenderAuthorFilterItemsList = (items: Author[]) => {
   const { t } = useTranslations();
 
   return (
-    <div>
+    <div className={"marginTopSmall marginBottomSmall marginSides"}>
       {items.map((i) => (
-        <div key={i.id} className={"marginSides verticalCenterRow"}>
+        <div key={i.id} className={"verticalCenterRow"}>
           <div className={styles.chefIcon}>
             <Image
               width={"16px"}
