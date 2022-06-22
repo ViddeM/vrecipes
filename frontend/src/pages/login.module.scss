@@ -1,3 +1,5 @@
+@import "../resources/styles/vars";
+
 .loginContainer {
   width: 100%;
   max-width: 500px;
@@ -13,9 +15,12 @@
   justify-content: flex-start;
   align-items: center;
   height: 48px;
+  margin-top: $space-small;
 }
 
 .signInButtonIcon {
+  width: 32px;
+  height: 32px;
   font-size: 28px;
   margin: 0 15px;
 }
@@ -23,10 +28,32 @@
 .githubButton {
   background-color: rgb(64, 64, 64);
   color: white;
-  font-size: 16px;
   font-weight: 600;
 
   &:hover {
     background-color: rgb(32, 32, 32);
   }
+}
+
+.googleButton {
+  color: black;
+  background-color: white;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+
+  &:active {
+    background-color: #c0c0c0;
+  }
+}
+
+.facebookButton {
+  background-color: #4267b2;
+  color: white;
+}
+
+.microsoftButton {
+  background-color: white;
+  color: black;
 }

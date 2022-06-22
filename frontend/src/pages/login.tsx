@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faFacebookF, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 
-import { Api } from "../api/Api";
+import { Api, ApiResponse } from "../api/Api";
 import { Button } from "../components/elements/Buttons/Buttons";
 import { useTranslations } from "../hooks/useTranslations";
 import CardLayout from "../layouts/CardLayout";
@@ -14,6 +15,18 @@ const Login = () => {
   const { t, translate } = useTranslations();
   const [error, setError] = useState<string | undefined>(undefined);
 
+  const handleLoginResponse = (r: Promise<ApiResponse<unknown>>) => {
+    r.then((val) => {
+      if (val.error) {
+        if (val.errorTranslationString) {
+          setError(translate(val.errorTranslationString));
+        } else {
+          setError(t.errors.default);
+        }
+      }
+    });
+  };
+
   return (
     <CardLayout>
       <div className={`card ${styles.loginContainer}`}>
@@ -23,20 +36,13 @@ const Login = () => {
           <div className="errorText marginTop marginBottom">{error}</div>
         )}
 
+        {/* GITHUB */}
         <Button
           variant="primary"
           size="large"
           className={`${styles.signInButton} ${styles.githubButton}`}
           onClick={() => {
-            Api.user.githubLogin().then((val) => {
-              if (val.error) {
-                if (val.errorTranslationString) {
-                  setError(translate(val.errorTranslationString));
-                } else {
-                  setError(t.errors.default);
-                }
-              }
-            });
+            handleLoginResponse(Api.user.githubLogin());
           }}
         >
           <FontAwesomeIcon
@@ -45,6 +51,58 @@ const Login = () => {
           />
           {t.login.loginWithGithub}
         </Button>
+
+        {/* FACEBOOK */}
+        <Button
+          variant="primary"
+          size="large"
+          className={`${styles.signInButton} ${styles.facebookButton}`}
+          onClick={() => {
+            handleLoginResponse(Api.user.facebookLogin());
+          }}
+        >
+          <FontAwesomeIcon
+            icon={faFacebookF}
+            className={`${styles.signInButtonIcon} ${styles.facebookIcon}`}
+          />
+          {t.login.loginWithFacebook}
+        </Button>
+
+        {/* GOOGLE */}
+        <Button
+          variant="primary"
+          size="large"
+          className={`${styles.signInButton} ${styles.googleButton}`}
+          onClick={() => {
+            handleLoginResponse(Api.user.googleLogin());
+          }}
+        >
+          <Image
+            alt="Google"
+            src={"/icon_google.svg"}
+            className={styles.signInButtonIcon}
+          />
+          {t.login.loginWithGoogle}
+        </Button>
+
+        {/* MICROSOFT */}
+        <Button
+          variant="primary"
+          size="large"
+          className={`${styles.signInButton} ${styles.microsoftButton}`}
+          onClick={() => {
+            handleLoginResponse(Api.user.microsoftLogin());
+          }}
+        >
+          <Image
+            alt="Microsoft"
+            src={"/icon_microsoft.svg"}
+            className={styles.signInButtonIcon}
+          />
+          {t.login.loginWithMicrosoft}
+        </Button>
+
+        <div className={"space"} />
       </div>
     </CardLayout>
   );

@@ -9,7 +9,10 @@
   },
   "login": {
     "loginTitle": "Sign in",
-    "loginWithGithub": "Sign in with Github"
+    "loginWithGithub": "Sign in with Github",
+    "loginWithGoogle": "Sign in with Google",
+    "loginWithFacebook": "Sign in with Facebook",
+    "loginWithMicrosoft": "Sign in with Microsoft"
   },
   "recipe": {
     "searchRecipes": "Search recipes",
