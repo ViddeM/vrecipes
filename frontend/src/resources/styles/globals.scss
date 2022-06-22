@@ -42,6 +42,23 @@ body {
   margin: 0 $space-small;
 }
 
+
+.marginLeftSmall {
+  margin-left: $space-tiny;
+}
+
+.marginRightSmall {
+  margin-right: $space-tiny;
+}
+
+.marginTopSmall {
+  margin-top: $space-tiny;
+}
+
+.marginBottomSmall {
+  margin-bottom: $space-tiny;
+}
+
 .marginLeft {
   margin-left: $space-small;
 }
