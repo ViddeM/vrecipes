@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import encodeurl from "encodeurl";
+import getConfig from "next/config";
 
 import { Author } from "./Author";
 import { EditRecipe } from "./EditRecipe";
@@ -14,7 +15,6 @@ import { ShortRecipe } from "./ShortRecipe";
 import { ShortRecipeBook } from "./ShortRecipeBook";
 import { Tag } from "./Tag";
 import { UniqueName } from "./UniqueName";
-import getConfig from "next/config";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "/api";
 axios.defaults.baseURL = baseUrl;
