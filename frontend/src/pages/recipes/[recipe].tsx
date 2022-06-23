@@ -99,17 +99,19 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
             <h3>{t.recipe.steps}</h3>
             <div className={styles.recipeDivider} />
             <div style={{ width: "100%" }}>
-              {recipe.steps.map((step) => (
-                <div key={step.number}>
-                  <div className={styles.stepSpace} />
-                  <div className={styles.stepRow}>
-                    <p className="marginRight">{`${step.number + 1}. `}</p>
-                    <p className={`preserveWhitespace ${styles.longText}`}>
-                      {step.description}
-                    </p>
+              {recipe.steps
+                .sort((r) => r.number)
+                .map((step) => (
+                  <div key={step.number}>
+                    <div className={styles.stepSpace} />
+                    <div className={styles.stepRow}>
+                      <p className="marginRight">{`${step.number + 1}. `}</p>
+                      <p className={`preserveWhitespace ${styles.longText}`}>
+                        {step.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
               <div className={styles.stepSpace} />
             </div>
           </div>
