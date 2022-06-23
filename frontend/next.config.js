@@ -10,7 +10,9 @@ module.exports = {
     defaultLocale: "se",
   },
   images: {
-    domains: [process.env.NEXT_PUBLIC_DOMAIN ?? ""],
+    domains: process.env.NEXT_PUBLIC_DOMAIN
+      ? [process.env.NEXT_PUBLIC_DOMAIN]
+      : [],
   },
   async rewrites() {
     if (process.env.NODE_ENV === "development") {
