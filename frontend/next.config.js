@@ -16,7 +16,6 @@ module.exports = {
   },
   async rewrites() {
     if (process.env.NODE_ENV === "development") {
-      console.log();
       return [
         {
           source: "/api/:ep*",
