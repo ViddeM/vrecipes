@@ -14,9 +14,13 @@ import { ShortRecipe } from "./ShortRecipe";
 import { ShortRecipeBook } from "./ShortRecipeBook";
 import { Tag } from "./Tag";
 import { UniqueName } from "./UniqueName";
+import getConfig from "next/config";
 
-// FIXME: should be changed before prod...
-axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "/api";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "/api";
+axios.defaults.baseURL = baseUrl;
+
+const { publicRuntimeConfig } = getConfig();
+const imageBaseUrl = publicRuntimeConfig.BASE_URL;
 
 axios.interceptors.request.use(
   function (config) {
@@ -161,7 +165,7 @@ export const Api = {
   },
   images: {
     formatImageUrl: (imageUrl: string): string => {
-      return `${IMAGE_BASE_ENDPOINT}/${imageUrl}`;
+      return `${imageBaseUrl}${IMAGE_BASE_ENDPOINT}/${imageUrl}`;
     },
     upload: (file: File) => {
       const data = new FormData();

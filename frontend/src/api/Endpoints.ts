@@ -1,5 +1,5 @@
 // Backend endpoints
-export const IMAGE_BASE_ENDPOINT = "/api/images";
+export const IMAGE_BASE_ENDPOINT = "/images";
 
 // Frontend endpoints
 export const RECIPES_BASE_ENDPOINT = "/recipes";
