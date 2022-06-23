@@ -33,14 +33,6 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
   const { me, isLoggedIn } = useMe();
   const { openModal } = useModal();
 
-  const [orderedSteps, setOrderedSteps] = useState(recipe?.steps ?? []);
-
-  useEffect(() => {
-    if (recipe) {
-      setOrderedSteps(recipe.steps.sort((a, b) => a.number - b.number));
-    }
-  }, [recipe]);
-
   if (error) {
     return <ErrorCard error={error} />;
   }
@@ -109,7 +101,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
             <h3>{t.recipe.steps}</h3>
             <div className={styles.recipeDivider} />
             <div style={{ width: "100%" }}>
-              {orderedSteps.map((step) => (
+              {recipe.steps.map((step) => (
                 <div key={step.number}>
                   <div className={styles.stepSpace} />
                   <div className={styles.stepRow}>
@@ -197,10 +189,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
+  let orderedStepsRecipe = res.data;
+
+  if (res.data) {
+    orderedStepsRecipe = {
+      ...res.data,
+      steps: res.data.steps.sort((a, b) => a.number - b.number),
+    };
+  }
+
   return {
     props: {
       error: res.errorTranslationString ?? null,
-      recipe: res.data ?? null,
+      recipe: orderedStepsRecipe ?? null,
     },
   };
 };
