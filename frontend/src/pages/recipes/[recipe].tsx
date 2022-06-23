@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +22,6 @@ import { useTranslations } from "../../hooks/useTranslations";
 import CardLayout from "../../layouts/CardLayout";
 
 import styles from "./[recipe].module.scss";
-import { useEffect, useState } from "react";
 
 interface RecipeProps {
   recipe?: Recipe;
@@ -32,6 +33,14 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
   const { me, isLoggedIn } = useMe();
   const { openModal } = useModal();
 
+  const [orderedSteps, setOrderedSteps] = useState(recipe?.steps ?? []);
+
+  useEffect(() => {
+    if (recipe) {
+      setOrderedSteps(recipe.steps.sort((a, b) => a.number - b.number));
+    }
+  }, [recipe]);
+
   if (error) {
     return <ErrorCard error={error} />;
   }
@@ -41,12 +50,6 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
   }
 
   const image = recipe.images.length > 0 ? recipe.images[0].url : undefined;
-
-  const [orderedSteps, setOrderedSteps] = useState(recipe.steps);
-
-  useEffect(() => {
-    setOrderedSteps(orderedSteps.sort((a, b) => a.number - b.number));
-  }, [recipe]);
 
   return (
     <CardLayout>
