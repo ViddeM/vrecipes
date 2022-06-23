@@ -82,7 +82,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
         {(image || recipe.ingredients.length > 0) && (
           <div className={styles.imageIngredientsContainer}>
             <div className={styles.growContainer}>
-              <ImageComponent url={image} />
+              <ImageComponent url={image} renderPdf={true} />
             </div>
             <div className="marginRight marginTop" />
 

@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 import defaultRecipePicture from "../../../../public/default_recipe_image.webp";
+import pdfPlaceholder from "../../../../public/pdf-placeholder.svg";
 import { Api } from "../../../api/Api";
 import { useTranslations } from "../../../hooks/useTranslations";
 
@@ -15,12 +16,14 @@ export type ImageBorderProps = {
 export type ImageProps = ImageBorderProps & {
   url?: string;
   defaultImage?: StaticImageData;
+  renderPdf?: boolean;
 };
 
 export const ImageComponent = ({
   border = "all",
   url,
   defaultImage,
+  renderPdf,
 }: ImageProps) => {
   const { t } = useTranslations();
 
@@ -38,8 +41,21 @@ export const ImageComponent = ({
     styles.image
   }`;
 
+  if (image.endsWith(".pdf")) {
+    if (renderPdf) {
+      return (
+        <div
+          className={`${styles.iFrameAspectRatio} ${styles.iFrameEmbedWrapper}`}
+        >
+          <embed className={styles.iFrameEmbed} src={image} />
+        </div>
+      );
+    } else {
+      image = pdfPlaceholder.src;
+    }
+  }
+
   return (
-    // <div className={styles.imageContainer}>
     <Image
       src={image}
       alt={t.recipe.imageAltText}
@@ -49,6 +65,5 @@ export const ImageComponent = ({
       height="100%"
       onError={() => setErrored(true)}
     />
-    // </div>
   );
 };

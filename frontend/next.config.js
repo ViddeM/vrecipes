@@ -10,7 +10,9 @@ module.exports = {
     defaultLocale: "se",
   },
   images: {
-    domains: [process.env.NEXT_PUBLIC_DOMAIN ?? ""],
+    domains: process.env.NEXT_PUBLIC_DOMAIN
+      ? [process.env.NEXT_PUBLIC_DOMAIN]
+      : [],
   },
   async rewrites() {
     if (process.env.NODE_ENV === "development") {
@@ -26,6 +28,8 @@ module.exports = {
     }
   },
   publicRuntimeConfig: {
-    BASE_URL: process.env.NEXT_PUBLIC_BASE_URL ?? "/api",
+    BASE_URL: process.env.NEXT_PUBLIC_BASE_URL
+      ? process.env.NEXT_PUBLIC_BASE_URL
+      : "/api",
   },
 };

@@ -56,7 +56,7 @@ const RecipeBook = ({ recipeBook, error }: RecipeBookProps) => {
         <div className={"space"} />
         {recipeBook.image && (
           <div className={styles.imageContainer}>
-            <ImageComponent url={recipeBook.image.url} />
+            <ImageComponent url={recipeBook.image.url} renderPdf={true} />
           </div>
         )}
         <h2>Recipes</h2>

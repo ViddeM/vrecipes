@@ -55,7 +55,11 @@ const ImageUpload = ({
         <>
           {images.length > 0 && (
             <div className={`marginTop ${styles.imageContainer}`}>
-              <ImageComponent url={images[0].url} border={"none"} />
+              <ImageComponent
+                url={images[0].url}
+                border={"none"}
+                renderPdf={true}
+              />
               <IconButton
                 className={styles.removeImageButton}
                 icon={faX}
