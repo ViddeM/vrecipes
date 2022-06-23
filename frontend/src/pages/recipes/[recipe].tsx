@@ -77,7 +77,7 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
         {recipe.description && (
           <div className={`marginTopBig ${styles.column}`}>
             <h3>{t.recipe.description}</h3>
-            <p>{recipe.description}</p>
+            <p className={"preserveWhitespace"}>{recipe.description}</p>
           </div>
         )}
 
