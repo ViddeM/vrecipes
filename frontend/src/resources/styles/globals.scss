@@ -42,7 +42,6 @@ body {
   margin: 0 $space-small;
 }
 
-
 .marginLeftSmall {
   margin-left: $space-tiny;
 }
@@ -182,4 +181,9 @@ a {
 
 .breakWord {
   word-break: break-all;
+}
+
+.centerText {
+  width: 100%;
+  text-align: center;
 }

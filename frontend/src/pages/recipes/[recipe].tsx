@@ -66,7 +66,9 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
           )}
         </div>
 
-        <h1 className={"breakWord preserveWhitespace"}>{recipe.name}</h1>
+        <div className={"centerText"}>
+          <h1 className={"preserveWhitespace"}>{recipe.name}</h1>
+        </div>
 
         <AuthorLink author={recipe.author.name} prefix={t.common.createdBy} />
 
