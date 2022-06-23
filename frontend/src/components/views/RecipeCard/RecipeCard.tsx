@@ -29,17 +29,15 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
 
           {(recipe.estimatedTime > 0 || recipe.numberOfIngredients > 0) && (
             <div className={styles.flexRowBetween}>
-              {recipe.estimatedTime > 0 && (
-                <p>
-                  {`${recipe.estimatedTime} ${t.recipe.minutesShort} `}{" "}
-                  <FontAwesomeIcon icon={faClock} />
-                </p>
-              )}
-              {recipe.numberOfIngredients > 0 && (
-                <p>
-                  {`${recipe.numberOfIngredients} ${t.recipe.ingredients}`}{" "}
-                </p>
-              )}
+              <p>
+                {recipe.estimatedTime > 0 && (
+                  <>
+                    {`${recipe.estimatedTime} ${t.recipe.minutesShort} `}{" "}
+                    <FontAwesomeIcon icon={faClock} />
+                  </>
+                )}
+              </p>
+              <p>{`${recipe.numberOfIngredients} ${t.recipe.ingredients}`}</p>
             </div>
           )}
 
