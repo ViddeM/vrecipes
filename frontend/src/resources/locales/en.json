@@ -31,6 +31,7 @@
     "oven": "Oven",
     "ingredientAmount": "Amount",
     "ingredientUnit": "Unit",
+    "addNewIngredient": "Add new ingredient",
     "minutesShort": "min",
     "minutes": "minutes",
     "createRecipe": "Create recipe",

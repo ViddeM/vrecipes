@@ -102,7 +102,7 @@ const CreateIngredientsTable = ({
               onClick={addIngredientToBeginning}
               type="button"
             >
-              Add new ingredient
+              {t.recipe.addNewIngredient}
             </button>
             <div className={styles.ingredientRows}>
               {ingredients.map((ingredient, index) => {
@@ -141,7 +141,7 @@ const CreateIngredientsTable = ({
           onClick={addIngredientToEnd}
           type="button"
         >
-          Add new ingredient
+          {t.recipe.addNewIngredient}
         </button>
       </div>
     </div>
