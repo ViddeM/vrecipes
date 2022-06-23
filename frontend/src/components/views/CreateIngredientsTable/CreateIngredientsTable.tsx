@@ -87,7 +87,7 @@ const CreateIngredientsTable = ({
   const addIngredientToEnd = () => {
     setIngredients([
       ...ingredients,
-      { name: "", number: ingredients.length, unit: "", amount: 0 },
+      { name: "", number: ingredients.length, unit: "", amount: undefined },
     ]);
   };
 
@@ -211,16 +211,17 @@ const CreateIngredient = ({
           name={amountId}
           placeholder={t.recipe.ingredientAmount}
           externalRef={amountElemRef}
-          value={ingredient.amount ? ingredient.amount : ""}
+          value={ingredient.amount ?? ""}
           onChange={(e) => {
             const val = parseFloat(e.target.value);
 
-            let newAmount = 0;
-            if (!isNaN(val) && val > 0) {
+            let newAmount = undefined;
+            if (!isNaN(val)) {
               newAmount = val;
             }
 
             amountElemRef.current?.setCustomValidity("");
+            unitElemRef.current?.setCustomValidity("");
             if (newAmount === undefined && ingredient.unit !== "") {
               amountElemRef.current?.setCustomValidity(
                 t.recipe.ingredientValidationErrors.amountMustBeFilledIn
@@ -253,11 +254,12 @@ const CreateIngredient = ({
             const val = e.target.value;
 
             unitElemRef.current?.setCustomValidity("");
-            if (val === "" && ingredient.amount !== 0) {
+            amountElemRef.current?.setCustomValidity("");
+            if (val === "" && ingredient.amount !== undefined) {
               unitElemRef.current?.setCustomValidity(
                 t.recipe.ingredientValidationErrors.unitMustBeFilledIn
               );
-            } else if (val !== "" && ingredient.amount === 0) {
+            } else if (val !== "" && ingredient.amount === undefined) {
               amountElemRef.current?.setCustomValidity(
                 t.recipe.ingredientValidationErrors.amountMustBeFilledIn
               );
