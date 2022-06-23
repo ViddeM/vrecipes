@@ -14,6 +14,7 @@ import TagComponent from "../../components/elements/Tag/Tag";
 import TextField from "../../components/elements/TextField/TextField";
 import CreateTag from "../../components/views/CreateTag/CreateTag";
 import { useMe } from "../../hooks/useMe";
+import useMediaQuery from "../../hooks/useMediaQuery";
 import { useModal } from "../../hooks/useModal";
 import useRefreshProps from "../../hooks/useRefreshProps";
 import { useTranslations } from "../../hooks/useTranslations";
@@ -124,30 +125,18 @@ type TagRow = {
 
 const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
   const { t } = useTranslations();
-  const [windowWidth, setWindowWidth] = useState({});
   const refreshProps = useRefreshProps();
+  const big = useMediaQuery(880);
 
   const { openModal } = useModal();
 
-  useEffect(() => {
-    const resizeListener = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", resizeListener);
-
-    return () => {
-      window.removeEventListener("resize", resizeListener);
-    };
-  }, []);
-
-  const minimal = windowWidth <= 880;
-  const minWidth = minimal ? "50%" : "20%";
+  const minWidth = big ? "20%" : "50%";
   return (
     <div className={styles.TableRow}>
       <div style={{ width: minWidth }}>
         <TagComponent noLink={true} color={tag.color} text={tag.name} />
       </div>
-      {minimal === false && (
+      {big && (
         <>
           <div
             style={{ width: "35%", paddingRight: "16px" }}
