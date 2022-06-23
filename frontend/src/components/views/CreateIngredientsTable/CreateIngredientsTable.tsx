@@ -236,7 +236,7 @@ const CreateIngredient = ({
               amount: newAmount,
             });
           }}
-          min={1}
+          min={0.05}
           type="number"
           step={0.05}
           max={999}
