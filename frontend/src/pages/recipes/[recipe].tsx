@@ -20,6 +20,7 @@ import { useTranslations } from "../../hooks/useTranslations";
 import CardLayout from "../../layouts/CardLayout";
 
 import styles from "./[recipe].module.scss";
+import { useEffect, useState } from "react";
 
 interface RecipeProps {
   recipe?: Recipe;
@@ -40,6 +41,12 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
   }
 
   const image = recipe.images.length > 0 ? recipe.images[0].url : undefined;
+
+  const [orderedSteps, setOrderedSteps] = useState(recipe.steps);
+
+  useEffect(() => {
+    setOrderedSteps(orderedSteps.sort((a, b) => a.number - b.number));
+  }, [recipe]);
 
   return (
     <CardLayout>
@@ -99,19 +106,17 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
             <h3>{t.recipe.steps}</h3>
             <div className={styles.recipeDivider} />
             <div style={{ width: "100%" }}>
-              {recipe.steps
-                .sort((r) => r.number)
-                .map((step) => (
-                  <div key={step.number}>
-                    <div className={styles.stepSpace} />
-                    <div className={styles.stepRow}>
-                      <p className="marginRight">{`${step.number + 1}. `}</p>
-                      <p className={`preserveWhitespace ${styles.longText}`}>
-                        {step.description}
-                      </p>
-                    </div>
+              {orderedSteps.map((step) => (
+                <div key={step.number}>
+                  <div className={styles.stepSpace} />
+                  <div className={styles.stepRow}>
+                    <p className="marginRight">{`${step.number + 1}. `}</p>
+                    <p className={`preserveWhitespace ${styles.longText}`}>
+                      {step.description}
+                    </p>
                   </div>
-                ))}
+                </div>
+              ))}
               <div className={styles.stepSpace} />
             </div>
           </div>
