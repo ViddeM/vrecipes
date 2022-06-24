@@ -41,6 +41,7 @@ const CreateRecipe = () => {
           <TextField
             name="recipe_name"
             id="recipe_name"
+            focus={true}
             placeholder={t.recipe.recipeName}
             value={name}
             onChange={(e) => {
