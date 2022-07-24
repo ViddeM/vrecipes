@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, FC } from "react";
 
-import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./Buttons.module.scss";
@@ -39,7 +39,7 @@ export const Button: FC<ButtonProps> = ({ size, className, ...props }) => {
 export type IconButtonProps = ButtonBaseProps &
   ButtonSize & {
     iconColor?: string;
-    icon: IconDefinition;
+    icon: IconProp;
   };
 
 export const IconButton: FC<IconButtonProps> = ({

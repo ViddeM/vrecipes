@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 import defaultRecipePicture from "../../../../public/default_recipe_image.webp";
 import pdfPlaceholder from "../../../../public/pdf-placeholder.svg";
