@@ -15,6 +15,8 @@ import { ShortRecipeBook } from "./ShortRecipeBook";
 import { Tag } from "./Tag";
 import { UniqueName } from "./UniqueName";
 
+import getConfig from "next/config";
+
 let baseUrl = "/api";
 if (typeof window === "undefined") {
   baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "/api";
@@ -22,7 +24,8 @@ if (typeof window === "undefined") {
 
 axios.defaults.baseURL = baseUrl;
 
-const imageBaseUrl = baseUrl;
+const { publicRuntimeConfig } = getConfig();
+const imageBaseUrl = publicRuntimeConfig.BASE_URL;
 
 axios.interceptors.request.use(
   function (config) {
