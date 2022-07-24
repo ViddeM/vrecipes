@@ -1,5 +1,10 @@
 @import "vars";
 
+@media print {
+  /* All your print styles go here */
+  header, footer, nav, button { display: none !important; }
+}
+
 html {
   margin: 0;
   padding: 0;
