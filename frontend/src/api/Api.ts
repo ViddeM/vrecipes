@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import encodeurl from "encodeurl";
-import getConfig from "next/config";
 
 import { Author } from "./Author";
 import { EditRecipe } from "./EditRecipe";
