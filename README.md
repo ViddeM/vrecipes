@@ -9,10 +9,10 @@ To setup the development of the project there are some things that are necessary
 For the frontend the following steps are necessary:
 1. Install the node dependencies in the `frontend/` folder (e.g. whilst inside of the `frontend/` folder run `yarn` or equivalent command).
 1. Be aware that there is a `.env.development` file in the `frontend/` folder, however it should work out of the box on any `linux` based system. 
-1. In the **project root** folder, run `docker-compose up`. 
+1. In the **project root** folder, run `docker compose up`.
 
 ### Backend
-The backend is not included into the `docker-compose` to simplify developing the backend without having to restart everything else.  
+The backend is not included into the `docker compose` to simplify developing the backend without having to restart everything else.  
 The steps to setup the backend is as follows (all of these assume that you are inside of the `backend/` folder):
 1. Copy the `.env.example` file to `.env`, an explaination of all the fields in this file can be found [below](#environment-variables).
 1. Create a `whitelist.json` (path can be determined by the `whitelist` environment variable), 
@@ -20,16 +20,17 @@ The steps to setup the backend is as follows (all of these assume that you are i
 1. Either setup oauth2 login using one of the supported providers (github/facebook/microsoft/google) or set the `auth_enabled` environment variable to `false`.
 1. Run the main method in `backend/cmd/vrecipes/main.go`.
 
+### Makefile
+In the root folder there is also a Makefile with the following commands:
+  - `mock` (also the default): inserts mock values into the database.
+  - `clear-db`: Clears the database (completely!) will require migrations to be re-run (i.e. restarting the backend).
+
 ## Environment variables
 The environment variables that can / have to be specified for the project.
 Note that for the moment ALL variables must exist / be non-empty to start the project.
 
 ### Frontend
- - `REACT_APP_MODE` (string): Possible values and their meaning:
-    - `prod`: Production mode.
-    - `beta`: *deprecated* print a warning label on the page regarding the beta-status of the project.
-    - `develop`: Development mode, displays a `debug` header on the top of the page.
- - `HTTP_PROXY` (string): Only used for development, specifies where to proxy http requests, default is `http://host.docker.internal:5000` which (together with the `docker-compose`) specifies the host machine on port `5000` where the backend should exist in development.
+ - `NEXT_PUBLIC_BASE_URL`: Url to the backend seen from the server-side nextjs docker container, default is `http://host.docker.internal:5000/api` which (together with the `docker-compose`) specifies the host machine on port `5000` where the backend should exist in development. In production this should be set to the domain the website is hosted on.
 
 ### Backend
  - `db_user` (string): Username for the database.
