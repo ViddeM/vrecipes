@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import encodeurl from "encodeurl";
+import getConfig from "next/config";
 
 import { Author } from "./Author";
 import { EditRecipe } from "./EditRecipe";
@@ -22,7 +23,8 @@ if (typeof window === "undefined") {
 
 axios.defaults.baseURL = baseUrl;
 
-const imageBaseUrl = baseUrl;
+const { publicRuntimeConfig } = getConfig();
+const imageBaseUrl = publicRuntimeConfig.BASE_URL;
 
 axios.interceptors.request.use(
   function (config) {
