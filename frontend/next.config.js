@@ -10,8 +10,8 @@ module.exports = {
     defaultLocale: "se",
   },
   images: {
-    domains: process.env.NEXT_PUBLIC_DOMAIN
-      ? [process.env.NEXT_PUBLIC_DOMAIN]
+    domains: process.env.NEXT_PUBLIC_BASE_URL
+      ? [process.env.NEXT_PUBLIC_BASE_URL]
       : [],
   },
   async rewrites() {
@@ -19,16 +19,11 @@ module.exports = {
       return [
         {
           source: "/api/:ep*",
-          destination: `http://host.docker.internal:5000/api/:ep*`,
+          destination: `${process.env.NEXT_PUBLIC_BASE_URL}/:ep*`,
         },
       ];
     } else {
       return [];
     }
-  },
-  publicRuntimeConfig: {
-    BASE_URL: process.env.NEXT_PUBLIC_BASE_URL
-      ? process.env.NEXT_PUBLIC_BASE_URL
-      : "/api",
   },
 };

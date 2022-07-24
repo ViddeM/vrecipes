@@ -16,11 +16,14 @@ import { ShortRecipeBook } from "./ShortRecipeBook";
 import { Tag } from "./Tag";
 import { UniqueName } from "./UniqueName";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "/api";
+let baseUrl = "/api";
+if (typeof window === "undefined") {
+  baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "/api";
+}
+
 axios.defaults.baseURL = baseUrl;
 
-const { publicRuntimeConfig } = getConfig();
-const imageBaseUrl = publicRuntimeConfig.BASE_URL;
+const imageBaseUrl = baseUrl;
 
 axios.interceptors.request.use(
   function (config) {
@@ -207,6 +210,10 @@ function handleResponse<T>(
     })
     .catch((err) => {
       let error = "errors.default";
+      if (process.env.NODE_ENV === "development") {
+        // eslint-disable-next-line no-console
+        console.error("Failed to commnicate with backend", err);
+      }
 
       if (handleAuth && err.response?.status === 401) {
         // We need to get authorized.
