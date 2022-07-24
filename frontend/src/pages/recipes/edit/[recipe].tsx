@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
@@ -82,22 +82,6 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
     useState<boolean>(false);
   /* End state declaration */
 
-  if (dataLoadError) {
-    return <ErrorCard error={dataLoadError} />;
-  }
-
-  if (!recipe) {
-    return <Loading />;
-  }
-
-  if (!isLoggedIn && isClientSide() && initialized) {
-    router.push(LOGIN_ENDPOINT);
-  }
-
-  if (me && recipe.author.id !== me?.id) {
-    return <NoAccess text={t.recipe.noAccess} backUrl={ROOT_ENDPOINT} />;
-  }
-
   /* Check if we have unsaved changes */
   const cookingTimeSame =
     (cookingTime !== undefined ? cookingTime : 0) === recipe?.estimatedTime;
@@ -116,6 +100,35 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
     !stepsSame(steps, recipe?.steps) ||
     !imagesSame(images, recipe.images);
   /* End check if we have unsaved changes */
+
+  useEffect(() => {
+    const confirmLeaveFunc = function (e: BeforeUnloadEvent) {
+      if (unsavedChanges) {
+        e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+        // Chrome requires returnValue to be set
+        e.returnValue = "";
+      }
+    };
+
+    window.addEventListener("beforeunload", confirmLeaveFunc);
+    return () => window.removeEventListener("beforeunload", confirmLeaveFunc);
+  }, [unsavedChanges]);
+
+  if (dataLoadError) {
+    return <ErrorCard error={dataLoadError} />;
+  }
+
+  if (!recipe) {
+    return <Loading />;
+  }
+
+  if (!isLoggedIn && isClientSide() && initialized) {
+    router.push(LOGIN_ENDPOINT);
+  }
+
+  if (me && recipe.author.id !== me?.id) {
+    return <NoAccess text={t.recipe.noAccess} backUrl={ROOT_ENDPOINT} />;
+  }
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
