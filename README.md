@@ -30,7 +30,7 @@ To update the schema for the database you need access to the migrations.
 1. `go get "github.com/golang-migrate/migrate/v4"`
 2. `export POSTGRESQL_URL='postgres://vrecipes:password@localhost:5432/vrecipes?sslmode=disable'`  
 The following is an example for how to create a set of up and down migrations, you can then edit the contents of the new `.sql` files.  
-3. `migrate -database ${POSTGRESQL_URL} -path db/migrations create -ext up -dir db/migrations favorites`  
+3. `migrate -database ${POSTGRESQL_URL} -path db/migrations create -ext sql -dir db/migrations favorites`  
 This is how you then interact with the migrations, for COMMANDS see `migrate help`.  
 4. `migrate -database ${POSTGRESQL_URL} -path db/migrations COMMAND`  
 
