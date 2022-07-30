@@ -26,13 +26,14 @@ In the root folder there is also a Makefile with the following commands:
   - `clear-db`: Clears the database (completely!) will require migrations to be re-run (i.e. restarting the backend).
 
 ### Migrations
-To make changes for the database you need access to the migrations.
- - `go get "github.com/golang-migrate/migrate/v4"`
- - `export POSTGRESQL_URL='postgres://vrecipes:password@localhost:5432/vrecipes?sslmode=disable'`
-   - The values for the database url correspond to the default values this is the template you follow `dbdriver://username:password@host:port/dbname?param1=true&param2=false`
- - `migrate -database ${POSTGRESQL_URL} -path db/migrations COMMAND`
+To update the schema for the database you need access to the migrations.
+1. `go get "github.com/golang-migrate/migrate/v4"`
+2. `export POSTGRESQL_URL='postgres://vrecipes:password@localhost:5432/vrecipes?sslmode=disable'`  
+The following is an example for how to create a set of up and down migrations, you can then edit the contents of the new `.sql` files.  
+3. `migrate -database ${POSTGRESQL_URL} -path db/migrations create -ext up -dir db/migrations favorites`  
+This is how you then interact with the migrations, for COMMANDS see `migrate help`.  
+4. `migrate -database ${POSTGRESQL_URL} -path db/migrations COMMAND`  
 
-for COMMANDS see `migrate help`
 
 ## Environment variables
 The environment variables that can / have to be specified for the project.
