@@ -58,6 +58,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
 
   /* Keep track of the different parts of the state */
   const [error, setError] = useState<string | undefined>(undefined);
+  const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState(recipe ? recipe.name : "");
   const [cookingTime, setCookingTime] = useState(
     recipe?.estimatedTime && recipe?.estimatedTime > 0
@@ -103,7 +104,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
 
   useEffect(() => {
     const confirmLeaveFunc = function (e: BeforeUnloadEvent) {
-      if (unsavedChanges) {
+      if (unsavedChanges && !submitted) {
         e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
         // Chrome requires returnValue to be set
         e.returnValue = "";
@@ -112,7 +113,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
 
     window.addEventListener("beforeunload", confirmLeaveFunc);
     return () => window.removeEventListener("beforeunload", confirmLeaveFunc);
-  }, [unsavedChanges]);
+  }, [unsavedChanges, submitted]);
 
   if (dataLoadError) {
     return <ErrorCard error={dataLoadError} />;
@@ -132,6 +133,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSubmitted(true);
 
     const newRecipe: EditRecipe = {
       id: recipe.id,
