@@ -45,8 +45,13 @@ func Init() {
 		authRequired := api.Group("")
 		{
 			authRequired.Use(authentication.CheckAuth())
-
-			authRequired.GET("/me", authentication.Me)
+			meEndpoints := api.Group("/me")
+			{
+				meEndpoints.GET("", authentication.Me)
+				meEndpoints.GET("/favorites", endpoints.FavoriteRecipes)
+				meEndpoints.PUT("/favorite/:id", endpoints.AddFavoriteRecipe)
+				meEndpoints.DELETE("/favorite/:id", endpoints.RemoveFavoriteRecipe)
+			}
 			authRequired.POST("/recipes", endpoints.NewRecipe)
 			authRequired.PUT("/recipes/:id", endpoints.EditRecipe)
 			authRequired.DELETE("/recipes/:id", endpoints.RemoveRecipe)
