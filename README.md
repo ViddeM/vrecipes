@@ -25,6 +25,15 @@ In the root folder there is also a Makefile with the following commands:
   - `mock` (also the default): inserts mock values into the database.
   - `clear-db`: Clears the database (completely!) will require migrations to be re-run (i.e. restarting the backend).
 
+### Migrations
+To make changes for the database you need access to the migrations.
+ - `go get "github.com/golang-migrate/migrate/v4"`
+ - `export POSTGRESQL_URL='postgres://vrecipes:password@localhost:5432/vrecipes?sslmode=disable'`
+   - The values for the database url correspond to the default values this is the template you follow `dbdriver://username:password@host:port/dbname?param1=true&param2=false`
+ - `migrate -database ${POSTGRESQL_URL} -path db/migrations COMMAND`
+
+for COMMANDS see `migrate help`
+
 ## Environment variables
 The environment variables that can / have to be specified for the project.
 Note that for the moment ALL variables must exist / be non-empty to start the project.
