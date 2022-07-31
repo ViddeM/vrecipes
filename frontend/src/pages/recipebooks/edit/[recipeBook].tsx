@@ -45,6 +45,7 @@ const EditRecipeBook = ({
 
   /* Keep track of the different parts of the state */
   const [error, setError] = useState<string | undefined>(undefined);
+  const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState(recipeBook?.name ?? "");
   const [author, setAuthor] = useState(recipeBook?.author ?? "");
   const [image, setImage] = useState(recipeBook?.image ?? null);
@@ -62,7 +63,7 @@ const EditRecipeBook = ({
 
   useEffect(() => {
     const confirmLeaveFunc = function (e: BeforeUnloadEvent) {
-      if (unsavedChanges) {
+      if (unsavedChanges && !submitted) {
         e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
         // Chrome requires returnValue to be set
         e.returnValue = "";
@@ -71,7 +72,7 @@ const EditRecipeBook = ({
 
     window.addEventListener("beforeunload", confirmLeaveFunc);
     return () => window.removeEventListener("beforeunload", confirmLeaveFunc);
-  }, [unsavedChanges]);
+  }, [unsavedChanges, submitted]);
 
   if (dataLoadError) {
     return <ErrorCard error={dataLoadError} />;
@@ -96,6 +97,7 @@ const EditRecipeBook = ({
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSubmitted(true);
 
     let images: string[] = [];
     if (image) {
@@ -114,6 +116,7 @@ const EditRecipeBook = ({
       .then((response: ApiResponse<UniqueName>) => {
         if (response.error && response.errorTranslationString) {
           setError(translate(response.errorTranslationString));
+          setSubmitted(false);
         } else {
           window.location.assign(
             `${RECIPE_BOOKS_BASE_ENDPOINT}/${response.data?.uniqueName}`
