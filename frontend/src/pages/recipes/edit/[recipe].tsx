@@ -152,6 +152,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
     Api.recipes.edit(newRecipe).then((response: ApiResponse<UniqueName>) => {
       if (response.error && response.errorTranslationString) {
         setError(translate(response.errorTranslationString));
+        setSubmitted(false);
       } else {
         window.location.assign(
           `${RECIPES_BASE_ENDPOINT}/${response.data?.uniqueName}`
