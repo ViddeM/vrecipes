@@ -1,11 +1,13 @@
 package process
 
 import (
+	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 	"github.com/viddem/vrecipes/backend/internal/models"
+	"strings"
 )
 
 func EditRecipe(
@@ -156,6 +158,7 @@ func updateRecipeIngredients(
 				ingredient.Name,
 				ingredient.Unit,
 				ingredient.Amount,
+				ingredient.IsHeading,
 				id,
 			)
 			if err != nil {
@@ -304,4 +307,102 @@ func getOldTag(tag uuid.UUID, oldTags []*tables.RecipeTag) *tables.RecipeTag {
 		}
 	}
 	return nil
+}
+
+func CreateRecipeIngredient(
+	ingredientName string,
+	unitName string,
+	amount float32,
+	isHeading bool,
+	recipeId uuid.UUID,
+) (*tables.RecipeIngredient, error) {
+	ingredient, err := getOrCreateIngredient(ingredientName)
+	if err != nil {
+		return nil, err
+	}
+
+	unit, err := getOrCreateUnit(unitName)
+	if err != nil {
+		return nil, err
+	}
+
+	if isHeading {
+		recipeIngredient, err := commands.CreateRecipeIngredientHeading(recipeId, ingredientName)
+		return recipeIngredient, err
+	}
+
+	recipeIngredient, err := commands.CreateRecipeIngredient(
+		recipeId,
+		ingredient.Name,
+		unit.Name,
+		amount,
+	)
+	return recipeIngredient, err
+}
+
+func getOrCreateIngredient(ingredientName string) (*tables.Ingredient, error) {
+	ingredientName = strings.TrimSpace(ingredientName)
+	ingredient, err := queries.GetIngredient(ingredientName)
+	if err != nil {
+		if pgxscan.NotFound(err) {
+			// Ingredient doesn't exist, create a new one
+			ingredient, err = commands.CreateIngredient(ingredientName)
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			return nil, err
+		}
+	}
+	return ingredient, nil
+}
+
+func getOrCreateUnit(unitName string) (*tables.Unit, error) {
+	unitName = strings.ToLower(unitName)
+	unit, err := queries.GetUnit(unitName)
+	if err != nil {
+		if pgxscan.NotFound(err) {
+			// Ingredient doesn't exist, create a new one
+			unit, err = commands.CreateUnit(unitName)
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			return nil, err
+		}
+	}
+	return unit, nil
+}
+
+func CreateRecipeStep(
+	step string,
+	number uint16,
+	recipeId uuid.UUID,
+) (*tables.RecipeStep, error) {
+	recipeStep, err := commands.CreateRecipeStep(recipeId, number, step)
+	return recipeStep, err
+}
+
+func CreateRecipeImage(
+	imagePath string,
+	recipeId uuid.UUID,
+) (*tables.RecipeImage, error) {
+	imageId, err := commands.CreateImage(imagePath)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return connectImageToRecipe(recipeId, imageId)
+}
+
+func connectImageToRecipe(
+	recipeId uuid.UUID,
+	imageId uuid.UUID,
+) (*tables.RecipeImage, error) {
+	return commands.CreateRecipeImage(recipeId, imageId)
+}
+
+func connectTagToRecipe(recipeId, tagId uuid.UUID) (*tables.RecipeTag, error) {
+	return commands.CreateRecipeTag(recipeId, tagId)
 }

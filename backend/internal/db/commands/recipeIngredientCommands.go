@@ -7,11 +7,11 @@ import (
 )
 
 var createRecipeIngredientCommand = `
-INSERT INTO recipe_ingredient(recipe_id, ingredient_name, unit_name, amount, number)
-SELECT 						  $1, 		 $2, 			  $3, 		 $4,	 COUNT(*) as number
+INSERT INTO recipe_ingredient(recipe_id, ingredient_name, unit_name, amount, number, 			 is_heading)
+SELECT 						  $1, 		 $2, 			  $3, 		 $4,	 COUNT(*) as number, false
 FROM recipe_ingredient
 WHERE recipe_id=$1
-RETURNING id, recipe_id, ingredient_name, unit_name, amount, number
+RETURNING id, recipe_id, ingredient_name, unit_name, amount, number, is_heading
 `
 
 func CreateRecipeIngredient(recipeId uuid.UUID, ingredientName, unitName string, amount float32) (*tables.RecipeIngredient, error) {
@@ -19,6 +19,22 @@ func CreateRecipeIngredient(recipeId uuid.UUID, ingredientName, unitName string,
 
 	var recipeIngredient tables.RecipeIngredient
 	err := pgxscan.Get(ctx, db, &recipeIngredient, createRecipeIngredientCommand, recipeId, ingredientName, unitName, amount)
+	return &recipeIngredient, err
+}
+
+var createRecipeIngredientHeadingCommand = `
+INSERT INTO recipe_ingredient(recipe_id, ingredient_name, unit_name, amount, number, 			 is_heading)
+SELECT						  $1,		 $2,			  '',		 0,		 COUNT(*) as number, true
+FROM recipe_ingredient
+WHERE recipe_id=$1
+RETURNING id, recipe_id, ingredient_name, unit_name, amount, number, is_heading
+`
+
+func CreateRecipeIngredientHeading(recipeId uuid.UUID, ingredientName string) (*tables.RecipeIngredient, error) {
+	db := getDb()
+
+	var recipeIngredient tables.RecipeIngredient
+	err := pgxscan.Get(ctx, db, &recipeIngredient, createRecipeIngredientHeadingCommand, recipeId, ingredientName)
 	return &recipeIngredient, err
 }
 

@@ -25,10 +25,11 @@ type RecipeStepJson struct {
 }
 
 type RecipeIngredientJson struct {
-	Number int     `json:"number"`
-	Name   string  `json:"name"`
-	Unit   string  `json:"unit"`
-	Amount float32 `json:"amount"`
+	Number    int     `json:"number"`
+	Name      string  `json:"name"`
+	Unit      string  `json:"unit"`
+	Amount    float32 `json:"amount"`
+	IsHeading bool    `json:"isHeading"`
 }
 
 type ImageJson struct {

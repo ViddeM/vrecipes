@@ -27,15 +27,17 @@ func (step *EditRecipeStepJson) SameAs(other *tables.RecipeStep) bool {
 }
 
 type EditRecipeIngredientJson struct {
-	Name   string  `json:"name" validate:"required"`
-	Unit   string  `json:"unit"`
-	Amount float32 `json:"amount"`
+	Name      string  `json:"name" validate:"required"`
+	Unit      string  `json:"unit"`
+	Amount    float32 `json:"amount"`
+	IsHeading bool    `json:"isHeading" validate:"required"`
 }
 
 func (ingredient *EditRecipeIngredientJson) SameAs(other *tables.RecipeIngredient) bool {
 	return ingredient.Name == other.IngredientName &&
 		floatsAreSame(ingredient.Amount, other.Amount) &&
-		ingredient.Unit == other.UnitName
+		ingredient.Unit == other.UnitName &&
+		ingredient.IsHeading == other.IsHeading
 }
 
 type EditRecipeImageJson struct {

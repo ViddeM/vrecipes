@@ -22,22 +22,45 @@
     }
 
     & > :nth-child(2) {
-      flex: 0.5;
-      margin-right: $space;
-    }
-    & > :nth-child(3) {
-      flex: 0.5;
-      margin-right: $space;
-    }
-    & > :nth-child(4) {
       flex: 1;
     }
+  }
+}
+
+.createIngredientsRowContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  & > :nth-child(1) {
+    flex: 0.5;
+    margin-right: $space;
+  }
+
+  & > :nth-child(2) {
+    flex: 0.5;
+    margin-right: $space;
+  }
+
+  & > :nth-child(3) {
+    flex: 1;
   }
 }
 
 .ingredientRowsContainer {
   width: 100%;
   margin-top: 1rem;
+
+  & > :first-child {
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+
+  & > :last-child {
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
 }
 
 .ingredientRows {
@@ -47,13 +70,11 @@
     border-top: 1px solid black;
   }
 
-  & > :nth-child(even) {
-    background-color: rgba(0, 0, 100, 0.1);
-  }
+  background-color: rgba(0, 100, 0, 0.1);
+}
 
-  & > :nth-child(odd) {
-    background-color: rgba(0, 100, 0, 0.1);
-  }
+.headingRow {
+  background-color: rgba(200, 150, 0, 0.5) !important;
 }
 
 .lowerAddIngredientButton {
@@ -61,36 +82,70 @@
 }
 
 .deleteIngredientButton {
-  margin: auto 0.5rem;
-}
+  margin: 0.5rem 0.5rem 0 0.5rem;
 
-.addNewIngredientRow {
-  border-radius: $border-radius;
-  background-color: rgba(0, 150, 0, 0.2);
-  width: 100%;
-  border: 1px dashed black;
-  text-align: center;
-  padding: 1rem 0;
-  cursor: pointer;
-  transition: border 300ms, filter 300ms;
-
-  &:hover {
-    border: 1px solid black;
-    filter: brightness(1.4);
+  @media (min-width: $breakpoint-mobile) {
+    margin: auto 0.5rem
   }
 }
 
-.firstRow {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: none;
+.addNewIngredientButton {
+  background-color: rgba(0, 150, 0, 0.2);
 }
 
-.lastRow {
-  &:not(:first-child) {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
+.addNewIngredientHeadingButton {
+  background-color: rgba(150, 150, 0, 0.2);
+}
+
+.addNewIngredientRowButton {
+  width: 100%;
+  border: 1px dashed black;
+  text-align: center;
+  padding: 0.75rem 0;
+  cursor: pointer;
+  transition: border 300ms, filter 300ms;
+
+  &:first-child {
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+    border-right: none !important;
+  }
+
+  &:last-child {
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit;
+    border-left: none !important;
+  }
+}
+
+.addButtonsDivider {
+  min-height: 100%;
+  min-width: 1px;
+  background-color: black;
+}
+
+.addButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+
+  &:first-child > button {
+    border-top: 1px dashed black;
+
+    &:hover {
+      border-top: 1px solid black;
+    }
+  }
+
+  > button {
     border-top: none;
+
+    &:hover {
+      border: 1px solid black;
+      border-top: none;
+      filter: brightness(1.4);
+    }
   }
 }
 

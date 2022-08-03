@@ -75,19 +75,16 @@ const CreateIngredientsTable = ({
     setIngredients(newIngredients);
   };
 
-  const addIngredientToBeginning = () => {
-    setIngredients([
-      { name: "", number: 0, unit: "", amount: 0 },
-      ...ingredients.map((i) => {
-        return { ...i, number: i.number + 1 };
-      }),
-    ]);
-  };
-
-  const addIngredientToEnd = () => {
+  const addIngredientToEnd = (isHeading: boolean) => {
     setIngredients([
       ...ingredients,
-      { name: "", number: ingredients.length, unit: "", amount: undefined },
+      {
+        name: "",
+        number: ingredients.length,
+        unit: "",
+        amount: undefined,
+        isHeading: isHeading,
+      },
     ]);
   };
 
@@ -96,59 +93,59 @@ const CreateIngredientsTable = ({
       <h3>{t.recipe.ingredients}</h3>
       <div className={styles.ingredientRowsContainer}>
         {ingredients.length > 0 && (
-          <>
-            <button
-              className={`${styles.addNewIngredientRow} ${styles.firstRow}`}
-              onClick={addIngredientToBeginning}
-              type="button"
-            >
-              {t.recipe.addNewIngredient}
-            </button>
-            <div className={styles.ingredientRows}>
-              {ingredients.map((ingredient, index) => {
-                return (
-                  <CreateIngredient
-                    key={index}
-                    index={index}
-                    ingredient={ingredient}
-                    updateIngredient={(
-                      updatedIngredient: EditableIngredient
-                    ) => {
-                      setIngredients(
-                        ingredients.map((i) => {
-                          if (i.number === ingredient.number) {
-                            return updatedIngredient;
-                          }
-                          return i;
-                        })
-                      );
-                    }}
-                    totalIngredients={ingredients.length}
-                    deleteIngredient={() => {
-                      deleteIngredient(ingredient.number);
-                    }}
-                    changeIngredientPosition={(up: boolean) =>
-                      changeIngredientPosition(ingredient.number, up)
-                    }
-                  />
-                );
-              })}
-            </div>
-          </>
+          <div className={styles.ingredientRows}>
+            {ingredients.map((ingredient, index) => {
+              return (
+                <CreateIngredientRow
+                  key={index}
+                  index={index}
+                  ingredient={ingredient}
+                  updateIngredient={(updatedIngredient: EditableIngredient) => {
+                    setIngredients(
+                      ingredients.map((i) => {
+                        if (i.number === ingredient.number) {
+                          return updatedIngredient;
+                          index;
+                        }
+                        return i;
+                      })
+                    );
+                  }}
+                  totalIngredients={ingredients.length}
+                  deleteIngredient={() => {
+                    deleteIngredient(ingredient.number);
+                  }}
+                  changeIngredientPosition={(up: boolean) =>
+                    changeIngredientPosition(ingredient.number, up)
+                  }
+                />
+              );
+            })}
+          </div>
         )}
-        <button
-          className={`${styles.addNewIngredientRow} ${styles.lastRow}`}
-          onClick={addIngredientToEnd}
-          type="button"
-        >
-          {t.recipe.addNewIngredient}
-        </button>
+        <div className={styles.addButtonsContainer}>
+          <button
+            className={`${styles.addNewIngredientRowButton} ${styles.addNewIngredientHeadingButton}`}
+            onClick={() => addIngredientToEnd(true)}
+            type="button"
+          >
+            {t.recipe.addNewHeading}
+          </button>
+          <div className={styles.addButtonsDivider} />
+          <button
+            className={`${styles.addNewIngredientRowButton} ${styles.addNewIngredientButton}`}
+            onClick={() => addIngredientToEnd(false)}
+            type="button"
+          >
+            {t.recipe.addNewIngredient}
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-interface CreateIngredientProps {
+interface CreateIngredientRowProps {
   index: number;
   ingredient: EditableIngredient;
   updateIngredient: (ingredient: EditableIngredient) => void;
@@ -157,23 +154,14 @@ interface CreateIngredientProps {
   totalIngredients: number;
 }
 
-const CreateIngredient = ({
+const CreateIngredientRow = ({
   index,
   ingredient,
   updateIngredient,
   deleteIngredient,
   changeIngredientPosition,
   totalIngredients,
-}: CreateIngredientProps) => {
-  const { t } = useTranslations();
-
-  const ingredientId = generateIngredientId(ingredient.number);
-  const amountId = generateAmountId(ingredient.number);
-  const unitId = generateUnitId(ingredient.number);
-
-  const amountElemRef = useRef<HTMLInputElement | null>(null);
-  const unitElemRef = useRef<HTMLInputElement | null>(null);
-
+}: CreateIngredientRowProps) => {
   const [isFirstRow, setIsFirstRow] = useState(false);
   const [isLastRow, setIsLastRow] = useState(false);
 
@@ -183,7 +171,12 @@ const CreateIngredient = ({
   }, [ingredient.number, totalIngredients]);
 
   return (
-    <div className={styles.createIngredientContainer} key={index}>
+    <div
+      className={`${styles.createIngredientContainer} ${
+        ingredient.isHeading ? styles.headingRow : ""
+      }`}
+      key={index}
+    >
       <div className={styles.upDownButtonGroup}>
         <IconButton
           className={styles.deleteIngredientButton}
@@ -204,6 +197,79 @@ const CreateIngredient = ({
           disabled={isLastRow}
         />
       </div>
+      <div>
+        {ingredient.isHeading ? (
+          <CreateHeading
+            ingredient={ingredient}
+            updateIngredient={updateIngredient}
+          />
+        ) : (
+          <CreateIngredient
+            ingredient={ingredient}
+            updateIngredient={updateIngredient}
+          />
+        )}
+      </div>
+      <IconButton
+        variant="secondary"
+        size="small"
+        icon={faMinus}
+        type="button"
+        onClick={deleteIngredient}
+        className={styles.deleteIngredientButton}
+      />
+    </div>
+  );
+};
+
+interface CreateIngredientProps {
+  ingredient: EditableIngredient;
+  updateIngredient: (ingredient: EditableIngredient) => void;
+}
+
+const CreateHeading = ({
+  ingredient,
+  updateIngredient,
+}: CreateIngredientProps) => {
+  const { t } = useTranslations();
+
+  const ingredientId = generateIngredientId(ingredient.number);
+
+  return (
+    <div>
+      <label htmlFor={ingredientId}>{t.recipe.heading}</label>
+      <TextField
+        id={ingredientId}
+        name={ingredientId}
+        onChange={(e) => {
+          updateIngredient({
+            ...ingredient,
+            name: e.target.value,
+          });
+        }}
+        value={ingredient.name}
+        placeholder={t.recipe.heading}
+        required
+      />
+    </div>
+  );
+};
+
+const CreateIngredient = ({
+  ingredient,
+  updateIngredient,
+}: CreateIngredientProps) => {
+  const { t } = useTranslations();
+
+  const ingredientId = generateIngredientId(ingredient.number);
+  const amountId = generateAmountId(ingredient.number);
+  const unitId = generateUnitId(ingredient.number);
+
+  const amountElemRef = useRef<HTMLInputElement | null>(null);
+  const unitElemRef = useRef<HTMLInputElement | null>(null);
+
+  return (
+    <div className={styles.createIngredientsRowContainer}>
       <div>
         <label htmlFor={amountId}>{t.recipe.ingredientAmount}</label>
         <TextField
@@ -290,14 +356,6 @@ const CreateIngredient = ({
           required
         />
       </div>
-      <IconButton
-        variant="secondary"
-        size="small"
-        icon={faMinus}
-        type="button"
-        onClick={deleteIngredient}
-        className={styles.deleteIngredientButton}
-      />
     </div>
   );
 };
