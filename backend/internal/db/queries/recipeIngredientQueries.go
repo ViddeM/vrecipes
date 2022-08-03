@@ -7,7 +7,7 @@ import (
 )
 
 var getIngredientsForRecipeQuery = `
-SELECT id, recipe_id, ingredient_name, unit_name, amount, number 
+SELECT id, recipe_id, ingredient_name, unit_name, amount, number, is_heading
 FROM recipe_ingredient 
 WHERE recipe_id=$1
 ORDER BY number
@@ -22,7 +22,7 @@ func GetIngredientsForRecipe(recipeId uuid.UUID) ([]*tables.RecipeIngredient, er
 }
 
 var getRecipeIngredientByIdQuery = `
-SELECT id, recipe_id, ingredient_name, unit_name, amount, number 
+SELECT id, recipe_id, ingredient_name, unit_name, amount, number, is_heading
 FROM recipe_ingredient 
 WHERE id=$1`
 

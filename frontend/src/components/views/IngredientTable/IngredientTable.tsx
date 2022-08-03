@@ -22,16 +22,26 @@ export const IngredientTable = ({ ingredients }: IngredientTableProps) => {
         <tbody>
           {ingredients.map((ingredient, index) => (
             <tr key={index}>
-              <td
-                className={`${styles.ingredientNameContainer} ${styles.ingredientRowElement}`}
-              >
-                <p className="alignLeft">{ingredient.name}</p>
-              </td>
-              <td className={styles.ingredientRowElement}>
-                <p className="alignRight">
-                  {getIngredientAmountUnit(ingredient)}
-                </p>
-              </td>
+              {ingredient.isHeading ? (
+                <td colSpan={2}>
+                  <h3 className={styles.ingredientHeading}>
+                    {ingredient.name}
+                  </h3>{" "}
+                </td>
+              ) : (
+                <>
+                  <td
+                    className={`${styles.ingredientNameContainer} ${styles.ingredientRowElement}`}
+                  >
+                    <p className="alignLeft">{ingredient.name}</p>
+                  </td>
+                  <td className={styles.ingredientRowElement}>
+                    <p className="alignRight">
+                      {getIngredientAmountUnit(ingredient)}
+                    </p>
+                  </td>
+                </>
+              )}
             </tr>
           ))}
         </tbody>

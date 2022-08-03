@@ -3,6 +3,7 @@ export interface Ingredient {
   unit: string;
   amount: number;
   number: number;
+  isHeading: boolean;
 }
 
 export interface EditableIngredient {
@@ -10,6 +11,7 @@ export interface EditableIngredient {
   unit: string;
   amount: number | undefined;
   number: number;
+  isHeading: boolean;
 }
 
 export function ingredientsToEditable(

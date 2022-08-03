@@ -87,10 +87,11 @@ func RecipeIngredientsToJson(ingredients []*tables.RecipeIngredient) []models.Re
 	for _, ingredient := range ingredients {
 		recipeIngredientJsons = append(
 			recipeIngredientJsons, models.RecipeIngredientJson{
-				Name:   ingredient.IngredientName,
-				Unit:   ingredient.UnitName,
-				Amount: ingredient.Amount,
-				Number: ingredient.Number,
+				Name:      ingredient.IngredientName,
+				Unit:      ingredient.UnitName,
+				Amount:    ingredient.Amount,
+				Number:    ingredient.Number,
+				IsHeading: ingredient.IsHeading,
 			},
 		)
 	}
