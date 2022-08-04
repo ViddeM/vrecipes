@@ -6,7 +6,7 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
-var getStepsForRecipeQuery = `SELECT recipe_id, number, step FROM recipe_step WHERE recipe_id=$1`
+var getStepsForRecipeQuery = `SELECT recipe_id, number, step, is_heading FROM recipe_step WHERE recipe_id=$1`
 
 func GetStepsForRecipe(recipeId uuid.UUID) ([]*tables.RecipeStep, error) {
 	db := getDb()

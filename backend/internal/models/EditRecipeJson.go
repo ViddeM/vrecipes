@@ -20,10 +20,11 @@ type EditRecipeJson struct {
 type EditRecipeStepJson struct {
 	Number      uint16 `json:"number" validate:"required"`
 	Description string `json:"description" validate:"required"`
+	IsHeading   bool   `json:"isHeading" validate:"required"`
 }
 
 func (step *EditRecipeStepJson) SameAs(other *tables.RecipeStep) bool {
-	return step.Number == other.Number && step.Description == other.Step
+	return step.Number == other.Number && step.Description == other.Step && step.IsHeading == other.IsHeading
 }
 
 type EditRecipeIngredientJson struct {

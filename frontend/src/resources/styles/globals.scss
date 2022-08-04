@@ -119,6 +119,7 @@ h3 {
 h6 {
   font-size: 18px;
   font-weight: 600;
+  margin: 0;
 }
 
 p {
@@ -191,4 +192,8 @@ a {
 .centerText {
   width: 100%;
   text-align: center;
+}
+
+.bold {
+  font-weight: bold;
 }

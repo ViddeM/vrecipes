@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Api } from "../../api/Api";
 import { EDIT_RECIPE_BASE_ENDPOINT, ROOT_ENDPOINT } from "../../api/Endpoints";
 import { Recipe } from "../../api/Recipe";
+import { Step } from "../../api/Step";
 import { Button, IconButton } from "../../components/elements/Buttons/Buttons";
 import ErrorCard from "../../components/elements/ErrorCard";
 import { ImageComponent } from "../../components/elements/ImageComponent/ImageComponent";
@@ -38,6 +39,23 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
   if (!recipe) {
     return <Loading />;
   }
+
+  // Calculate the step number such that each heading has its own numbering.
+  let countSinceLastHeader = 0;
+  const numberedSteps: (Step & { displayNumber?: number })[] = recipe.steps.map(
+    (step) => {
+      if (step.isHeading) {
+        countSinceLastHeader = 0;
+        return step;
+      } else {
+        countSinceLastHeader += 1;
+        return {
+          ...step,
+          displayNumber: countSinceLastHeader,
+        };
+      }
+    }
+  );
 
   const image = recipe.images.length > 0 ? recipe.images[0].url : undefined;
 
@@ -96,19 +114,25 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
           </div>
         )}
 
-        {recipe.steps.length > 0 && (
+        {numberedSteps.length > 0 && (
           <div className={`${styles.column} ${styles.alignLeft}`}>
             <h3>{t.recipe.steps}</h3>
             <div className={styles.recipeDivider} />
             <div style={{ width: "100%" }}>
-              {recipe.steps.map((step) => (
+              {numberedSteps.map((step) => (
                 <div key={step.number}>
                   <div className={styles.stepSpace} />
                   <div className={styles.stepRow}>
-                    <p className="marginRight">{`${step.number + 1}. `}</p>
-                    <p className={`preserveWhitespace ${styles.longText}`}>
-                      {step.description}
-                    </p>
+                    {step.isHeading ? (
+                      <h6>{step.description}</h6>
+                    ) : (
+                      <>
+                        <p className="marginRight">{`${step.displayNumber}. `}</p>
+                        <p className={`preserveWhitespace ${styles.longText}`}>
+                          {step.description}
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
               ))}

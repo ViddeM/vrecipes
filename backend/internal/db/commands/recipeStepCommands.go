@@ -7,15 +7,16 @@ import (
 )
 
 var createRecipeStepCommand = `
-INSERT INTO recipe_step(recipe_id, number, step)
-VALUES 				   ($1, 	   $2, 	   $3)
-RETURNING recipe_id, number, step
+INSERT INTO recipe_step(recipe_id, number, step, is_heading)
+VALUES 				   ($1, 	   $2, 	   $3,   $4)
+RETURNING recipe_id, number, step, is_heading
 `
 
 func CreateRecipeStep(
 	recipeId uuid.UUID,
 	number uint16,
 	step string,
+	isHeading bool,
 ) (*tables.RecipeStep, error) {
 	db := getDb()
 
@@ -28,20 +29,22 @@ func CreateRecipeStep(
 		recipeId,
 		number,
 		step,
+		isHeading,
 	)
 	return &recipeStep, err
 }
 
 var updateRecipeStepCommand = `
 UPDATE recipe_step
-SET	step=$1
-WHERE recipe_id=$2 AND number=$3
+SET	step=$1, 
+	is_heading=$2
+WHERE recipe_id=$3 AND number=$4
 `
 
-func UpdateRecipeStep(step string, recipeId uuid.UUID, number uint16) error {
+func UpdateRecipeStep(step string, recipeId uuid.UUID, number uint16, isHeading bool) error {
 	db := getDb()
 
-	_, err := db.Exec(ctx, updateRecipeStepCommand, step, recipeId, number)
+	_, err := db.Exec(ctx, updateRecipeStepCommand, step, isHeading, recipeId, number)
 	return err
 }
 

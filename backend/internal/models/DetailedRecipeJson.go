@@ -22,6 +22,7 @@ type DetailedRecipeJson struct {
 type RecipeStepJson struct {
 	Number      uint16 `json:"number"`
 	Description string `json:"description"`
+	IsHeading   bool   `json:"isHeading"`
 }
 
 type RecipeIngredientJson struct {
