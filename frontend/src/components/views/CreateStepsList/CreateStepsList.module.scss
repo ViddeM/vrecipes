@@ -31,3 +31,39 @@
 .stepTextArea {
   min-height: 6rem;
 }
+
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: $space;
+  height: 2rem;
+  width: 300px;
+  border: 1px solid black;
+  border-radius: $border-radius;
+
+  button {
+    border: none;
+    flex: 1;
+    transition: filter 300ms;
+
+    &:hover {
+      filter: brightness(1.8);
+      cursor: pointer;
+    }
+
+    &:first-child {
+      background-color: rgba(100, 100, 0, 0.2);
+    }
+
+    &:last-child {
+      background-color: rgba(0, 100, 0, 0.2);
+    }
+  }
+
+  div {
+    width: 1px;
+    background-color: black;
+  }
+}

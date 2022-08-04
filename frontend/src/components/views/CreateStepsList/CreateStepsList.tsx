@@ -2,13 +2,12 @@ import {
   faArrowDown,
   faArrowUp,
   faMinus,
-  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Step } from "../../../api/Step";
 import { useTranslations } from "../../../hooks/useTranslations";
 import { IconButton } from "../../elements/Buttons/Buttons";
-import { TextArea } from "../../elements/TextField/TextField";
+import TextField, { TextArea } from "../../elements/TextField/TextField";
 
 import styles from "./CreateStepsList.module.scss";
 
@@ -82,6 +81,7 @@ const CreateStepsList = ({ steps, setSteps }: CreateStepsListProps) => {
                 changeStepPosition={(up) => changeStepPosition(step.number, up)}
                 deleteStep={() => deleteStep(step.number)}
                 step={step}
+                totalNumberOfSteps={steps.length}
                 updateStep={(updatedStep: Step) => {
                   setSteps(
                     steps.map((s) => {
@@ -98,17 +98,31 @@ const CreateStepsList = ({ steps, setSteps }: CreateStepsListProps) => {
         </div>
       )}
 
-      <IconButton
-        icon={faPlus}
-        className="marginTop"
-        variant="primary"
-        type="button"
-        size="small"
-        iconColor={"white"}
-        onClick={() => {
-          setSteps([...steps, { number: steps.length, description: "" }]);
-        }}
-      />
+      <div className={styles.buttonGroup}>
+        <button
+          type="button"
+          onClick={() => {
+            setSteps([
+              ...steps,
+              { number: steps.length, description: "", isHeading: true },
+            ]);
+          }}
+        >
+          {t.recipe.addNewHeading}
+        </button>
+        <div />
+        <button
+          type="button"
+          onClick={() => {
+            setSteps([
+              ...steps,
+              { number: steps.length, description: "", isHeading: false },
+            ]);
+          }}
+        >
+          {t.recipe.addNewStep}
+        </button>
+      </div>
     </div>
   );
 };
@@ -118,6 +132,7 @@ interface CreateStepProps {
   updateStep: (step: Step) => void;
   deleteStep: () => void;
   changeStepPosition: (up: boolean) => void;
+  totalNumberOfSteps: number;
 }
 
 const CreateStep = ({
@@ -125,6 +140,7 @@ const CreateStep = ({
   updateStep,
   deleteStep,
   changeStepPosition,
+  totalNumberOfSteps,
 }: CreateStepProps) => {
   const { t } = useTranslations();
 
@@ -139,7 +155,7 @@ const CreateStep = ({
           icon={faArrowUp}
           type="button"
           onClick={() => changeStepPosition(true)}
-          disabled={false} /* TODO */
+          disabled={step.number === 0}
         />
         <p className={styles.stepNumber}>{`${step.number + 1}`}</p>
         <IconButton
@@ -149,23 +165,44 @@ const CreateStep = ({
           icon={faArrowDown}
           type="button"
           onClick={() => changeStepPosition(false)}
-          disabled={false} /* TODO */
+          disabled={step.number === totalNumberOfSteps - 1}
         />
       </div>
       <div className={styles.stepTextAreaContainer}>
-        <label htmlFor={stepId}>{t.recipe.description}</label>
-        <TextArea
-          id={stepId}
-          name={stepId}
-          placeholder={t.recipe.description}
-          value={step.description}
-          onChange={(e) => {
-            updateStep({ ...step, description: e.target.value });
-          }}
-          maxLength={1000}
-          required
-          textAreaClassName={styles.stepTextArea}
-        />
+        {step.isHeading ? (
+          <>
+            <label htmlFor={stepId} className="bold">
+              {t.recipe.heading}
+            </label>
+            <TextField
+              id={stepId}
+              name={stepId}
+              placeholder={t.recipe.heading}
+              value={step.description}
+              onChange={(e) => {
+                updateStep({ ...step, description: e.target.value });
+              }}
+              maxLength={100}
+              required
+            />
+          </>
+        ) : (
+          <>
+            <label htmlFor={stepId}>{t.recipe.description}</label>
+            <TextArea
+              id={stepId}
+              name={stepId}
+              placeholder={t.recipe.description}
+              value={step.description}
+              onChange={(e) => {
+                updateStep({ ...step, description: e.target.value });
+              }}
+              maxLength={1000}
+              required
+              textAreaClassName={styles.stepTextArea}
+            />
+          </>
+        )}
       </div>
       <IconButton
         variant="secondary"

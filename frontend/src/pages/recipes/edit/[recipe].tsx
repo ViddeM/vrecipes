@@ -77,7 +77,9 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   const [ingredients, setIngredients] = useState<EditableIngredient[]>(
     recipe ? ingredientsToEditable(recipe.ingredients) : []
   );
-  const [steps, setSteps] = useState<Step[]>(recipe ? recipe.steps : []);
+  const [steps, setSteps] = useState<Step[]>(
+    recipe ? recipe.steps.sort((a, b) => a.number - b.number) : []
+  );
   const [images, setImages] = useState<Image[]>(recipe ? recipe.images : []);
   const [imageUploadInProgress, setImageUploadInProgress] =
     useState<boolean>(false);

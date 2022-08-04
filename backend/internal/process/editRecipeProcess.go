@@ -91,7 +91,7 @@ func updateRecipeSteps(id uuid.UUID, steps []models.EditRecipeStepJson) error {
 		oldStep := getStepWithNumber(step.Number, oldSteps)
 		if oldStep == nil {
 			// There is no oldStep with the same number, add it
-			_, err = CreateRecipeStep(step.Description, step.Number, id)
+			_, err = CreateRecipeStep(step.Description, step.Number, id, step.IsHeading)
 
 			if err != nil {
 				return err
@@ -102,6 +102,7 @@ func updateRecipeSteps(id uuid.UUID, steps []models.EditRecipeStepJson) error {
 				step.Description,
 				oldStep.RecipeID,
 				oldStep.Number,
+				step.IsHeading,
 			)
 
 			if err != nil {
@@ -378,8 +379,9 @@ func CreateRecipeStep(
 	step string,
 	number uint16,
 	recipeId uuid.UUID,
+	isHeading bool,
 ) (*tables.RecipeStep, error) {
-	recipeStep, err := commands.CreateRecipeStep(recipeId, number, step)
+	recipeStep, err := commands.CreateRecipeStep(recipeId, number, step, isHeading)
 	return recipeStep, err
 }
 

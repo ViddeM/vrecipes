@@ -76,6 +76,7 @@ func RecipeStepsToJson(steps []*tables.RecipeStep) []models.RecipeStepJson {
 			recipeStepJsons, models.RecipeStepJson{
 				Number:      step.Number,
 				Description: step.Step,
+				IsHeading:   step.IsHeading,
 			},
 		)
 	}
