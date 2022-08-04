@@ -71,7 +71,6 @@ func Init() {
 		}
 	}
 
-	setupDb()
 	log.Println("Initialized database connection")
 }
 
