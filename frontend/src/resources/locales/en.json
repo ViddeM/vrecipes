@@ -118,6 +118,7 @@
   },
   "errors": {
     "default": "An unknown error has occured",
+    "failedToConnectToBackend": "Failed to connect to the server, please try again later",
     "unauthorized": "You need to be logged in to perform this action",
     "recipe_name_exists": "A recipe with that name already exists",
     "failed_to_create_recipe": "Failed to create recipe",

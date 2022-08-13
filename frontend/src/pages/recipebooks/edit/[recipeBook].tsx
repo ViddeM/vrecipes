@@ -40,7 +40,7 @@ const EditRecipeBook = ({
   recipes,
 }: EditRecipeBookProps) => {
   const { t, translate } = useTranslations();
-  const { isLoggedIn, me, initialized } = useMe();
+  const { isLoggedIn, me } = useMe();
   const router = useRouter();
 
   /* Keep track of the different parts of the state */
@@ -82,7 +82,7 @@ const EditRecipeBook = ({
     return <Loading />;
   }
 
-  if (!isLoggedIn && isClientSide() && initialized) {
+  if (!isLoggedIn && isClientSide()) {
     router.push(LOGIN_ENDPOINT);
   }
 

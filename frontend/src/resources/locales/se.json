@@ -118,6 +118,7 @@
   },
   "errors": {
     "default": "Ett okänt fel har inträffat",
+    "failedToConnectToBackend": "Ingen kontakt med servern, var god försök igen senare",
     "unauthorized": "Du behöver vara inloggad för att göra detta",
     "recipe_name_exists": "Ett recept med det namnet finns redan",
     "failed_to_create_recipe": "Misslyckades med att skapa recept",
