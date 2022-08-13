@@ -53,7 +53,7 @@ const RECIPE_DESCRIPTION = "recipe_description";
 
 const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   const { t, translate } = useTranslations();
-  const { isLoggedIn, me, initialized } = useMe();
+  const { isLoggedIn, me } = useMe();
   const router = useRouter();
 
   /* Keep track of the different parts of the state */
@@ -125,7 +125,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
     return <Loading />;
   }
 
-  if (!isLoggedIn && isClientSide() && initialized) {
+  if (!isLoggedIn && isClientSide()) {
     router.push(LOGIN_ENDPOINT);
   }
 

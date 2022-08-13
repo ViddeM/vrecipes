@@ -4,15 +4,18 @@ import "../resources/styles/deja_vu_sans.scss";
 // import Font Awesome CSS
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
-import type { AppProps } from "next/app";
+import type { AppContext, AppProps } from "next/app";
+import App from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { Api } from "../api/Api";
 import { Me } from "../api/Me";
+import ErrorCard from "../components/elements/ErrorCard";
+import ErrorHeader from "../components/views/ErrorHeader/ErrorHeader";
 import Footer from "../components/views/Footer/Footer";
 import Header from "../components/views/Header/Header";
 import Modal, { ModalProps, trapTabKey } from "../components/views/Modal/Modal";
@@ -29,28 +32,24 @@ import {
 // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 config.autoAddCss = false;
 
-function MyApp({ Component, pageProps }: AppProps) {
+type MyAppProps = AppProps & {
+  me?: Me;
+  failedToReachBackend?: boolean;
+  error?: boolean;
+};
+
+function MyApp({
+  Component,
+  pageProps,
+  me,
+  failedToReachBackend,
+  error,
+}: MyAppProps) {
   const { locale } = useRouter();
   let translationLocale: Locale = defaultLocale;
   if (locale && isLocale(locale)) {
     translationLocale = locale;
   }
-
-  const [me, setMe] = useState<Me | undefined>(undefined);
-  const [initializedMe, setInitializedMe] = useState<boolean>(false);
-
-  useEffect(() => {
-    Api.user
-      .getMe()
-      .then((response) => {
-        if (response.data) {
-          setMe(response.data);
-        }
-      })
-      .finally(() => {
-        setInitializedMe(true);
-      });
-  }, []);
 
   const [modalProps, setModalProps] = useState<ModalProps | undefined>(
     undefined
@@ -58,7 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <TranslationContext.Provider value={loadLocale(translationLocale)}>
-      <AuthContext.Provider value={{ me: me, initialized: initializedMe }}>
+      <AuthContext.Provider value={{ me: me }}>
         <ModalContext.Provider
           value={{
             openModal: (props) =>
@@ -76,9 +75,14 @@ function MyApp({ Component, pageProps }: AppProps) {
             aria-hidden={modalProps ? "true" : undefined}
             className="fullHeight"
           >
+            {failedToReachBackend && <ErrorHeader />}
             <Header />
             <div className="fill">
-              <Component {...pageProps} />
+              {error ? (
+                <ErrorCard error={"errors.default"} />
+              ) : (
+                <Component {...pageProps} />
+              )}
             </div>
             <Footer />
           </div>
@@ -87,6 +91,31 @@ function MyApp({ Component, pageProps }: AppProps) {
     </TranslationContext.Provider>
   );
 }
+
+MyApp.getInitialProps = async (appContext: AppContext) => {
+  const ret = await App.getInitialProps(appContext);
+
+  const meResponse = await Api.user.getMe();
+  if (meResponse.failedToReachBackend) {
+    return {
+      ...ret,
+      failedToReachBackend: meResponse.failedToReachBackend,
+      error: true,
+    };
+  }
+
+  if (!meResponse.error) {
+    // Since we do not require our users to be authorized we don't care if the me request fails.
+    return {
+      ...ret,
+      me: meResponse.data,
+    };
+  }
+
+  return {
+    ...ret,
+  };
+};
 
 // TODO: Move this to Modal.tsx
 function handleOpenModalProps(

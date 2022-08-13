@@ -183,10 +183,20 @@ export const Api = {
 };
 
 export interface ApiResponse<T> {
+  // The path to the error translation
   errorTranslationString?: string;
+  // True if the response was an error or an error occurred whilst making the request
   error?: boolean;
+  // The response data
   data?: T;
+  // The raw response (generally shouldn't be necessary to use this),
+  // mainly useful if the status code is of interest (e.g. 404)
   rawResponse: AxiosResponse<RawApiResponse<T>>;
+  // Contains the redirect url if one was returned by the server,
+  // only relevant for requests to authorized endpoints made from a server-side context.
+  redirect?: string;
+  // True if there was a problem communicating with the server (should be handled by _app)
+  failedToReachBackend?: boolean;
 }
 
 function handleResponse<T>(
@@ -216,12 +226,25 @@ function handleResponse<T>(
         console.error("Failed to commnicate with backend", err);
       }
 
+      if (err.errno === -111) {
+        return {
+          error: true,
+          failedToReachBackend: true,
+          rawResponse: err.response,
+        };
+      }
+
       if (handleAuth && err.response?.status === 401) {
         // We need to get authorized.
-        if (err.response?.headers.location) {
+        const authUrl = err.response?.headers.location ?? undefined;
+        if (authUrl) {
           // The server provided us with an authorization URL.
-          window.location.assign(err.response.headers.location);
-          return { rawResponse: err.response };
+          if (isClientSide()) {
+            window.location.assign(authUrl);
+            return { rawResponse: err.response };
+          } else {
+            return { rawResponse: err.response, redirect: authUrl };
+          }
         } else {
           error = "errors.unauthorized";
         }
