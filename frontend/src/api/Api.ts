@@ -167,6 +167,26 @@ export const Api = {
       );
     },
   },
+  favorite: {
+    getAllForUser: () => {
+      return handleResponse(
+          axios.get<RawApiResponse<{ recipeIds: string[] }>>(`${FAVORITE_SONG_ENDPOINT}s`),
+          false
+      );
+    },
+    add: (recipe: Recipe) => {
+      return handleResponse(
+          axios.post<RawApiResponse<string>>(`${FAVORITE_SONG_ENDPOINT}/${recipe.id}`),
+          true
+      );
+    },
+    remove: (recipe: Recipe) => {
+      return handleResponse(
+          axios.delete<RawApiResponse<string>>(`${FAVORITE_SONG_ENDPOINT}/${recipe.id}`),
+          true
+      );
+    },
+  },
   images: {
     formatImageUrl: (imageUrl: string): string => {
       return `${imageBaseUrl}${IMAGE_BASE_ENDPOINT}/${imageUrl}`;
@@ -249,3 +269,7 @@ function handleError<T>(data: RawApiResponse<T>): string {
 export function isClientSide(): boolean {
   return typeof document !== "undefined";
 }
+function FAVORITE_SONG_ENDPOINT<T>(FAVORITE_SONG_ENDPOINT: any): Promise<AxiosResponse<RawApiResponse<{ recipeIds: string[]; }>, any>> {
+    throw new Error("Function not implemented.");
+}
+

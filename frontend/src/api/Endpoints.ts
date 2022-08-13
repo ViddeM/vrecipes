@@ -11,3 +11,4 @@ export const TAGS_BASE_ENDPOINT = "/tags";
 export const RECIPE_BOOKS_BASE_ENDPOINT = "/recipebooks";
 export const CREATE_RECIPE_BOOK_ENDPOINT = "/recipebooks/create";
 export const EDIT_RECIPE_BOOK_BASE_ENDPOINT = "/recipebooks/edit";
+export const FAVORITE_SONG_ENDPOINT = "/me/favorite";

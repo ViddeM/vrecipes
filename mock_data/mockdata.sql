@@ -113,9 +113,3 @@ VALUES                          ('133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b', '828adc
                                 ('ff9373ea-c5d1-4d05-a299-e0856833131d', '63fb8fd4-cf5b-4384-8c57-aae06d57cd6e'),
                                 ('dfed936b-8e2a-458c-a2d7-1c13c14079d6', '63fb8fd4-cf5b-4384-8c57-aae06d57cd6e');
 
--- Add a recipe to mock users favorites
-INSERT INTO favorite_recipe (recipe_id, user_id)
-VALUES                      ('1e538581-9e9a-4da7-80f6-3127f246c17f', '7cc2fc04-7379-4361-9f4e-079054933d2f'),
-                            ('133cdcc3-5b5b-440e-95f5-0d5dd4f8f78b', '7cc2fc04-7379-4361-9f4e-079054933d2f'),
-                            ('828adce0-a887-41ce-afdf-5c0bc7124252', '7cc2fc04-7379-4361-9f4e-079054933d2f');
-
