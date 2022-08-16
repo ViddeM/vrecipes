@@ -1,0 +1,3 @@
+ALTER TABLE recipe
+    ADD COLUMN
+        portions INTEGER NOT NULL DEFAULT 0;
