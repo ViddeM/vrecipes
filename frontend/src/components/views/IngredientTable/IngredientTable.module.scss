@@ -6,6 +6,16 @@
   margin-bottom: 20px;
 }
 
+.ingredientTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.portionForm {
+  width: 128px;
+}
+
 .ingredientTable {
   width: 100%;
   border: 1px solid gray;
