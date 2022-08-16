@@ -50,6 +50,7 @@ const RECIPE_NAME = "recipe_name";
 const RECIPE_OVEN_TEMPERATURE = "recipe_oven_temperature";
 const RECIPE_COOKING_TIME = "recipe_cooking_time";
 const RECIPE_DESCRIPTION = "recipe_description";
+const RECIPE_PORTIONS = "recipe_portions";
 
 const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   const { t, translate } = useTranslations();
@@ -69,6 +70,9 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
     recipe?.ovenTemperature && recipe.ovenTemperature > 0
       ? recipe?.ovenTemperature
       : undefined
+  );
+  const [portions, setPortions] = useState(
+    recipe?.portions && recipe.portions > 0 ? recipe?.portions : undefined
   );
   const [description, setDescription] = useState(
     recipe ? recipe.description : ""
@@ -90,11 +94,14 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
     (cookingTime !== undefined ? cookingTime : 0) === recipe?.estimatedTime;
   const tempSame =
     (ovenTemp !== undefined ? ovenTemp : 0) === recipe?.ovenTemperature;
+  const portionsSame =
+    (portions !== undefined ? portions : 0) === recipe?.portions;
 
   const unsavedChanges =
     name !== recipe?.name ||
     !cookingTimeSame ||
     !tempSame ||
+    !portionsSame ||
     description !== recipe?.description ||
     !ingredientsSame(ingredients, ingredientsToEditable(recipe?.ingredients)) ||
     recipe.tags.length !==
@@ -144,13 +151,13 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
       description: description,
       ovenTemperature: ovenTemp ? ovenTemp : 0,
       estimatedTime: cookingTime ? cookingTime : 0,
+      portions: portions ? portions : 0,
       ingredients: ingredientsFromEditable(ingredients),
       steps: steps,
       images: images,
       author: recipe.author,
       tags: selectedTags.map((t) => t.id),
     };
-
     Api.recipes.edit(newRecipe).then((response: ApiResponse<UniqueName>) => {
       if (response.error && response.errorTranslationString) {
         setError(translate(response.errorTranslationString));
@@ -241,6 +248,27 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
               postfixText={t.recipe.degrees}
             />
           </div>
+        </div>
+
+        {/* Portions */}
+        <div className={styles.formRow}>
+          <label htmlFor={RECIPE_PORTIONS} className={styles.formLabel}>
+            {t.recipe.portions}
+          </label>
+          <TextField
+            name={RECIPE_PORTIONS}
+            id={RECIPE_PORTIONS}
+            placeholder={t.recipe.portions}
+            value={portions}
+            onChange={(e) => {
+              const number = parseInt(e.target.value);
+              setPortions(number);
+            }}
+            type="number"
+            min={0}
+            max={999}
+            postfixText={t.recipe.portionsSmall}
+          />
         </div>
 
         {/* Description */}
