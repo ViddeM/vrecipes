@@ -15,6 +15,7 @@ type EditRecipeJson struct {
 	Ingredients     []EditRecipeIngredientJson `json:"ingredients" binding:"required,dive,required"`
 	Images          []EditRecipeImageJson      `json:"images" binding:"required,dive,required"`
 	Tags            []uuid.UUID                `json:"tags" binding:"required"`
+	Portions        int                        `json:"portions"`
 }
 
 type EditRecipeStepJson struct {
