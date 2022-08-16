@@ -11,6 +11,7 @@ type Recipe struct {
 	EstimatedTime int
 	Deleted       bool
 	CreatedBy     uuid.UUID
+	Portions      int
 }
 
 func (_ Recipe) StructName() string {

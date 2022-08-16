@@ -66,6 +66,7 @@ func GetRecipe(uniqueName string) (*models.DetailedRecipeJson, error) {
 		Images:          RecipeImagesToJson(images),
 		Author:          *user,
 		Tags:            tags,
+		Portions:        recipe.Portions,
 	}, nil
 }
 
