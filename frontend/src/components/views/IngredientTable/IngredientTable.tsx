@@ -8,20 +8,22 @@ import styles from "./IngredientTable.module.scss";
 
 export type IngredientTableProps = {
   ingredients: Ingredient[];
-  portions: number;
+  portions: number | undefined;
 };
 
 export const IngredientTable = ({
   ingredients,
-  portions = 1,
+  portions,
 }: IngredientTableProps) => {
   const { t } = useTranslations();
 
-  const [scaledPortions, setScaledPortions] = useState(portions);
+  const [scaledPortions, setScaledPortions] = useState(portions ?? 1);
 
-  const ingredientScaling = isNaN(scaledPortions)
-    ? 1
-    : scaledPortions / portions;
+  const useScaling = portions !== undefined && portions > 0;
+
+  const ingredientScaling =
+    isNaN(scaledPortions) || !useScaling ? 1 : scaledPortions / portions;
+
   return (
     <div className={styles.ingredientsContainer}>
       <table className={styles.ingredientTable}>
@@ -30,19 +32,20 @@ export const IngredientTable = ({
             <th colSpan={2}>
               <div className={styles.ingredientTitle}>
                 <h3>{t.recipe.ingredients}</h3>
-                <TextField
-                  placeholder={portions.toString()}
-                  onChange={(e) =>
-                    setScaledPortions(parseFloat(e.target.value))
-                  }
-                  type={"number"}
-                  min={0}
-                  step={"any"}
-                  max={999}
-                  className={styles.portionForm}
-
-                  postfixText={t.recipe.portionsSmall}
-                />
+                {useScaling && (
+                  <TextField
+                    placeholder={portions.toString()}
+                    onChange={(e) =>
+                      setScaledPortions(parseFloat(e.target.value))
+                    }
+                    type={"number"}
+                    min={0}
+                    step={"any"}
+                    max={999}
+                    className={styles.portionForm}
+                    postfixText={t.recipe.portionsSmall}
+                  />
+                )}
               </div>
             </th>
           </tr>

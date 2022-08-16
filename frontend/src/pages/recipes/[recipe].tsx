@@ -108,7 +108,10 @@ const Recipe = ({ recipe, error }: RecipeProps) => {
 
             {recipe.ingredients.length > 0 && (
               <div className={styles.growContainer}>
-                <IngredientTable ingredients={recipe.ingredients} />
+                <IngredientTable
+                  ingredients={recipe.ingredients}
+                  portions={recipe.portions}
+                />
               </div>
             )}
           </div>
