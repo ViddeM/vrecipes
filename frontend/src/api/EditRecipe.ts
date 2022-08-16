@@ -15,4 +15,5 @@ export interface EditRecipe {
   images: Image[];
   author: Author;
   tags: string[];
+  portions: number;
 }

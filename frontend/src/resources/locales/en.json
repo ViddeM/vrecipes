@@ -37,6 +37,8 @@
     "addNewStep": "Add new step",
     "minutesShort": "min",
     "minutes": "minutes",
+    "portions": "Portions",
+    "portionsSmall": "portions",
     "createRecipe": "Create recipe",
     "createRecipeTitle": "Create Recipe",
     "recipeName": "Recipe name",
