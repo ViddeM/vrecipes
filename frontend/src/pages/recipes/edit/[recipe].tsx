@@ -267,6 +267,8 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
             type="number"
             min={0}
             max={999}
+            maxLength={120}
+            className={styles.formInputElement}
             postfixText={t.recipe.portionsSmall}
           />
         </div>
