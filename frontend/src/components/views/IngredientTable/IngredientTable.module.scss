@@ -1,3 +1,5 @@
+@import "../../../resources/styles/vars";
+
 .ingredientsContainer {
   flex: 1;
   display: flex;
@@ -14,6 +16,28 @@
 
 .portionForm {
   width: 128px;
+  border: none;
+  color: black;
+
+  &:hover,
+  &:focus-within {
+    border: none;
+  }
+
+  input {
+    margin-right: $space-tiny;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+
+    &:hover,
+    &:focus-within {
+      border: 1px solid $primary-color;
+      color: black;
+
+    }
+
+  }
+
 }
 
 .ingredientTable {
