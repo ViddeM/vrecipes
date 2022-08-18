@@ -75,6 +75,7 @@ const RecipesTable = ({
           <tr>
             <th colSpan={3}>
               <TextField
+                variant="outlined"
                 placeholder={t.recipe.searchRecipes}
                 type="search"
                 className={"marginRight marginLeft"}

@@ -34,13 +34,14 @@ export const IngredientTable = ({
                 <h3>{t.recipe.ingredients}</h3>
                 {useScaling && (
                   <TextField
-                    placeholder={portions.toString()}
+                    variant="opaque"
+                    placeholder={`(${portions.toString()})`}
                     onChange={(e) =>
                       setScaledPortions(parseFloat(e.target.value))
                     }
                     type={"number"}
                     min={0}
-                    step={"any"}
+                    step={1}
                     max={999}
                     className={styles.portionForm}
                     postfixText={t.recipe.portionsSmall}

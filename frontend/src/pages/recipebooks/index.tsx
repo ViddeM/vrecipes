@@ -64,6 +64,7 @@ const RecipeBooks = ({ recipeBooks, error }: RecipeBooksProps) => {
     <DefaultLayout>
       <div className={`${styles.searchContainer} card marginBottomBig`}>
         <TextField
+          variant="outlined"
           type="search"
           placeholder={`${t.recipeBook.searchRecipeBooks}`}
           className={`marginRight ${styles.searchField}`}

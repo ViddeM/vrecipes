@@ -8,13 +8,17 @@ import {
 
 import styles from "./TextField.module.scss";
 
+export type TextFieldVariant = {
+  variant: "outlined" | "opaque";
+};
+
 export type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   postfixText?: string;
   inputClassName?: string;
   responsive?: boolean;
   focus?: boolean;
   externalRef?: MutableRefObject<HTMLInputElement | null>;
-};
+} & TextFieldVariant;
 
 const TextField: FC<TextFieldProps> = ({
   postfixText,
@@ -24,10 +28,12 @@ const TextField: FC<TextFieldProps> = ({
   responsive,
   focus,
   externalRef,
+  variant,
   ...props
 }) => {
   const responsiveClass = responsive ? styles.responsive : "";
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const variantStyle = styles[`textfield-${variant}`];
 
   useEffect(() => {
     if (focus) {
@@ -37,10 +43,10 @@ const TextField: FC<TextFieldProps> = ({
 
   return (
     <div
-      className={`${className} ${styles.textFieldContainer} ${responsiveClass}`}
+      className={`${className} ${styles.textFieldContainer} ${responsiveClass} ${variantStyle}`}
     >
       <input
-        className={`${styles.textFieldBase} ${inputClassName} `}
+        className={`${styles.textFieldBase} ${inputClassName}`}
         {...props}
         required={required}
         ref={(node) => {

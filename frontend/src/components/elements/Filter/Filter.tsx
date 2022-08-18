@@ -121,6 +121,7 @@ const Filter = <T extends FilterObject>({
           <div className={`${styles.filterViewMenu} ${responsiveClass}`}>
             <div className={styles.grayBorderBottom}>
               <TextField
+                variant="outlined"
                 externalRef={textFieldRef}
                 id={"filter"}
                 type={"search"}

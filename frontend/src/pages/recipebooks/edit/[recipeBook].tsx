@@ -139,6 +139,7 @@ const EditRecipeBook = ({
             {t.recipeBook.recipeBookName}
           </label>
           <TextField
+            variant="outlined"
             name={RECIPE_BOOK_NAME}
             id={RECIPE_BOOK_NAME}
             placeholder={t.recipeBook.recipeBookName}
@@ -160,6 +161,7 @@ const EditRecipeBook = ({
             {t.recipeBook.author}
           </label>
           <TextField
+            variant="outlined"
             name={RECIPE_BOOK_AUTHOR}
             id={RECIPE_BOOK_AUTHOR}
             placeholder={t.recipeBook.author}

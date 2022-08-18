@@ -11,7 +11,6 @@
   :target,
   :active {
     outline: none;
-    border: none !important;
   }
 
   &::selection {
@@ -21,8 +20,6 @@
 }
 
 .textFieldContainer {
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
   background-color: white;
   padding: 3px;
   display: flex;
@@ -32,11 +29,28 @@
 
   &:hover,
   &:focus-within {
-    border: 1px solid $primary-color;
     color: black;
     outline: none;
   }
 }
+
+.textfield-outlined {
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+
+  &:hover,
+  &:focus-within {
+    border: 1px solid $primary-color;
+  }
+}
+
+.textfield-opaque {
+  & > input {
+    border-bottom: 1px solid black;
+    border-radius: 0;
+  }
+}
+
 
 .textAreaBase {
   @extend .textFieldBase;
@@ -45,6 +59,7 @@
 
 .textAreaContainer {
   @extend .textFieldContainer;
+  @extend .textfield-outlined;
 }
 
 .requiredTextField {

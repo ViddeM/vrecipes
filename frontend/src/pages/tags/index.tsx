@@ -71,6 +71,7 @@ const Tags = ({ tags, error }: TagsProps) => {
       <div className={styles.TagsPageTable}>
         <div className={styles.TagsPageToolbar}>
           <TextField
+            variant="outlined"
             focus
             type={"search"}
             placeholder={t.tag.searchTags}
