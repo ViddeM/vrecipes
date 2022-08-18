@@ -175,6 +175,7 @@ const CreateStep = ({
               {t.recipe.heading}
             </label>
             <TextField
+              variant="outlined"
               id={stepId}
               name={stepId}
               placeholder={t.recipe.heading}

@@ -39,6 +39,7 @@ const CreateRecipe = () => {
             {t.recipe.recipeName}
           </label>
           <TextField
+            variant="outlined"
             name="recipe_name"
             id="recipe_name"
             focus={true}

@@ -184,6 +184,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
             {t.recipe.recipeName}
           </label>
           <TextField
+            variant="outlined"
             name={RECIPE_NAME}
             id={RECIPE_NAME}
             placeholder={t.recipe.recipeName}
@@ -204,6 +205,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
               {t.recipe.cookingTime}
             </label>
             <TextField
+              variant="outlined"
               name={RECIPE_COOKING_TIME}
               id={RECIPE_COOKING_TIME}
               placeholder={t.recipe.cookingTime}
@@ -231,6 +233,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
               {t.recipe.ovenTemperature}
             </label>
             <TextField
+              variant="outlined"
               name={RECIPE_OVEN_TEMPERATURE}
               id={RECIPE_OVEN_TEMPERATURE}
               placeholder={t.recipe.ovenTemperature}
@@ -256,6 +259,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
             {t.recipe.portions}
           </label>
           <TextField
+            variant="outlined"
             name={RECIPE_PORTIONS}
             id={RECIPE_PORTIONS}
             placeholder={t.recipe.portions}

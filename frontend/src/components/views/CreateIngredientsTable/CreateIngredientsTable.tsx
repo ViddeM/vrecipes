@@ -239,6 +239,7 @@ const CreateHeading = ({
     <div>
       <label htmlFor={ingredientId}>{t.recipe.heading}</label>
       <TextField
+        variant="outlined"
         id={ingredientId}
         name={ingredientId}
         onChange={(e) => {
@@ -273,6 +274,7 @@ const CreateIngredient = ({
       <div>
         <label htmlFor={amountId}>{t.recipe.ingredientAmount}</label>
         <TextField
+          variant="outlined"
           id={amountId}
           name={amountId}
           placeholder={t.recipe.ingredientAmount}
@@ -312,6 +314,7 @@ const CreateIngredient = ({
       <div>
         <label htmlFor={unitId}>{t.recipe.ingredientUnit}</label>
         <TextField
+          variant="outlined"
           id={unitId}
           name={unitId}
           value={ingredient.unit}
@@ -343,6 +346,7 @@ const CreateIngredient = ({
       <div>
         <label htmlFor={ingredientId}>{t.recipe.ingredient}</label>
         <TextField
+          variant="outlined"
           id={ingredientId}
           name={ingredientId}
           onChange={(e) => {

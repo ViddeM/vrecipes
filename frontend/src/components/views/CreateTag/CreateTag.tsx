@@ -100,6 +100,7 @@ const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
       </div>
       <div className={styles.newTagRow}>
         <TextField
+          variant="outlined"
           focus
           placeholder={t.tag.tagName}
           required
@@ -113,6 +114,7 @@ const CreateTag = ({ tag, cancelEditTag }: CreateTagProps) => {
           }}
         />
         <TextField
+          variant="outlined"
           placeholder={t.tag.tagDescription}
           value={newTagDescription}
           responsive

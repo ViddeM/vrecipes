@@ -104,6 +104,7 @@ const Home = ({ recipes, error, tags, authors }: HomeProps) => {
     <DefaultLayout>
       <div className={`${styles.searchContainer} card marginBottomBig`}>
         <TextField
+          variant="outlined"
           value={filterText}
           focus={true}
           type="search"
