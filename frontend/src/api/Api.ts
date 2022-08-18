@@ -137,8 +137,8 @@ export const Api = {
     logout: () => {
       return handleResponse(axios.post("/auth/logout"), false);
     },
-    getMe: () => {
-      return handleResponse(axios.get<RawApiResponse<Me>>("/me"), false);
+    getMe: (cookie?: string) => {
+      return get<Me>("/me", cookie);
     },
   },
   tags: {
@@ -181,6 +181,16 @@ export const Api = {
     },
   },
 };
+
+function get<T>(endpoint: string, cookie?: string): Promise<ApiResponse<T>> {
+  return handleResponse(
+    axios.get<RawApiResponse<T>>(endpoint, {
+      headers: cookie ? { cookie: cookie } : undefined,
+      withCredentials: true,
+    }),
+    false
+  );
+}
 
 export interface ApiResponse<T> {
   // The path to the error translation

@@ -94,8 +94,11 @@ function MyApp({
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const ret = await App.getInitialProps(appContext);
+  const { ctx } = appContext;
 
-  const meResponse = await Api.user.getMe();
+  const meResponse = await Api.user.getMe(
+    ctx?.req?.headers?.cookie ?? undefined
+  );
   if (meResponse.failedToReachBackend) {
     return {
       ...ret,
