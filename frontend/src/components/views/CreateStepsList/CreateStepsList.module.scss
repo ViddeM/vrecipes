@@ -40,25 +40,31 @@
   margin-top: $space;
   height: 2rem;
   width: 300px;
-  border: 1px solid black;
-  border-radius: $border-radius;
 
   button {
-    border: none;
     flex: 1;
     transition: filter 300ms;
+    border: 1px dashed black;
+    border-radius: $border-radius;
 
     &:hover {
       filter: brightness(1.8);
       cursor: pointer;
+      border: 1px solid black;
     }
 
     &:first-child {
       background-color: rgba(100, 100, 0, 0.2);
+      border-right: none;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
 
     &:last-child {
       background-color: rgba(0, 100, 0, 0.2);
+      border-left: none;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
   }
 
