@@ -294,7 +294,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
               htmlFor={RECIPE_PORTIONS_SUFFIX}
               className={styles.formLabel}
             >
-              {t.recipe.portions}
+              {t.recipe.portionsSuffix}
             </label>
             <TextField
               variant="outlined"
