@@ -26,15 +26,16 @@ SET name=$1,
 	description=$3,
 	oven_temp=$4,
 	estimated_time=$5,
-	portions=$6
-WHERE id=$7
+	portions=$6,
+	portions_suffix=$7
+WHERE id=$8
 `
 
-func UpdateRecipe(name, uniqueName, description string, ovenTemp, estimatedTime, portions int, recipeId uuid.UUID) error {
+func UpdateRecipe(name, uniqueName, description string, ovenTemp, estimatedTime, portions int, portionsSuffix string, recipeId uuid.UUID) error {
 	db := getDb()
 
 	_, err := db.Exec(ctx, updateRecipeCommand, name, uniqueName, description,
-		ovenTemp, estimatedTime, portions, recipeId)
+		ovenTemp, estimatedTime, portions, portionsSuffix, recipeId)
 	return err
 }
 

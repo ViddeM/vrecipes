@@ -51,6 +51,7 @@ const RECIPE_OVEN_TEMPERATURE = "recipe_oven_temperature";
 const RECIPE_COOKING_TIME = "recipe_cooking_time";
 const RECIPE_DESCRIPTION = "recipe_description";
 const RECIPE_PORTIONS = "recipe_portions";
+const RECIPE_PORTIONS_SUFFIX = "recipe_portions_suffix";
 
 const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   const { t, translate } = useTranslations();
@@ -73,6 +74,9 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
   );
   const [portions, setPortions] = useState(
     recipe?.portions && recipe.portions > 0 ? recipe?.portions : undefined
+  );
+  const [portionsSuffix, setPortionsSuffix] = useState(
+    recipe?.portionsSuffix ?? ""
   );
   const [description, setDescription] = useState(
     recipe ? recipe.description : ""
@@ -102,6 +106,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
     !cookingTimeSame ||
     !tempSame ||
     !portionsSame ||
+    portionsSuffix !== recipe?.portionsSuffix ||
     description !== recipe?.description ||
     !ingredientsSame(ingredients, ingredientsToEditable(recipe?.ingredients)) ||
     recipe.tags.length !==
@@ -152,6 +157,7 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
       ovenTemperature: ovenTemp ? ovenTemp : 0,
       estimatedTime: cookingTime ? cookingTime : 0,
       portions: portions ? portions : 0,
+      portionsSuffix: portionsSuffix,
       ingredients: ingredientsFromEditable(ingredients),
       steps: steps,
       images: images,
@@ -253,28 +259,56 @@ const EditRecipe = ({ recipe, dataLoadError, tags }: EditRecipeProps) => {
           </div>
         </div>
 
-        {/* Portions */}
-        <div className={styles.formRow}>
-          <label htmlFor={RECIPE_PORTIONS} className={styles.formLabel}>
-            {t.recipe.portions}
-          </label>
-          <TextField
-            variant="outlined"
-            name={RECIPE_PORTIONS}
-            id={RECIPE_PORTIONS}
-            placeholder={t.recipe.portions}
-            value={portions}
-            onChange={(e) => {
-              const number = parseInt(e.target.value);
-              setPortions(number);
-            }}
-            type="number"
-            min={0}
-            max={999}
-            maxLength={120}
-            className={styles.formInputElement}
-            postfixText={t.recipe.portionsSmall}
-          />
+        <div className="space" />
+
+        <div className={styles.splitFormRow}>
+          {/* Portions */}
+          <div className={styles.splitFormRowElement}>
+            <label htmlFor={RECIPE_PORTIONS} className={styles.formLabel}>
+              {t.recipe.portions}
+            </label>
+            <TextField
+              variant="outlined"
+              name={RECIPE_PORTIONS}
+              id={RECIPE_PORTIONS}
+              placeholder={t.recipe.portions}
+              value={portions}
+              onChange={(e) => {
+                const number = parseInt(e.target.value);
+                setPortions(number);
+              }}
+              type="number"
+              min={0}
+              max={999}
+              maxLength={120}
+              className={styles.formInputElement}
+              postfixText={t.recipe.portionsSmall}
+            />
+          </div>
+
+          <div className="space" />
+
+          {/* Portions Suffix */}
+          <div className={styles.splitFormRowElement}>
+            <label
+              htmlFor={RECIPE_PORTIONS_SUFFIX}
+              className={styles.formLabel}
+            >
+              {t.recipe.portions}
+            </label>
+            <TextField
+              variant="outlined"
+              name={RECIPE_PORTIONS_SUFFIX}
+              id={RECIPE_PORTIONS_SUFFIX}
+              placeholder={t.recipe.portionsSuffix}
+              value={portionsSuffix}
+              onChange={(e) => {
+                setPortionsSuffix(e.target.value ?? "");
+              }}
+              maxLength={120}
+              className={styles.formInputElement}
+            />
+          </div>
         </div>
 
         {/* Description */}

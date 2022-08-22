@@ -16,4 +16,5 @@ export interface EditRecipe {
   author: Author;
   tags: string[];
   portions: number;
+  portionsSuffix: string;
 }

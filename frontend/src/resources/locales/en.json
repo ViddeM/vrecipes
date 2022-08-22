@@ -39,6 +39,7 @@
     "minutes": "minutes",
     "portions": "Portions",
     "portionsSmall": "portions",
+    "portionsSuffix": "Portions name",
     "createRecipe": "Create recipe",
     "createRecipeTitle": "Create Recipe",
     "recipeName": "Recipe name",

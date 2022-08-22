@@ -17,4 +17,5 @@ export interface Recipe {
   author: Author;
   tags: Tag[];
   portions: number;
+  portionsSuffix: string;
 }

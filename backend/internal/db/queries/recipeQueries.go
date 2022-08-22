@@ -6,7 +6,7 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
-var getRecipeByNameQuery = `SELECT id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by, portions
+var getRecipeByNameQuery = `SELECT id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by, portions, portions_suffix
 FROM recipe
 WHERE unique_name=$1`
 
@@ -18,7 +18,7 @@ func GetRecipeByName(uniqueName string) (*tables.Recipe, error) {
 	return &recipe, err
 }
 
-var getRecipeByIdQuery = `SELECT id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by, portions
+var getRecipeByIdQuery = `SELECT id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by, portions, portions_suffix
 FROM recipe
 WHERE id=$1`
 
@@ -30,7 +30,7 @@ func GetRecipeById(id uuid.UUID) (*tables.Recipe, error) {
 	return &recipe, err
 }
 
-var getNonDeletedRecipesQuery = `SELECT id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by, portions
+var getNonDeletedRecipesQuery = `SELECT id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by, portions, portions_suffix
 FROM recipe
 WHERE deleted=false`
 
@@ -44,7 +44,7 @@ func GetNonDeletedRecipes() ([]*tables.Recipe, error) {
 }
 
 var getRecipesForRecipeBookQuery = `
-SELECT recipe.id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by, portions 
+SELECT recipe.id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by, portions, portions_suffix
 FROM recipe_book_recipe 
 	JOIN recipe ON recipe_book_recipe.recipe_id = recipe.id
 WHERE recipe_book_recipe.recipe_book_id = $1
