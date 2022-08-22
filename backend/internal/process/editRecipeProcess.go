@@ -74,7 +74,7 @@ func updateRecipeGeneral(
 			newRecipe.OvenTemperature,
 			newRecipe.EstimatedTime,
 			newRecipe.Portions,
-			newRecipe.PortionsSuffix,
+			strings.TrimSpace(newRecipe.PortionsSuffix),
 			oldRecipe.ID,
 		)
 		if err != nil {
