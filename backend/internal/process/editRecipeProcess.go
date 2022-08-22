@@ -61,7 +61,8 @@ func updateRecipeGeneral(
 	if oldRecipe.EstimatedTime != newRecipe.EstimatedTime ||
 		oldRecipe.Description != newRecipe.Description ||
 		oldRecipe.OvenTemp != newRecipe.OvenTemperature ||
-		oldRecipe.Portions != newRecipe.Portions {
+		oldRecipe.Portions != newRecipe.Portions ||
+		oldRecipe.PortionsSuffix != newRecipe.PortionsSuffix {
 		changed = true
 	}
 
@@ -73,6 +74,7 @@ func updateRecipeGeneral(
 			newRecipe.OvenTemperature,
 			newRecipe.EstimatedTime,
 			newRecipe.Portions,
+			newRecipe.PortionsSuffix,
 			oldRecipe.ID,
 		)
 		if err != nil {

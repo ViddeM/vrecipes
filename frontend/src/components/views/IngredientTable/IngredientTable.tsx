@@ -9,11 +9,13 @@ import styles from "./IngredientTable.module.scss";
 export type IngredientTableProps = {
   ingredients: Ingredient[];
   portions: number | undefined;
+  portionsSuffix: string;
 };
 
 export const IngredientTable = ({
   ingredients,
   portions,
+  portionsSuffix,
 }: IngredientTableProps) => {
   const { t } = useTranslations();
 
@@ -44,7 +46,11 @@ export const IngredientTable = ({
                     step={1}
                     max={999}
                     className={styles.portionForm}
-                    postfixText={t.recipe.portionsSmall}
+                    postfixText={
+                      portionsSuffix !== ""
+                        ? portionsSuffix
+                        : t.recipe.portionsSmall
+                    }
                   />
                 )}
               </div>
