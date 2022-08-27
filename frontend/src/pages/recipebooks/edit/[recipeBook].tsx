@@ -13,12 +13,12 @@ import { Image } from "../../../api/Image";
 import { RecipeBook, RecipeBookRecipe } from "../../../api/RecipeBook";
 import { UniqueName } from "../../../api/UniqueName";
 import { Button } from "../../../components/elements/Buttons/Buttons";
+import DataTable from "../../../components/elements/DataTable/DataTable";
 import ErrorCard from "../../../components/elements/ErrorCard";
 import ImageUpload from "../../../components/elements/ImageUpload/ImageUpload";
 import Loading from "../../../components/elements/Loading";
 import NoAccess from "../../../components/elements/NoAccess";
 import TextField from "../../../components/elements/TextField/TextField";
-import RecipesTable from "../../../components/views/RecipesTable/RecipesTable";
 import { useMe } from "../../../hooks/useMe";
 import { useTranslations } from "../../../hooks/useTranslations";
 import CardLayout from "../../../layouts/CardLayout";
@@ -177,10 +177,17 @@ const EditRecipeBook = ({
         <div className="space" />
 
         {/* Recipes table */}
-        <RecipesTable
-          recipes={recipes}
-          selectedRecipes={selectedRecipes}
-          setSelectedRecipes={setSelectedRecipes}
+        <DataTable
+          searchPlaceholder={t.recipe.searchRecipes}
+          vals={recipes}
+          selectedVals={selectedRecipes}
+          setSelectedVals={setSelectedRecipes}
+          getRowVals={(r) => [r.name, r.author]}
+          header={[
+            { columnName: t.recipeBook.recipe, width: 60, align: "Left" },
+            { columnName: t.recipeBook.author, width: 30, align: "Left" },
+          ]}
+          searchKeys={["name", "author"]}
         />
 
         <div className="space" />

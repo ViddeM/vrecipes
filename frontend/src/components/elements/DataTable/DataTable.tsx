@@ -6,58 +6,75 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import fuzzysort from "fuzzysort";
 
-import { RecipeBookRecipe } from "../../../api/RecipeBook";
 import { useTranslations } from "../../../hooks/useTranslations";
-import { IconButton } from "../../elements/Buttons/Buttons";
-import Checkbox from "../../elements/Checkbox/Checkbox";
-import Dropdown from "../../elements/Dropdown/Dropdown";
-import TextField from "../../elements/TextField/TextField";
+import { IconButton } from "../Buttons/Buttons";
+import Checkbox from "../Checkbox/Checkbox";
+import Dropdown from "../Dropdown/Dropdown";
+import TextField from "../TextField/TextField";
 
-import styles from "./RecipesTable.module.scss";
+import styles from "./DataTable.module.scss";
 
-interface RecipesTableProps {
-  recipes: RecipeBookRecipe[];
-  selectedRecipes: RecipeBookRecipe[];
-  setSelectedRecipes: (recipes: RecipeBookRecipe[]) => void;
+interface DataTableVal {
+  id: string;
 }
+
+type DataTableHeaderProp = {
+  // Must be a number between 0 - 90 with the total sum of all widths being 90
+  width: number;
+  columnName: string;
+  align: "Left" | "Right" | "Center";
+};
+
+type DataTableProps<T extends DataTableVal> = {
+  searchPlaceholder: string;
+  vals: T[];
+  header: DataTableHeaderProp[];
+  getRowVals: (val: T) => string[];
+  selectedVals: T[];
+  setSelectedVals: (vals: T[]) => void;
+  searchKeys: string[];
+};
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZE_OPTIONS = [5, 10, 25, 50, 100];
 
-const RecipesTable = ({
-  recipes,
-  selectedRecipes,
-  setSelectedRecipes,
-}: RecipesTableProps) => {
+const DataTable = <T extends DataTableVal>({
+  searchPlaceholder,
+  vals,
+  header,
+  getRowVals,
+  selectedVals,
+  setSelectedVals,
+  searchKeys,
+}: DataTableProps<T>) => {
   const { t } = useTranslations();
+
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
-  const [filterText, setFilterText] = useState("");
-  const [filteredRecipes, setFilteredRecipes] = useState(recipes);
   const [totalPages, setTotalPages] = useState(1);
-  const [currPageRecipes, setCurrPageRecipes] = useState<RecipeBookRecipe[]>(
-    []
-  );
+  const [currPageVals, setCurrPageVals] = useState<T[]>([]);
+
+  const [filterText, setFilterText] = useState("");
+  const [filteredVals, setFilteredVals] = useState(vals);
 
   const pageSizeOptions = PAGE_SIZE_OPTIONS.map((n) => {
     return {
-      display: `${n} ${t.recipeBook.perPage}`,
+      display: `${n} ${t.dataTable.perPage}`,
       value: `${n}`,
     };
   });
 
   useEffect(() => {
-    const rec = recipes;
-    const res = fuzzysort.go(filterText, rec, {
-      keys: ["name", "author"],
+    const res = fuzzysort.go(filterText, vals, {
+      keys: searchKeys,
       all: true,
     });
 
-    setFilteredRecipes(res.map((r) => r.obj));
-  }, [filterText, recipes]);
+    setFilteredVals(res.map((v) => v.obj));
+  }, [filterText, vals, searchKeys]);
 
   useEffect(() => {
-    const newTotalPages = Math.ceil(filteredRecipes.length / pageSize);
+    const newTotalPages = Math.ceil(filteredVals.length / pageSize);
     setTotalPages(newTotalPages);
     let newPage = page;
     if (newPage >= newTotalPages) {
@@ -65,18 +82,18 @@ const RecipesTable = ({
       setPage(newPage);
     }
 
-    setCurrPageRecipes(getRecipePage(filteredRecipes, newPage, pageSize));
-  }, [filteredRecipes, pageSize, page]);
+    setCurrPageVals(getValPage(filteredVals, newPage, pageSize));
+  }, [filteredVals, pageSize, page]);
 
   return (
-    <div className={styles.recipesTableContainer}>
-      <table className={styles.recipesTable}>
+    <div className={styles.dataTableContainer}>
+      <table className={styles.dataTable}>
         <thead>
           <tr>
             <th colSpan={3}>
               <TextField
                 variant="outlined"
-                placeholder={t.recipe.searchRecipes}
+                placeholder={searchPlaceholder}
                 type="search"
                 className={"marginRight marginLeft"}
                 onChange={(e) => {
@@ -87,38 +104,45 @@ const RecipesTable = ({
           </tr>
           <tr>
             <th style={{ width: "10%" }} className={styles.alignCenter} />
-            <th style={{ width: "60%" }} className={styles.alignLeft}>
-              {t.recipeBook.recipe}
-            </th>
-            <th style={{ width: "30%" }} className={styles.alignLeft}>
-              {t.recipeBook.author}
-            </th>
+            {header.map(({ width, columnName, align }) => (
+              <th
+                key={columnName}
+                style={{ width: `${width}%` }}
+                className={styles[`align${align}`]}
+              >
+                {columnName}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {currPageRecipes.map((recipe) => (
-            <tr key={recipe.id}>
+          {currPageVals.map((val) => (
+            <tr key={val.id}>
               <td className={styles.alignCenter}>
                 <div className={styles.center}>
                   <Checkbox
                     checked={
-                      selectedRecipes.filter((r) => r.id === recipe.id).length >
-                      0
+                      selectedVals.filter((v) => v.id === val.id).length > 0
                     }
-                    setChecked={(val) => {
-                      if (val) {
-                        setSelectedRecipes([...selectedRecipes, recipe]);
+                    setChecked={(checked) => {
+                      if (checked) {
+                        setSelectedVals([...selectedVals, val]);
                       } else {
-                        setSelectedRecipes(
-                          selectedRecipes.filter((r) => r !== recipe)
-                        );
+                        setSelectedVals(selectedVals.filter((v) => v !== val));
                       }
                     }}
                   />
                 </div>
               </td>
-              <td className={styles.alignLeft}>{recipe.name}</td>
-              <td className={styles.alignLeft}>{recipe.author}</td>
+
+              {getRowVals(val).map((col, index) => (
+                <td
+                  key={index}
+                  className={styles[`align${header[index].align}`]}
+                >
+                  {col}
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>
@@ -126,7 +150,7 @@ const RecipesTable = ({
           <tr>
             <td colSpan={3}>
               <div className={styles.footerContainer}>
-                {`${selectedRecipes.length}/${filteredRecipes.length} ${t.recipeBook.recipesChosen}`}
+                {`${selectedVals.length}/${vals.length} ${t.dataTable.selected}`}
                 <Dropdown
                   options={pageSizeOptions}
                   onUpdate={(val) => {
@@ -148,8 +172,8 @@ const RecipesTable = ({
                       setPage(page - 1);
                     }}
                   />
-                  {`${t.recipeBook.page} ${totalPages === 0 ? 0 : page + 1} ${
-                    t.recipeBook.outOf
+                  {`${t.dataTable.page} ${totalPages === 0 ? 0 : page + 1} ${
+                    t.dataTable.outOf
                   } ${totalPages}`}
                   <IconButton
                     variant="opaque"
@@ -171,27 +195,23 @@ const RecipesTable = ({
   );
 };
 
-function getRecipePage(
-  recipes: RecipeBookRecipe[],
-  page: number,
-  pageSize: number
-): RecipeBookRecipe[] {
+function getValPage<T>(vals: T[], page: number, pageSize: number): T[] {
   const startIndex = page * pageSize;
-  if (recipes.length === 0 || startIndex > recipes.length) {
+  if (vals.length === 0 || startIndex > vals.length) {
     return [];
   }
 
   let endIndex = startIndex + pageSize;
-  if (endIndex >= recipes.length) {
-    endIndex = recipes.length - 1;
+  if (endIndex >= vals.length) {
+    endIndex = vals.length - 1;
   }
 
-  const pageRecipes = [];
+  const pageVals = [];
   for (let i = startIndex; i <= endIndex; i++) {
-    pageRecipes.push(recipes[i]);
+    pageVals.push(vals[i]);
   }
 
-  return pageRecipes;
+  return pageVals;
 }
 
-export default RecipesTable;
+export default DataTable;

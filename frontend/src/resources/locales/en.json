@@ -78,10 +78,6 @@
     "recipe": "Recipe",
     "author": "Author",
     "saveRecipeBook": "Save recipe book",
-    "recipesChosen": "recipes chosen",
-    "perPage": "per page",
-    "page": "page",
-    "outOf": "out of",
     "recipes": "recipes",
     "uploadedBy": "Posted by",
     "deleteModal": {
@@ -90,6 +86,12 @@
     },
     "recipeBookDeleted": "Recipe book deleted",
     "noRecipesForBook": "No recipes chosen for this book"
+  },
+  "dataTable": {
+    "selected": "selected",
+    "perPage": "per page",
+    "page": "page",
+    "outOf": "out of"
   },
   "tag": {
     "newTag": "New tag",

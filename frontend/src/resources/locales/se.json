@@ -78,10 +78,6 @@
     "recipe": "Recept",
     "author": "Författare",
     "saveRecipeBook": "Spara receptbok",
-    "recipesChosen": "recept valda",
-    "perPage": "per sida",
-    "page": "sida",
-    "outOf": "av",
     "recipes": "recept",
     "uploadedBy": "Upplagt av",
     "deleteModal": {
@@ -90,6 +86,12 @@
     },
     "recipeBookDeleted": "Receptboken har tagits bort",
     "noRecipesForBook": "Inga recept vald för denna bok"
+  },
+  "dataTable": {
+    "selected": "valda",
+    "perPage": "per sida",
+    "page": "sida",
+    "outOf": "av"
   },
   "tag": {
     "newTag": "Ny tagg",
