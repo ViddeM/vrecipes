@@ -202,8 +202,7 @@ const TagRow = ({ tag, loggedInUser, setupEditTag }: TagRow) => {
                   confirmButton: {
                     text: t.common.yes,
                     onClick: () => {
-                      Api.tags.remove(tag.id);
-                      refreshProps();
+                      Api.tags.remove(tag.id).finally(() => refreshProps());
                     },
                   },
                 });
