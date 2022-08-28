@@ -389,19 +389,6 @@ func CreateRecipeStep(
 	return recipeStep, err
 }
 
-func CreateRecipeImage(
-	imagePath string,
-	recipeId uuid.UUID,
-) (*tables.RecipeImage, error) {
-	imageId, err := commands.CreateImage(imagePath)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return connectImageToRecipe(recipeId, imageId)
-}
-
 func connectImageToRecipe(
 	recipeId uuid.UUID,
 	imageId uuid.UUID,
