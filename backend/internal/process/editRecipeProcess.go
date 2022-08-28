@@ -3,6 +3,7 @@ package process
 import (
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
@@ -14,27 +15,38 @@ func EditRecipe(
 	oldRecipe *tables.Recipe,
 	newRecipe *models.EditRecipeJson,
 ) (string, error) {
-	uniqueName, err := updateRecipeGeneral(oldRecipe, newRecipe)
+	tx, err := commands.BeginTransaction()
+	if err != nil {
+		return "", err
+	}
+	defer commands.RollbackTransaction(tx)
+
+	uniqueName, err := updateRecipeGeneral(tx, oldRecipe, newRecipe)
 	if err != nil {
 		return "", err
 	}
 
-	err = updateRecipeSteps(oldRecipe.ID, newRecipe.Steps)
+	err = updateRecipeSteps(tx, oldRecipe.ID, newRecipe.Steps)
 	if err != nil {
 		return "", err
 	}
 
-	err = updateRecipeIngredients(oldRecipe.ID, newRecipe.Ingredients)
+	err = updateRecipeIngredients(tx, oldRecipe.ID, newRecipe.Ingredients)
 	if err != nil {
 		return "", err
 	}
 
-	err = updateRecipeImages(oldRecipe.ID, newRecipe.Images)
+	err = updateRecipeImages(tx, oldRecipe.ID, newRecipe.Images)
 	if err != nil {
 		return "", err
 	}
 
-	err = updateRecipeTags(oldRecipe.ID, newRecipe.Tags)
+	err = updateRecipeTags(tx, oldRecipe.ID, newRecipe.Tags)
+	if err != nil {
+		return "", err
+	}
+
+	err = commands.CommitTransaction(tx)
 	if err != nil {
 		return "", err
 	}
@@ -43,6 +55,7 @@ func EditRecipe(
 }
 
 func updateRecipeGeneral(
+	tx pgx.Tx,
 	oldRecipe *tables.Recipe,
 	newRecipe *models.EditRecipeJson,
 ) (string, error) {
@@ -68,6 +81,7 @@ func updateRecipeGeneral(
 
 	if changed {
 		err := commands.UpdateRecipe(
+			tx,
 			newRecipe.Name,
 			uniqueName,
 			newRecipe.Description,
@@ -85,7 +99,7 @@ func updateRecipeGeneral(
 	return uniqueName, nil
 }
 
-func updateRecipeSteps(id uuid.UUID, steps []models.EditRecipeStepJson) error {
+func updateRecipeSteps(tx pgx.Tx, id uuid.UUID, steps []models.EditRecipeStepJson) error {
 	oldSteps, err := queries.GetStepsForRecipe(id)
 	if err != nil {
 		return err
@@ -95,7 +109,7 @@ func updateRecipeSteps(id uuid.UUID, steps []models.EditRecipeStepJson) error {
 		oldStep := getStepWithNumber(step.Number, oldSteps)
 		if oldStep == nil {
 			// There is no oldStep with the same number, add it
-			_, err = CreateRecipeStep(step.Description, step.Number, id, step.IsHeading)
+			_, err = CreateRecipeStep(tx, step.Description, step.Number, id, step.IsHeading)
 
 			if err != nil {
 				return err
@@ -103,6 +117,7 @@ func updateRecipeSteps(id uuid.UUID, steps []models.EditRecipeStepJson) error {
 		} else if step.SameAs(oldStep) == false {
 			// The step is updated
 			err = commands.UpdateRecipeStep(
+				tx,
 				step.Description,
 				oldStep.RecipeID,
 				oldStep.Number,
@@ -120,6 +135,7 @@ func updateRecipeSteps(id uuid.UUID, steps []models.EditRecipeStepJson) error {
 		for _, oldStep := range oldSteps {
 			if oldStep.Number >= uint16(len(steps)) {
 				err = commands.DeleteRecipeStep(
+					tx,
 					oldStep.RecipeID,
 					oldStep.Number,
 				)
@@ -146,6 +162,7 @@ func getStepWithNumber(
 }
 
 func updateRecipeIngredients(
+	tx pgx.Tx,
 	id uuid.UUID,
 	ingredients []models.EditRecipeIngredientJson,
 ) error {
@@ -160,6 +177,7 @@ func updateRecipeIngredients(
 		if oldIngredient == nil {
 			// The ingredient is new or updated
 			newRecipeIngredient, err := CreateRecipeIngredient(
+				tx,
 				ingredient.Name,
 				ingredient.Unit,
 				ingredient.Amount,
@@ -186,7 +204,7 @@ func updateRecipeIngredients(
 		}
 
 		if found == false {
-			err = commands.DeleteRecipeIngredient(oldIngredient.ID)
+			err = commands.DeleteRecipeIngredient(tx, oldIngredient.ID)
 			if err != nil {
 				return err
 			}
@@ -194,7 +212,7 @@ func updateRecipeIngredients(
 	}
 
 	// Update numbers of ingredients
-	err = commands.UpdateRecipeIngredientNumbers(ingredientIdNumMap, id)
+	err = commands.UpdateRecipeIngredientNumbers(tx, ingredientIdNumMap, id)
 
 	return err
 }
@@ -213,6 +231,7 @@ func getOldIngredient(
 }
 
 func updateRecipeImages(
+	tx pgx.Tx,
 	id uuid.UUID,
 	images []models.EditRecipeImageJson,
 ) error {
@@ -226,7 +245,7 @@ func updateRecipeImages(
 		oldImage := getOldImage(&image, oldImages)
 		if oldImage == nil {
 			// The image is new
-			_, err = connectImageToRecipe(id, image.ID)
+			_, err = connectImageToRecipe(tx, id, image.ID)
 			if err != nil {
 				return err
 			}
@@ -244,7 +263,7 @@ func updateRecipeImages(
 		}
 
 		if found == false {
-			err = commands.DeleteRecipeImage(id, oldImage.ID)
+			err = commands.DeleteRecipeImage(tx, id, oldImage.ID)
 			if err != nil {
 				return err
 			}
@@ -267,7 +286,7 @@ func getOldImage(
 	return nil
 }
 
-func updateRecipeTags(recipeId uuid.UUID, tags []uuid.UUID) error {
+func updateRecipeTags(tx pgx.Tx, recipeId uuid.UUID, tags []uuid.UUID) error {
 	oldTags, err := queries.GetTagsForRecipe(&recipeId)
 	if err != nil {
 		return err
@@ -277,7 +296,7 @@ func updateRecipeTags(recipeId uuid.UUID, tags []uuid.UUID) error {
 		oldTag := getOldTag(tag, oldTags)
 		if oldTag == nil {
 			// The tag is new
-			_, err := connectTagToRecipe(recipeId, tag)
+			_, err := connectTagToRecipe(tx, recipeId, tag)
 			if err != nil {
 				return err
 			}
@@ -295,7 +314,7 @@ func updateRecipeTags(recipeId uuid.UUID, tags []uuid.UUID) error {
 
 		if !found {
 			// The tag was removed
-			err = commands.DeleteRecipeTag(recipeId, oldTag.TagId)
+			err = commands.DeleteRecipeTag(tx, recipeId, oldTag.TagId)
 			if err != nil {
 				return err
 			}
@@ -315,28 +334,30 @@ func getOldTag(tag uuid.UUID, oldTags []*tables.RecipeTag) *tables.RecipeTag {
 }
 
 func CreateRecipeIngredient(
+	tx pgx.Tx,
 	ingredientName string,
 	unitName string,
 	amount float32,
 	isHeading bool,
 	recipeId uuid.UUID,
 ) (*tables.RecipeIngredient, error) {
-	ingredient, err := getOrCreateIngredient(ingredientName)
+	ingredient, err := getOrCreateIngredient(tx, ingredientName)
 	if err != nil {
 		return nil, err
 	}
 
-	unit, err := getOrCreateUnit(unitName)
+	unit, err := getOrCreateUnit(tx, unitName)
 	if err != nil {
 		return nil, err
 	}
 
 	if isHeading {
-		recipeIngredient, err := commands.CreateRecipeIngredientHeading(recipeId, ingredientName)
+		recipeIngredient, err := commands.CreateRecipeIngredientHeading(tx, recipeId, ingredientName)
 		return recipeIngredient, err
 	}
 
 	recipeIngredient, err := commands.CreateRecipeIngredient(
+		tx,
 		recipeId,
 		ingredient.Name,
 		unit.Name,
@@ -345,13 +366,13 @@ func CreateRecipeIngredient(
 	return recipeIngredient, err
 }
 
-func getOrCreateIngredient(ingredientName string) (*tables.Ingredient, error) {
+func getOrCreateIngredient(tx pgx.Tx, ingredientName string) (*tables.Ingredient, error) {
 	ingredientName = strings.TrimSpace(ingredientName)
 	ingredient, err := queries.GetIngredient(ingredientName)
 	if err != nil {
 		if pgxscan.NotFound(err) {
 			// Ingredient doesn't exist, create a new one
-			ingredient, err = commands.CreateIngredient(ingredientName)
+			ingredient, err = commands.CreateIngredient(tx, ingredientName)
 			if err != nil {
 				return nil, err
 			}
@@ -362,13 +383,13 @@ func getOrCreateIngredient(ingredientName string) (*tables.Ingredient, error) {
 	return ingredient, nil
 }
 
-func getOrCreateUnit(unitName string) (*tables.Unit, error) {
+func getOrCreateUnit(tx pgx.Tx, unitName string) (*tables.Unit, error) {
 	unitName = strings.ToLower(unitName)
 	unit, err := queries.GetUnit(unitName)
 	if err != nil {
 		if pgxscan.NotFound(err) {
 			// Ingredient doesn't exist, create a new one
-			unit, err = commands.CreateUnit(unitName)
+			unit, err = commands.CreateUnit(tx, unitName)
 			if err != nil {
 				return nil, err
 			}
@@ -380,22 +401,24 @@ func getOrCreateUnit(unitName string) (*tables.Unit, error) {
 }
 
 func CreateRecipeStep(
+	tx pgx.Tx,
 	step string,
 	number uint16,
 	recipeId uuid.UUID,
 	isHeading bool,
 ) (*tables.RecipeStep, error) {
-	recipeStep, err := commands.CreateRecipeStep(recipeId, number, step, isHeading)
+	recipeStep, err := commands.CreateRecipeStep(tx, recipeId, number, step, isHeading)
 	return recipeStep, err
 }
 
 func connectImageToRecipe(
+	tx pgx.Tx,
 	recipeId uuid.UUID,
 	imageId uuid.UUID,
 ) (*tables.RecipeImage, error) {
-	return commands.CreateRecipeImage(recipeId, imageId)
+	return commands.CreateRecipeImage(tx, recipeId, imageId)
 }
 
-func connectTagToRecipe(recipeId, tagId uuid.UUID) (*tables.RecipeTag, error) {
-	return commands.CreateRecipeTag(recipeId, tagId)
+func connectTagToRecipe(tx pgx.Tx, recipeId, tagId uuid.UUID) (*tables.RecipeTag, error) {
+	return commands.CreateRecipeTag(tx, recipeId, tagId)
 }

@@ -2,6 +2,7 @@ package process
 
 import (
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
@@ -12,22 +13,34 @@ func EditRecipeBook(
 	oldRecipeBook *tables.RecipeBook,
 	updatedRecipeBook *models.EditRecipeBookJson,
 ) (string, error) {
-	uniqueName, err := updateRecipeBookGeneral(oldRecipeBook, updatedRecipeBook)
+	tx, err := commands.BeginTransaction()
+	if err != nil {
+		return "", err
+	}
+	defer commands.RollbackTransaction(tx)
+
+	uniqueName, err := updateRecipeBookGeneral(tx, oldRecipeBook, updatedRecipeBook)
 	if err != nil {
 		return "", err
 	}
 
-	err = updateRecipeBookRecipes(oldRecipeBook.ID, updatedRecipeBook.Recipes)
+	err = updateRecipeBookRecipes(tx, oldRecipeBook.ID, updatedRecipeBook.Recipes)
 	if err != nil {
 		return "", err
 	}
 
-	err = updateRecipeBookImages(oldRecipeBook.ID, updatedRecipeBook.Images)
+	err = updateRecipeBookImages(tx, oldRecipeBook.ID, updatedRecipeBook.Images)
+
+	err = commands.CommitTransaction(tx)
+	if err != nil {
+		return "", err
+	}
 
 	return uniqueName, err
 }
 
 func updateRecipeBookGeneral(
+	tx pgx.Tx,
 	oldRecipeBook *tables.RecipeBook,
 	newRecipeBook *models.EditRecipeBookJson,
 ) (string, error) {
@@ -49,6 +62,7 @@ func updateRecipeBookGeneral(
 
 	if changed {
 		err := commands.UpdateRecipeBook(
+			tx,
 			newRecipeBook.Name,
 			uniqueName,
 			newRecipeBook.Author,
@@ -62,7 +76,7 @@ func updateRecipeBookGeneral(
 	return uniqueName, nil
 }
 
-func updateRecipeBookRecipes(bookId uuid.UUID, recipes []uuid.UUID) error {
+func updateRecipeBookRecipes(tx pgx.Tx, bookId uuid.UUID, recipes []uuid.UUID) error {
 	oldRecipes, err := queries.GetRecipesForRecipeBook(bookId)
 	if err != nil {
 		return err
@@ -71,7 +85,7 @@ func updateRecipeBookRecipes(bookId uuid.UUID, recipes []uuid.UUID) error {
 	for _, recipeId := range recipes {
 		if recipeWithIdIsInList(recipeId, oldRecipes) == false {
 			// Create the recipeBookRecipe
-			_, err := commands.CreateRecipeBookRecipe(bookId, recipeId)
+			_, err := commands.CreateRecipeBookRecipe(tx, bookId, recipeId)
 			if err != nil {
 				return err
 			}
@@ -88,7 +102,7 @@ func updateRecipeBookRecipes(bookId uuid.UUID, recipes []uuid.UUID) error {
 		}
 
 		if removed {
-			err := commands.DeleteRecipeBookRecipe(bookId, oldRecipe.ID)
+			err := commands.DeleteRecipeBookRecipe(tx, bookId, oldRecipe.ID)
 			if err != nil {
 				return err
 			}
@@ -108,7 +122,7 @@ func recipeWithIdIsInList(id uuid.UUID, oldRecipes []*tables.Recipe) bool {
 	return false
 }
 
-func updateRecipeBookImages(bookId uuid.UUID, images []uuid.UUID) error {
+func updateRecipeBookImages(tx pgx.Tx, bookId uuid.UUID, images []uuid.UUID) error {
 	oldImages, err := queries.GetImagesForRecipeBook(bookId)
 	if err != nil {
 		return err
@@ -126,7 +140,7 @@ func updateRecipeBookImages(bookId uuid.UUID, images []uuid.UUID) error {
 		}
 	}
 
-	err = connectImagesToRecipeBook(bookId, newImages)
+	err = connectImagesToRecipeBook(tx, bookId, newImages)
 	if err != nil {
 		return err
 	}
@@ -140,7 +154,7 @@ func updateRecipeBookImages(bookId uuid.UUID, images []uuid.UUID) error {
 		}
 
 		if found == false {
-			err = commands.DeleteRecipeBookImage(bookId, oldImage.ID)
+			err = commands.DeleteRecipeBookImage(tx, bookId, oldImage.ID)
 			if err != nil {
 				return err
 			}
@@ -154,6 +168,21 @@ func getOldBookImage(image uuid.UUID, oldImages []tables.Image) *tables.Image {
 	for _, oldImage := range oldImages {
 		if image == oldImage.ID {
 			return &oldImage
+		}
+	}
+
+	return nil
+}
+
+func connectImagesToRecipeBook(
+	tx pgx.Tx,
+	recipeBookId uuid.UUID,
+	imageIds []uuid.UUID,
+) error {
+	for _, imageId := range imageIds {
+		_, err := commands.CreateRecipeBookImage(tx, recipeBookId, imageId)
+		if err != nil {
+			return err
 		}
 	}
 

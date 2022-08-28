@@ -10,6 +10,12 @@ import (
 )
 
 func EditTag(oldTag *tables.Tag, newTag *models.NewTagJson) error {
+	tx, err := commands.BeginTransaction()
+	if err != nil {
+		return err
+	}
+	defer commands.RollbackTransaction(tx)
+
 	changed := false
 
 	if oldTag.Name != newTag.Name {
@@ -32,6 +38,7 @@ func EditTag(oldTag *tables.Tag, newTag *models.NewTagJson) error {
 
 	if changed {
 		return commands.UpdateTag(
+			tx,
 			newTag.Name,
 			newTag.Description,
 			*newTag.Color.R,
@@ -39,6 +46,11 @@ func EditTag(oldTag *tables.Tag, newTag *models.NewTagJson) error {
 			*newTag.Color.B,
 			oldTag.ID,
 		)
+	}
+
+	err = commands.CommitTransaction(tx)
+	if err != nil {
+		return err
 	}
 
 	return nil

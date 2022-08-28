@@ -38,7 +38,7 @@ func NewRecipe(c *gin.Context) {
 		return
 	}
 
-	uniqueName, err := process.CreateNewRecipe(recipeJson, user)
+	recipe, err := process.CreateRecipe(recipeJson.Name, user)
 	if err != nil {
 		if errors.Is(err, common.ErrNameTaken) {
 			log.Printf("Tried to create duplicate recipe")
@@ -59,7 +59,7 @@ func NewRecipe(c *gin.Context) {
 
 	c.JSON(
 		http.StatusCreated,
-		common.Success(NewRecipeJson{UniqueName: uniqueName}),
+		common.Success(NewRecipeJson{UniqueName: recipe.UniqueName}),
 	)
 }
 

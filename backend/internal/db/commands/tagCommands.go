@@ -3,6 +3,7 @@ package commands
 import (
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -13,16 +14,15 @@ RETURNING id, description, color_red, color_green, color_blue, created_by
 `
 
 func CreateTag(
+	tx pgx.Tx,
 	name, description string,
 	colorRed, colorGreen, colorBlue uint8,
 	createdBy uuid.UUID,
 ) (*tables.Tag, error) {
-	db := getDb()
-
 	var tag tables.Tag
 	err := pgxscan.Get(
 		ctx,
-		db,
+		tx,
 		&tag,
 		createTagCommand,
 		name,
@@ -41,10 +41,8 @@ FROM tag
 WHERE id=$1
 `
 
-func DeleteTag(id uuid.UUID) error {
-	db := getDb()
-	
-	_, err := db.Exec(ctx, deleteTagCommand, id)
+func DeleteTag(tx pgx.Tx, id uuid.UUID) error {
+	_, err := tx.Exec(ctx, deleteTagCommand, id)
 	return err
 }
 
@@ -59,13 +57,12 @@ WHERE id = $6
 `
 
 func UpdateTag(
+	tx pgx.Tx,
 	name, description string,
 	red, green, blue uint8,
 	id uuid.UUID,
 ) error {
-	db := getDb()
-
-	_, err := db.Exec(
+	_, err := tx.Exec(
 		ctx,
 		updateTagCommand,
 		name,

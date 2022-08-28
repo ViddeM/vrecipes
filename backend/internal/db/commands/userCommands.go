@@ -2,6 +2,7 @@ package commands
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -11,10 +12,8 @@ VALUES(					  $1)
 RETURNING id, name
 `
 
-func CreateUser(name string) (*tables.User, error) {
-	db := getDb()
-
+func CreateUser(tx pgx.Tx, name string) (*tables.User, error) {
 	var user tables.User
-	err := pgxscan.Get(ctx, db, &user, createUserCommand, name)
+	err := pgxscan.Get(ctx, tx, &user, createUserCommand, name)
 	return &user, err
 }

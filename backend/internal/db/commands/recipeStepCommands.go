@@ -3,6 +3,7 @@ package commands
 import (
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -13,17 +14,16 @@ RETURNING recipe_id, number, step, is_heading
 `
 
 func CreateRecipeStep(
+	tx pgx.Tx,
 	recipeId uuid.UUID,
 	number uint16,
 	step string,
 	isHeading bool,
 ) (*tables.RecipeStep, error) {
-	db := getDb()
-
 	var recipeStep tables.RecipeStep
 	err := pgxscan.Get(
 		ctx,
-		db,
+		tx,
 		&recipeStep,
 		createRecipeStepCommand,
 		recipeId,
@@ -41,10 +41,8 @@ SET	step=$1,
 WHERE recipe_id=$3 AND number=$4
 `
 
-func UpdateRecipeStep(step string, recipeId uuid.UUID, number uint16, isHeading bool) error {
-	db := getDb()
-
-	_, err := db.Exec(ctx, updateRecipeStepCommand, step, isHeading, recipeId, number)
+func UpdateRecipeStep(tx pgx.Tx, step string, recipeId uuid.UUID, number uint16, isHeading bool) error {
+	_, err := tx.Exec(ctx, updateRecipeStepCommand, step, isHeading, recipeId, number)
 	return err
 }
 
@@ -53,9 +51,7 @@ DELETE FROM recipe_step
 WHERE recipe_id=$1 AND number=$2
 `
 
-func DeleteRecipeStep(recipeId uuid.UUID, number uint16) error {
-	db := getDb()
-
-	_, err := db.Exec(ctx, deleteRecipeStepCommand, recipeId, number)
+func DeleteRecipeStep(tx pgx.Tx, recipeId uuid.UUID, number uint16) error {
+	_, err := tx.Exec(ctx, deleteRecipeStepCommand, recipeId, number)
 	return err
 }

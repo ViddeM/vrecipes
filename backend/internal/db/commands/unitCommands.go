@@ -2,6 +2,7 @@ package commands
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -11,10 +12,8 @@ VALUES($1)
 returning name
 `
 
-func CreateUnit(name string) (*tables.Unit, error) {
-	db := getDb()
-
+func CreateUnit(tx pgx.Tx, name string) (*tables.Unit, error) {
 	var unit tables.Unit
-	err := pgxscan.Get(ctx, db, &unit, createUnitCommand, name)
+	err := pgxscan.Get(ctx, tx, &unit, createUnitCommand, name)
 	return &unit, err
 }

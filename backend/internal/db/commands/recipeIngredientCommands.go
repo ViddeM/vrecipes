@@ -3,7 +3,9 @@ package commands
 import (
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
+	"log"
 )
 
 var createRecipeIngredientCommand = `
@@ -14,11 +16,9 @@ WHERE recipe_id=$1
 RETURNING id, recipe_id, ingredient_name, unit_name, amount, number, is_heading
 `
 
-func CreateRecipeIngredient(recipeId uuid.UUID, ingredientName, unitName string, amount float32) (*tables.RecipeIngredient, error) {
-	db := getDb()
-
+func CreateRecipeIngredient(tx pgx.Tx, recipeId uuid.UUID, ingredientName, unitName string, amount float32) (*tables.RecipeIngredient, error) {
 	var recipeIngredient tables.RecipeIngredient
-	err := pgxscan.Get(ctx, db, &recipeIngredient, createRecipeIngredientCommand, recipeId, ingredientName, unitName, amount)
+	err := pgxscan.Get(ctx, tx, &recipeIngredient, createRecipeIngredientCommand, recipeId, ingredientName, unitName, amount)
 	return &recipeIngredient, err
 }
 
@@ -30,11 +30,9 @@ WHERE recipe_id=$1
 RETURNING id, recipe_id, ingredient_name, unit_name, amount, number, is_heading
 `
 
-func CreateRecipeIngredientHeading(recipeId uuid.UUID, ingredientName string) (*tables.RecipeIngredient, error) {
-	db := getDb()
-
+func CreateRecipeIngredientHeading(tx pgx.Tx, recipeId uuid.UUID, ingredientName string) (*tables.RecipeIngredient, error) {
 	var recipeIngredient tables.RecipeIngredient
-	err := pgxscan.Get(ctx, db, &recipeIngredient, createRecipeIngredientHeadingCommand, recipeId, ingredientName)
+	err := pgxscan.Get(ctx, tx, &recipeIngredient, createRecipeIngredientHeadingCommand, recipeId, ingredientName)
 	return &recipeIngredient, err
 }
 
@@ -44,10 +42,8 @@ FROM recipe_ingredient
 WHERE id=$1 
 `
 
-func DeleteRecipeIngredient(id uuid.UUID) error {
-	db := getDb()
-
-	_, err := db.Exec(ctx, deleteRecipeIngredientCommand, id)
+func DeleteRecipeIngredient(tx pgx.Tx, id uuid.UUID) error {
+	_, err := tx.Exec(ctx, deleteRecipeIngredientCommand, id)
 	return err
 }
 
@@ -63,26 +59,24 @@ UPDATE recipe_ingredient
 WHERE id=$2
 `
 
-func UpdateRecipeIngredientNumbers(idNumMap map[uuid.UUID]int, recipeId uuid.UUID) error {
-	db := getDb()
-	tx, err := db.Begin(ctx)
+func UpdateRecipeIngredientNumbers(tx pgx.Tx, idNumMap map[uuid.UUID]int, recipeId uuid.UUID) error {
+	_, err := tx.Exec(ctx, setRecipeIngredientsNumbersNegative, recipeId)
 	if err != nil {
-		return err
-	}
-	defer tx.Rollback(ctx)
+		rollbackError := tx.Rollback(ctx)
+		log.Printf("Failed to rollback transaction, err: %v", rollbackError)
 
-	_, err = tx.Exec(ctx, setRecipeIngredientsNumbersNegative, recipeId)
-	if err != nil {
 		return err
 	}
 
 	for id, num := range idNumMap {
 		_, err = tx.Exec(ctx, setRecipeIngredientNumber, num, id)
 		if err != nil {
+			rollbackError := tx.Rollback(ctx)
+			log.Printf("Failed to rollback transaction, err: %v", rollbackError)
+
 			return err
 		}
 	}
 
-	err = tx.Commit(ctx)
 	return err
 }

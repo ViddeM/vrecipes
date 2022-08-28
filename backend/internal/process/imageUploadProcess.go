@@ -11,10 +11,16 @@ import (
 )
 
 func UploadImage(file *validation.File) (*models.ImageJson, error) {
+	tx, err := commands.BeginTransaction()
+	if err != nil {
+		return nil, err
+	}
+	defer commands.RollbackTransaction(tx)
+
 	fileName := generateImageName(file.Name)
 	filenameWithPath := fmt.Sprintf("%s%s", fileName, file.FileType)
 
-	id, err := commands.CreateImage(filenameWithPath)
+	id, err := commands.CreateImage(tx, filenameWithPath)
 	if err != nil {
 		return nil, err
 	}
@@ -28,6 +34,11 @@ func UploadImage(file *validation.File) (*models.ImageJson, error) {
 	}
 
 	_, err = newFile.Write(file.Data)
+	if err != nil {
+		return nil, err
+	}
+
+	err = commands.CommitTransaction(tx)
 	if err != nil {
 		return nil, err
 	}

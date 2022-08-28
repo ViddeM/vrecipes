@@ -3,6 +3,7 @@ package commands
 import (
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -12,16 +13,14 @@ INSERT INTO recipe_book(name, unique_name, author, deleted, created_by)
 RETURNING id, name, unique_name, author
 `
 
-func CreateRecipeBook(name, uniqueName string, createdBy uuid.UUID) (
+func CreateRecipeBook(tx pgx.Tx, name, uniqueName string, createdBy uuid.UUID) (
 	*tables.RecipeBook,
 	error,
 ) {
-	db := getDb()
-
 	var recipeBook tables.RecipeBook
 	err := pgxscan.Get(
 		ctx,
-		db,
+		tx,
 		&recipeBook,
 		createRecipeBookCommand,
 		name,
@@ -39,10 +38,8 @@ SET name=$1,
 WHERE id=$4
 `
 
-func UpdateRecipeBook(name, uniqueName, author string, bookId uuid.UUID) error {
-	db := getDb()
-
-	_, err := db.Exec(
+func UpdateRecipeBook(tx pgx.Tx, name, uniqueName, author string, bookId uuid.UUID) error {
+	_, err := tx.Exec(
 		ctx,
 		updateRecipeBookCommand,
 		name,
@@ -61,9 +58,7 @@ SET deleted=true,
 WHERE id=$3
 `
 
-func RecipeBookSetDeleted(name, uniqueName string, id uuid.UUID) error {
-	db := getDb()
-
-	_, err := db.Exec(ctx, recipeBookSetDeletedCommand, name, uniqueName, id)
+func RecipeBookSetDeleted(tx pgx.Tx, name, uniqueName string, id uuid.UUID) error {
+	_, err := tx.Exec(ctx, recipeBookSetDeletedCommand, name, uniqueName, id)
 	return err
 }

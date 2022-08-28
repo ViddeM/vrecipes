@@ -8,6 +8,12 @@ import (
 )
 
 func GetOrCreateUser(name, email, provider string) (*tables.User, error) {
+	tx, err := commands.BeginTransaction()
+	if err != nil {
+		return nil, err
+	}
+	defer commands.RollbackTransaction(tx)
+
 	user, err := queries.GetUserByEmail(email)
 	if err == nil {
 		return user, nil
@@ -17,11 +23,20 @@ func GetOrCreateUser(name, email, provider string) (*tables.User, error) {
 		return nil, err
 	}
 
-	user, err = commands.CreateUser(name)
+	user, err = commands.CreateUser(tx, name)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = commands.CreateUserEmail(user.ID, email, provider)
-	return user, err
+	_, err = commands.CreateUserEmail(tx, user.ID, email, provider)
+	if err != nil {
+		return nil, err
+	}
+
+	err = commands.CommitTransaction(tx)
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }

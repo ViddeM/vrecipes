@@ -3,6 +3,7 @@ package commands
 import (
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -11,11 +12,9 @@ INSERT INTO recipe(name, unique_name, description, oven_temp, estimated_time, de
 		   VALUES ($1,   $2,          $3,          $4,        $5,             $6,	   $7)
 RETURNING id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by`
 
-func CreateRecipe(name, uniqueName, description string, ovenTemp, estimatedTime int, createdBy uuid.UUID) (*tables.Recipe, error) {
-	db := getDb()
-
+func CreateRecipe(tx pgx.Tx, name, uniqueName, description string, ovenTemp, estimatedTime int, createdBy uuid.UUID) (*tables.Recipe, error) {
 	var recipe tables.Recipe
-	err := pgxscan.Get(ctx, db, &recipe, createRecipeCommand, name, uniqueName, description, ovenTemp, estimatedTime, false, createdBy)
+	err := pgxscan.Get(ctx, tx, &recipe, createRecipeCommand, name, uniqueName, description, ovenTemp, estimatedTime, false, createdBy)
 	return &recipe, err
 }
 
@@ -31,10 +30,8 @@ SET name=$1,
 WHERE id=$8
 `
 
-func UpdateRecipe(name, uniqueName, description string, ovenTemp, estimatedTime, portions int, portionsSuffix string, recipeId uuid.UUID) error {
-	db := getDb()
-
-	_, err := db.Exec(ctx, updateRecipeCommand, name, uniqueName, description,
+func UpdateRecipe(tx pgx.Tx, name, uniqueName, description string, ovenTemp, estimatedTime, portions int, portionsSuffix string, recipeId uuid.UUID) error {
+	_, err := tx.Exec(ctx, updateRecipeCommand, name, uniqueName, description,
 		ovenTemp, estimatedTime, portions, portionsSuffix, recipeId)
 	return err
 }
@@ -47,9 +44,7 @@ SET deleted=true,
 WHERE id=$3
 `
 
-func RecipeSetDeleted(name, uniqueName string, id uuid.UUID) error {
-	db := getDb()
-
-	_, err := db.Exec(ctx, recipeSetDeletedCommand, name, uniqueName, id)
+func RecipeSetDeleted(tx pgx.Tx, name, uniqueName string, id uuid.UUID) error {
+	_, err := tx.Exec(ctx, recipeSetDeletedCommand, name, uniqueName, id)
 	return err
 }

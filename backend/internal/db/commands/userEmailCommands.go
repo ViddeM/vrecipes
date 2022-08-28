@@ -3,6 +3,7 @@ package commands
 import (
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -12,10 +13,8 @@ VALUES(				   $1,		$2,	   $3)
 RETURNING user_id, email, provider
 `
 
-func CreateUserEmail(userId uuid.UUID, email, provider string) (*tables.UserEmail, error) {
-	db := getDb()
-
+func CreateUserEmail(tx pgx.Tx, userId uuid.UUID, email, provider string) (*tables.UserEmail, error) {
 	var userEmail tables.UserEmail
-	err := pgxscan.Get(ctx, db, &userEmail, createUserEmailCommand, userId, email, provider)
+	err := pgxscan.Get(ctx, tx, &userEmail, createUserEmailCommand, userId, email, provider)
 	return &userEmail, err
 }

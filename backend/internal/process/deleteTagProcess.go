@@ -6,10 +6,26 @@ import (
 )
 
 func DeleteTag(tag *tables.Tag) error {
-	err := commands.DeleteRecipeTagsByTagId(tag.ID)
+	tx, err := commands.BeginTransaction()
+	if err != nil {
+		return err
+	}
+	defer commands.RollbackTransaction(tx)
+
+	err = commands.DeleteRecipeTagsByTagId(tx, tag.ID)
 	if err != nil {
 		return err
 	}
 
-	return commands.DeleteTag(tag.ID)
+	err = commands.DeleteTag(tx, tag.ID)
+	if err != nil {
+		return err
+	}
+
+	err = commands.CommitTransaction(tx)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

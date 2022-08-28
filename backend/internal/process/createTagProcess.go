@@ -10,7 +10,13 @@ import (
 )
 
 func CreateNewTag(tagJson *models.NewTagJson, user *tables.User) (*tables.Tag, error) {
-	_, err := queries.GetTagByName(tagJson.Name)
+	tx, err := commands.BeginTransaction()
+	if err != nil {
+		return nil, err
+	}
+	defer commands.RollbackTransaction(tx)
+
+	_, err = queries.GetTagByName(tagJson.Name)
 	if err != nil {
 		if pgxscan.NotFound(err) == false {
 			return nil, err
@@ -19,6 +25,15 @@ func CreateNewTag(tagJson *models.NewTagJson, user *tables.User) (*tables.Tag, e
 		return nil, common.ErrNameTaken
 	}
 
-	tag, err := commands.CreateTag(tagJson.Name, tagJson.Description, *tagJson.Color.R, *tagJson.Color.G, *tagJson.Color.B, user.ID)
-	return tag, err
+	tag, err := commands.CreateTag(tx, tagJson.Name, tagJson.Description, *tagJson.Color.R, *tagJson.Color.G, *tagJson.Color.B, user.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	err = commands.CommitTransaction(tx)
+	if err != nil {
+		return nil, err
+	}
+
+	return tag, nil
 }

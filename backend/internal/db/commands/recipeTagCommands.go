@@ -3,6 +3,7 @@ package commands
 import (
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
 )
 
@@ -12,13 +13,11 @@ VALUES				  ($1,		  $2)
 RETURNING recipe_id, tag_id
 `
 
-func CreateRecipeTag(recipeId, tagId uuid.UUID) (*tables.RecipeTag, error) {
-	db := getDb()
-
+func CreateRecipeTag(tx pgx.Tx, recipeId, tagId uuid.UUID) (*tables.RecipeTag, error) {
 	var recipeTag tables.RecipeTag
 	err := pgxscan.Get(
 		ctx,
-		db,
+		tx,
 		&recipeTag,
 		createRecipeTagCommand,
 		recipeId,
@@ -33,10 +32,8 @@ DELETE FROM recipe_tag
 WHERE recipe_id=$1 AND tag_id=$2
 `
 
-func DeleteRecipeTag(recipeId, tagId uuid.UUID) error {
-	db := getDb()
-
-	_, err := db.Exec(ctx, deleteRecipeTagCommand, recipeId, tagId)
+func DeleteRecipeTag(tx pgx.Tx, recipeId, tagId uuid.UUID) error {
+	_, err := tx.Exec(ctx, deleteRecipeTagCommand, recipeId, tagId)
 	return err
 }
 
@@ -45,9 +42,7 @@ DELETE FROM recipe_tag
 WHERE tag_id=$1
 `
 
-func DeleteRecipeTagsByTagId(tagId uuid.UUID) error {
-	db := getDb()
-
-	_, err := db.Exec(ctx, deleteRecipeTagsByTagIdCommand, tagId)
+func DeleteRecipeTagsByTagId(tx pgx.Tx, tagId uuid.UUID) error {
+	_, err := tx.Exec(ctx, deleteRecipeTagsByTagIdCommand, tagId)
 	return err
 }
