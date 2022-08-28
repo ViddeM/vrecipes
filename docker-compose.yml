@@ -28,3 +28,15 @@ services:
             - DEBUG_MODE=true
         extra_hosts:
             host.docker.internal: host-gateway
+
+    redis:
+        image: redis:6.2
+        ports:
+        - 6379:6379
+
+    redis-ui:
+        image: patrikx3/p3x-redis-ui:2021.4.162
+        ports:
+        - 7843:7843
+        volumes:
+        - /settings

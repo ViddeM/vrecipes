@@ -14,12 +14,14 @@ type envVars struct {
 	DbHost     string
 	ResetDb    bool
 
-	ImageFolder string
-	WhiteList   string
-	Secret      string
-	GinMode		string
-	Port        uint16
-	AuthEnabled bool
+	RedisAddress string
+
+	ImageFolder    string
+	WhiteList      string
+	Secret         string
+	GinMode        string
+	Port           uint16
+	AuthEnabled    bool
 
 	GithubClientId          string
 	GithubSecret            string
@@ -72,12 +74,14 @@ func loadEnvVars() {
 		DbHost:     loadNonEmptyString("db_host"),
 		ResetDb:    loadBool("reset_db"),
 
-		Secret:      loadNonEmptyString("secret"),
-		WhiteList:   loadNonEmptyString("whitelist"),
-		GinMode:	loadGinMode("GIN_MODE"),
-		Port:        loadUint16("PORT"),
-		AuthEnabled: loadBool("auth_enabled"),
-		ImageFolder: loadNonEmptyString("image_folder"),
+		RedisAddress: loadNonEmptyString("redis_address"),
+
+		Secret:         loadNonEmptyString("secret"),
+		WhiteList:      loadNonEmptyString("whitelist"),
+		GinMode:        loadGinMode("GIN_MODE"),
+		Port:           loadUint16("PORT"),
+		AuthEnabled:    loadBool("auth_enabled"),
+		ImageFolder:    loadNonEmptyString("image_folder"),
 
 		GithubClientId:          loadNonEmptyString("github_client_id"),
 		GithubSecret:            loadNonEmptyString("github_secret"),

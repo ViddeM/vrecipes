@@ -6,6 +6,7 @@ require (
 	github.com/georgysavva/scany v0.2.8
 	github.com/gin-contrib/sessions v0.0.3
 	github.com/gin-gonic/gin v1.6.3
+	github.com/go-redis/redis/v8 v8.11.5
 	github.com/golang-migrate/migrate/v4 v4.14.1
 	github.com/google/uuid v1.1.2
 	github.com/jackc/pgx/v4 v4.11.0
