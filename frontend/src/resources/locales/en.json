@@ -107,6 +107,24 @@
     "recipe": "recipe",
     "recipes": "recipes"
   },
+  "export": {
+    "exportTitle": "Export data",
+    "exportModalTitle": "Confirm export information",
+    "destination": "destination",
+    "destinationUrl": "Destination Url",
+    "recipes": "Recipes",
+    "noRecipes": "No Recipes",
+    "tags": "Tags",
+    "noTags": "No Tags",
+    "recipeBooks": "Recipe Books",
+    "noRecipeBooks": "No Recipe Books",
+    "recipe": "Recipe",
+    "author": "Author",
+    "uploadedBy": "Uploaded by",
+    "tag": "Tag",
+    "recipeBook": "Recipe book",
+    "exportData": "Export data"
+  },
   "common": {
     "saveChanges": "Save changes",
     "preview": "Preview",
@@ -157,7 +175,11 @@
     "tag_not_found": "No such tag could be found",
     "failed_to_delete_tag": "Failed to delete tag",
     "failed_to_edit_tag": "Failed to edit tag",
-    "no_tags": "There are no tags"
+    "no_tags": "There are no tags",
+    "failed_to_export_data": "Failed to export data",
+    "malformed_export_id": "Malformed export id",
+    "export_data_not_found": "Export data not found",
+    "failed_to_get_export_data": "Failed to get export data"
   },
   "footer": {
     "developedBy": "VRecipes was developed with ❤ by Vidde & LP",

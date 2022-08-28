@@ -16,6 +16,7 @@ type envVars struct {
 
 	RedisAddress string
 
+	BackendAddress string
 	ImageFolder    string
 	WhiteList      string
 	Secret         string
@@ -79,6 +80,7 @@ func loadEnvVars() {
 		Secret:         loadNonEmptyString("secret"),
 		WhiteList:      loadNonEmptyString("whitelist"),
 		GinMode:        loadGinMode("GIN_MODE"),
+		BackendAddress: loadNonEmptyString("backend_address"),
 		Port:           loadUint16("PORT"),
 		AuthEnabled:    loadBool("auth_enabled"),
 		ImageFolder:    loadNonEmptyString("image_folder"),

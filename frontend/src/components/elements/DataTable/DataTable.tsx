@@ -10,6 +10,7 @@ import { useTranslations } from "../../../hooks/useTranslations";
 import { IconButton } from "../Buttons/Buttons";
 import Checkbox from "../Checkbox/Checkbox";
 import Dropdown from "../Dropdown/Dropdown";
+import Loading from "../Loading";
 import TextField from "../TextField/TextField";
 
 import styles from "./DataTable.module.scss";
@@ -57,6 +58,8 @@ const DataTable = <T extends DataTableVal>({
   const [filterText, setFilterText] = useState("");
   const [filteredVals, setFilteredVals] = useState(vals);
 
+  const [initialized, setInitialized] = useState(false);
+
   const pageSizeOptions = PAGE_SIZE_OPTIONS.map((n) => {
     return {
       display: `${n} ${t.dataTable.perPage}`,
@@ -65,6 +68,8 @@ const DataTable = <T extends DataTableVal>({
   });
 
   useEffect(() => {
+    setInitialized(true);
+
     const res = fuzzysort.go(filterText, vals, {
       keys: searchKeys,
       all: true,
@@ -84,6 +89,10 @@ const DataTable = <T extends DataTableVal>({
 
     setCurrPageVals(getValPage(filteredVals, newPage, pageSize));
   }, [filteredVals, pageSize, page]);
+
+  if (!initialized) {
+    return <Loading />;
+  }
 
   return (
     <div className={styles.dataTableContainer}>

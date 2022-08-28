@@ -43,7 +43,7 @@ const Modal = ({
     >
       <div className={`card ${styles.modalCard}`}>
         <h3>{title}</h3>
-        <p className={"marginTopBig"}>{content}</p>
+        <p className={"marginTopBig preserveWhitespace"}>{content}</p>
         <div className={`marginTopBig ${styles.modalActions}`}>
           {declineButton && (
             <Button

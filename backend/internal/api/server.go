@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
@@ -41,6 +42,7 @@ func Init() {
 		api.GET("/books", endpoints.RecipeBooks)
 		api.GET("/tags", endpoints.Tags)
 		api.GET("/authors", endpoints.Authors)
+		api.GET(fmt.Sprintf("%s/:id", endpoints.GetExportDataEndpoint), endpoints.GetExportData)
 
 		authRequired := api.Group("")
 		{
@@ -57,6 +59,7 @@ func Init() {
 			authRequired.POST("/tags", endpoints.NewTag)
 			authRequired.DELETE("/tags/:id", endpoints.RemoveTag)
 			authRequired.PUT("/tags/:id", endpoints.EditTag)
+			authRequired.POST("/export", endpoints.SetupExportData)
 		}
 
 		auth := api.Group("/auth")

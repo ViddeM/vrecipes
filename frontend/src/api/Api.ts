@@ -180,6 +180,30 @@ export const Api = {
       );
     },
   },
+  export: {
+    postExportData: (
+      url: string,
+      recipeIds: string[],
+      tagIds: string[],
+      recipeBookIds: string[]
+    ) => {
+      return handleResponse(
+        axios.post<RawApiResponse<{ destinationUrl: string }>>(
+          "/export",
+          {
+            recipes: recipeIds,
+            recipeBooks: recipeBookIds,
+            tags: tagIds,
+            destinationUrl: url,
+          },
+          {
+            maxRedirects: 0,
+          }
+        ),
+        true
+      );
+    },
+  },
 };
 
 function get<T>(endpoint: string, cookie?: string): Promise<ApiResponse<T>> {

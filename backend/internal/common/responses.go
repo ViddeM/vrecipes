@@ -1,5 +1,11 @@
 package common
 
+type GenericResponse struct {
+	Success bool        `json:"success" validate:"required"`
+	Data    interface{} `json:"data"`
+	Error   *string     `json:"error"`
+}
+
 type SuccessResponse struct {
 	Success bool        `json:"success"`
 	Data    interface{} `json:"data"`
@@ -57,4 +63,8 @@ const (
 	ResponseTagNotFound                 = "tag_not_found"
 	ResponseFailedToDeleteTag           = "failed_to_delete_tag"
 	ResponseFailedToEditTag             = "failed_to_edit_tag"
+	ResponseFailedToExportData          = "failed_to_export_data"
+	ResponseMalformedExportId           = "malformed_export_id"
+	ResponseExportDataNotFound          = "export_data_not_found"
+	ResponseFailedToGetExportData       = "failed_to_get_export_data"
 )

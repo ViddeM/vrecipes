@@ -126,3 +126,9 @@ func imageNameToPath(id uuid.UUID, name string) string {
 	filePath = fmt.Sprintf("%s/%s", imagePath, nameWithId)
 	return nameWithId
 }
+
+func imageToAddress(imageId uuid.UUID, imageName string) string {
+	basePath := common.GetEnvVars().BackendAddress
+	path := imageNameToPath(imageId, imageName)
+	return fmt.Sprintf("%s/%s", basePath, path)
+}
