@@ -2,15 +2,20 @@ package process
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/common"
+	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
 	"github.com/viddem/vrecipes/backend/internal/db/tables"
+	"github.com/viddem/vrecipes/backend/internal/validation"
 	"github.com/viddem/vrecipes/backend/redis"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 )
 
 type ExportData struct {
@@ -31,6 +36,7 @@ type ExportRecipe struct {
 	Ingredients []ExportIngredient `json:"ingredients"`
 	Steps       []ExportStep       `json:"steps"`
 	ImageUrls   []string           `json:"imageUrls"`
+	TagNames    []string           `json:"tagNames"`
 }
 
 type ExportIngredient struct {
@@ -64,17 +70,6 @@ type ExportRecipeBook struct {
 }
 
 func SetupExportData(recipeIds, tagIds, recipeBookIds []uuid.UUID) (*uuid.UUID, error) {
-	var exportRecipes []ExportRecipe
-	for _, recipeId := range recipeIds {
-		exportRecipe, err := getExportRecipe(recipeId)
-		if err != nil {
-			log.Printf("Failed to get export recipe, err: %v\n", err)
-			return nil, err
-		}
-
-		exportRecipes = append(exportRecipes, *exportRecipe)
-	}
-
 	var exportTags []ExportTag
 	for _, tagId := range tagIds {
 		exportTag, err := getExportTag(tagId)
@@ -84,6 +79,17 @@ func SetupExportData(recipeIds, tagIds, recipeBookIds []uuid.UUID) (*uuid.UUID, 
 		}
 
 		exportTags = append(exportTags, *exportTag)
+	}
+
+	var exportRecipes []ExportRecipe
+	for _, recipeId := range recipeIds {
+		exportRecipe, err := getExportRecipe(recipeId, tagIds)
+		if err != nil {
+			log.Printf("Failed to get export recipe, err: %v\n", err)
+			return nil, err
+		}
+
+		exportRecipes = append(exportRecipes, *exportRecipe)
 	}
 
 	var exportRecipeBooks []ExportRecipeBook
@@ -124,7 +130,7 @@ func SetupExportData(recipeIds, tagIds, recipeBookIds []uuid.UUID) (*uuid.UUID, 
 	return &exportId, nil
 }
 
-func getExportRecipe(recipeId uuid.UUID) (*ExportRecipe, error) {
+func getExportRecipe(recipeId uuid.UUID, includedTagIds []uuid.UUID) (*ExportRecipe, error) {
 	recipe, err := queries.GetRecipeById(recipeId)
 	if err != nil {
 		log.Printf("Failed to get recipe, err: %v\n", err)
@@ -178,6 +184,21 @@ func getExportRecipe(recipeId uuid.UUID) (*ExportRecipe, error) {
 		imageUrls = append(imageUrls, imageToAddress(img.ID, img.Name))
 	}
 
+	tags, err := queries.GetTagsForRecipe(recipeId)
+	if err != nil {
+		log.Printf("Failed to get recipe tags, err: %v\n", err)
+		return nil, err
+	}
+
+	var tagNames []string
+	for _, tag := range tags {
+		for _, includedTagID := range includedTagIds {
+			if includedTagID == tag.ID {
+				tagNames = append(tagNames, tag.Name)
+			}
+		}
+	}
+
 	return &ExportRecipe{
 		Name:           recipe.Name,
 		UniqueName:     recipe.UniqueName,
@@ -189,6 +210,7 @@ func getExportRecipe(recipeId uuid.UUID) (*ExportRecipe, error) {
 		Ingredients:    exportIngredients,
 		Steps:          exportSteps,
 		ImageUrls:      imageUrls,
+		TagNames:       tagNames,
 	}, nil
 }
 
@@ -286,13 +308,179 @@ func GetExportDataById(id uuid.UUID) (*ExportData, error) {
 }
 
 func ImportData(url string, user *tables.User) error {
+	tx, err := commands.BeginTransaction()
+	if err != nil {
+		return err
+	}
+	defer commands.RollbackTransaction(tx)
+
 	importData, err := importDataFromUrl(url)
 	if err != nil {
 		log.Printf("Failed to import data from url, err: %v\n", err)
 		return err
 	}
 
-	for _, rec := importData.Recipes {
-		rec
+	// Insert tags
+	tagNameToIdMap := make(map[string]uuid.UUID)
+	for _, tag := range importData.Tags {
+		tag, err := commands.CreateTag(tx, tag.Name, tag.Description, tag.ColorRed, tag.ColorGreen, tag.ColorBlue, user.ID)
+		if err != nil {
+			return err
+		}
+
+		tagNameToIdMap[tag.Name] = tag.ID
 	}
+
+	// Insert recipes
+	recipeUniqueNameToIdMap := make(map[string]uuid.UUID)
+	for _, rec := range importData.Recipes {
+		recipe, err := createRecipe(tx, rec.Name, rec.UniqueName, rec.Description, rec.PortionsSuffix, rec.OvenTemp, rec.EstimatedTime, rec.Portions, user.ID)
+		if err != nil {
+			return err
+		}
+
+		recipeUniqueNameToIdMap[rec.UniqueName] = recipe.ID
+
+		for _, imageUrl := range rec.ImageUrls {
+			file, err := downloadAndValidateImage(imageUrl)
+			if err != nil {
+				return err
+			}
+
+			image, err := uploadImage(tx, file)
+			if err != nil {
+				return err
+			}
+
+			_, err = connectImageToRecipe(tx, recipe.ID, image.ID)
+			if err != nil {
+				return err
+			}
+		}
+
+		for _, ingredient := range rec.Ingredients {
+			_, err = CreateRecipeIngredient(tx, ingredient.Name, ingredient.Unit, ingredient.Amount, ingredient.IsHeading, recipe.ID)
+			if err != nil {
+				return err
+			}
+		}
+
+		for _, step := range rec.Steps {
+			_, err = CreateRecipeStep(tx, step.Description, step.Number, recipe.ID, step.IsHeading)
+			if err != nil {
+				return err
+			}
+		}
+
+		for _, tagName := range rec.TagNames {
+			_, err = connectTagToRecipe(tx, recipe.ID, tagNameToIdMap[tagName])
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	// Insert recipe books
+	for _, recBook := range importData.RecipeBooks {
+		recipeBook, err := commands.CreateRecipeBook(tx, recBook.Name, recBook.UniqueName, recBook.Author, user.ID)
+		if err != nil {
+			return err
+		}
+
+		for _, recUniqueName := range recBook.RecipeUniqueNames {
+			_, err = commands.CreateRecipeBookRecipe(tx, recipeBook.ID, recipeUniqueNameToIdMap[recUniqueName])
+			if err != nil {
+				return err
+			}
+		}
+
+		if recBook.Image != nil {
+			file, err := downloadAndValidateImage(*recBook.Image)
+			if err != nil {
+				return err
+			}
+
+			image, err := uploadImage(tx, file)
+
+			var imageIds []uuid.UUID
+			imageIds = append(imageIds, image.ID)
+			err = connectImagesToRecipeBook(tx, recipeBook.ID, imageIds)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	err = commands.CommitTransaction(tx)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func importDataFromUrl(url string) (*ExportData, error) {
+
+	resp, err := http.Get(url)
+	if err != nil {
+		log.Printf("Failed to retrieve import data from url, err: %v\n", err)
+		return nil, err
+	}
+
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		log.Printf("Non 2xx status code from import data request (%d, %s)\nBody: %v\n", resp.StatusCode, resp.Status, resp.Body)
+		return nil, common.ErrImportDataResponseErr
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Printf("Failed to read response from import data response, err: %v\n", err)
+		return nil, err
+	}
+
+	var genericResponse common.GenericResponse
+	err = json.Unmarshal(body, &genericResponse)
+	if err != nil {
+		log.Printf("Failed to deserialize json to generic response in import data response, err: %v\n", err)
+		return nil, err
+	}
+
+	if !genericResponse.Success {
+		log.Printf("Error response from import data request, error: %v\n", genericResponse.Error)
+		return nil, common.ErrImportDataResponseErr
+	}
+
+	var importData *ExportData
+	err = json.Unmarshal([]byte(genericResponse.Data.(string)), &importData)
+	if err != nil {
+		log.Printf("Failed to deserialize data in import data response, err: %v\n", err)
+		return nil, err
+	}
+
+	return importData, nil
+}
+
+var ErrInvalidImageImportUrl = errors.New("unexpected import url")
+
+func downloadAndValidateImage(imageUrl string) (*validation.File, error) {
+	response, err := http.Get(imageUrl)
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := io.ReadAll(response.Body)
+	urlSplit := strings.Split(imageUrl, "images/")
+	if len(urlSplit) < 2 {
+		return nil, ErrInvalidImageImportUrl
+	}
+
+	// The last part should be the filename
+	fileName := urlSplit[len(urlSplit)-1]
+
+	file, err := validation.ValidateImportFile(data, fileName, response.Header)
+	if err != nil {
+		return nil, err
+	}
+
+	return file, nil
 }

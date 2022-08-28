@@ -21,17 +21,17 @@ func CountRecipesWithTag(tagId *uuid.UUID) (uint64, error) {
 	return count, err
 }
 
-var getTagsForRecipeQuery = `
+var getRecipeTagsForRecipeQuery = `
 SELECT * 
 FROM recipe_tag
 WHERE recipe_id=$1
 `
 
-func GetTagsForRecipe(recipeId *uuid.UUID) ([]*tables.RecipeTag, error) {
+func GetRecipeTagsForRecipe(recipeId *uuid.UUID) ([]*tables.RecipeTag, error) {
 	db := getDb()
 
 	var tags []*tables.RecipeTag
-	err := pgxscan.Select(ctx, db, &tags, getTagsForRecipeQuery, recipeId)
+	err := pgxscan.Select(ctx, db, &tags, getRecipeTagsForRecipeQuery, recipeId)
 
 	return tags, err
 }

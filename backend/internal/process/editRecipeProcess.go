@@ -287,7 +287,7 @@ func getOldImage(
 }
 
 func updateRecipeTags(tx pgx.Tx, recipeId uuid.UUID, tags []uuid.UUID) error {
-	oldTags, err := queries.GetTagsForRecipe(&recipeId)
+	oldTags, err := queries.GetRecipeTagsForRecipe(&recipeId)
 	if err != nil {
 		return err
 	}

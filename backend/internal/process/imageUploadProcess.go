@@ -3,6 +3,7 @@ package process
 import (
 	"encoding/base64"
 	"fmt"
+	"github.com/jackc/pgx/v4"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/models"
@@ -17,15 +18,29 @@ func UploadImage(file *validation.File) (*models.ImageJson, error) {
 	}
 	defer commands.RollbackTransaction(tx)
 
-	fileName := generateImageName(file.Name)
-	filenameWithPath := fmt.Sprintf("%s%s", fileName, file.FileType)
-
-	id, err := commands.CreateImage(tx, filenameWithPath)
+	img, err := uploadImage(tx, file)
 	if err != nil {
 		return nil, err
 	}
 
-	uniqueFilename := fmt.Sprintf("%s_%s", id, filenameWithPath)
+	err = commands.CommitTransaction(tx)
+	if err != nil {
+		return nil, err
+	}
+
+	return img, nil
+}
+
+func uploadImage(tx pgx.Tx, file *validation.File) (*models.ImageJson, error) {
+	fileName := generateImageName(file.Name)
+	fileNameWithPath := fmt.Sprintf("%s%s", fileName, file.FileType)
+
+	id, err := commands.CreateImage(tx, fileNameWithPath)
+	if err != nil {
+		return nil, err
+	}
+
+	uniqueFilename := fmt.Sprintf("%s_%s", id, fileNameWithPath)
 	folder := common.GetEnvVars().ImageFolder
 	path := fmt.Sprintf("%s/%s", folder, uniqueFilename)
 	newFile, err := os.Create(path)
@@ -38,15 +53,10 @@ func UploadImage(file *validation.File) (*models.ImageJson, error) {
 		return nil, err
 	}
 
-	err = commands.CommitTransaction(tx)
-	if err != nil {
-		return nil, err
-	}
-
 	return &models.ImageJson{
 		Path: uniqueFilename,
 		ID:   id,
-	}, err
+	}, nil
 }
 
 func generateImageName(name string) string {

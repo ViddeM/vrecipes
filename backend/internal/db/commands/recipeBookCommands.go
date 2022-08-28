@@ -9,11 +9,11 @@ import (
 
 var createRecipeBookCommand = `
 INSERT INTO recipe_book(name, unique_name, author, deleted, created_by)
-				VALUES ($1,   $2, 	       '',     false,   $3)
-RETURNING id, name, unique_name, author
+				VALUES ($1,   $2, 	       $3,     false,   $4)
+RETURNING id, name, unique_name, author, created_by, deleted
 `
 
-func CreateRecipeBook(tx pgx.Tx, name, uniqueName string, createdBy uuid.UUID) (
+func CreateRecipeBook(tx pgx.Tx, name, uniqueName, author string, createdBy uuid.UUID) (
 	*tables.RecipeBook,
 	error,
 ) {
@@ -25,6 +25,7 @@ func CreateRecipeBook(tx pgx.Tx, name, uniqueName string, createdBy uuid.UUID) (
 		createRecipeBookCommand,
 		name,
 		uniqueName,
+		author,
 		createdBy,
 	)
 	return &recipeBook, err

@@ -29,6 +29,7 @@ func CreateNewRecipeBook(
 		tx,
 		recipeBookJson.Name,
 		uniqueName,
+		"",
 		user.ID,
 	)
 	if err != nil {

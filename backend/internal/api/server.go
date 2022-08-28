@@ -60,6 +60,7 @@ func Init() {
 			authRequired.DELETE("/tags/:id", endpoints.RemoveTag)
 			authRequired.PUT("/tags/:id", endpoints.EditTag)
 			authRequired.POST("/export", endpoints.SetupExportData)
+			authRequired.GET(endpoints.ImportDataEndpoint, endpoints.ImportData)
 		}
 
 		auth := api.Group("/auth")

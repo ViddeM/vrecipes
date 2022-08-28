@@ -47,3 +47,19 @@ func GetAllTags() ([]*tables.Tag, error) {
 
 	return tags, err
 }
+
+var getTagsForRecipeQuery = `
+SELECT id, name, description, color_red, color_green, color_blue, created_by
+FROM recipe_tag
+	JOIN tag ON recipe_tag.tag_id = tag.id
+WHERE recipe_tag.recipe_id = $1
+`
+
+func GetTagsForRecipe(recipeId uuid.UUID) ([]*tables.Tag, error) {
+	db := getDb()
+
+	var tags []*tables.Tag
+	err := pgxscan.Select(ctx, db, &tags, getTagsForRecipeQuery, recipeId)
+
+	return tags, err
+}

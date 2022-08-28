@@ -8,13 +8,13 @@ import (
 )
 
 var createRecipeCommand = `
-INSERT INTO recipe(name, unique_name, description, oven_temp, estimated_time, deleted, created_by)
-		   VALUES ($1,   $2,          $3,          $4,        $5,             $6,	   $7)
-RETURNING id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by`
+INSERT INTO recipe(name, unique_name, description, oven_temp, estimated_time, deleted, created_by, portions, portions_suffix)
+		   VALUES ($1,   $2,          $3,          $4,        $5,             $6,	   $7,         $8,       $9)
+RETURNING id, name, unique_name, description, oven_temp, estimated_time, deleted, created_by, portions, portions_suffix`
 
-func CreateRecipe(tx pgx.Tx, name, uniqueName, description string, ovenTemp, estimatedTime int, createdBy uuid.UUID) (*tables.Recipe, error) {
+func CreateRecipe(tx pgx.Tx, name, uniqueName, description, portionsSuffix string, ovenTemp, estimatedTime, portions int, createdBy uuid.UUID) (*tables.Recipe, error) {
 	var recipe tables.Recipe
-	err := pgxscan.Get(ctx, tx, &recipe, createRecipeCommand, name, uniqueName, description, ovenTemp, estimatedTime, false, createdBy)
+	err := pgxscan.Get(ctx, tx, &recipe, createRecipeCommand, name, uniqueName, description, ovenTemp, estimatedTime, false, createdBy, portions, portionsSuffix)
 	return &recipe, err
 }
 

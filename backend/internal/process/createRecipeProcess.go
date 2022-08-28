@@ -2,6 +2,8 @@ package process
 
 import (
 	"github.com/georgysavva/scany/pgxscan"
+	"github.com/google/uuid"
+	"github.com/jackc/pgx/v4"
 	common2 "github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/db/commands"
 	"github.com/viddem/vrecipes/backend/internal/db/queries"
@@ -22,15 +24,8 @@ func CreateRecipe(
 	if err != nil {
 		return nil, err
 	}
-	recipe, err := commands.CreateRecipe(
-		tx,
-		name,
-		uniqueName,
-		"",
-		0,
-		0,
-		user.ID,
-	)
+
+	recipe, err := createRecipe(tx, name, uniqueName, "", "", 0, 0, 0, user.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -40,7 +35,27 @@ func CreateRecipe(
 		return nil, err
 	}
 
-	return recipe, err
+	return recipe, nil
+}
+
+func createRecipe(tx pgx.Tx, name, uniqueName, description, portionsSuffix string, ovenTemp, estimatedTime, portions int, userId uuid.UUID) (*tables.Recipe, error) {
+	recipe, err := commands.CreateRecipe(
+		tx,
+		name,
+		uniqueName,
+		description,
+		portionsSuffix,
+		ovenTemp,
+		estimatedTime,
+		portions,
+		userId,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return recipe, nil
 }
 
 func generateUniqueName(name string) (string, error) {

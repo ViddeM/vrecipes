@@ -70,7 +70,7 @@ func GetRecipes() (*RecipesJson, error) {
 			return nil, err
 		}
 
-		recipeTags, err := queries.GetTagsForRecipe(&recipe.ID)
+		recipeTags, err := queries.GetRecipeTagsForRecipe(&recipe.ID)
 		if err != nil {
 			return nil, err
 		}
