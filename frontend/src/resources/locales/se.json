@@ -179,7 +179,7 @@
     "failed_to_export_data": "Misslyckades med att exportera data",
     "malformed_export_id": "Felformaterad export-id",
     "export_data_not_found": "Kunde inte hitta exportdata",
-    "failed_to_get_export_data": "Misslyckades med att hämta exportdatan",
+    "failed_to_get_export_data": "Misslyckades med att hämta exportdatan"
   },
   "footer": {
     "developedBy": "VRecipes utvecklades med ❤ av Vidde & LP",
