@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import { Api } from "../api/Api";
 import { Author } from "../api/Author";
 import { CREATE_RECIPE_ENDPOINT } from "../api/Endpoints";
-import { Me } from "../api/Me";
 import { ShortRecipe } from "../api/ShortRecipe";
 import { Tag } from "../api/Tag";
 import { Button, IconButton } from "../components/elements/Buttons/Buttons";
@@ -36,7 +35,6 @@ type HomeProps = {
   tags: Tag[];
   authors: Author[];
   error?: string;
-  me?: Me;
 };
 
 const BASE_RECIPE_COUNT = 30;
