@@ -12,7 +12,7 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/process"
 	"golang.org/x/oauth2"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -146,7 +146,7 @@ func checkIfWhitelisted(email string) bool {
 		return false
 	}
 	defer file.Close()
-	data, err := ioutil.ReadAll(file)
+	data, err := io.ReadAll(file)
 	if err != nil {
 		log.Printf("Failed to parse whitelists file: %v\n", err)
 		return false

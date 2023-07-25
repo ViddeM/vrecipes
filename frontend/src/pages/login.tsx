@@ -110,6 +110,18 @@ const Login = () => {
           {t.login.loginWithMicrosoft}
         </Button>
 
+        {/* ACCOUNTS_RS */}
+        <Button
+          variant="primary"
+          size="large"
+          className={`${styles.signInButton} ${styles.accountsRsButton}`}
+          onClick={() => {
+            handleLoginResponse(Api.user.accountsRsLogin());
+          }}
+        >
+          {t.login.loginWithAccountsRS}
+        </Button>
+
         <div className={"space"} />
       </div>
     </CardLayout>

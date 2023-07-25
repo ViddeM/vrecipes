@@ -86,6 +86,12 @@ func Init() {
 				microsoft.GET("", authentication.MicrosoftInitAuth)
 				microsoft.GET("/callback", authentication.MicrosoftCallback)
 			}
+
+			accountsRs := auth.Group("/accounts-rs")
+			{
+				accountsRs.GET("", authentication.AccountsRsInitAuth)
+				accountsRs.GET("/callback", authentication.AccountsRsCallback)
+			}
 		}
 	}
 }

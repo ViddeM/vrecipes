@@ -17,7 +17,7 @@ type envVars struct {
 	ImageFolder string
 	WhiteList   string
 	Secret      string
-	GinMode		string
+	GinMode     string
 	Port        uint16
 	AuthEnabled bool
 
@@ -40,6 +40,11 @@ type envVars struct {
 	MicrosoftSecret      string
 	MicrosoftRedirectUri string
 	MicrosoftMeUri       string
+
+	AccountsRsClientId     string
+	AccountsRsSecret       string
+	AccountsRsRedirectUri  string
+	AccountsRsUserEndpoint string
 }
 
 var ginModes = []string{
@@ -74,7 +79,7 @@ func loadEnvVars() {
 
 		Secret:      loadNonEmptyString("secret"),
 		WhiteList:   loadNonEmptyString("whitelist"),
-		GinMode:	loadGinMode("GIN_MODE"),
+		GinMode:     loadGinMode("GIN_MODE"),
 		Port:        loadUint16("PORT"),
 		AuthEnabled: loadBool("auth_enabled"),
 		ImageFolder: loadNonEmptyString("image_folder"),
@@ -98,6 +103,11 @@ func loadEnvVars() {
 		MicrosoftSecret:      loadNonEmptyString("microsoft_secret"),
 		MicrosoftRedirectUri: loadNonEmptyString("microsoft_redirect_uri"),
 		MicrosoftMeUri:       loadNonEmptyString("microsoft_me_uri"),
+
+		AccountsRsClientId:     loadNonEmptyString("accounts_rs_client_id"),
+		AccountsRsSecret:       loadNonEmptyString("accounts_rs_secret"),
+		AccountsRsRedirectUri:  loadNonEmptyString("accounts_rs_redirect_uri"),
+		AccountsRsUserEndpoint: loadNonEmptyString("accounts_rs_user_endpoint"),
 	}
 }
 

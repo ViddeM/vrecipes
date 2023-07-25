@@ -134,6 +134,9 @@ export const Api = {
     googleLogin: () => {
       return handleResponse(axios.get("/auth/google"), true);
     },
+    accountsRsLogin: () => {
+      return handleResponse(axios.get("/auth/accounts-rs"), true);
+    },
     logout: () => {
       return handleResponse(axios.post("/auth/logout"), false);
     },

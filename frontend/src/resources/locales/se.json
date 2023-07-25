@@ -12,7 +12,8 @@
     "loginWithGithub": "Logga in med Github",
     "loginWithGoogle": "Logga in med Google",
     "loginWithFacebook": "Logga in med Facebook",
-    "loginWithMicrosoft": "Logga in med Microsoft"
+    "loginWithMicrosoft": "Logga in med Microsoft",
+    "loginWithAccountsRS": "Logga in med Accounts-RS"
   },
   "recipe": {
     "searchRecipes": "Sök recept",

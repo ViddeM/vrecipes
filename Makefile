@@ -2,7 +2,7 @@ include backend/.env
 
 .PHONY: mock clear-db clean reset new-migration run-migrations
 
-POSTGRESQL_URL = 'postgres://$(db_user):$(db_password)@localhost:5432/$(db_name)?sslmode=disable' 
+POSTGRESQL_URL = 'postgres://$(db_user):$(db_password)@localhost:5435/$(db_name)?sslmode=disable'
 MIGRATION_PATH = 'backend/internal/db/migrations'
 DB_DOCKER_NAME = 'vrecipes-db-1'
 
@@ -18,12 +18,12 @@ clear-db:
 clean: clear-db
 
 new-migration:
-	migrate -database ${POSTGRESQL_URL} -path $(MIGRATION_PATH) create -ext sql -dir $(MIGRATION_PATH) $(mig_name_arg) 
+	migrate -database ${POSTGRESQL_URL} -path $(MIGRATION_PATH) create -ext sql -dir $(MIGRATION_PATH) $(mig_name_arg)
 
 run-migrations:
-	migrate -database $(POSTGRESQL_URL) -path $(MIGRATION_PATH) up 
+	migrate -database $(POSTGRESQL_URL) -path $(MIGRATION_PATH) up
 
-reset: 
+reset:
 	make clean
 	make run-migrations
 	make mock

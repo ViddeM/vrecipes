@@ -2,7 +2,7 @@ package common
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	io "io"
 	"net/http"
 )
 
@@ -22,7 +22,7 @@ func GetRequest(url string, headers map[string]string, writeTo interface{}) (*ht
 		return nil, err
 	}
 
-	data, err := ioutil.ReadAll(response.Body)
+	data, err := io.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -34,4 +34,3 @@ func GetRequest(url string, headers map[string]string, writeTo interface{}) (*ht
 
 	return response, nil
 }
-
