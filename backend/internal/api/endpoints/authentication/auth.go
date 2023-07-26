@@ -163,6 +163,7 @@ func checkIfWhitelisted(email string) bool {
 			return true
 		}
 	}
+	log.Printf("Not whitelisted %s\n", email)
 	return false
 }
 
