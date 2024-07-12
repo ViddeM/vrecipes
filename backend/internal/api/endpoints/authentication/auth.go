@@ -42,10 +42,8 @@ func registerOnInit(provider providerInit) {
 }
 
 func Init() {
-	if providers != nil {
-		for _, provider := range providers {
-			provider()
-		}
+	for _, provider := range providers {
+		provider()
 	}
 }
 
