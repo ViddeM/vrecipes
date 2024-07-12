@@ -2,11 +2,12 @@ package authentication
 
 import (
 	"fmt"
+	"log"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"golang.org/x/oauth2"
-	"log"
-	"net/http"
 )
 
 var (
@@ -15,8 +16,8 @@ var (
 )
 
 var AccountsRsEndpoint = oauth2.Endpoint{
-	AuthURL:  "https://accounts.vidarmagnusson.com/api/oauth/authorize",
-	TokenURL: "https://accounts.vidarmagnusson.com/api/oauth/token",
+	AuthURL:  "https://beta-accounts.vidarmagnusson.com/api/oauth/authorize",
+	TokenURL: "https://beta-accounts.vidarmagnusson.com/api/oauth/token",
 }
 
 func init() {
@@ -30,7 +31,8 @@ func init() {
 				Endpoint:     AccountsRsEndpoint,
 				RedirectURL:  envVars.AccountsRsRedirectUri,
 				Scopes: []string{
-					"user",
+					"profile",
+					"email",
 				},
 			}
 		},
@@ -70,18 +72,14 @@ func AccountsRsCallback(c *gin.Context) {
 	c.String(http.StatusForbidden, "Not authorized")
 }
 
-type accountsRsResponse struct {
-	Success accountsRsUserResponse `json:"success"`
-}
-
 type accountsRsUserResponse struct {
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
+	FirstName string `json:"given_name"`
+	LastName  string `json:"family_name"`
 	Email     string `json:"email"`
 }
 
 func accountsRsUserRequest(accessToken string) (*accountsRsUserResponse, error) {
-	var response accountsRsResponse
+	var response accountsRsUserResponse
 	_, err := common.GetRequest(
 		common.GetEnvVars().AccountsRsUserEndpoint, map[string]string{
 			"Authorization": fmt.Sprintf("Bearer %s", accessToken),
@@ -92,5 +90,5 @@ func accountsRsUserRequest(accessToken string) (*accountsRsUserResponse, error) 
 		return nil, err
 	}
 
-	return &response.Success, nil
+	return &response, nil
 }
