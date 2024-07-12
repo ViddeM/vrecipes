@@ -88,7 +88,7 @@ func GithubCallback(c *gin.Context) {
 				abort(c)
 				return
 			}
-			
+
 			c.Redirect(http.StatusTemporaryRedirect, "/")
 			return
 		}

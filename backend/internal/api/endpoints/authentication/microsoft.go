@@ -11,17 +11,17 @@ import (
 )
 
 type microsoftMeResponse struct {
-	Name string `json:"name"`
+	Name  string `json:"name"`
 	Email string `json:"email"`
 }
 
 var (
-	providerMicrosoft="microsoft"
-	microsoftConfig *oauth2.Config
+	providerMicrosoft = "microsoft"
+	microsoftConfig   *oauth2.Config
 )
 
 func init() {
-	registerOnInit(func () {
+	registerOnInit(func() {
 		envVars := common.GetEnvVars()
 
 		microsoftConfig = &oauth2.Config{
@@ -29,7 +29,7 @@ func init() {
 			ClientSecret: envVars.MicrosoftSecret,
 			Endpoint:     microsoft.AzureADEndpoint(""),
 			RedirectURL:  envVars.MicrosoftRedirectUri,
-			Scopes:       []string{
+			Scopes: []string{
 				"email openid profile",
 			},
 		}
@@ -69,7 +69,7 @@ func MicrosoftCallback(c *gin.Context) {
 func MicrosoftMeRequest(accessToken string) (*microsoftMeResponse, error) {
 	var user microsoftMeResponse
 	url := common.GetEnvVars().MicrosoftMeUri
-	headers := map[string]string {
+	headers := map[string]string{
 		"Authorization": fmt.Sprintf("Bearer %s", accessToken),
 	}
 	_, err := common.GetRequest(url, headers, &user)

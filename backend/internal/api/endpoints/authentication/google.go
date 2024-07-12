@@ -6,19 +6,19 @@ import (
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
-    googleOauth2 "google.golang.org/api/oauth2/v2"
+	googleOauth2 "google.golang.org/api/oauth2/v2"
 	"google.golang.org/api/option"
 	"log"
 	"net/http"
 )
 
 var (
-	providerGoogle="google"
-	googleConfig *oauth2.Config
+	providerGoogle = "google"
+	googleConfig   *oauth2.Config
 )
 
 func init() {
-	registerOnInit(func () {
+	registerOnInit(func() {
 		envVars := common.GetEnvVars()
 
 		googleConfig = &oauth2.Config{
@@ -26,7 +26,7 @@ func init() {
 			ClientSecret: envVars.GoogleSecret,
 			Endpoint:     google.Endpoint,
 			RedirectURL:  envVars.GoogleRedirectUri,
-			Scopes:       []string{
+			Scopes: []string{
 				googleOauth2.UserinfoProfileScope,
 				googleOauth2.UserinfoEmailScope,
 			},

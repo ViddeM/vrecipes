@@ -13,7 +13,6 @@ func Init(conn *pgxpool.Pool, context *context.Context) {
 	ctx = *context
 }
 
-
 func getDb() *pgxpool.Pool {
 	return dbPool
 }

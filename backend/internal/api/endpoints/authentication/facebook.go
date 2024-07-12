@@ -11,25 +11,25 @@ import (
 )
 
 var (
-	providerFacebook="facebook"
-	facebookConfig *oauth2.Config
+	providerFacebook = "facebook"
+	facebookConfig   *oauth2.Config
 )
 
 type facebookMeResponse struct {
-	Name string `json:"name"`
+	Name  string `json:"name"`
 	Email string `json:"email"`
 }
 
 func init() {
-	registerOnInit(func () {
+	registerOnInit(func() {
 		envVars := common.GetEnvVars()
-		
+
 		facebookConfig = &oauth2.Config{
 			ClientID:     envVars.FacebookClientId,
 			ClientSecret: envVars.FacebookSecret,
 			Endpoint:     facebook.Endpoint,
 			RedirectURL:  envVars.FacebookRedirectUri,
-			Scopes:       []string{
+			Scopes: []string{
 				"public_profile,email",
 			},
 		}

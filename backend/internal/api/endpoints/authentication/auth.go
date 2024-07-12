@@ -6,16 +6,17 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"io"
+	"log"
+	"net/http"
+	"os"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/viddem/vrecipes/backend/internal/common"
 	"github.com/viddem/vrecipes/backend/internal/process"
 	"golang.org/x/oauth2"
-	"io"
-	"log"
-	"net/http"
-	"os"
 )
 
 type sessionData struct {

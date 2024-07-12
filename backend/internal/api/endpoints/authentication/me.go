@@ -9,17 +9,17 @@ import (
 )
 
 type me struct {
-	Name string `json:"name"`
+	Name  string `json:"name"`
 	Email string `json:"email"`
 }
 
 func Me(c *gin.Context) {
 	sessionData, err := readSession(c)
-	 if err != nil {
-		 log.Printf("Failed to read user from session: %v\n", err)
-	 	c.JSON(http.StatusUnauthorized, common.Error(common.ResponseNotAuthorized))
-	 	return
-	 }
+	if err != nil {
+		log.Printf("Failed to read user from session: %v\n", err)
+		c.JSON(http.StatusUnauthorized, common.Error(common.ResponseNotAuthorized))
+		return
+	}
 
 	user, err := process.GetUserJson(sessionData.UserID)
 	if err != nil {

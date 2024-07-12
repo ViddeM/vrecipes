@@ -10,10 +10,10 @@ import (
 )
 
 type File struct {
-	Name string
+	Name     string
 	FileType string
-	Size int64
-	Data []byte
+	Size     int64
+	Data     []byte
 }
 
 var ErrFiletypeNotSupported = errors.New("filetype not supported")
@@ -37,7 +37,7 @@ func ValidateFile(file *multipart.File, header *multipart.FileHeader) (*File, er
 	}
 
 	extension := filepath.Ext(header.Filename)
-	fileName := header.Filename[:len(header.Filename) - len(extension)]
+	fileName := header.Filename[:len(header.Filename)-len(extension)]
 	return &File{
 		Name:     fileName,
 		FileType: extension,

@@ -10,6 +10,6 @@ func HealthCheck(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"health": "GOOD",
-		"time": now,
+		"time":   now,
 	})
 }

@@ -43,7 +43,7 @@ WHERE id=$1
 
 func DeleteTag(id uuid.UUID) error {
 	db := getDb()
-	
+
 	_, err := db.Exec(ctx, deleteTagCommand, id)
 	return err
 }
