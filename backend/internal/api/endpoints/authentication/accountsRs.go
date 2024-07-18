@@ -16,8 +16,8 @@ var (
 )
 
 var AccountsRsEndpoint = oauth2.Endpoint{
-	AuthURL:  "https://beta-accounts.vidarmagnusson.com/api/oauth/authorize",
-	TokenURL: "https://beta-accounts.vidarmagnusson.com/api/oauth/token",
+	AuthURL:  "https://accounts.vidarmagnusson.com/api/oauth/authorize",
+	TokenURL: "https://accounts.vidarmagnusson.com/api/oauth/token",
 }
 
 func init() {
