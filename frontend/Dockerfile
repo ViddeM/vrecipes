@@ -1,4 +1,4 @@
-FROM node:18-alpine as DEPS
+FROM node:lts-alpine3.18 as DEPS
 
 WORKDIR /app
 COPY package.json yarn.lock ./
@@ -14,7 +14,7 @@ RUN yarn install --frozen-lockfile
 
 
 
-FROM node:18-alpine as BUILD_IMAGE
+FROM node:lts-alpine as BUILD_IMAGE
 
 WORKDIR /app
 
